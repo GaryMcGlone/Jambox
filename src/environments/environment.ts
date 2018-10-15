@@ -3,7 +3,15 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyDrf8tiZdmrspmQw-IWSjfe5E_hGJDCp98",
+    authDomain: "jamboxmusicapp.firebaseapp.com",
+    databaseURL: "https://jamboxmusicapp.firebaseio.com",
+    projectId: "jamboxmusicapp",
+    storageBucket: "jamboxmusicapp.appspot.com",
+    messagingSenderId: "291849800543"
+  }
 };
 
 /*
