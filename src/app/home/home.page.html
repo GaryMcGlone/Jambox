@@ -5,26 +5,29 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list no-lines>
-    <ion-item *ngFor="let post of posts">
-      <ion-card *ngIf="post">
-        <ion-img [src]="post.albumArt"></ion-img>
-        <ion-card-header>
-          <ion-card-subtitle>{{post.songName}}</ion-card-subtitle>
-          <ion-card-title>{{post.artistName}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          {{post.caption}}
-        </ion-card-content>
-      </ion-card>
-    </ion-item>
-  </ion-list>
+  <div> <!--(swipe)="swipeEvent($event)"-->
+      <ion-list no-lines>
+          <ion-item *ngFor="let post of posts">
+            <ion-card *ngIf="post">
+              <ion-img [src]="post.albumArt"></ion-img>
+              <ion-card-header>
+                <ion-card-subtitle>{{post.songName}}</ion-card-subtitle>
+                <ion-card-title>{{post.artistName}}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                {{post.caption}}
+              </ion-card-content>
+            </ion-card>
+          </ion-item>
+        </ion-list>
+  </div>
+  
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)" *ngIf="page < totalPage">
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)" *ngIf="page < totalPage">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="Loading more data...">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </ion-infinite-scroll> -->
   
 </ion-content>

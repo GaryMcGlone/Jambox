@@ -1,8 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
 import { InfiniteScroll } from '@ionic/angular';
 import { DatabaseService } from '../services/database.service';
 import { IPost } from '../interfaces/post-interface';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomePage implements OnInit {
   totalData = 0;
   totalPage = 0;
 
-  constructor(public navCtrl: NavController, private databaseService: DatabaseService) {}
+  constructor(private router: Router, private databaseService: DatabaseService) {}
 
   ngOnInit(){
     this.databaseService.getPosts().subscribe(posts => {
@@ -29,6 +30,14 @@ export class HomePage implements OnInit {
         error => (this.errorMessage = <any>error);
     });
   }
+
+  // swipeEvent(event) {
+  //   switch(event.direction){
+  //     case 2: this.router.navigate(['/tabs/(home:discover)']);
+  //             break;
+  //     default: break;
+  //   }
+  // }
 
   doInfinite(infiniteScroll) {
     this.page = this.page+1;
