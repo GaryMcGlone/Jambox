@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-tabs',
@@ -9,13 +8,6 @@ import { Router } from '@angular/router';
 export class TabsPage {
   loggedIn: boolean = true;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
-  swipeEvent(event) {
-    switch(event.direction){
-      case 2: this.router.navigate(['/tabs/(discover:discover)']);
-              break;
-      default: break;
-    }
-  }
 }
