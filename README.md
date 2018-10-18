@@ -1,3 +1,3 @@
-# 3rdYearProjectMobile
+# Jambox
 
 It be like that tho
