@@ -6,7 +6,7 @@ import {
   AngularFirestoreCollection,
   AngularFirestore
 } from "@angular/fire/firestore";
-import { IPost } from "../interfaces/post-interface";
+import { IPost } from "../../interfaces/post-interface";
 
 @Injectable({
   providedIn: "root"

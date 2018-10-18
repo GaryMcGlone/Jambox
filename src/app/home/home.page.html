@@ -1,27 +1,37 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons>
+      <ion-menu-button slot="start">
+      </ion-menu-button>
+    </ion-buttons>
     <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <div> <!--(swipe)="swipeEvent($event)"-->
-      <ion-list no-lines>
-          <ion-item *ngFor="let post of posts">
-            <ion-card *ngIf="post">
-              <ion-img [src]="post.albumArt"></ion-img>
-              <ion-card-header>
-                <ion-card-subtitle>{{post.songName}}</ion-card-subtitle>
-                <ion-card-title>{{post.artistName}}</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                {{post.caption}}
-              </ion-card-content>
-            </ion-card>
-          </ion-item>
-        </ion-list>
+  <div>
+    <!--(swipe)="swipeEvent($event)"-->
+    <ion-list no-lines>
+      <ion-item *ngFor="let post of posts">
+        <ion-card *ngIf="post">
+          <ion-img [src]="post.albumArt"></ion-img>
+          <ion-card-header style="text-align:center">
+            <ion-icon name="heart"></ion-icon>
+            <ion-icon name="chatbubbles"></ion-icon>
+            <ion-card-subtitle>{{post.songName}}</ion-card-subtitle>
+            <ion-card-title>{{post.artistName}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Username: {{post.caption}}
+          </ion-card-content>
+          <ion-card-content>
+            {{post.createdAt | date: "MMM d, y, h:mm"}}
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
   </div>
-  
+
 
   <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)" *ngIf="page < totalPage">
     <ion-infinite-scroll-content
@@ -29,5 +39,5 @@
       loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll> -->
-  
+
 </ion-content>

@@ -20,7 +20,7 @@ export class YouTubeApiService {
   getSearchedVideos(query, filter, limit): Observable<YouTubeResponseSearch> {
     return this._http.get<YouTubeResponseSearch>(this._searchSiteURL + query + this._sort + filter + this._max + limit
       + this._param + this._key)
-      .pipe(tap(data => console.log('log > GET operation for searched videos was successful! (service)')),
+      .pipe(tap(data => console.log('Search Data:', data)),
       catchError(this.handleError));
   }
 
@@ -28,14 +28,14 @@ export class YouTubeApiService {
   getFeaturedVideos(): Observable<YouTubeResponse> {
     return this._http.get<YouTubeResponse>(this._mostPopSiteURL 
       + this._param + this._key)
-      .pipe(tap(data => console.log('log > GET operation for most popular videos was successful! (service)')),
+      .pipe(tap(data => console.log('Featured Videos', data)),
       catchError(this.handleError));
   }
 
   getNextPage(token, filter, query): Observable<YouTubeResponseSearch> {
     return this._http.get<YouTubeResponseSearch>(this._nextPageURL + token + this._max + '5' + this._sort + filter
       + this._query + query + this._param + this._key)
-      .pipe(tap(data => console.log('log > GET operation for next page was successful! (service)')),
+      .pipe(tap(data => console.log('Next Page', data)),
       catchError(this.handleError));
   }
 
