@@ -15,14 +15,16 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
 import "hammerjs";
+import { SpotifySearchComponent } from './components/spotify-search/spotify-search.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SpotifySearchComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
-      menuType: "push"
+      menuType: "push",
+      mode: "ios"
     }),
     AppRoutingModule,
     HttpClientModule,

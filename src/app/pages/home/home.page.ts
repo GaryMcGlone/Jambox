@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { DatabaseService } from '../services/database/database.service';
-import { IPost } from '../interfaces/post-interface';
+import { DatabaseService } from '../../services/database/database.service';
+import { IPost } from '../../interfaces/post-interface';
 
 
 @Component({
@@ -15,10 +15,6 @@ export class HomePage implements OnInit {
   constructor(private databaseService: DatabaseService) {}
 
   ngOnInit(){
-    this.databaseService.getPosts().subscribe(posts => {
-      console.log(posts),
-        (this.posts = posts),
-        error => (this.errorMessage = <any>error);
-    });
+
   }
 }

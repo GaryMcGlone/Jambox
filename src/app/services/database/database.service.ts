@@ -6,24 +6,24 @@ import {
   AngularFirestoreCollection,
   AngularFirestore
 } from "@angular/fire/firestore";
-import { IPost } from "../../interfaces/post-interface";
+import { Post } from "../../models/post.model";
 
 @Injectable({
   providedIn: "root"
 })
 export class DatabaseService {
-  postsCollection: AngularFirestoreCollection<IPost>;
-  posts: Observable<IPost[]>;
+  postsCollection: AngularFirestoreCollection<Post>;
+  posts: Observable<Post[]>;
   errorMessage: string;
 
   constructor(private _http: HttpClient, private _afs: AngularFirestore) {
-    this.postsCollection = _afs.collection<IPost>("posts");
+    this.postsCollection = _afs.collection<Post>("posts");
   }
 
-  getPosts(): Observable<IPost[]> {
+  getPosts(): Observable<Post[]> {
     return (this.posts = this.postsCollection.valueChanges());
   }
-  addPost(post: IPost): void {
+  addPost(post: Post): void {
     this.postsCollection.add(post);
   }
 }

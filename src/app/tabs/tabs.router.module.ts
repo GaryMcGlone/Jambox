@@ -2,13 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
-import { HomePage } from '../home/home.page';
-import { AboutPage } from '../about/about.page';
-import { ContactPage } from '../contact/contact.page';
-import { ProfilePage } from '../profile/profile.page';
-import { NotificationsPage } from '../notifications/notifications.page';
-import { DiscoverPage } from '../discover/discover.page';
-import { LandingPage } from '../landing/landing.page';
+import { HomePage } from '../pages/home/home.page';
+import { ProfilePage } from '../pages/profile/profile.page';
+import { NotificationsPage } from '../pages/notifications/notifications.page';
+import { DiscoverPage } from '../pages/discover/discover.page';
+import { LandingPage } from '../pages/landing/landing.page';
 
 const routes: Routes = [
   {
@@ -24,16 +22,6 @@ const routes: Routes = [
         path: 'home',
         outlet: 'home',
         component: HomePage
-      },
-      {
-        path: 'about',
-        outlet: 'about',
-        component: AboutPage
-      },
-      {
-        path: 'contact',
-        outlet: 'contact',
-        component: ContactPage
       },
       {
         path: 'profile',

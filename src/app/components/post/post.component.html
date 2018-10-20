@@ -1,0 +1,15 @@
+<ion-card *ngIf="post">
+  <ion-img [src]="post.albumArt"></ion-img>
+  <ion-card-header style="text-align:center">
+    <ion-icon name="heart-empty"></ion-icon>
+    <ion-icon name="chatbubbles"></ion-icon>
+    <ion-card-subtitle>{{post.songName}}</ion-card-subtitle>
+    <ion-card-title>{{post.artistName}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    Username: {{post.caption}}
+  </ion-card-content>
+  <ion-card-content>
+    {{post.createdAt | date: "MMM d, y, h:mm"}}
+  </ion-card-content>
+</ion-card>
