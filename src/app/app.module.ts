@@ -13,12 +13,14 @@ import { environment } from "../environments/environment";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { CreateSongModalPageModule } from './pages/create-song-modal/create-song-modal.module';
 
 import "hammerjs";
 import { SpotifySearchComponent } from './components/spotify-search/spotify-search.component';
+import { SpotifySearchResultComponent } from './components/spotify-search-result/spotify-search-result.component';
 
 @NgModule({
-  declarations: [AppComponent, SpotifySearchComponent],
+  declarations: [AppComponent, SpotifySearchComponent, SpotifySearchResultComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { SpotifySearchComponent } from './components/spotify-search/spotify-sear
     AppRoutingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    CreateSongModalPageModule
   ],
   providers: [
     StatusBar,
