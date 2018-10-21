@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { RouterModule, Routes, Router } from '@angular/router'; 
+
 @Component({
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
@@ -8,11 +8,10 @@ import { RouterModule, Routes, Router } from '@angular/router';
 export class TabsPage {
   loggedIn: boolean = true;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit() {
-    console.log("aaaa");
-    this.router.navigate(['login'])
+ 
   }
 
 }
