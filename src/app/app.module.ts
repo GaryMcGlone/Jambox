@@ -18,7 +18,7 @@ import { CreateSongModalPageModule } from './pages/create-song-modal/create-song
 import "hammerjs";
 import { SpotifySearchComponent } from './components/spotify-search/spotify-search.component';
 import { SpotifySearchResultComponent } from './components/spotify-search-result/spotify-search-result.component';
-
+import {LoginPageModule} from './login/login.module'
 @NgModule({
   declarations: [AppComponent, SpotifySearchComponent, SpotifySearchResultComponent],
   entryComponents: [],
