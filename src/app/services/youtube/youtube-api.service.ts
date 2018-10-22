@@ -13,13 +13,14 @@ export class YouTubeApiService {
   private _max = '&maxResults=';
   private _sort = '&order=';
   private _query = '&q=';
+  private _type = '&'
   private _key = 'AIzaSyBwTqh7G-xV4WWZg_-QFB04K4vCPjLXzAY';
 
   constructor(private _http: HttpClient) { }
 
-  getSearchedVideos(query, filter, limit): Observable<YouTubeResponseSearch> {
-    return this._http.get<YouTubeResponseSearch>(this._searchSiteURL + query + this._sort + filter + this._max + limit
-      + this._param + this._key)
+  getSearchedVideos(query, filter, limit, type): Observable<YouTubeResponseSearch> {
+    return this._http.get<YouTubeResponseSearch>(this._searchSiteURL + query + this._sort + filter 
+      + this._max + limit + type + this._param + this._key)
       .pipe(tap(data => console.log('Search Data:', data)),
       catchError(this.handleError));
   }

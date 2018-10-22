@@ -8,17 +8,20 @@ import { YouTubeApiService } from '../../services/youtube/youtube-api.service';
 })
 export class YoutubeSearchComponent implements OnInit {
   items: IItems[];
-  limit 
+  filter: string = 'relevance';
+  limit: string = '9';
+  type: string = '10';
 
   constructor(private youtubeService: YouTubeApiService) { }
 
   ngOnInit() {
   }
 
-  // searchYouTube(search) {
-  //   this.youtubeService.getSearchedVideos(search).subscribe(data => {
-  //     this.items = data.tracks.items;
-  //   });
-  // }
+  searchYouTube(search) {
+    this.youtubeService.getSearchedVideos(search, this.filter, this.limit, this.type).subscribe(data => {
+      // this.items = data.tracks.items;
+      console.log(data);
+    });
+  }
 
 }

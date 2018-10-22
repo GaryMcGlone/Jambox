@@ -7,19 +7,12 @@ import { IonicModule } from '@ionic/angular';
 
 import { CreateSongModalPage } from './create-song-modal.page';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: CreateSongModalPage
-  }
-];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
   ],
   declarations: [CreateSongModalPage]
 })
