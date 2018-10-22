@@ -18,9 +18,11 @@ import { CreateSongModalPageModule } from './pages/create-song-modal/create-song
 import "hammerjs";
 import { SpotifySearchComponent } from './components/spotify-search/spotify-search.component';
 import { SpotifySearchResultComponent } from './components/spotify-search-result/spotify-search-result.component';
-import {LoginPageModule} from './login/login.module'
+import {LoginPageModule} from './login/login.module';
+import { YoutubeSearchComponent } from './components/youtube-search/youtube-search.component';
+import { YoutubeSearchResultComponent } from './components/youtube-search-result/youtube-search-result.component'
 @NgModule({
-  declarations: [AppComponent, SpotifySearchComponent, SpotifySearchResultComponent],
+  declarations: [AppComponent, SpotifySearchComponent, SpotifySearchResultComponent, YoutubeSearchComponent, YoutubeSearchResultComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { DatabaseService } from '../../services/database/database.service';
 import { IPost } from '../../interfaces/post-interface';
-import {  Router } from '@angular/router'; 
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-home',
@@ -16,6 +16,6 @@ export class HomePage implements OnInit {
 
   ngOnInit(){
     console.log("aaaa");
-    this.router.navigate(['login'])
+    // this.router.navigate(['login'])
   }
 }

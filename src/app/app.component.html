@@ -7,8 +7,23 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <app-spotify-search></app-spotify-search>
-        <ion-button size="small" href="http://localhost:8889/login">Connect Spotify</ion-button>
+
+        <ion-segment (ionChange)="segmentChanged($event)">
+          <ion-segment-button value="spotify" checked>
+            Spotify
+          </ion-segment-button>
+          <ion-segment-button value="youtube">
+            YouTube
+          </ion-segment-button>
+        </ion-segment>
+
+        <div *ngIf="spotifySelectedCheck()">
+            <app-spotify-search></app-spotify-search>
+            <ion-button size="small" href="http://localhost:8889/login">Connect Spotify</ion-button>
+        </div>    
+        <div *ngIf="!spotifySelectedCheck()">
+            <ion-button size="small">YouTube</ion-button>
+        </div>  
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
