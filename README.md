@@ -8,20 +8,20 @@ It will also have music discovery features like a playlist builder where you can
 
 ## Goals :
 
- - **Completed**We would like it to have multiple pages that people can navigate between                               
+ - [**Completed**] We would like it to have multiple pages that people can navigate between                               
                                                                                                           
- - **Completed**We would like our app to have a feed of posts                                                          
+ - [**Completed**] We would like our app to have a feed of posts                                                          
  
- - **Completed**We would like our app to have a search feature, where you will be able to search Spotify/YouTube API  
+ - [**Completed**] We would like our app to have a search feature, where you will be able to search Spotify/YouTube API  
                                                                                                           
- - **WIP**We would like our app to have Firebase Authentication                                                  
+ - [**WIP**] We would like our app to have Firebase Authentication                                                  
                                                                                                           
- - **Not Completed**We would like the users to be able to listen to songs inside our app                                    
+ - [**Not Completed**] We would like the users to be able to listen to songs inside our app                                    
                                                                                                           
- - **Not Completed**We would like our app to have a fully functional profile page where the user                           
+ - [**Not Completed**] We would like our app to have a fully functional profile page where the user                           
    will be able to see their information/posts/likes etc.                                                 
                                                                                                           
- - **Not Completed**We would like our app to have a discover page where a user will be able to                             
+ - [**Not Completed**] We would like our app to have a discover page where a user will be able to                             
    discover new/trending songs which would be picked specifically for that user
    using his previous song types/genres                                                                   
                                                                                                           
