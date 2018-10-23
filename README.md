@@ -8,9 +8,9 @@ It will also have music discovery features like a playlist builder where you can
 
 ## Goals :
 
- - We would like it to have multiple pages that people can navigate between                               
-                                                                                                          ### *Completed*
- - We would like our app to have a feed of posts                                                          ### *Completed*
+ - We would like it to have multiple pages that people can navigate between                               *Completed*
+                                                                                                          
+ - We would like our app to have a feed of posts                                                          *Completed*
  
   - We would like our app to have a search feature, where you will be able to search Spotify/YouTube API  *Completed*
   
