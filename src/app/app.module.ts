@@ -21,8 +21,10 @@ import { SpotifySearchResultComponent } from './components/spotify-search-result
 import {LoginPageModule} from './login/login.module';
 import { YoutubeSearchComponent } from './components/youtube-search/youtube-search.component';
 import { YoutubeSearchResultComponent } from './components/youtube-search-result/youtube-search-result.component'
+import { YouTubeApiService } from "./services/youtube/youtube-api.service";
 @NgModule({
-  declarations: [AppComponent, SpotifySearchComponent, SpotifySearchResultComponent, YoutubeSearchComponent, YoutubeSearchResultComponent],
+  declarations: [AppComponent, SpotifySearchComponent, SpotifySearchResultComponent
+    , YoutubeSearchComponent, YoutubeSearchResultComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -39,6 +41,7 @@ import { YoutubeSearchResultComponent } from './components/youtube-search-result
   providers: [
     StatusBar,
     SplashScreen,
+    YouTubeApiService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -10,7 +10,7 @@ import { ModalController } from "@ionic/angular";
 })
 export class YoutubeSearchResultComponent implements OnInit {
   @Input()
-  item: IItems;
+  item: itemS;
   selectedSong: Post;
   constructor(private modalController: ModalController) {}
 

@@ -18,9 +18,9 @@ export class YouTubeApiService {
 
   constructor(private _http: HttpClient) { }
 
-  getSearchedVideos(query, filter, limit, type): Observable<YouTubeResponseSearch> {
+  getSearchedVideos(query, filter, limit): Observable<YouTubeResponseSearch> {
     return this._http.get<YouTubeResponseSearch>(this._searchSiteURL + query + this._sort + filter 
-      + this._max + limit + type + this._param + this._key)
+      + this._max + limit  + this._param + this._key)
       .pipe(tap(data => console.log('Search Data:', data)),
       catchError(this.handleError));
   }

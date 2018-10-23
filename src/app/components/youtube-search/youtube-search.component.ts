@@ -7,7 +7,7 @@ import { YouTubeApiService } from '../../services/youtube/youtube-api.service';
   styleUrls: ['./youtube-search.component.scss']
 })
 export class YoutubeSearchComponent implements OnInit {
-  items: IItems[];
+  items: itemS[];
   filter: string = 'relevance';
   limit: string = '9';
   type: string = '10';
@@ -18,8 +18,8 @@ export class YoutubeSearchComponent implements OnInit {
   }
 
   searchYouTube(search) {
-    this.youtubeService.getSearchedVideos(search, this.filter, this.limit, this.type).subscribe(data => {
-      // this.items = data.tracks.items;
+    this.youtubeService.getSearchedVideos(search, this.filter, this.limit).subscribe(data => {
+      this.items = data.items;
       console.log(data);
     });
   }
