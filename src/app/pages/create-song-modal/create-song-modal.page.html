@@ -4,25 +4,25 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <img [src]="post.albumArt" alt="albumArt">
-  <ion-label  style="text-align:center">
-      <h1>{{ post.songName}}</h1>
-      <h1>{{ post.artistName }}</h1>
+<ion-content no-padding>
+  <div class="wrapper">
+    <img [src]="post.albumArt" alt="albumArt">
+    <ion-label style="text-align:center; font-size: 22px">
+      <h2>{{ post.songName}}</h2>
+      <h2>{{ post.artistName }}</h2>
     </ion-label>
     <ion-item>
-        <ion-label position="floating">Share your thoughts on this song</ion-label>
-        <ion-textarea rows="4" [(ngModel)]="caption"></ion-textarea>
-      </ion-item>      
+      <ion-label position="floating">Share your thoughts on this song</ion-label>
+      <ion-textarea rows="4" [(ngModel)]="caption"></ion-textarea>
+    </ion-item>
     <ion-footer>
-        <ion-toolbar color="primary">
-
-          <ion-button fill="clear" color="light" (click)="save()">
-
-            </ion-button>
-        </ion-toolbar>
+      <ion-footer color="primary">
+        <ion-button fill="outline" color="light" (click)="save()">
+          Post
+        </ion-button>
       </ion-footer>
-      
+    </ion-footer>
+  </div>
 </ion-content>
 
 <!-- <ion-item>

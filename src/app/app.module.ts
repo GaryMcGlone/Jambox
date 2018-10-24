@@ -22,10 +22,11 @@ import {LoginPageModule} from './login/login.module';
 import { YoutubeSearchComponent } from './components/youtube-search/youtube-search.component';
 import { YoutubeSearchResultComponent } from './components/youtube-search-result/youtube-search-result.component'
 import { YouTubeApiService } from "./services/youtube/youtube-api.service";
+import { CreateSongModalPage } from "./pages/create-song-modal/create-song-modal.page";
 @NgModule({
   declarations: [AppComponent, SpotifySearchComponent, SpotifySearchResultComponent
     , YoutubeSearchComponent, YoutubeSearchResultComponent],
-  entryComponents: [],
+  entryComponents: [CreateSongModalPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({

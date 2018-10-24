@@ -21,7 +21,7 @@ export class SpotifySearchResultComponent implements OnInit {
   selectSong(songId: string, artistName: string, songName: string, albumArt: string) {
     
     const date = new Date();
-    const now = this.pipe.transform(date, "short");
+    const now = this.pipe.transform(date, "medium");
 
     let currentSong = {
       songId: songId,
