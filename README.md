@@ -24,4 +24,8 @@ It will also have music discovery features like a playlist builder where you can
  - [**Not Completed**] We would like our app to have a discover page where a user will be able to                             
    discover new/trending songs which would be picked specifically for that user
    using his previous song types/genres                                                                   
-                                                                                                          
+   
+ - [**Not Completed**] We would like our users to be able to follow other users and be able to see their new posts 
+   in their feed.
+   
+ - [**Not Completed**] We want our users to be able to view other users profile page.
