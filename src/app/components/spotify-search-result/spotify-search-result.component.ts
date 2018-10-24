@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Post } from "../../models/post.model";
 import { CreateSongModalPage } from "../../pages/create-song-modal/create-song-modal.page";
 import { ModalController } from "@ionic/angular";
+import { DatabaseService } from "../../services/database/database.service";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: "app-spotify-search-result",
@@ -11,25 +13,35 @@ import { ModalController } from "@ionic/angular";
 export class SpotifySearchResultComponent implements OnInit {
   @Input()
   item: IItems;
-  selectedSong: Post;
-  constructor(private modalController: ModalController) {}
+  pipe = new DatePipe("en-IE");
+  constructor(private modalController: ModalController, private databaseService: DatabaseService) {}
 
   ngOnInit() {}
 
   selectSong(songId: string, artistName: string, songName: string, albumArt: string) {
-    let currentSong = new Post(songId, artistName, songName, albumArt, "");
-    this.selectedSong = currentSong;
-    this.presentModal();
+    
+    const date = new Date();
+    const now = this.pipe.transform(date, "short");
+
+    let currentSong = {
+      songId: songId,
+      artistName: artistName,
+      songName: songName,
+      albumArt: albumArt, 
+      createdAt: now
+    };
+    this.presentModal(currentSong);
   }
 
-  async presentModal() {
+  async presentModal(currentSong) {
+    console.log(currentSong)
+    let props = {
+      post: currentSong
+    }
+
     const modal = await this.modalController.create({
       component: CreateSongModalPage,
-      componentProps: {
-        songName: this.selectedSong.songName,
-        artistName: this.selectedSong.artistName,
-        albumArt: this.selectedSong.albumArt
-      }
+      componentProps: props, 
     });
     return await modal.present();
   }

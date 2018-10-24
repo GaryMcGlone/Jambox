@@ -5,16 +5,21 @@
 </ion-header>
 
 <ion-content>
-  <img [src]="albumArt" alt="albumArt">
+  <img [src]="post.albumArt" alt="albumArt">
   <ion-label  style="text-align:center">
-      <h1>{{ songName}}</h1>
-      <h1>{{ artistName }}</h1>
+      <h1>{{ post.songName}}</h1>
+      <h1>{{ post.artistName }}</h1>
     </ion-label>
+    <ion-item>
+        <ion-label position="floating">Share your thoughts on this song</ion-label>
+        <ion-textarea rows="4" [(ngModel)]="caption"></ion-textarea>
+      </ion-item>      
     <ion-footer>
         <ion-toolbar color="primary">
-          <ion-button expand="full" fill="clear" color="light" (click)="closeModal()">
-            Close
-          </ion-button>
+
+          <ion-button fill="clear" color="light" (click)="save()">
+
+            </ion-button>
         </ion-toolbar>
       </ion-footer>
       

@@ -7,19 +7,12 @@ import { IonicModule } from '@ionic/angular';
 
 import { LandingPage } from './landing.page';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: LandingPage
-  }
-];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
   ],
   declarations: [LandingPage]
 })

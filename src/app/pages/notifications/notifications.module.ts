@@ -7,19 +7,12 @@ import { IonicModule } from '@ionic/angular';
 
 import { NotificationsPage } from './notifications.page';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: NotificationsPage
-  }
-];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
   ],
   declarations: [NotificationsPage]
 })

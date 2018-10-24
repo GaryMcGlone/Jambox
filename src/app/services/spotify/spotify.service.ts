@@ -35,7 +35,7 @@ export class SpotifyService {
       .get<ISpotifyResponse>(this.endpoint + search + this.options, {
         headers: this.headers
       })
-      .pipe(tap(res => console.log(res.tracks),
+      .pipe(tap(res => res.tracks,
       error => (this.errorMessage = <any>error))
       )
   }

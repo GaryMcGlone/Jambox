@@ -1,5 +1,5 @@
 export class Post {
-    userId: string;
+    // userId: string;
     songId: string;
     artistName: string;
     songName: string;

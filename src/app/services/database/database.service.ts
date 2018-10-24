@@ -17,13 +17,13 @@ export class DatabaseService {
   errorMessage: string;
 
   constructor(private _http: HttpClient, private _afs: AngularFirestore) {
-    this.postsCollection = _afs.collection<Post>("posts");
+    this.postsCollection = _afs.collection<Post>("posts", ref => ref.orderBy("createdAt", "desc"));
   }
 
   getPosts(): Observable<Post[]> {
     return (this.posts = this.postsCollection.valueChanges());
   }
-  addPost(post: Post): void {
+  addPost(post): void {
     this.postsCollection.add(post);
   }
 }

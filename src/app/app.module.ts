@@ -25,8 +25,7 @@ import { SpotifySearchResultComponent } from './components/spotify-search-result
   imports: [
     BrowserModule,
     IonicModule.forRoot({
-      menuType: "push",
-      mode: "ios"
+      menuType: "push"
     }),
     AppRoutingModule,
     HttpClientModule,
