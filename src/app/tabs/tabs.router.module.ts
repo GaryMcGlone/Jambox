@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { TabsPage } from './tabs.page';
 import { HomePage } from '../pages/home/home.page';
 import { ProfilePage } from '../pages/profile/profile.page';
 import { NotificationsPage } from '../pages/notifications/notifications.page';
 import { DiscoverPage } from '../pages/discover/discover.page';
 import { LandingPage } from '../pages/landing/landing.page';
-
 const routes: Routes = [
   {
     path: 'tabs',
@@ -49,7 +47,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tabs/(home:home)',
     pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({

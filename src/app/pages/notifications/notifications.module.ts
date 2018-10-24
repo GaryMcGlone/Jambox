@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { NotificationsPage } from './notifications.page';
 
-
 @NgModule({
   imports: [
     CommonModule,

@@ -1,0 +1,11 @@
+
+<ion-item>
+    <ion-label position="floating">Search YouTube</ion-label>
+    <ion-input #search (keyup)="searchYouTube(search.value)"></ion-input>
+</ion-item>
+
+<ion-list>
+  <ion-item *ngFor="let item of items">
+      <app-youtube-search-result [item]="item"></app-youtube-search-result>
+  </ion-item>
+</ion-list>

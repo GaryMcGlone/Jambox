@@ -18,9 +18,13 @@ import { CreateSongModalPageModule } from './pages/create-song-modal/create-song
 import "hammerjs";
 import { SpotifySearchComponent } from './components/spotify-search/spotify-search.component';
 import { SpotifySearchResultComponent } from './components/spotify-search-result/spotify-search-result.component';
-
+import {LoginPageModule} from './login/login.module';
+import { YoutubeSearchComponent } from './components/youtube-search/youtube-search.component';
+import { YoutubeSearchResultComponent } from './components/youtube-search-result/youtube-search-result.component'
+import { YouTubeApiService } from "./services/youtube/youtube-api.service";
 @NgModule({
-  declarations: [AppComponent, SpotifySearchComponent, SpotifySearchResultComponent],
+  declarations: [AppComponent, SpotifySearchComponent, SpotifySearchResultComponent
+    , YoutubeSearchComponent, YoutubeSearchResultComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -36,6 +40,7 @@ import { SpotifySearchResultComponent } from './components/spotify-search-result
   providers: [
     StatusBar,
     SplashScreen,
+    YouTubeApiService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
