@@ -1,7 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { DatabaseService } from '../../services/database/database.service';
-import { IPost } from '../../interfaces/post-interface';
-import { Router } from '@angular/router'; 
+import { Component,  OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -9,13 +6,9 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit {
-  posts: IPost[] = [];
-  errorMessage: string;
 
-  constructor(private databaseService: DatabaseService, private router: Router) {}
+  constructor() {}
 
   ngOnInit(){
-    console.log("aaaa");
-    // this.router.navigate(['login'])
   }
 }

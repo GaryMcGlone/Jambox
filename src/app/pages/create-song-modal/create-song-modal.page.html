@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Post Song</ion-title>
+    <ion-title text-center>Post Song</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,28 +11,14 @@
       <h2>{{ post.songName}}</h2>
       <h2>{{ post.artistName }}</h2>
     </ion-label>
-    <ion-item>
-      <ion-label position="floating">Share your thoughts on this song</ion-label>
+    <ion-item no-padding>
+      <ion-label style="margin-left:4px" position="floating">Share your thoughts on this song</ion-label>
       <ion-textarea rows="4" [(ngModel)]="caption"></ion-textarea>
     </ion-item>
     <ion-footer>
-      <ion-footer color="primary">
-        <ion-button fill="outline" color="light" (click)="save()">
+        <ion-button fill="outline" color="primary" (click)="save()">
           Post
         </ion-button>
-      </ion-footer>
     </ion-footer>
   </div>
 </ion-content>
-
-<!-- <ion-item>
-    <ion-thumbnail slot="start">
-      <img [src]="item.album.images[0].url">
-    </ion-thumbnail>
-    <ion-label>
-      <h2>{{item.artists[0].name}}</h2>
-      <p>{{item.name}}</p>
-    </ion-label>
-    <ion-button fill="outline" slot="end" (click)="selectSong(item.id,item.artists[0].name,item.name,item.album.images[0].url)" [routerLink]="['create-song']">View</ion-button>
-  </ion-item>
-   -->

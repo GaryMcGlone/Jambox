@@ -25,8 +25,8 @@ import { YouTubeApiService } from "./services/youtube/youtube-api.service";
 import { CreateSongModalPage } from "./pages/create-song-modal/create-song-modal.page";
 @NgModule({
   declarations: [AppComponent, SpotifySearchComponent, SpotifySearchResultComponent
-    , YoutubeSearchComponent, YoutubeSearchResultComponent],
-  entryComponents: [CreateSongModalPage],
+    , YoutubeSearchComponent, YoutubeSearchResultComponent ],
+  entryComponents: [ CreateSongModalPage ],
   imports: [
     BrowserModule,
     IonicModule.forRoot({

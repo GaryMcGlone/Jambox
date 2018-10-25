@@ -11,6 +11,7 @@ import { Post } from '../../models/post.model';
 export class PostListComponent implements OnInit {
   posts: Post[] = [];
   errorMessage:string;
+  cssClass: string;
   constructor(private databaseService: DatabaseService) { }
 
   ngOnInit() {
@@ -19,6 +20,7 @@ export class PostListComponent implements OnInit {
         (this.posts = posts),
         error => (this.errorMessage = <any>error);
     });
+    this.cssClass = "animated slideInUp faster"
   }
 
 }

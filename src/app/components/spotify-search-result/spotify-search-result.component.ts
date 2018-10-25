@@ -19,7 +19,6 @@ export class SpotifySearchResultComponent implements OnInit {
   ngOnInit() {}
 
   selectSong(songId: string, artistName: string, songName: string, albumArt: string) {
-    
     const date = new Date();
     const now = this.pipe.transform(date, "medium");
 
@@ -27,6 +26,7 @@ export class SpotifySearchResultComponent implements OnInit {
       songId: songId,
       artistName: artistName,
       songName: songName,
+      caption: "",
       albumArt: albumArt, 
       createdAt: now
     };
@@ -34,7 +34,6 @@ export class SpotifySearchResultComponent implements OnInit {
   }
 
   async presentModal(currentSong) {
-    console.log(currentSong)
     let props = {
       post: currentSong
     }

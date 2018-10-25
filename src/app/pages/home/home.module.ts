@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { PostComponent } from "../../components/post/post.component"
 import { PostListComponent } from "../../components/post-list/post-list.component";
 import { HomePage } from './home.page';
+import { DateTimeConvertPipe } from '../../pipes/date-time-convert.pipe';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { HomePage } from './home.page';
     CommonModule,
     FormsModule,
   ],
-  declarations: [HomePage, PostComponent, PostListComponent]
+  declarations: [HomePage, PostComponent, PostListComponent, DateTimeConvertPipe]
 })
 export class HomePageModule {}

@@ -3,8 +3,8 @@
     <ion-input #search (keyup)="searchSpotify(search.value)"></ion-input>
 </ion-item>
 
-<ion-list>
-  <ion-item *ngFor="let item of items">
+<div no-padding>
+  <ion-item *ngFor="let item of items" no-padding >
       <app-spotify-search-result [item]="item"></app-spotify-search-result>
   </ion-item>
-</ion-list>
+</div>

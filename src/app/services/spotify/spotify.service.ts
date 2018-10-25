@@ -1,42 +1,47 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, EMPTY, throwError } from "rxjs";
+import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { catchError } from "rxjs/operators";
-import { NavController } from "@ionic/angular";
+
+declare var cordova: any;
 
 @Injectable({
   providedIn: "root"
 })
 export class SpotifyService {
   private endpoint = "https://api.spotify.com/v1/search?q=";
-  private options = "&type=track&market=US&limit=10&offset=0";
-  private auth_token;
+  private options = "&type=track&market=US&limit=15&offset=0";
   private errorMessage: string;
+
+  result = {};
 
   constructor(private _http: HttpClient, private router: Router) {}
 
-  getToken() {
-    this.auth_token = window.location.search.replace("?access_token=", "");
-    
-    console.log(window.location.hash)
-    console.log(this.auth_token)
-    this.router.navigate(["home"]);
-    return this.auth_token;
+  authWithSpotify() {
+    const config = {
+      clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
+      redirectUrl: "jamboxapp://callback",
+      scopes: [
+        "streaming",
+        "playlist-read-private",
+        "user-read-email",
+        "user-read-private"
+      ],
+      tokenExchangeUrl: "https://jambox-app.herokuapp.com/exchange",
+      tokenRefreshUrl: "https://jambox-app.herokuapp.com/refresh"
+    };
+
+    cordova.plugins.spotifyAuth.authorize(config)
+    .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
+      this.result = { access_token: accessToken, expires_in: expiresAt, ref: encryptedRefreshToken };
+    });
+    console.log(this.result)
   }
-
-  private headers = new HttpHeaders({
-    Authorization: `Bearer ${this.getToken()}`
-  });
-
   searchSpotify(search): Observable<ISpotifyResponse> {
     return this._http
-      .get<ISpotifyResponse>(this.endpoint + search + this.options, {
-        headers: this.headers
-      })
-      .pipe(tap(res => res.tracks,
-      error => (this.errorMessage = <any>error))
-      )
+      .get<ISpotifyResponse>(this.endpoint + search + this.options)
+      .pipe(tap(res => res.tracks, error => (this.errorMessage = <any>error)));
   }
 }

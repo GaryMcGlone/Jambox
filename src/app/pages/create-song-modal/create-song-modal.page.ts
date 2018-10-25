@@ -23,7 +23,7 @@ export class CreateSongModalPage implements OnInit {
     this.modalController.dismiss();
   }
   save() {
-    this.post.caption = this.caption;
+    this.post.caption = this.caption || "";
     this.databaseService.addPost(this.post)
     this.modalController.dismiss()
   }

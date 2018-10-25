@@ -3,7 +3,9 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { stringify } from '@angular/core/src/render3/util';
+import { SpotifyService } from './services/spotify/spotify.service';
+
+declare var cordova:any;
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,8 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    public spotify: SpotifyService
   ) {
     this.initializeApp();
   }
@@ -47,5 +50,8 @@ export class AppComponent {
       return false;
   }
   
+  signInWithSpotify() {
+    this.spotify.authWithSpotify()
+  }
 
 }
