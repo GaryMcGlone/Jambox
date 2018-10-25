@@ -1,5 +1,5 @@
 import { Component,  OnInit } from '@angular/core';
-
+import {FirebaseAuthService} from '../../services/firebaseAuth/firebase-auth.service'
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -7,8 +7,10 @@ import { Component,  OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() {}
+  constructor(private auth: FirebaseAuthService) {}
 
   ngOnInit(){
+   this.auth.checkIfLoggedIn();
   }
+
 }

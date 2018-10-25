@@ -39,9 +39,18 @@ export class SpotifyService {
     });
     console.log(this.result)
   }
+
+  private headers = new HttpHeaders({
+    Authorization: `Bearer ${this.result}`
+  });
+
   searchSpotify(search): Observable<ISpotifyResponse> {
+    console.log(this.result)
+    console.log(this.headers)
     return this._http
-      .get<ISpotifyResponse>(this.endpoint + search + this.options)
+      .get<ISpotifyResponse>(this.endpoint + search + this.options, {
+        headers: this.headers
+      })
       .pipe(tap(res => res.tracks, error => (this.errorMessage = <any>error)));
   }
 }
