@@ -18,7 +18,6 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public spotify: SpotifyService
   ) {
     this.initializeApp();
   }
@@ -50,8 +49,26 @@ export class AppComponent {
       return false;
   }
   
-  signInWithSpotify() {
-    this.spotify.authWithSpotify()
+  result = {}
+  authWithSpotify() {
+    const config = {
+      clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
+      redirectUrl: "jamboxapp://callback",
+      scopes: [
+        "streaming",
+        "playlist-read-private",
+        "user-read-email",
+        "user-read-private"
+      ],
+      tokenExchangeUrl: "https://jambox-app.herokuapp.com/exchange",
+      tokenRefreshUrl: "https://jambox-app.herokuapp.com/refresh"
+    };
+
+    cordova.plugins.spotifyAuth.authorize(config)
+    .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
+      this.result = { access_token: accessToken, expires_in: expiresAt, ref: encryptedRefreshToken };
+    });
+    console.log(this.result)
   }
 
 }
