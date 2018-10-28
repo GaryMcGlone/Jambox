@@ -49,19 +49,22 @@ export class SpotifyService {
       });
     console.log("result: ", this.result);
   }
-  private headers = new HttpHeaders({
-    Authorization: `Bearer ${this.accessToken}`
-  });
+  // private headers = new HttpHeaders({
+  //   Authorization: `Bearer ${this.accessToken}`
+  // });
+
+  
 
   logout() {
     cordova.plugins.spotifyAuth.forget();
   }
-
   searchSpotify(search): Observable<ISpotifyResponse> {
-    console.log(this.headers.getAll('authorization'));
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append("Authorization", "Bearer "+this.accessToken)
+    console.log(headers.getAll('authorization'));
     return this._http
       .get<ISpotifyResponse>(this.endpoint + search + this.options, {
-        headers: this.headers
+        headers: headers
       })
       .pipe(tap(res => res.tracks, error => (this.errorMessage = <any>error)));
   }
