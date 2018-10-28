@@ -19,6 +19,8 @@ export class SpotifyService {
 
   constructor(private _http: HttpClient, private router: Router) {}
 
+  private accessToken: string = '';
+
   authWithSpotify() {
     const config = {
       clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
@@ -33,20 +35,30 @@ export class SpotifyService {
       tokenRefreshUrl: "https://jambox-app.herokuapp.com/refresh"
     };
 
-    cordova.plugins.spotifyAuth.authorize(config)
-    .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
-      this.result = { access_token: accessToken, expires_in: expiresAt, ref: encryptedRefreshToken };
-    });
-    console.log(this.result)
+    cordova.plugins.spotifyAuth
+      .authorize(config)
+      .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
+        this.accessToken = accessToken
+        console.log("this.accessToken: ", this.accessToken);
+        this.result = {
+          access_token: accessToken,
+          expires_in: expiresAt,
+          ref: encryptedRefreshToken
+        };
+        console.log(`Access Token expires in ${expiresAt - Date.now()}ms.`);
+      });
+    console.log("result: ", this.result);
   }
-
   private headers = new HttpHeaders({
-    Authorization: `Bearer ${this.result}`
+    Authorization: `Bearer ${this.accessToken}`
   });
 
+  logout() {
+    cordova.plugins.spotifyAuth.forget();
+  }
+
   searchSpotify(search): Observable<ISpotifyResponse> {
-    console.log(this.result)
-    console.log(this.headers)
+    console.log(this.headers.getAll('authorization'));
     return this._http
       .get<ISpotifyResponse>(this.endpoint + search + this.options, {
         headers: this.headers
