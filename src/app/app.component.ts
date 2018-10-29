@@ -18,6 +18,10 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+<<<<<<< HEAD
+=======
+    public spotifyService: SpotifyService
+>>>>>>> 60bdf6aa876ba49e76874d1a9c82bd9680b437dc
   ) {
     this.initializeApp();
   }
@@ -49,6 +53,7 @@ export class AppComponent {
       return false;
   }
   
+<<<<<<< HEAD
   result = {}
   authWithSpotify() {
     const config = {
@@ -69,6 +74,12 @@ export class AppComponent {
       this.result = { access_token: accessToken, expires_in: expiresAt, ref: encryptedRefreshToken };
     });
     console.log(this.result)
+=======
+  signInWithSpotify() {
+    this.spotifyService.authWithSpotify()
   }
-
+  spotifyLogout() {
+    this.spotifyService.logout()
+>>>>>>> 60bdf6aa876ba49e76874d1a9c82bd9680b437dc
+  }
 }

@@ -19,6 +19,8 @@ export class SpotifyService {
 
   constructor(private _http: HttpClient, private router: Router) {}
 
+  private accessToken: string = '';
+
   authWithSpotify() {
     const config = {
       clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
@@ -33,11 +35,28 @@ export class SpotifyService {
       tokenRefreshUrl: "https://jambox-app.herokuapp.com/refresh"
     };
 
-    cordova.plugins.spotifyAuth.authorize(config)
-    .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
-      this.result = { access_token: accessToken, expires_in: expiresAt, ref: encryptedRefreshToken };
-    });
-    console.log(this.result)
+    cordova.plugins.spotifyAuth
+      .authorize(config)
+      .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
+        this.accessToken = accessToken
+        console.log("this.accessToken: ", this.accessToken);
+        this.result = {
+          access_token: accessToken,
+          expires_in: expiresAt,
+          ref: encryptedRefreshToken
+        };
+        console.log(`Access Token expires in ${expiresAt - Date.now()}ms.`);
+      });
+    console.log("result: ", this.result);
+  }
+  // private headers = new HttpHeaders({
+  //   Authorization: `Bearer ${this.accessToken}`
+  // });
+
+  
+
+  logout() {
+    cordova.plugins.spotifyAuth.forget();
   }
 
   private headers = new HttpHeaders({
@@ -45,11 +64,20 @@ export class SpotifyService {
   });
 
   searchSpotify(search): Observable<ISpotifyResponse> {
+<<<<<<< HEAD
     console.log(this.result)
     console.log(this.headers)
     return this._http
       .get<ISpotifyResponse>(this.endpoint + search + this.options, {
         headers: this.headers
+=======
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append("Authorization", "Bearer "+this.accessToken)
+    console.log(headers.getAll('authorization'));
+    return this._http
+      .get<ISpotifyResponse>(this.endpoint + search + this.options, {
+        headers: headers
+>>>>>>> 60bdf6aa876ba49e76874d1a9c82bd9680b437dc
       })
       .pipe(tap(res => res.tracks, error => (this.errorMessage = <any>error)));
   }
