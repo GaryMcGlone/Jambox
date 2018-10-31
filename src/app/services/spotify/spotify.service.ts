@@ -11,15 +11,15 @@ declare var cordova: any;
   providedIn: "root"
 })
 export class SpotifyService {
+  
   private endpoint = "https://api.spotify.com/v1/search?q=";
   private options = "&type=track&market=US&limit=15&offset=0";
   private errorMessage: string;
+  private accessToken: string = '';
 
   result = {};
 
   constructor(private _http: HttpClient, private router: Router) {}
-
-  private accessToken: string = '';
 
   authWithSpotify() {
     const config = {
@@ -39,29 +39,22 @@ export class SpotifyService {
       .authorize(config)
       .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
         this.accessToken = accessToken
-        console.log("this.accessToken: ", this.accessToken);
         this.result = {
           access_token: accessToken,
           expires_in: expiresAt,
           ref: encryptedRefreshToken
         };
-        console.log(`Access Token expires in ${expiresAt - Date.now()}ms.`);
       });
-    console.log("result: ", this.result);
   }
-  // private headers = new HttpHeaders({
-  //   Authorization: `Bearer ${this.accessToken}`
-  // });
-
   
-
   logout() {
     cordova.plugins.spotifyAuth.forget();
   }
+
   searchSpotify(search): Observable<ISpotifyResponse> {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append("Authorization", "Bearer "+this.accessToken)
-    console.log(headers.getAll('authorization'));
+    
     return this._http
       .get<ISpotifyResponse>(this.endpoint + search + this.options, {
         headers: headers
