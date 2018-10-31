@@ -9,6 +9,7 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { HttpClientModule } from "@angular/common/http";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from "../environments/environment";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -18,7 +19,6 @@ import { CreateSongModalPageModule } from './pages/create-song-modal/create-song
 import "hammerjs";
 import { SpotifySearchComponent } from './components/spotify-search/spotify-search.component';
 import { SpotifySearchResultComponent } from './components/spotify-search-result/spotify-search-result.component';
-import {LoginPageModule} from './login/login.module';
 import { YoutubeSearchComponent } from './components/youtube-search/youtube-search.component';
 import { YoutubeSearchResultComponent } from './components/youtube-search-result/youtube-search-result.component'
 import { YouTubeApiService } from "./services/youtube/youtube-api.service";
@@ -41,6 +41,7 @@ import { CreateSongModalPage } from "./pages/create-song-modal/create-song-modal
   providers: [
     StatusBar,
     SplashScreen,
+    AngularFireAuth,
     YouTubeApiService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

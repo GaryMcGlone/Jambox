@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>signUp</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label color="primary" stacked>Email:</ion-label>
+    <ion-input #email type="email" placeholder="Email Input"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" stacked>Password:</ion-label>
+    <ion-input #password type="password" placeholder="Password Input"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" stacked>Display Name:</ion-label>
+    <ion-input #displayName type="text" placeholder="Password Input"></ion-input>
+  </ion-item>
+  <button ion-button round (click)="firebaseSignUp(email.value, password.value, displayName.value)" ion-button round>Sign Up</button>
+</ion-content>
