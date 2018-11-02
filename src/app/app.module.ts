@@ -9,24 +9,31 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { HttpClientModule } from "@angular/common/http";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireModule } from "@angular/fire";
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from "@angular/fire/auth";
 import { environment } from "../environments/environment";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { CreateSongModalPageModule } from './pages/create-song-modal/create-song-modal.module';
+import { CreateSongModalPageModule } from "./pages/create-song-modal/create-song-modal.module";
 
 import "hammerjs";
-import { SpotifySearchComponent } from './components/spotify-search/spotify-search.component';
-import { SpotifySearchResultComponent } from './components/spotify-search-result/spotify-search-result.component';
-import { YoutubeSearchComponent } from './components/youtube-search/youtube-search.component';
-import { YoutubeSearchResultComponent } from './components/youtube-search-result/youtube-search-result.component'
+import { SpotifySearchComponent } from "./components/spotify-search/spotify-search.component";
+import { SpotifySearchResultComponent } from "./components/spotify-search-result/spotify-search-result.component";
+import { YoutubeSearchComponent } from "./components/youtube-search/youtube-search.component";
+import { YoutubeSearchResultComponent } from "./components/youtube-search-result/youtube-search-result.component";
 import { YouTubeApiService } from "./services/youtube/youtube-api.service";
 import { CreateSongModalPage } from "./pages/create-song-modal/create-song-modal.page";
+import { NativeStorageOriginal } from "@ionic-native/native-storage";
+
 @NgModule({
-  declarations: [AppComponent, SpotifySearchComponent, SpotifySearchResultComponent
-    , YoutubeSearchComponent, YoutubeSearchResultComponent ],
-  entryComponents: [ CreateSongModalPage ],
+  declarations: [
+    AppComponent,
+    SpotifySearchComponent,
+    SpotifySearchResultComponent,
+    YoutubeSearchComponent,
+    YoutubeSearchResultComponent
+  ],
+  entryComponents: [CreateSongModalPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
@@ -36,7 +43,8 @@ import { CreateSongModalPage } from "./pages/create-song-modal/create-song-modal
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    CreateSongModalPageModule
+    CreateSongModalPageModule,
+    NativeStorageOriginal
   ],
   providers: [
     StatusBar,

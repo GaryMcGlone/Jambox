@@ -9,6 +9,7 @@ import { IPost } from '../../interfaces/post-interface';
 })
 export class PostListComponent implements OnInit {
   posts: IPost[] = [];
+  searchResults : IPost[] = []
   errorMessage:string;
   cssClass: string;
   constructor(private databaseService: DatabaseService) { }
