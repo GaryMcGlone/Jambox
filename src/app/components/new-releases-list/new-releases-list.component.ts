@@ -8,6 +8,9 @@ import { Results, NewReleases } from '../../interfaces/new-release.interface';
 })
 export class NewReleasesListComponent implements OnInit {
   private albums: Results[];
+  slideOpts = {
+    effect: 'flip'
+  }
   constructor(private newReleasesService: NewReleasesService ) { }
 
   ngOnInit() {
