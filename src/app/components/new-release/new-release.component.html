@@ -1,3 +1,13 @@
-<p>
-  new-release works!
-</p>
+<ion-card *ngIf="album" >
+  <ion-img [src]="album.artworkUrl100"></ion-img>
+  <ion-card-header style="text-align:center">
+    <ion-card-subtitle>{{ album.name }}</ion-card-subtitle>
+    <ion-card-title>{{ album.artistName }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+  </ion-card-content>
+  <ion-card-content>
+      <ion-icon name="heart-empty"></ion-icon>
+      <ion-icon name="chatbubbles"></ion-icon>
+  </ion-card-content>
+</ion-card>

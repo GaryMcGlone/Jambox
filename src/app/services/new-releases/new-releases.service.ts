@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
-import { Results } from "../../interfaces/new-release.interface";
+import { Results, NewReleases } from "../../interfaces/new-release.interface";
 
 @Injectable({
   providedIn: "root"
@@ -15,13 +15,13 @@ export class NewReleasesService {
 
   constructor(private http: HttpClient) {}
 
-  getAlbums(): Observable<Results[]> {
+  getAlbums(): Observable<NewReleases> {
     // let headers: HttpHeaders = new HttpHeaders();
     // headers.append("X-Requested-With","XMLHttpRequest");
     // headers.append("Access-Control-Allow-Credentials", "true" );
     // headers.append('Access-Control-Allow-Credentials', 'localhost:8100')
     return this.http
-      .get<Results[]>(this.cors+this.newReleasesURL)
-      .pipe(tap(res => console.log(res)));
+      .get<NewReleases>(this.cors+this.newReleasesURL)
+      .pipe(tap(res => console.log(res.feed.results)));
   }
 }

@@ -1,1 +1,6 @@
 <h2> New Releases </h2>
+<ion-list no-lines>
+  <ion-item  *ngFor="let album of albums" text-wrap>
+      <app-new-release [album]="album"></app-new-release>
+    </ion-item>
+</ion-list>
