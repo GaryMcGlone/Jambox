@@ -54,7 +54,7 @@ export class SpotifyService {
   searchSpotify(search): Observable<ISpotifyResponse> {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append("Authorization", "Bearer "+this.accessToken)
-    
+
     return this._http
       .get<ISpotifyResponse>(this.endpoint + search + this.options, {
         headers: headers

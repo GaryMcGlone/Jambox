@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../../services/database/database.service';
 import { IPost } from '../../interfaces/post-interface';
-import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-post-list',
@@ -9,7 +8,7 @@ import { Post } from '../../models/post.model';
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-  posts: Post[] = [];
+  posts: IPost[] = [];
   errorMessage:string;
   cssClass: string;
   constructor(private databaseService: DatabaseService) { }

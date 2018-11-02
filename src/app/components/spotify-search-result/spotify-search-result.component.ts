@@ -14,6 +14,7 @@ export class SpotifySearchResultComponent implements OnInit {
   @Input()
   item: IItems;
   pipe = new DatePipe("en-IE");
+  selectedSong: Post;
   constructor(private modalController: ModalController, private databaseService: DatabaseService) {}
 
   ngOnInit() {}
@@ -22,7 +23,7 @@ export class SpotifySearchResultComponent implements OnInit {
     const date = new Date();
     const now = this.pipe.transform(date, "medium");
 
-    let currentSong = {
+    this.selectedSong = {
       songId: songId,
       artistName: artistName,
       songName: songName,
@@ -30,7 +31,7 @@ export class SpotifySearchResultComponent implements OnInit {
       albumArt: albumArt, 
       createdAt: now
     };
-    this.presentModal(currentSong);
+    this.presentModal(this.selectedSong);
   }
 
   async presentModal(currentSong) {
@@ -43,5 +44,11 @@ export class SpotifySearchResultComponent implements OnInit {
       componentProps: props, 
     });
     return await modal.present();
+  }
+  performSearch(songId) {
+    console.log("searching for:", songId)
+    this.databaseService.searchForASong(songId).subscribe(posts => {
+      console.log(posts)
+    })
   }
 }

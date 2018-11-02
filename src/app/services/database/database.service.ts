@@ -1,29 +1,51 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import {
   AngularFirestoreCollection,
   AngularFirestore
 } from "@angular/fire/firestore";
-import { Post } from "../../models/post.model";
+import { IPost } from "../../interfaces/post-interface";
 
 @Injectable({
   providedIn: "root"
 })
 export class DatabaseService {
-  postsCollection: AngularFirestoreCollection<Post>;
-  posts: Observable<Post[]>;
+  postsCollection: AngularFirestoreCollection<IPost>;
+  posts: Observable<IPost[]>;
   errorMessage: string;
 
   constructor(private _http: HttpClient, private _afs: AngularFirestore) {
-    this.postsCollection = _afs.collection<Post>("posts", ref => ref.orderBy("createdAt", "desc"));
+    // this.postsCollection = _afs.collection<IPost>("posts", ref =>
+    //   ref.orderBy("createdAt", "desc")
+    // );
   }
 
-  getPosts(): Observable<Post[]> {
-    return (this.posts = this.postsCollection.valueChanges());
+  getPosts(): Observable<IPost[]> {
+    this.posts = this.postsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IPost;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+    return this.posts;
   }
+
   addPost(post): void {
     this.postsCollection.add(post);
+  }
+
+  searchForASong(songId): Observable<IPost[]> {
+    console.log("from service", songId);
+    this.postsCollection = this._afs.collection<IPost>("posts", ref => {
+      return ref.where("songId", "==", songId).orderBy("createdAt", "desc");
+    });
+
+    this.posts = this.postsCollection.valueChanges();
+    return this.posts;
   }
 }
