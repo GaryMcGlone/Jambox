@@ -11,10 +11,11 @@ import { DatePipe } from "@angular/common";
   styleUrls: ["./spotify-search-result.component.scss"]
 })
 export class SpotifySearchResultComponent implements OnInit {
-  @Input()
-  item: IItems;
+  
+  @Input() item: IItems;
   pipe = new DatePipe("en-IE");
   selectedSong: Post;
+
   constructor(private modalController: ModalController, private databaseService: DatabaseService) {}
 
   ngOnInit() {}
@@ -38,17 +39,18 @@ export class SpotifySearchResultComponent implements OnInit {
     let props = {
       post: currentSong
     }
-
     const modal = await this.modalController.create({
       component: CreateSongModalPage,
       componentProps: props, 
     });
     return await modal.present();
   }
+
   performSearch(songId) {
     console.log("searching for:", songId)
     this.databaseService.searchForASong(songId).subscribe(posts => {
       console.log(posts)
     })
   }
+
 }

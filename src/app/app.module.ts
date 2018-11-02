@@ -24,6 +24,8 @@ import { YoutubeSearchResultComponent } from "./components/youtube-search-result
 import { YouTubeApiService } from "./services/youtube/youtube-api.service";
 import { CreateSongModalPage } from "./pages/create-song-modal/create-song-modal.page";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
+import { NewReleaseComponent } from './components/new-release/new-release.component';
+import { NewReleasesListComponent } from './components/new-releases-list/new-releases-list.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { NativeStorage } from "@ionic-native/native-storage/ngx";
     SpotifySearchComponent,
     SpotifySearchResultComponent,
     YoutubeSearchComponent,
-    YoutubeSearchResultComponent
+    YoutubeSearchResultComponent,
   ],
   entryComponents: [CreateSongModalPage],
   imports: [

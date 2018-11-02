@@ -36,13 +36,21 @@ export class DatabaseService {
     this.postsCollection.add(post);
   }
 
+  // Search for a song in our database
   searchForASong(songId): Observable<IPost[]> {
     console.log("from service", songId);
     this.postsCollection = this._afs.collection<IPost>("posts", ref => {
       return ref.where("songId", "==", songId).orderBy("createdAt", "desc");
     });
-
-    this.posts = this.postsCollection.valueChanges();
+    this.posts = this.postsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IPost;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
     return this.posts;
   }
 }
