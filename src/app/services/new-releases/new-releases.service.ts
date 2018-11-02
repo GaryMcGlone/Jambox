@@ -9,7 +9,7 @@ import { Results, NewReleases } from "../../interfaces/new-release.interface";
 })
 export class NewReleasesService {
   private newReleasesURL =
-    "https://rss.itunes.apple.com/api/v1/us/apple-music/coming-soon/all/10/explicit.json";
+    "https://rss.itunes.apple.com/api/v1/us/apple-music/new-releases/all/15/explicit.json";
   
    private cors = "https://cors-anywhere.herokuapp.com/";
 

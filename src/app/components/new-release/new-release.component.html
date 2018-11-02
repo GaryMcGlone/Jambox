@@ -1,6 +1,6 @@
   <ion-card *ngIf="album" >
     <ion-img [src]="album.artworkUrl100" style="width:300px"></ion-img>
-    <ion-card-header style="text-align:center">
+    <ion-card-header text-wrap style="word-wrap: break-word; word-break: break-all;text-align: center;">
       <ion-card-subtitle>{{ album.name }}</ion-card-subtitle>
       <ion-card-subtitle>{{ album.artistName }}</ion-card-subtitle>
     </ion-card-header>

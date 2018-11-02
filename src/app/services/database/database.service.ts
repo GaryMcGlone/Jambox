@@ -2,7 +2,10 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { AngularFirestoreCollection, AngularFirestore } from "@angular/fire/firestore";
+import {
+  AngularFirestoreCollection,
+  AngularFirestore
+} from "@angular/fire/firestore";
 import { IPost } from "../../interfaces/post-interface";
 
 @Injectable({
