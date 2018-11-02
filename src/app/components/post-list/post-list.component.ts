@@ -16,7 +16,6 @@ export class PostListComponent implements OnInit {
 
   ngOnInit() {
     this.databaseService.getPosts().subscribe(posts => {
-      console.log(posts),
         (this.posts = posts),
         error => (this.errorMessage = <any>error);
     });

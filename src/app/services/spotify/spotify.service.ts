@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { Platform } from "@ionic/angular";
-import { NativeStorageOriginal } from "@ionic-native/native-storage";
+import { NativeStorage } from "@ionic-native/native-storage/ngx";
 
 declare var cordova: any;
 
@@ -20,13 +20,13 @@ export class SpotifyService {
 
   result = {};
 
-  constructor( private _http: HttpClient, private router: Router, private platform: Platform, private storage: NativeStorageOriginal) {
+  constructor( private _http: HttpClient, private router: Router, private platform: Platform, private storage: NativeStorage ) {
     this.platform.ready().then(() => {
       this.storage.getItem('logged_in').then(res => {
         if(res){
           this.authWithSpotify()
         }
-      })
+      }).catch(err => console.log(err))
     })
   }
 

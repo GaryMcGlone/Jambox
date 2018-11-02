@@ -10,23 +10,23 @@
 
         <ion-segment (ionChange)="segmentChanged($event)">
           <ion-segment-button value="spotify" checked>
-              <ion-icon style="color:gray;font-size: 22px" src="/assets/icon/spotify.svg"></ion-icon>
+            <ion-icon style="color:gray;font-size: 22px" src="/assets/icon/spotify.svg"></ion-icon>
           </ion-segment-button>
           <ion-segment-button value="youtube">
-              <ion-icon name="logo-youtube"></ion-icon>
+            <ion-icon name="logo-youtube"></ion-icon>
           </ion-segment-button>
         </ion-segment>
 
         <div *ngIf="spotifySelectedCheck()" no-padding>
-            <app-spotify-search></app-spotify-search >
-            <ion-button size="small" (click)="signInWithSpotify()">Connect Spotify</ion-button>
-            <ion-button size="small" (click)="spotifyLogout()">Disconnect Spotify</ion-button>
-        </div>    
+          <app-spotify-search></app-spotify-search>
+          <ion-button size="small" (click)="signInWithSpotify()">Connect Spotify</ion-button>
+          <ion-button size="small" (click)="spotifyLogout()">Disconnect Spotify</ion-button>
+        </div>
 
         <div *ngIf="!spotifySelectedCheck()">
-            <app-youtube-search></app-youtube-search>
-            <ion-button size="small">YouTube</ion-button>
-        </div>  
+          <app-youtube-search></app-youtube-search>
+          <ion-button size="small">YouTube</ion-button>
+        </div>
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>

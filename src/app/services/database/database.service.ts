@@ -1,11 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import {
-  AngularFirestoreCollection,
-  AngularFirestore
-} from "@angular/fire/firestore";
+import { AngularFirestoreCollection, AngularFirestore } from "@angular/fire/firestore";
 import { IPost } from "../../interfaces/post-interface";
 
 @Injectable({
@@ -17,9 +14,9 @@ export class DatabaseService {
   errorMessage: string;
 
   constructor(private _http: HttpClient, private _afs: AngularFirestore) {
-    // this.postsCollection = _afs.collection<IPost>("posts", ref =>
-    //   ref.orderBy("createdAt", "desc")
-    // );
+    this.postsCollection = _afs.collection<IPost>("posts", ref =>
+      ref.orderBy("createdAt", "desc")
+    );
   }
 
   getPosts(): Observable<IPost[]> {
