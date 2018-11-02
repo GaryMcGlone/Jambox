@@ -9,7 +9,10 @@ import { Results, NewReleases } from '../../interfaces/new-release.interface';
 export class NewReleasesListComponent implements OnInit {
   private albums: Results[];
   slideOpts = {
-    effect: 'flip'
+    effect: 'flip',
+    spaceBetween: 10,
+    centeredSlides: true,
+    autoplayStop: true
   }
   constructor(private newReleasesService: NewReleasesService ) { }
 
@@ -18,6 +21,8 @@ export class NewReleasesListComponent implements OnInit {
       this.albums = data.feed.results
       console.log(this.albums)
     })
+
   }
+  
 
 }
