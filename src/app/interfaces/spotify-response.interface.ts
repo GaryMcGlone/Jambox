@@ -1,8 +1,10 @@
 interface ISpotifyResponse {
     tracks: ITrack;
+    item: IItems;
   }
   interface ITrack {
     items: IItems[];
+    
   }
   interface IItems {
     artists: IArtists[];
