@@ -31,7 +31,7 @@ import { NativeStorage } from "@ionic-native/native-storage/ngx";
     SpotifySearchComponent,
     SpotifySearchResultComponent,
     YoutubeSearchComponent,
-    YoutubeSearchResultComponent
+    YoutubeSearchResultComponent,
   ],
   entryComponents: [CreateSongModalPage],
   imports: [

@@ -12,22 +12,29 @@ declare var cordova: any;
   providedIn: "root"
 })
 export class SpotifyService {
-  private endpoint = "https://api.spotify.com/v1/search?q=";
+  private searchEndpoint = "https://api.spotify.com/v1/search?q=";
+  private currentPlayingTrackEndpoint =
+    "	https://api.spotify.com/v1/me/player/currently-playing";
+ 
   private options = "&type=track&market=US&limit=15&offset=0";
   private errorMessage: string;
+ 
   private accessToken: string = "";
   loggedIn = false;
 
   result = {};
 
-  constructor( private _http: HttpClient, private router: Router, private platform: Platform, private storage: NativeStorage ) {
+  constructor(private _http: HttpClient, private platform: Platform, private storage: NativeStorage) {
     this.platform.ready().then(() => {
-      this.storage.getItem('logged_in').then(res => {
-        if(res){
-          this.authWithSpotify()
-        }
-      }).catch(err => console.log(err))
-    })
+      this.storage
+        .getItem("logged_in")
+        .then(res => {
+          if (res) {
+            this.authWithSpotify();
+          }
+        })
+        .catch(err => console.log(err));
+    });
   }
 
   authWithSpotify() {
@@ -38,7 +45,8 @@ export class SpotifyService {
         "streaming",
         "playlist-read-private",
         "user-read-email",
-        "user-read-private"
+        "user-read-private",
+        "user-read-currently-playing"
       ],
       tokenExchangeUrl: "https://jambox-app.herokuapp.com/exchange",
       tokenRefreshUrl: "https://jambox-app.herokuapp.com/refresh"
@@ -48,8 +56,8 @@ export class SpotifyService {
       .authorize(config)
       .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
         this.accessToken = accessToken;
-        this.loggedIn = true
-        this.storage.setItem('logged_in', true)
+        this.loggedIn = true;
+        this.storage.setItem("logged_in", true);
         this.result = {
           access_token: accessToken,
           expires_in: expiresAt,
@@ -61,7 +69,7 @@ export class SpotifyService {
   logout() {
     cordova.plugins.spotifyAuth.forget();
     this.loggedIn = false;
-    this.storage.setItem('logged_in', false)
+    this.storage.setItem("logged_in", false);
   }
 
   searchSpotify(search): Observable<ISpotifyResponse> {
@@ -69,9 +77,20 @@ export class SpotifyService {
     headers = headers.append("Authorization", "Bearer " + this.accessToken);
 
     return this._http
-      .get<ISpotifyResponse>(this.endpoint + search + this.options, {
+      .get<ISpotifyResponse>(this.searchEndpoint + search + this.options, {
         headers: headers
       })
       .pipe(tap(res => res.tracks, error => (this.errorMessage = <any>error)));
+  }
+
+  getCurrentlyPlayingTrack() : Observable<ISpotifyResponse> {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append("Authorization", "Bearer " + this.accessToken);
+    console.log(headers.get('authorization'))
+    return this._http
+    .get<ISpotifyResponse>(this.currentPlayingTrackEndpoint , {
+      headers: headers
+    })
+    .pipe(tap(res => console.log(res), error => (this.errorMessage = <any>error)));
   }
 }
