@@ -3,62 +3,51 @@ import { Observable } from "rxjs";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
 import * as firebase from "firebase/";
+import { DatabaseService } from '../database/database.service'
+import { ToastController } from '@ionic/angular';
 @Injectable({
   providedIn: "root"
 })
 export class FirebaseAuthService {
   private user: Observable<firebase.User>;
-  loggedInStatus: boolean = false;
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
+  constructor(private _firebaseAuth: AngularFireAuth,
+    private router: Router,
+    private dbService: DatabaseService,
+    private toastCtrl: ToastController) {
     this.user = _firebaseAuth.authState;
   }
 
+  async presentToast(message: string) {
+    const toast = await this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      position: 'top',
+    });
+    toast.present();
+  }
   signup(email: string, password: string, name: string) {
     this._firebaseAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
+        let registrationDate = new Date()
+        this.dbService.storeUser(email, res.user.uid, name)
         this.sendEmailVerification();
-        return firebase
-          .database()
-          .ref("users/" + res.user.uid)
-          .set({
-            email: res.user.email,
-            uid: res.user.uid,
-            registrationDate: new Date().toString(),
-            name: name
-          })
-          .then(() => {
-            firebase.auth().signOut();
-            this.router.navigate(["loginMenu"]);
-          });
+        this.presentToast("email verification sent")
       })
       .catch(err => {
-        console.log(err);
+        this.presentToast(err.message)
       });
   }
 
   sendEmailVerification() {
     this._firebaseAuth.authState.subscribe(user => {
       user.sendEmailVerification().then(() => {
-        console.log("email sent");
+
       });
     });
   }
 
-  doRegister(value) {
-    return new Promise<any>((resolve, reject) => {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(value.email, value.password)
-        .then(
-          res => {
-            resolve(res);
-          },
-          err => reject(err)
-        );
-    });
-  }
 
   doLogin(email: string, password: string) {
     return new Promise<any>((resolve, reject) => {
@@ -68,7 +57,6 @@ export class FirebaseAuthService {
         .then(
           res => {
             resolve(res);
-            this.loggedInStatus = true;
             this.router.navigate([""]);
           },
           err => reject(err)
@@ -78,13 +66,9 @@ export class FirebaseAuthService {
 
   doLogout() {
     return new Promise((resolve, reject) => {
-      if (firebase.auth().currentUser) {
-        this._firebaseAuth.auth.signOut();
-        resolve();
-      } else {
-        reject();
-      }
-      this.loggedInStatus = false;
+      firebase.auth().signOut();
+      this.router.navigate(["loginmenu"]);
+
     });
   }
 
@@ -92,8 +76,19 @@ export class FirebaseAuthService {
     if (firebase.auth().currentUser != null) {
       return true;
     } else {
+      this.router.navigate(["loginmenu"]);
       return false;
-      this.router.navigate(["loginMenu"]);
+
     }
   }
+
+
 }
+
+
+/**
+  email: res.user.email,
+            uid: res.user.uid,
+            registrationDate: new Date().toString(),
+            name: name
+ */
