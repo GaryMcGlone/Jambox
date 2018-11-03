@@ -15,10 +15,15 @@ export class PostListComponent implements OnInit {
   constructor(private databaseService: DatabaseService) { }
 
   ngOnInit() {
+    //get all the posts initially 
     this.databaseService.getPosts().subscribe(posts => {
         (this.posts = posts),
         error => (this.errorMessage = <any>error);
     });
+
+    //listen for search results from the database service
+      
+
     this.cssClass = "animated slideInUp faster"
   }
 

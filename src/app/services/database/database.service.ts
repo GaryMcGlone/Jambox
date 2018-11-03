@@ -40,12 +40,13 @@ export class DatabaseService {
   }
 
   // Search for a song in our database
+  searchResults: Observable<IPost[]>
   searchForASong(songId): Observable<IPost[]> {
     console.log("from service", songId);
     this.postsCollection = this._afs.collection<IPost>("posts", ref => {
       return ref.where("songId", "==", songId).orderBy("createdAt", "desc");
     });
-    this.posts = this.postsCollection.snapshotChanges().pipe(
+    this.searchResults = this.postsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
           const data = a.payload.doc.data() as IPost;
@@ -54,6 +55,6 @@ export class DatabaseService {
         })
       )
     );
-    return this.posts;
+    return this.searchResults;
   }
 }

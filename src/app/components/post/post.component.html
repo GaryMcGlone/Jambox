@@ -1,4 +1,4 @@
-<ion-card *ngIf="post" >
+<ion-card *ngIf="post && !searchResult" >
   <ion-img [src]="post.albumArt"></ion-img>
   <ion-card-header style="text-align:center">
     <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>
@@ -14,6 +14,26 @@
       <ion-icon name="chatbubbles"></ion-icon>
     <div class="timestamp">
         {{ post.createdAt | dateTimeConvert:'' }}
+    </div>
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="searchResult" >
+  <ion-img [src]="searchResult.albumArt"></ion-img>
+  <ion-card-header style="text-align:center">
+    <ion-card-subtitle>{{ searchResult.songName }}</ion-card-subtitle>
+    <ion-card-title>{{ searchResult.artistName }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <div text-wrap style="word-wrap: break-word; word-break: break-all;">
+        Username: {{ searchResult.caption }}
+    </div>
+  </ion-card-content>
+  <ion-card-content>
+      <ion-icon name="heart-empty"></ion-icon>
+      <ion-icon name="chatbubbles"></ion-icon>
+    <div class="timestamp">
+        {{ searchResult.createdAt | dateTimeConvert:'' }}
     </div>
   </ion-card-content>
 </ion-card>

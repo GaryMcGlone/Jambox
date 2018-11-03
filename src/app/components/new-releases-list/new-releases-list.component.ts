@@ -8,11 +8,13 @@ import { Results } from '../../interfaces/new-release.interface';
 })
 export class NewReleasesListComponent implements OnInit {
   private albums: Results[];
+ 
   slideOpts = {
     effect: 'flip',
     spaceBetween: 10,
     centeredSlides: true,
-    autoplayStop: true
+    autoplayStop: true,
+    slidesPerView: 1.5
   }
   constructor(private newReleasesService: NewReleasesService ) { }
 
