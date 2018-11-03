@@ -12,9 +12,6 @@ export class SignUpPage implements OnInit {
   ngOnInit() {
   }
   firebaseSignUp(email: string, password: string, displayName: string) {
-   console.log("email:" , email);
-   console.log("password:" , password);
-   console.log("name:" , displayName);
    this.auth.signup(email, password, displayName);
   }
 }

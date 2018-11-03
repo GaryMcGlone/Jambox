@@ -7,6 +7,8 @@ import {
   AngularFirestore
 } from "@angular/fire/firestore";
 import { IPost } from "../../interfaces/post-interface";
+import { IUser } from "../../interfaces/user-interface";
+import { Datetime } from "@ionic/angular";
 
 @Injectable({
   providedIn: "root"
@@ -20,6 +22,7 @@ export class DatabaseService {
     this.postsCollection = _afs.collection<IPost>("posts", ref =>
       ref.orderBy("createdAt", "desc")
     );
+
   }
 
   getPosts(): Observable<IPost[]> {
@@ -55,5 +58,18 @@ export class DatabaseService {
       )
     );
     return this.posts;
+  }
+
+  storeUser(email: string, userId: string, username: string) {
+    let user: IUser = {
+      email: email,
+      userId: userId,
+      username: username    
+    }
+
+    this._afs.collection('users').doc(userId).set( {
+      email: email,
+      username: username 
+    });
   }
 }
