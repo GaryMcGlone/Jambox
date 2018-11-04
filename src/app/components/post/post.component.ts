@@ -9,12 +9,21 @@ import { Post } from '../../models/post.model';
 export class PostComponent implements OnInit {
   @Input() post: Post;
   @Input() searchResult: Post;
-  createdAt: string;
+  
+  private  buttonFill = 'outline'
 
   constructor() { }
 
   ngOnInit() {
     
+  }
+ 
+  follow() {
+    if(this.buttonFill =='outline') {
+       this.buttonFill = 'solid'  
+    } else {
+      this.buttonFill = 'outline'
+    }
   }
 
 }

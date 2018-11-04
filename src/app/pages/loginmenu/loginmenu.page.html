@@ -1,10 +1,11 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>loginmenu</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
-  <button (click)="goToLogin()" ion-button round>Log In</button>
-  <button (click)="goToSignup()" ion-button round>Sign Up</button>
+ 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Footer</ion-title>
+    <ion-button (click)="toggle()" [fill]="buttonFill" size="small" shape="round">Log In</ion-button>
+    <ion-button (click)="goToSignup()" fill="outline" shape="round">Sign Up</ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import {
@@ -8,7 +7,6 @@ import {
 } from "@angular/fire/firestore";
 import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
-import { Datetime } from "@ionic/angular";
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +16,7 @@ export class DatabaseService {
   posts: Observable<IPost[]>;
   errorMessage: string;
 
-  constructor(private _http: HttpClient, private _afs: AngularFirestore) {
+  constructor(private _afs: AngularFirestore) {
     this.postsCollection = _afs.collection<IPost>("posts", ref =>
       ref.orderBy("createdAt", "desc")
     );
@@ -45,7 +43,6 @@ export class DatabaseService {
   // Search for a song in our database
   searchResults: Observable<IPost[]>
   searchForASong(songId): Observable<IPost[]> {
-    console.log("from service", songId);
     this.postsCollection = this._afs.collection<IPost>("posts", ref => {
       return ref.where("songId", "==", songId).orderBy("createdAt", "desc");
     });

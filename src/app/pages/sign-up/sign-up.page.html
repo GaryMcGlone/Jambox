@@ -17,5 +17,6 @@
     <ion-label color="primary" stacked>Display Name:</ion-label>
     <ion-input #displayName type="text" placeholder="Password Input"></ion-input>
   </ion-item>
-  <button ion-button round (click)="firebaseSignUp(email.value, password.value, displayName.value)" ion-button round>Sign Up</button>
+  <button ion-button round (click)="signUp(email.value, password.value, displayName.value)" ion-button round>Sign Up</button>
+  <button ion-button round (click)="navigateToLogin()" ion-button round>Already A User?</button>
 </ion-content>

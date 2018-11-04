@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service'
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.page.html',
@@ -7,11 +8,17 @@ import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.s
 })
 export class SignUpPage implements OnInit {
 
-  constructor(private auth: FirebaseAuthService) { }
+  constructor(private auth: FirebaseAuthService, private router: Router) { }
 
   ngOnInit() {
   }
-  firebaseSignUp(email: string, password: string, displayName: string) {
-   this.auth.signup(email, password, displayName);
+
+  signUp(email: string, password: string, displayName: string) {
+   this.auth.signUp(email, password, displayName);
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['login'])
   }
 }
+

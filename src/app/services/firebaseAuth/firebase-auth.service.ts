@@ -26,7 +26,8 @@ export class FirebaseAuthService {
     });
     toast.present();
   }
-  signup(email: string, password: string, name: string) {
+
+  signUp(email: string, password: string, name: string) {
     this._firebaseAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
@@ -67,8 +68,7 @@ export class FirebaseAuthService {
   doLogout() {
     return new Promise((resolve, reject) => {
       firebase.auth().signOut();
-      this.router.navigate(["loginmenu"]);
-
+      this.router.navigate(["login"]);
     });
   }
 
@@ -76,13 +76,10 @@ export class FirebaseAuthService {
     if (firebase.auth().currentUser != null) {
       return true;
     } else {
-      this.router.navigate(["loginmenu"]);
+      this.router.navigate(["login"]);
       return false;
-
     }
   }
-
-
 }
 
 

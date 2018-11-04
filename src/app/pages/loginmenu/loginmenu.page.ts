@@ -7,6 +7,7 @@ import { Router } from '@angular/router'
 })
 export class LoginmenuPage implements OnInit {
 
+
   constructor(private router: Router) { }
 
   ngOnInit() {

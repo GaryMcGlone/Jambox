@@ -13,5 +13,6 @@
     <ion-label color="primary" stacked>Password:</ion-label>
     <ion-input #password type="password" placeholder="Password Input"></ion-input>
   </ion-item>
-  <button ion-button round (click)="firebaseLogin(email.value, password.value)" ion-button round>Log In</button>
+  <button ion-button round (click)="login(email.value, password.value)" ion-button round>Log In</button>
+  <button ion-button round (click)="navigateToSignUp()" ion-button round>Not A User? Sign Up Here</button>
 </ion-content>
