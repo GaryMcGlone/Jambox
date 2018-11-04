@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
-import { Router } from "@angular/router";
 import { Platform } from "@ionic/angular";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
 
@@ -13,6 +12,7 @@ declare var cordova: any;
 })
 export class SpotifyService {
   private searchEndpoint = "https://api.spotify.com/v1/search?q=";
+ 
   private currentPlayingTrackEndpoint =
     "	https://api.spotify.com/v1/me/player/currently-playing";
  
@@ -86,7 +86,7 @@ export class SpotifyService {
   getCurrentlyPlayingTrack() : Observable<ISpotifyResponse> {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append("Authorization", "Bearer " + this.accessToken);
-    console.log(headers.get('authorization'))
+
     return this._http
     .get<ISpotifyResponse>(this.currentPlayingTrackEndpoint , {
       headers: headers

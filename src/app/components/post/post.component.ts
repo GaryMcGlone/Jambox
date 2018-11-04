@@ -9,7 +9,7 @@ import { Post } from '../../models/post.model';
 export class PostComponent implements OnInit {
   @Input() post: Post;
   @Input() searchResult: Post;
-  
+  private btnValue = 'follow'
   private  buttonFill = 'outline'
 
   constructor() { }
@@ -20,8 +20,10 @@ export class PostComponent implements OnInit {
  
   follow() {
     if(this.buttonFill =='outline') {
+       this.btnValue = 'unfollow'
        this.buttonFill = 'solid'  
     } else {
+      this.btnValue = 'follow'
       this.buttonFill = 'outline'
     }
   }

@@ -37,9 +37,7 @@ export class FirebaseAuthService {
         this.dbService.storeUser(email, res.user.uid, name);
         this.sendEmailVerification();
         this.presentToast("email verification sent");
-        if(res.user.emailVerified){
-          this.doLogin(email,password)
-        }
+        this.router.navigate(['login'])
       })
       .catch(err => {
         this.presentToast(err.message);

@@ -1,4 +1,4 @@
-<ion-card *ngIf="post && !searchResult" >
+<ion-card mode='ios' *ngIf="post && !searchResult" >
   <ion-img [src]="post.albumArt"></ion-img>
   <ion-card-header style="text-align:center">
     <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>
@@ -12,7 +12,7 @@
   <ion-card-content style="margin:8px">
       <ion-icon name="heart-empty"></ion-icon>
       <ion-icon name="chatbubbles"></ion-icon>
-      <ion-button (click)="follow()" [fill]="buttonFill" size="small" shape="round">Follow</ion-button>
+      <ion-button (click)="follow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
     <div class="timestamp">
         {{ post.createdAt | dateTimeConvert:'' }}
     </div>
