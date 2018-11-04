@@ -1,22 +1,23 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>signUp</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding>
+<ion-content padding class="background">
+  <h2>Sign Up</h2>
   <ion-item>
-    <ion-label color="primary" stacked>Email:</ion-label>
-    <ion-input #email type="email" placeholder="Email Input"></ion-input>
+    <ion-label position='floating' color="light" stacked>Username</ion-label>
+    <ion-input #displayName type="text"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" stacked>Password:</ion-label>
-    <ion-input #password type="password" placeholder="Password Input"></ion-input>
+    <ion-label position='floating' color='light' stacked>Email</ion-label>
+    <ion-input #email type="email"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" stacked>Display Name:</ion-label>
-    <ion-input #displayName type="text" placeholder="Password Input"></ion-input>
+    <ion-label color="light" position='floating' stacked>Password</ion-label>
+    <ion-input #password type="password"></ion-input>
   </ion-item>
-  <button ion-button round (click)="signUp(email.value, password.value, displayName.value)" ion-button round>Sign Up</button>
-  <button ion-button round (click)="navigateToLogin()" ion-button round>Already A User?</button>
+  <ion-button style="margin-top:16px" expand='block' (click)="signUp(email.value, password.value, displayName.value)">
+    <ion-icon slot="end" name="log-in"></ion-icon>
+    Sign Up
+  </ion-button>
+  <ion-button style="margin-top:16px" expand='block' (click)="navigateToLogin()">
+    <ion-icon slot="end" name="arrow-round-forward"></ion-icon>
+    Already A User? Login
+  </ion-button>
 </ion-content>

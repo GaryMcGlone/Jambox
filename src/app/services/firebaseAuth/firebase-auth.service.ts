@@ -3,18 +3,20 @@ import { Observable } from "rxjs";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
 import * as firebase from "firebase/";
-import { DatabaseService } from '../database/database.service'
-import { ToastController } from '@ionic/angular';
+import { DatabaseService } from "../database/database.service";
+import { ToastController } from "@ionic/angular";
 @Injectable({
   providedIn: "root"
 })
 export class FirebaseAuthService {
   private user: Observable<firebase.User>;
 
-  constructor(private _firebaseAuth: AngularFireAuth,
+  constructor(
+    private _firebaseAuth: AngularFireAuth,
     private router: Router,
     private dbService: DatabaseService,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController
+  ) {
     this.user = _firebaseAuth.authState;
   }
 
@@ -22,7 +24,7 @@ export class FirebaseAuthService {
     const toast = await this.toastCtrl.create({
       message: message,
       duration: 2000,
-      position: 'top',
+      position: "top"
     });
     toast.present();
   }
@@ -31,24 +33,28 @@ export class FirebaseAuthService {
     this._firebaseAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
-        let registrationDate = new Date()
-        this.dbService.storeUser(email, res.user.uid, name)
+        let registrationDate = new Date();
+        this.dbService.storeUser(email, res.user.uid, name);
         this.sendEmailVerification();
-        this.presentToast("email verification sent")
+        this.presentToast("email verification sent");
+        if(res.user.emailVerified){
+          this.doLogin(email,password)
+        }
       })
       .catch(err => {
-        this.presentToast(err.message)
+        this.presentToast(err.message);
       });
   }
 
   sendEmailVerification() {
     this._firebaseAuth.authState.subscribe(user => {
-      user.sendEmailVerification().then(() => {
-
-      });
+      user.sendEmailVerification()
+        .then(() => {})
+        .catch(err => {
+          this.presentToast(err.message);
+        });
     });
   }
-
 
   doLogin(email: string, password: string) {
     return new Promise<any>((resolve, reject) => {
@@ -62,6 +68,8 @@ export class FirebaseAuthService {
           },
           err => reject(err)
         );
+    }).catch(err => {
+      this.presentToast(err.message);
     });
   }
 
@@ -81,7 +89,6 @@ export class FirebaseAuthService {
     }
   }
 }
-
 
 /**
   email: res.user.email,

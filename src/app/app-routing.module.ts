@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'create-song', loadChildren: './pages/create-song-modal/create-song-modal.module#CreateSongModalPageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'signUp', loadChildren: './pages/sign-up/sign-up.module#SignUpPageModule' },
-  { path: 'loginmenu', loadChildren: './pages/loginmenu/loginmenu.module#LoginmenuPageModule' }
+
 
 
 
