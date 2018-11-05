@@ -16,7 +16,7 @@ export class DatabaseService {
   posts: Observable<IPost[]>;
   errorMessage: string;
 
-  constructor(private _afs: AngularFirestore, private authService: FirebaseAuthService) {
+  constructor(private _afs: AngularFirestore) {
     this.postsCollection = _afs.collection<IPost>("posts", ref =>
       ref.orderBy("createdAt", "desc")
     );

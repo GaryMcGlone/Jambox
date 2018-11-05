@@ -11,12 +11,19 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 app-spotify-search-result {
-    width: 100%;
+  width: 100%;
 }
 
 app-youtube-search-result {
     width: 100%;
 }
 ion-content.background {
-    --background: linear-gradient(to bottom, #fb9b7a, #f892a6, #d897ca, #a7a1db, #79a8d3);
+  --background: linear-gradient(
+    to bottom,
+    #fb9b7a,
+    #f892a6,
+    #d897ca,
+    #a7a1db,
+    #79a8d3
+  );
 }
