@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service'
 import { Router } from '@angular/router';
+import { SplitPaneCheckerService } from '../../services/split-pane-checker/split-pane-checker.service';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.page.html',
@@ -8,7 +9,10 @@ import { Router } from '@angular/router';
 })
 export class SignUpPage implements OnInit {
 
-  constructor(private auth: FirebaseAuthService, private router: Router) { }
+  constructor(private auth: FirebaseAuthService, private router: Router, private splitPaneChecker: SplitPaneCheckerService) { }
+  ionViewWillEnter() {
+    this.splitPaneChecker.setState(false)
+  }
 
   ngOnInit() {
   }

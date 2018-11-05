@@ -9,15 +9,17 @@ import { ToastController } from "@ionic/angular";
   providedIn: "root"
 })
 export class FirebaseAuthService {
+  
   private user: Observable<firebase.User>;
+  loggedInStatus: boolean = false;
 
   constructor(
-    private _firebaseAuth: AngularFireAuth,
+    private _afs: AngularFireAuth,
     private router: Router,
     private dbService: DatabaseService,
     private toastCtrl: ToastController
   ) {
-    this.user = _firebaseAuth.authState;
+    this.user = _afs.authState;
   }
 
   async presentToast(message: string) {
@@ -30,10 +32,9 @@ export class FirebaseAuthService {
   }
 
   signUp(email: string, password: string, name: string) {
-    this._firebaseAuth.auth
+    this._afs.auth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
-        let registrationDate = new Date();
         this.dbService.storeUser(email, res.user.uid, name);
         this.sendEmailVerification();
         this.presentToast("email verification sent");
@@ -45,7 +46,7 @@ export class FirebaseAuthService {
   }
 
   sendEmailVerification() {
-    this._firebaseAuth.authState.subscribe(user => {
+    this._afs.authState.subscribe(user => {
       user.sendEmailVerification()
         .then(() => {})
         .catch(err => {
@@ -62,6 +63,7 @@ export class FirebaseAuthService {
         .then(
           res => {
             resolve(res);
+            this.loggedInStatus = true;
             this.router.navigate([""]);
           },
           err => reject(err)
@@ -74,18 +76,14 @@ export class FirebaseAuthService {
   doLogout() {
     return new Promise((resolve, reject) => {
       firebase.auth().signOut();
+      this.loggedInStatus = false
       this.router.navigate(["login"]);
     });
   }
 
-  checkIfLoggedIn(): boolean {
-    if (firebase.auth().currentUser != null) {
-      return true;
-    } else {
-      this.router.navigate(["login"]);
-      return false;
-    }
-  }
+  isLoggedIn():boolean {
+    return this.loggedInStatus;
+}
 }
 
 /**
