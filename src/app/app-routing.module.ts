@@ -8,10 +8,10 @@ const routes: Routes = [
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule' , canActivate: [AuthGuard] },
   { path: 'notifications', loadChildren: './pages/notifications/notifications.module#NotificationsPageModule', canActivate: [AuthGuard] },
   { path: 'discover', loadChildren: './pages/discover/discover.module#DiscoverPageModule', canActivate: [AuthGuard] },
-  { path: 'landing', loadChildren: './pages/landing/landing.module#LandingPageModule', canActivate: [AuthGuard] },
   { path: 'create-song', loadChildren: './pages/create-song-modal/create-song-modal.module#CreateSongModalPageModule' , canActivate: [AuthGuard] },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
-  { path: 'signUp', loadChildren: './pages/sign-up/sign-up.module#SignUpPageModule' },  { path: 'search-results-page', loadChildren: './pages/search-results-page/search-results-page.module#SearchResultsPagePageModule' },
+  { path: 'signUp', loadChildren: './pages/sign-up/sign-up.module#SignUpPageModule' },
+  { path: 'search-results-page', loadChildren: './pages/search-results-page/search-results-page.module#SearchResultsPagePageModule' },
 
 
 

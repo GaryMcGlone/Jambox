@@ -4,7 +4,6 @@ import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { SpotifyService } from "./services/spotify/spotify.service";
-import { SplitPaneCheckerService } from "./services/split-pane-checker/split-pane-checker.service";
 
 @Component({
   selector: "app-root",
@@ -18,7 +17,6 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public spotifyService: SpotifyService,
-    public splitPaneChecker: SplitPaneCheckerService
   ) {
     this.initializeApp();
     

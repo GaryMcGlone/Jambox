@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { Router } from "@angular/router";
-import { SplitPaneCheckerService } from "../../services/split-pane-checker/split-pane-checker.service";
+import { MenuController } from "@ionic/angular";
 @Component({
   selector: "app-login",
   templateUrl: "./login.page.html",
@@ -11,12 +11,14 @@ export class LoginPage implements OnInit {
   constructor(
     private auth: FirebaseAuthService,
     private router: Router,
-    private splitPaneChecker: SplitPaneCheckerService
+    private menuCtrl: MenuController
   ) {}
   ionViewWillEnter() {
-    this.splitPaneChecker.setState(false);
+    this.menuCtrl.enable(false);
   }
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
   login(email: string, password: string) {
     this.auth.doLogin(email, password);

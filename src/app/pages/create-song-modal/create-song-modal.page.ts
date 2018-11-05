@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController, NavParams } from "@ionic/angular";
 import { DatabaseService } from "../../services/database/database.service";
-import { Post } from "../../models/post.model";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 @Component({
   selector: "app-create-song-modal",
@@ -15,7 +14,8 @@ export class CreateSongModalPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private databaseService: DatabaseService,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private authService: FirebaseAuthService
   ) {
     console.log(this.navParams);
     this.post = this.navParams.get("post");
@@ -27,7 +27,7 @@ export class CreateSongModalPage implements OnInit {
     this.modalController.dismiss();
   }
   save() {
-    // this.userID = this.firebaseAuthService.getCurrentUser()
+    this.userID = this.authService.getCurrentUser()
     this.post.caption = this.caption || "";
     this.post.UserID = this.userID;
     this.databaseService.addPost(this.post);

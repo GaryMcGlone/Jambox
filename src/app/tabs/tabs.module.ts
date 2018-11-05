@@ -11,7 +11,6 @@ import { HomePageModule } from '../pages/home/home.module';
 import { ProfilePageModule } from '../pages/profile/profile.module';
 import { NotificationsPageModule } from '../pages/notifications/notifications.module';
 import { DiscoverPageModule } from '../pages/discover/discover.module';
-import { LandingPageModule } from '../pages/landing/landing.module';
 
 @NgModule({
   imports: [
@@ -23,7 +22,6 @@ import { LandingPageModule } from '../pages/landing/landing.module';
     ProfilePageModule,
     NotificationsPageModule,
     DiscoverPageModule,
-    LandingPageModule
   ],
   declarations: [TabsPage]
 })

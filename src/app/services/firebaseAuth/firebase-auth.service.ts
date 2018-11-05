@@ -4,7 +4,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
 import * as firebase from "firebase/";
 import { DatabaseService } from "../database/database.service";
-import { ToastController } from "@ionic/angular";
+import { ToastController, MenuController } from "@ionic/angular";
 @Injectable({
   providedIn: "root"
 })
@@ -16,7 +16,7 @@ export class FirebaseAuthService {
     private _afs: AngularFireAuth,
     private router: Router,
     private dbService: DatabaseService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
   ) {
     this.user = _afs.authState;
   }
@@ -83,6 +83,10 @@ export class FirebaseAuthService {
 
   isLoggedIn(): boolean {
     return this.loggedInStatus;
+  }
+
+  getCurrentUser(){
+    return firebase.auth().currentUser.uid
   }
 }
 

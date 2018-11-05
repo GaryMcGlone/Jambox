@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FirebaseAuthService} from '../../services/firebaseAuth/firebase-auth.service'
+import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -7,13 +8,15 @@ import {FirebaseAuthService} from '../../services/firebaseAuth/firebase-auth.ser
 })
 export class ProfilePage implements OnInit {
 
-  constructor(private auth: FirebaseAuthService) { }
+  constructor(private auth: FirebaseAuthService, private menuCtrl: MenuController) { }
 
   ngOnInit() {
   }
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
+  }
 
   signOut(){
-    console.log("loggin tf out")
     this.auth.doLogout();
   }
 }
