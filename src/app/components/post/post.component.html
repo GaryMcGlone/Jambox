@@ -1,4 +1,11 @@
-<ion-card mode='ios' *ngIf="post && !searchResult" >
+<ion-card mode='ios' *ngIf="post && !searchResult">
+  <ion-item>
+    <ion-avatar item-left>
+
+    </ion-avatar>
+    <h2>Username</h2>
+    <ion-button item-right (click)="follow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
+  </ion-item>
   <ion-img [src]="post.albumArt"></ion-img>
   <ion-card-header style="text-align:center">
     <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>
@@ -6,15 +13,29 @@
   </ion-card-header>
   <ion-card-content>
     <div text-wrap style="word-wrap: break-word; word-break: break-all;">
-        Username: {{ post.caption }}
+      Username: {{ post.caption }}
     </div>
   </ion-card-content>
-  <ion-card-content style="margin:8px">
-      <ion-icon name="heart-empty"></ion-icon>
-      <ion-icon name="chatbubbles"></ion-icon>
-      <ion-button (click)="follow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
-    <div class="timestamp">
+  <ion-row>
+    <ion-col>
+      <ion-button icon-left fill='clear' size="small" color="dark">
+        <ion-icon name="heart-empty"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button icon-left fill='clear' size="small" color="dark">
+        <ion-icon name="text"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col center text-center>
+      <ion-note>
         {{ post.createdAt | dateTimeConvert:'' }}
-    </div>
-  </ion-card-content>
+      </ion-note>
+    </ion-col>
+  </ion-row>
 </ion-card>
+
+
+<!--
+ 
+-->

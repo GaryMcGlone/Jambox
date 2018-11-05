@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from '../../services/database/database.service';
 import { IPost } from '../../interfaces/post-interface';
+import { NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-search-result-list',
@@ -10,18 +10,18 @@ import { IPost } from '../../interfaces/post-interface';
 export class SearchResultListComponent implements OnInit {
   searchResults: IPost[] = [];
 
-  constructor(private databaseService: DatabaseService ) { }
+  constructor() { 
+   }
 
   ngOnInit() {
-    
   }
 
-  performSearch(songId) {
-    console.log("searching for:", songId)
-    this.databaseService.searchForASong(songId).subscribe(results => {
-      this.searchResults = results
-      console.log(results)
-    })
-  }
+  // performSearch(songId) {
+  //   console.log("searching for:", songId)
+  //   this.databaseService.searchForASong(songId).subscribe(results => {
+  //     this.searchResults = results
+  //     console.log(results)
+  //   })
+  // }
 
 }

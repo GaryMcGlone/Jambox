@@ -16,13 +16,12 @@ export class SpotifyService {
   private currentPlayingTrackEndpoint =
     "	https://api.spotify.com/v1/me/player/currently-playing";
  
-  private options = "&type=track&market=US&limit=15&offset=0";
+  private options = "&type=track&market=US&limit=8&offset=0";
   private errorMessage: string;
  
   private accessToken: string = "";
   loggedIn = false;
 
-  result = {};
 
   constructor(private _http: HttpClient, private platform: Platform, private storage: NativeStorage) {
     this.platform.ready().then(() => {
@@ -58,11 +57,6 @@ export class SpotifyService {
         this.accessToken = accessToken;
         this.loggedIn = true;
         this.storage.setItem("logged_in", true);
-        this.result = {
-          access_token: accessToken,
-          expires_in: expiresAt,
-          ref: encryptedRefreshToken
-        };
       });
   }
 

@@ -51,6 +51,7 @@ import { NativeStorage } from "@ionic-native/native-storage/ngx";
     AngularFireAuth,
     YouTubeApiService,
     NativeStorage,
+    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

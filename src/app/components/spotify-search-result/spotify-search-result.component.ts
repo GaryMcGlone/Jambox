@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Post } from "../../models/post.model";
 import { CreateSongModalPage } from "../../pages/create-song-modal/create-song-modal.page";
-import { ModalController } from "@ionic/angular";
+import { ModalController, NavParams } from "@ionic/angular";
 import { DatabaseService } from "../../services/database/database.service";
 import { DatePipe } from "@angular/common";
 
@@ -16,7 +16,7 @@ export class SpotifySearchResultComponent implements OnInit {
   pipe = new DatePipe("en-IE");
   selectedSong: Post;
 
-  constructor(private modalController: ModalController, private databaseService: DatabaseService) {}
+  constructor(private modalController: ModalController) {}
 
   ngOnInit() {}
 
@@ -46,12 +46,4 @@ export class SpotifySearchResultComponent implements OnInit {
     });
     return await modal.present();
   }
-
-  performSearch(songId) {
-    console.log("searching for:", songId)
-    this.databaseService.searchForASong(songId).subscribe(posts => {
-      console.log(posts)
-    })
-  }
-
 }
