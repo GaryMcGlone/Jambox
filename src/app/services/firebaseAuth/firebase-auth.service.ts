@@ -9,7 +9,6 @@ import { ToastController } from "@ionic/angular";
   providedIn: "root"
 })
 export class FirebaseAuthService {
-  
   private user: Observable<firebase.User>;
   loggedInStatus: boolean = false;
 
@@ -38,7 +37,7 @@ export class FirebaseAuthService {
         this.dbService.storeUser(email, res.user.uid, name);
         this.sendEmailVerification();
         this.presentToast("email verification sent");
-        this.router.navigate(['login'])
+        this.router.navigate(["login"]);
       })
       .catch(err => {
         this.presentToast(err.message);
@@ -47,7 +46,8 @@ export class FirebaseAuthService {
 
   sendEmailVerification() {
     this._afs.authState.subscribe(user => {
-      user.sendEmailVerification()
+      user
+        .sendEmailVerification()
         .then(() => {})
         .catch(err => {
           this.presentToast(err.message);
@@ -76,14 +76,14 @@ export class FirebaseAuthService {
   doLogout() {
     return new Promise((resolve, reject) => {
       firebase.auth().signOut();
-      this.loggedInStatus = false
+      this.loggedInStatus = false;
       this.router.navigate(["login"]);
     });
   }
 
-  isLoggedIn():boolean {
+  isLoggedIn(): boolean {
     return this.loggedInStatus;
-}
+  }
 }
 
 /**
