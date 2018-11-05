@@ -88,6 +88,10 @@ export class FirebaseAuthService {
       return false;
     }
   }
+
+  getCurrentUser():string{
+    return firebase.auth().currentUser.uid
+  }
 }
 
 /**
