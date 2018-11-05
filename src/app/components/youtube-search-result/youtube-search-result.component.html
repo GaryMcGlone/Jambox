@@ -1,5 +1,5 @@
 <ion-item-sliding>
-<ion-item detail="true" *ngIf="item">
+<ion-item detail="true" *ngIf="item" (click)="selectSong(item.id.videoId,item.snippet.channelTitle,item.snippet.title,item.snippet.thumbnails.high.url)">
     <ion-thumbnail slot="start">
       <img style="margin:0;" [src]="item.snippet.thumbnails.high.url">
     </ion-thumbnail>

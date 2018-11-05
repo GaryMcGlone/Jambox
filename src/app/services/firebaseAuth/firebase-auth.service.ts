@@ -84,6 +84,10 @@ export class FirebaseAuthService {
   isLoggedIn(): boolean {
     return this.loggedInStatus;
   }
+
+  getCurrentUser(): string {
+    return firebase.auth().currentUser.uid;
+  }
 }
 
 /**

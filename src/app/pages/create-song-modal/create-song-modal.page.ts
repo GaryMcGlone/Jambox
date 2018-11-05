@@ -15,7 +15,8 @@ export class CreateSongModalPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private databaseService: DatabaseService,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private firebaseAuth: FirebaseAuthService
   ) {
     console.log(this.navParams);
     this.post = this.navParams.get("post");
@@ -27,7 +28,7 @@ export class CreateSongModalPage implements OnInit {
     this.modalController.dismiss();
   }
   save() {
-    // this.userID = this.firebaseAuthService.getCurrentUser()
+    this.userID = this.firebaseAuth.getCurrentUser()
     this.post.caption = this.caption || "";
     this.post.UserID = this.userID;
     this.databaseService.addPost(this.post);
