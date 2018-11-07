@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FirebaseAuthService} from '../../services/firebaseAuth/firebase-auth.service'
+import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service'
 import { MenuController } from '@ionic/angular';
+import { DatabaseService } from '../../services/database/database.service'
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -8,7 +9,7 @@ import { MenuController } from '@ionic/angular';
 })
 export class ProfilePage implements OnInit {
 
-  constructor(private auth: FirebaseAuthService, private menuCtrl: MenuController) { }
+  constructor(private auth: FirebaseAuthService, private menuCtrl: MenuController, private db: DatabaseService) { }
 
   ngOnInit() {
   }
@@ -16,7 +17,12 @@ export class ProfilePage implements OnInit {
     this.menuCtrl.enable(true);
   }
 
-  signOut(){
+  signOut() {
     this.auth.doLogout();
+  }
+  getFollowers() {
+    var userid = this.auth.getCurrentUser()
+    console.log("userID: ", userid)
+    this.db.getUserFollowing(userid);
   }
 }

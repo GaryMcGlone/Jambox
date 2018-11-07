@@ -25,6 +25,7 @@ export class YoutubeSearchResultComponent implements OnInit {
     const now = this.pipe.transform(date, "medium");
 
     this.selectedSong = {
+      UserID: "",
       songId: songId,
       artistName: artistName,
       songName: songName,
