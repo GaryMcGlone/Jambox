@@ -88,11 +88,9 @@ export class FirebaseAuthService {
   getCurrentUser(): string {
     return firebase.auth().currentUser.uid;
   }
+
+  getUsername(userid: string){
+   
+  }
 }
 
-/**
-  email: res.user.email,
-            uid: res.user.uid,
-            registrationDate: new Date().toString(),
-            name: name
- */

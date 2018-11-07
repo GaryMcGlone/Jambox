@@ -7,7 +7,7 @@ import {
 } from "@angular/fire/firestore";
 import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
-import {FirebaseAuthService} from '../firebaseAuth/firebase-auth.service'
+import { FirebaseAuthService } from '../firebaseAuth/firebase-auth.service'
 @Injectable({
   providedIn: "root"
 })
@@ -15,12 +15,13 @@ export class DatabaseService {
   postsCollection: AngularFirestoreCollection<IPost>;
   posts: Observable<IPost[]>;
   errorMessage: string;
-
+  userCollection: AngularFirestoreCollection<IUser>;
+  currentUser: IUser;
   constructor(private _afs: AngularFirestore) {
     this.postsCollection = _afs.collection<IPost>("posts", ref =>
       ref.orderBy("createdAt", "desc")
     );
-
+    this.userCollection = _afs.collection<IUser>("users")
   }
 
   getPosts(): Observable<IPost[]> {
@@ -61,13 +62,28 @@ export class DatabaseService {
   storeUser(email: string, userId: string, username: string) {
     let user: IUser = {
       email: email,
-      userId: userId,
-      username: username    
+      username: username,
+      followers: []
     }
 
-    this._afs.collection('users').doc(userId).set( {
+    this._afs.collection('users').doc(userId).set({
       email: email,
-      username: username 
+      username: username
+    });
+  }
+
+  getUserFollowing(userId: string) {
+  
+  }
+  getUsername(userid: string){
+    this.userCollection.doc(userid).ref.get().then(function(doc) {
+      if (doc.exists) {
+          console.log("Document data:", doc.data());
+      } else {
+          console.log("No such document!");
+      }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
     });
   }
 }

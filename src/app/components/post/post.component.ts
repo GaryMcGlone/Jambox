@@ -19,7 +19,7 @@ export class PostComponent implements OnInit {
   }
  
   follow() {
-    if(this.buttonFill =='outline') {
+    if(this.buttonFill =='outline'  ) {
        this.btnValue = 'unfollow'
        this.buttonFill = 'solid'  
     } else {
