@@ -18,6 +18,7 @@ export class DatabaseService {
   errorMessage: string;
   userCollection: AngularFirestoreCollection<IUser>;
   currentUser: IUser;
+  username: string;
   constructor(private _afs: AngularFirestore) {
     this.postsCollection = _afs.collection<IPost>("posts", ref =>
       ref.orderBy("createdAt", "desc")
@@ -63,8 +64,7 @@ export class DatabaseService {
   storeUser(email: string, userId: string, username: string) {
     let user: IUser = {
       email: email,
-      userId: userId,
-      displayName: username    
+      username: username    
     }
 
     this._afs.collection('users').doc(userId).set({
@@ -76,16 +76,44 @@ export class DatabaseService {
   getUserFollowing(userId: string) {
   
   }
-  getUsername(userid: string){
-    this.userCollection.doc(userid).ref.get().then(function(doc) {
-      if (doc.exists) {
-          console.log("Document data:", doc.data());
-      } else {
-          console.log("No such document!");
-      }
-    }).catch(function(error) {
-        console.log("Error getting document:", error);
+  getUsername(userid: string): Observable<IUser[]>{
+
+    let heyho = this._afs.collection<IUser>('users', ref => {
+      return ref.where("id", "==", userid)
     });
+
+    console.log("heyho: ", heyho);
+
+    let bigo = heyho.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IUser;
+          console.log("DATA: ", data);
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+
+    console.log("Bigo: ", bigo);
+        
+    return bigo;
+    // var hey;
+
+    // this.userCollection.doc(userid).ref.get().then(function(doc) {
+    //   if (doc.exists) {
+    //       // console.log("Document data:", doc.data());
+    //       hey = doc.data();
+    //       console.log("IN SERVICE", hey.username);
+    //       this.username = hey.username as string;
+    //   } else {
+    //       console.log("No such document!");
+    //   }
+    // }).catch(function(error) {
+    //     console.log("Error getting document:", error);
+    // });
+
+    // return this.username;
   }
 
 
