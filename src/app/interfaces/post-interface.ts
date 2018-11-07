@@ -5,4 +5,5 @@ export interface IPost {
     createdAt: string;
     songID: string;
     songName: string;
+    UserID: string;
 }

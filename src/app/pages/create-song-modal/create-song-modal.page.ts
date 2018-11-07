@@ -27,7 +27,7 @@ export class CreateSongModalPage implements OnInit {
     this.modalController.dismiss();
   }
   save() {
-    this.userID = this.firebaseAuth.getCurrentUser()
+
     this.post.caption = this.caption || "";
     this.post.UserID = this.userID;
     this.databaseService.addPost(this.post);
