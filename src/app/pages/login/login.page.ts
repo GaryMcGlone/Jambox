@@ -16,9 +16,7 @@ export class LoginPage implements OnInit {
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   login(email: string, password: string) {
     this.auth.doLogin(email, password);
