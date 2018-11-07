@@ -3,7 +3,8 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import {
   AngularFirestoreCollection,
-  AngularFirestore
+  AngularFirestore,
+  AngularFirestoreDocument
 } from "@angular/fire/firestore";
 import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
@@ -62,7 +63,7 @@ export class DatabaseService {
     let user: IUser = {
       email: email,
       userId: userId,
-      username: username    
+      displayName: username    
     }
 
     this._afs.collection('users').doc(userId).set( {
@@ -70,4 +71,6 @@ export class DatabaseService {
       username: username 
     });
   }
+
+
 }

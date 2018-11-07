@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Pipe } from '@angular/core';
 import { Post } from '../../models/post.model';
+import { DatabaseService } from '../../services/database/database.service';
+import { IUser } from '../../interfaces/user-interface';
 
 @Component({
   selector: 'app-post',
@@ -10,13 +12,18 @@ export class PostComponent implements OnInit {
   @Input() post: Post;
   @Input() searchResult: Post;
   private btnValue = 'follow'
-  private  buttonFill = 'outline'
+  private buttonFill = 'outline'
+  private username: string;
+  errorMessage: string;
+  user: IUser[];
 
-  constructor() { }
+  constructor(private databaseService: DatabaseService) { }
 
   ngOnInit() {
     
   }
+
+
  
   follow() {
     if(this.buttonFill =='outline') {

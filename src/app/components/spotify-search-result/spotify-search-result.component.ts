@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Post } from "../../models/post.model";
 import { CreateSongModalPage } from "../../pages/create-song-modal/create-song-modal.page";
 import { ModalController, NavParams } from "@ionic/angular";
-import { DatabaseService } from "../../services/database/database.service";
 import { DatePipe } from "@angular/common";
+import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 
 @Component({
   selector: "app-spotify-search-result",
@@ -16,7 +16,7 @@ export class SpotifySearchResultComponent implements OnInit {
   pipe = new DatePipe("en-IE");
   selectedSong: Post;
 
-  constructor(private modalController: ModalController) {}
+  constructor(private modalController: ModalController, private firebaseAuth: FirebaseAuthService) {}
 
   ngOnInit() {}
 
@@ -25,7 +25,7 @@ export class SpotifySearchResultComponent implements OnInit {
     const now = this.pipe.transform(date, "medium");
 
     this.selectedSong = {
-      
+      UserID : this.firebaseAuth.getCurrentUser(),
       songId: songId,
       artistName: artistName,
       songName: songName,
