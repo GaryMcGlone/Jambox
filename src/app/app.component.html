@@ -21,10 +21,10 @@
           <app-spotify-search></app-spotify-search>
         </div>
 
-        <div *ngIf="!spotifySelectedCheck()">
+        <div *ngIf="!spotifySelectedCheck()" no-padding>
           <app-youtube-search></app-youtube-search>
-          <ion-button size="small">YouTube</ion-button>
         </div>
+        
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>

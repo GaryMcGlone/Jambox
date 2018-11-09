@@ -1,5 +1,4 @@
-<h2>Current Listening</h2>
-<ion-card>
+<ion-card *ngIf="currentTrack">
   <ion-img [src]="currentTrack.album.images[0].url" style="width: 75px"></ion-img>
   <ion-card-header style="text-align:center">
     <ion-card-subtitle>{{ currentTrack.name }}</ion-card-subtitle>

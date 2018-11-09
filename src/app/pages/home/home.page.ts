@@ -13,6 +13,6 @@ export class HomePage implements OnInit {
     this.menuCtrl.enable(true);
   }
   ngOnInit() {
-    this.db.getUsername(this.auth.getCurrentUser())
+    this.db.getUsername(this.auth.getCurrentUserUID())
   }
 }

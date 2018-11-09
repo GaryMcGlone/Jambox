@@ -5,11 +5,17 @@
               <ion-icon icon="search" id="search"></ion-icon>
           </ion-menu-button>
         </ion-buttons>
-    <ion-title>discover</ion-title>
+    <ion-title>Discover</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content no-padding>
+    <div class="banner">
+        New Releases
+    </div>
     <app-new-releases-list></app-new-releases-list>
+    <div class="banner">
+        Current Listening
+    </div>
     <app-current-playing></app-current-playing>
 </ion-content>

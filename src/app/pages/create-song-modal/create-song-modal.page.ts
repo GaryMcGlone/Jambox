@@ -29,7 +29,7 @@ export class CreateSongModalPage implements OnInit {
   }
   save() {
     
-    this.userID = this.firebaseAuth.getCurrentUser()
+    this.userID = this.firebaseAuth.getCurrentUserUID()
     this.post.caption = this.caption || "";
     this.post.UserID = this.userID;
     this.databaseService.addPost(this.post);
