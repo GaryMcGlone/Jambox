@@ -3,9 +3,9 @@ export interface IUser {
     uid?: string;
     email: string;
     username: string;
-    photoULR?:string;
+    photoURL?:string;
     boi?:string
     followers?:string[];
-    folowing?:string[];
+    following?:string[];
     likes?: IPost[];
 }

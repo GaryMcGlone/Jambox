@@ -21,9 +21,11 @@ export class ProfilePage implements OnInit {
   signOut() {
     this.auth.doLogout();
   }
-
+  getFollowers() {
+   
+  }
   navigateToSettings() {
     this.router.navigate(['settings'])
   }
-  
+
 }

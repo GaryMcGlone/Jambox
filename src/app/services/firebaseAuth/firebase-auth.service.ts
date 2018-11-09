@@ -118,7 +118,12 @@ export class FirebaseAuthService {
     return this.loggedInStatus;
   }
 
-  getCurrentUserUID(): string {
+  getCurrentUserID(): string {
     return firebase.auth().currentUser.uid;
   }
+
+  getUsername(userid: string){
+   
+  }
+
 }
