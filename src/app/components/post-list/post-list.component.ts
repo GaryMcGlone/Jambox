@@ -26,7 +26,7 @@ export class PostListComponent implements OnInit {
         error => (this.errorMessage = <any>error);
     });
 
-    this.databaseService.getCurrentUserUser(this.auth.getCurrentUser()).subscribe(data => {
+    this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
       this.user = data, console.log(this.user), this.following = this.user.following, console.log(this.following)
     })
 

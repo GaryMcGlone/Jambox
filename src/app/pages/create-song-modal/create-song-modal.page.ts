@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ModalController, NavParams } from "@ionic/angular";
 import { DatabaseService } from "../../services/database/database.service";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
+
 @Component({
   selector: "app-create-song-modal",
   templateUrl: "./create-song-modal.page.html",
@@ -26,8 +27,8 @@ export class CreateSongModalPage implements OnInit {
   closeModal() {
     this.modalController.dismiss();
   }
-  save() {
-
+  save() {    
+    this.userID = this.firebaseAuth.getCurrentUserID()
     this.post.caption = this.caption || "";
     this.post.UserID = this.userID;
     this.databaseService.addPost(this.post);

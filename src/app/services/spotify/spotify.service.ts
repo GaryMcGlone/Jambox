@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 import { Platform } from "@ionic/angular";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
+import { Router } from "@angular/router";
 
 declare var cordova: any;
 
@@ -16,6 +17,8 @@ export class SpotifyService {
   private currentPlayingTrackEndpoint =
     "	https://api.spotify.com/v1/me/player/currently-playing";
  
+  private profileUrl = 'https://api.spotify.com/v1/me'
+
   private options = "&type=track&market=US&limit=8&offset=0";
   private errorMessage: string;
  
@@ -23,7 +26,7 @@ export class SpotifyService {
   loggedIn = false;
 
 
-  constructor(private _http: HttpClient, private platform: Platform, private storage: NativeStorage) {
+  constructor(private _http: HttpClient, private platform: Platform, private storage: NativeStorage, private router: Router) {
     this.platform.ready().then(() => {
       this.storage
         .getItem("logged_in")
@@ -57,6 +60,7 @@ export class SpotifyService {
         this.accessToken = accessToken;
         this.loggedIn = true;
         this.storage.setItem("logged_in", true);
+        this.router.navigate(['home'])
       });
   }
 
@@ -64,6 +68,7 @@ export class SpotifyService {
     cordova.plugins.spotifyAuth.forget();
     this.loggedIn = false;
     this.storage.setItem("logged_in", false);
+    this.router.navigate(['login'])
   }
 
   searchSpotify(search): Observable<ISpotifyResponse> {
@@ -83,6 +88,17 @@ export class SpotifyService {
 
     return this._http
     .get<ISpotifyResponse>(this.currentPlayingTrackEndpoint , {
+      headers: headers
+    })
+    .pipe(tap(res => console.log(res), error => (this.errorMessage = <any>error)));
+  }
+  
+  getLoggedInUser() {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append("Authorization", "Bearer " + this.accessToken);
+
+    return this._http
+    .get<ISpotifyResponse>(this.profileUrl , {
       headers: headers
     })
     .pipe(tap(res => console.log(res), error => (this.errorMessage = <any>error)));

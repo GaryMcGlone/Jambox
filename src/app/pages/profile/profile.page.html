@@ -1,31 +1,21 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons>
-      <ion-menu-button slot="start">
+      <ion-menu-button slot="end">
           <ion-icon icon="search" id="search"></ion-icon>
       </ion-menu-button>
+      <ion-title style="margin-left: 10%">Profile</ion-title>
+      <ion-button slot="start" fill='clear' color='dark' style="margin-top:16px" (click)="navigateToSettings()">
+          <ion-icon name="settings"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <ion-card-content>
-
-
-      <ion-grid>
-        <ion-row align-items-center>
-          <ion-col>
-            <ion-icon name="grid"></ion-icon>H
-          </ion-col>
-          <ion-col>
-            <ion-icon name="heart-empty"></ion-icon>H
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      
     </ion-card-content>
   </ion-card>
-  <ion-button shape='round' (click)="signOut()" >Sign Out</ion-button>
-  <ion-button shape='round' (click)="getFollowers()" >Get Followers</ion-button>
 </ion-content>

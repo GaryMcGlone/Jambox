@@ -6,35 +6,44 @@ import * as firebase from "firebase/";
 import { DatabaseService } from "../database/database.service";
 import { ToastController, MenuController, Platform } from "@ionic/angular";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
+import { switchMap } from "rxjs/operators";
+import { IUser } from "../../interfaces/user-interface";
+import { AngularFirestore } from "@angular/fire/firestore";
 @Injectable({
   providedIn: "root"
 })
 export class FirebaseAuthService {
-  private user: Observable<firebase.User>;
+  private user: Observable<IUser>;
   loggedInStatus: boolean = false;
 
   constructor(
-    private _afs: AngularFireAuth,
+    private _afAuth: AngularFireAuth,
+    private afs: AngularFirestore,
     private router: Router,
     private dbService: DatabaseService,
-    private toastCtrl: ToastController,
-    private platform: Platform,
-    private storage: NativeStorage
+    private toastCtrl: ToastController
   ) {
-    this.user = _afs.authState;
+    this.user = this._afAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return this.afs.doc<IUser>(`users/${user.uid}`).valueChanges();
+        } else {
+          return null;
+        }
+      })
+    );
     console.log(this.user)
   }
 
   stayLoggedIn() {
     firebase.auth().onAuthStateChanged(user => {
-      if(user) {
-        this.router.navigate([''])
+      if (user) {
+        this.router.navigate([""]);
       } else {
-        this.router.navigate(['login'])
+        this.router.navigate(["login"]);
       }
-    })
+    });
   }
-
 
   async presentToast(message: string) {
     const toast = await this.toastCtrl.create({
@@ -46,12 +55,18 @@ export class FirebaseAuthService {
   }
 
   signUp(email: string, password: string, name: string) {
-    this._afs.auth
+    this._afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
-        console.log(res)
-        this.dbService.storeUser(email, res.user.uid, name);
         
+        let user: IUser = {
+          uid: res.user.uid,
+          email: email,
+          username: name
+        };
+
+        this.dbService.addUser(user);
+
         this.sendEmailVerification();
         this.presentToast("email verification sent");
         this.router.navigate(["login"]);
@@ -62,7 +77,7 @@ export class FirebaseAuthService {
   }
 
   sendEmailVerification() {
-    this._afs.authState.subscribe(user => {
+    this._afAuth.authState.subscribe(user => {
       user
         .sendEmailVerification()
         .then(() => {})
@@ -79,7 +94,7 @@ export class FirebaseAuthService {
         .signInWithEmailAndPassword(email, password)
         .then(
           res => {
-            console.log(res)
+            console.log(res);
             resolve(res);
             this.loggedInStatus = true;
             this.router.navigate([""]);
@@ -103,7 +118,7 @@ export class FirebaseAuthService {
     return this.loggedInStatus;
   }
 
-  getCurrentUser(): string {
+  getCurrentUserID(): string {
     return firebase.auth().currentUser.uid;
   }
 
@@ -112,4 +127,3 @@ export class FirebaseAuthService {
   }
 
 }
-
