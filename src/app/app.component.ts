@@ -44,10 +44,6 @@ export class AppComponent {
     if (this.spotifySelect == true) return true;
     else return false;
   }
-
-  signInWithSpotify() {
-    this.spotifyService.authWithSpotify();
-  }
   spotifyLogout() {
     this.spotifyService.logout();
   }

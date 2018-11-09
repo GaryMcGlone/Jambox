@@ -19,8 +19,6 @@
 
         <div *ngIf="spotifySelectedCheck()" no-padding>
           <app-spotify-search></app-spotify-search>
-          <ion-button size="small" (click)="signInWithSpotify()">Connect Spotify</ion-button>
-          <ion-button size="small" (click)="spotifyLogout()">Disconnect Spotify</ion-button>
         </div>
 
         <div *ngIf="!spotifySelectedCheck()">

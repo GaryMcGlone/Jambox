@@ -3,27 +3,31 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import {
   AngularFirestoreCollection,
-  AngularFirestore,
-  AngularFirestoreDocument
+  AngularFirestore
 } from "@angular/fire/firestore";
 import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
-import { FirebaseAuthService } from '../firebaseAuth/firebase-auth.service'
+
 @Injectable({
   providedIn: "root"
 })
 export class DatabaseService {
   postsCollection: AngularFirestoreCollection<IPost>;
   posts: Observable<IPost[]>;
-  errorMessage: string;
+
   userCollection: AngularFirestoreCollection<IUser>;
-  currentUser: IUser;
+  users: Observable<IUser[]>
+  user: Observable<IUser>;
+  userId: string;
   username: string;
+
+  errorMessage: string;
+
   constructor(private _afs: AngularFirestore) {
     this.postsCollection = _afs.collection<IPost>("posts", ref =>
       ref.orderBy("createdAt", "desc")
     );
-    this.userCollection = _afs.collection<IUser>("users")
+    this.userCollection = _afs.collection<IUser>("users");
   }
 
   getPosts(): Observable<IPost[]> {
@@ -44,7 +48,7 @@ export class DatabaseService {
   }
 
   // Search for a song in our database
-  searchResults: Observable<IPost[]>
+  searchResults: Observable<IPost[]>;
   searchForASong(songId): Observable<IPost[]> {
     this.postsCollection = this._afs.collection<IPost>("posts", ref => {
       return ref.where("songId", "==", songId).orderBy("createdAt", "desc");
@@ -60,44 +64,51 @@ export class DatabaseService {
     );
     return this.searchResults;
   }
+  //email: string, userId: string, username: string
+  addUser(user: IUser) {
 
-  storeUser(email: string, userId: string, username: string) {
-    let user: IUser = {
-      email: email,
-      username: username    
-    }
+    //Connor this should be, it works the same way as before but it makes more sense and is only one line
+    this.userCollection.add(user)
+    //so if we want to store additional user details we don't have to keep adding parameters to the function
+    //and name this function addUser to keep consistent naming 
 
-    this._afs.collection('users').doc(userId).set({
-      email: email,
-      username: username
-    });
+    // let user: IUser = {
+    //   email: email,
+    //   username: username
+    // };
+
+    // this._afs
+    //   .collection("users")
+    //   .doc(userId)
+    //   .set({
+    //     email: email,
+    //     username: username
+    //   });
   }
 
-  getUserFollowing(userId: string) {
-  
-  }
-  getUsername(userid: string): Observable<IUser[]>{
+  getUserFollowing(userId: string) {}
 
-    let heyho = this._afs.collection<IUser>('users', ref => {
-      return ref.where("id", "==", userid)
-    });
 
-    console.log("heyho: ", heyho);
+  getUsername(userId: string): Observable<IUser[]> {
+    console.log("users: ", this.users);
 
-    let bigo = heyho.snapshotChanges().pipe(
+    this.users = this.userCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
           const data = a.payload.doc.data() as IUser;
           console.log("DATA: ", data);
-          const id = a.payload.doc.id;
-          return { id, ...data };
+          this.userId = a.payload.doc.id;
+          return { userId , ...data };
         })
       )
     );
+    console.log(userId)
+    this._afs.collection<IUser>("users", ref => {
+      return ref.where("id", "==", userId);
+    });
+    console.log("user: ", this.users);
 
-    console.log("Bigo: ", bigo);
-        
-    return bigo;
+    return this.users;
     // var hey;
 
     // this.userCollection.doc(userid).ref.get().then(function(doc) {
@@ -115,6 +126,4 @@ export class DatabaseService {
 
     // return this.username;
   }
-
-
 }
