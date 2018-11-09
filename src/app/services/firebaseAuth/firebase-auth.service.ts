@@ -110,5 +110,6 @@ export class FirebaseAuthService {
   getUsername(userid: string){
    
   }
+
 }
 

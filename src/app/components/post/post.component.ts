@@ -17,7 +17,7 @@ export class PostComponent implements OnInit {
   private buttonFill = 'outline'
   private username: string;
   errorMessage: string;
-  user: Observable<IUser[]>;
+  user:IUser[];
 
   constructor(private databaseService: DatabaseService) { }
 
@@ -26,7 +26,9 @@ export class PostComponent implements OnInit {
   }
 
   getUsername(){
-    this.user = this.databaseService.getUsername(this.post.UserID);
+    this.databaseService.getUsername(this.post.UserID).subscribe(data => {
+      this.user = data;
+    });
     console.log("IN POST: ",this.user)
   }
 

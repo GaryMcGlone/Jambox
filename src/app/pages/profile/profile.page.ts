@@ -21,8 +21,6 @@ export class ProfilePage implements OnInit {
     this.auth.doLogout();
   }
   getFollowers() {
-    var userid = this.auth.getCurrentUser()
-    console.log("userID: ", userid)
-    this.db.getUserFollowing(userid);
+   
   }
 }
