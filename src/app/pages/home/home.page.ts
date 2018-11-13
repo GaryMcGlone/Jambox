@@ -3,6 +3,7 @@ import { MenuController } from "@ionic/angular";
 import { DatabaseService } from "../../services/database/database.service";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { IUser } from "../../interfaces/user-interface";
+import * as SpotifyWebApi from "spotify-web-api-js";
 @Component({
   selector: "app-home",
   templateUrl: "home.page.html",
@@ -10,7 +11,10 @@ import { IUser } from "../../interfaces/user-interface";
 })
 export class HomePage implements OnInit {
   user: IUser
-  constructor(private menuCtrl: MenuController, private db: DatabaseService, private auth: FirebaseAuthService ) {}
+  spotify:any;
+  constructor(private menuCtrl: MenuController, private db: DatabaseService, private auth: FirebaseAuthService ) {
+    
+  }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }

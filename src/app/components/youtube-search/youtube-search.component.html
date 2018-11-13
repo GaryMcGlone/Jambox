@@ -3,8 +3,8 @@
     <ion-input #search (keyup)="searchYouTube(search.value)"></ion-input>
 </ion-item>
 
-<ion-list>
-  <ion-item *ngFor="let item of items">
+<ion-list no-padding>
+  <ion-item *ngFor="let item of items" no-padding>
       <app-youtube-search-result [item]="item"></app-youtube-search-result>
   </ion-item>
 </ion-list>

@@ -8,8 +8,7 @@ import { SpotifyService } from "../../services/spotify/spotify.service";
 })
 export class SpotifySearchComponent implements OnInit {
   items: IItems[];
-
-  constructor(private spotifyService: SpotifyService) {}
+  constructor(public spotifyService: SpotifyService) {}
 
   ngOnInit() {}
 

@@ -26,13 +26,13 @@ export class FirebaseAuthService {
     this.user = this._afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
+          console.log('a user', this.afs.doc<IUser>(`users/${user.uid}`).valueChanges())
           return this.afs.doc<IUser>(`users/${user.uid}`).valueChanges();
         } else {
           return null;
         }
       })
     );
-    console.log(this.user)
   }
 
   stayLoggedIn() {
@@ -54,21 +54,21 @@ export class FirebaseAuthService {
     toast.present();
   }
 
-  signUp(email: string, password: string, name: string) {
+  signUp(email: string, password: string, displayName: string) {
     this._afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
-        
+
         let user: IUser = {
           uid: res.user.uid,
           email: email,
-          username: name
+          displayName: displayName
         };
 
         this.dbService.addUser(user);
 
         this.sendEmailVerification();
-        this.presentToast("email verification sent");
+        this.presentToast("Email verification sent");
         this.router.navigate(["login"]);
       })
       .catch(err => {
@@ -121,9 +121,4 @@ export class FirebaseAuthService {
   getCurrentUserID(): string {
     return firebase.auth().currentUser.uid;
   }
-
-  getUsername(userid: string){
-   
-  }
-
 }

@@ -9,7 +9,7 @@ import { YouTubeApiService } from '../../services/youtube/youtube-api.service';
 export class YoutubeSearchComponent implements OnInit {
   items: itemS[];
   filter: string = 'relevance';
-  limit: string = '9';
+  limit: string = '8';
   type: string = '10';
 
   constructor(private youtubeService: YouTubeApiService) { }
@@ -20,7 +20,6 @@ export class YoutubeSearchComponent implements OnInit {
   searchYouTube(search) {
     this.youtubeService.getSearchedVideos(search, this.filter, this.limit).subscribe(data => {
       this.items = data.items;
-      console.log(data);
     });
   }
 

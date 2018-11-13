@@ -61,25 +61,26 @@ export class DatabaseService {
         })
       )
     );
+    console.log(this.searchResults)
     return this.searchResults;
   }
-  //email: string, userId: string, username: string
+  //dis workds connord
   addUser(user: IUser) {
-
+    this.userCollection.doc(user.uid).set(user)
   }
 
-  storeUser(email: string, userId: string, username: string) {
-    let user: IUser = {
-      email: email,
-      username: username,
-      following: []
-    }
+  // storeUser(email: string, userId: string, username: string) {
+  //   let user: IUser = {
+  //     email: email,
+  //     displayName: username,
+  //     following: []
+  //   }
 
-    // let user: IUser = {
-    //   email: email,
-    //   username: username
-    // };
-  }
+  //   // let user: IUser = {
+  //   //   email: email,
+  //   //   username: username
+  //   // };
+  // }
    
 
   getCurrentUser(userId: string): Observable<IUser> {

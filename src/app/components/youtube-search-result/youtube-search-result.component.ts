@@ -53,16 +53,4 @@ export class YoutubeSearchResultComponent implements OnInit {
       console.log(posts);
     })
   }
-
-  // async presentModal(currentSong) {
-  //   const modal = await this.modalController.create({
-  //     component: CreateSongModalPage,
-  //     componentProps: {
-  //       songName: this.selectedSong.songName,
-  //       artistName: this.selectedSong.artistName,
-  //       albumArt: this.selectedSong.albumArt
-  //     }
-  //   });
-  //   return await modal.present();
-  // }
 }

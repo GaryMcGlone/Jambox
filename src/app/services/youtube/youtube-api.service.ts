@@ -28,7 +28,7 @@ export class YouTubeApiService {
   getSearchedVideos(query, filter, limit): Observable<YouTubeResponseSearch> {
     return this._http.get<YouTubeResponseSearch>(this._searchSiteURL + query + this._typeVid + this._vidCategoryId +
        this._sort + filter + this._max + limit  + this._param + this._key)
-      .pipe(tap(data => console.log('Search Data:', data)),
+      .pipe(tap(data => data),
       catchError(this.handleError));
   }
 

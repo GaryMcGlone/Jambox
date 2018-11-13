@@ -24,6 +24,7 @@ import { YoutubeSearchResultComponent } from "./components/youtube-search-result
 import { YouTubeApiService } from "./services/youtube/youtube-api.service";
 import { CreateSongModalPage } from "./pages/create-song-modal/create-song-modal.page";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
+import { Media } from "@ionic-native/media";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { NativeStorage } from "@ionic-native/native-storage/ngx";
     AngularFireAuth,
     YouTubeApiService,
     NativeStorage,
-    
+    Media,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

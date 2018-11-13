@@ -11,15 +11,15 @@ import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.s
   styleUrls: ["./post.component.scss"]
 })
 export class PostComponent implements OnInit {
+  
   @Input() post: Post;
-  @Input() searchResult: Post;
+  
   private btnValue = "follow";
   private buttonFill = "outline";
-  private username: string;
-  errorMessage: string;
-  user: IUser[];
 
-  constructor(private databaseService: DatabaseService, public auth: FirebaseAuthService) {}
+  errorMessage: string;
+  
+  constructor(public auth: FirebaseAuthService) {}
 
   ngOnInit() {}
   follow() {
