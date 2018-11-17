@@ -23,8 +23,10 @@ import { YoutubeSearchComponent } from "./components/youtube-search/youtube-sear
 import { YoutubeSearchResultComponent } from "./components/youtube-search-result/youtube-search-result.component";
 import { YouTubeApiService } from "./services/youtube/youtube-api.service";
 import { CreateSongModalPage } from "./pages/create-song-modal/create-song-modal.page";
+
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
-import { Media } from "@ionic-native/media";
+import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
+import { Media, MediaObject } from "@ionic-native/media/ngx";
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import { Media } from "@ionic-native/media";
     SpotifySearchComponent,
     SpotifySearchResultComponent,
     YoutubeSearchComponent,
-    YoutubeSearchResultComponent,
+    YoutubeSearchResultComponent
   ],
   entryComponents: [CreateSongModalPage],
   imports: [
@@ -52,6 +54,7 @@ import { Media } from "@ionic-native/media";
     AngularFireAuth,
     YouTubeApiService,
     NativeStorage,
+    FirebaseAnalytics,
     Media,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -31,7 +31,9 @@ export class YoutubeSearchResultComponent implements OnInit {
       songName: songName,
       caption: "",
       albumArt: albumArt,
-      createdAt: now
+      createdAt: now,
+      externalUri: '',
+      previewUrl:''
     };
     this.presentModal(this.selectedSong);
   }

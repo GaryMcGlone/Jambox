@@ -3,7 +3,8 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import {
   AngularFirestoreCollection,
-  AngularFirestore, AngularFirestoreDocument
+  AngularFirestore,
+  AngularFirestoreDocument
 } from "@angular/fire/firestore";
 import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
@@ -14,17 +15,18 @@ export class DatabaseService {
   postsCollection: AngularFirestoreCollection<IPost>;
   posts: Observable<IPost[]>;
   userCollection: AngularFirestoreCollection<IUser>;
+
   private fireDocUser: AngularFirestoreDocument<IUser>;
+
   currentUser: Observable<IUser>;
-  filteredPosts: Observable<IPost[]>
+  filteredPosts: Observable<IPost[]>;
 
   constructor(private _afs: AngularFirestore) {
     this.postsCollection = _afs.collection<IPost>("posts", ref =>
       ref.orderBy("createdAt", "desc")
     );
 
-    this.userCollection = _afs.collection<IUser>("users")
-
+    this.userCollection = _afs.collection<IUser>("users");
   }
 
   getPosts(): Observable<IPost[]> {
@@ -37,7 +39,6 @@ export class DatabaseService {
         })
       )
     );
-
 
     return this.posts;
   }
@@ -61,36 +62,22 @@ export class DatabaseService {
         })
       )
     );
-    console.log(this.searchResults)
+    console.log(this.searchResults);
     return this.searchResults;
   }
+  
   //dis workds connord
   addUser(user: IUser) {
-    this.userCollection.doc(user.uid).set(user)
+    this.userCollection.doc(user.uid).set(user);
   }
-
-  // storeUser(email: string, userId: string, username: string) {
-  //   let user: IUser = {
-  //     email: email,
-  //     displayName: username,
-  //     following: []
-  //   }
-
-  //   // let user: IUser = {
-  //   //   email: email,
-  //   //   username: username
-  //   // };
-  // }
-   
 
   getCurrentUser(userId: string): Observable<IUser> {
-    this.fireDocUser = this._afs.doc<IUser>('users/' + userId);
+    this.fireDocUser = this._afs.doc<IUser>("users/" + userId);
     this.currentUser = this.fireDocUser.valueChanges();
-    console.log(this.currentUser)
-    return this.currentUser
+    return this.currentUser;
   }
 
-  filterPosts(following: string): Observable<IPost[]>{
+  filterPosts(following: string): Observable<IPost[]> {
     this.postsCollection = this._afs.collection<IPost>("posts", ref => {
       return ref.where("UserID", "==", following).orderBy("createdAt", "desc");
     });
@@ -105,6 +92,4 @@ export class DatabaseService {
     );
     return this.filteredPosts;
   }
-
-
 }

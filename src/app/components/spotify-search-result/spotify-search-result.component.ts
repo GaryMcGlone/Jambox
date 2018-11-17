@@ -11,27 +11,38 @@ import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.s
   styleUrls: ["./spotify-search-result.component.scss"]
 })
 export class SpotifySearchResultComponent implements OnInit {
-  
   @Input() item: IItems;
   pipe = new DatePipe("en-IE");
   selectedSong: Post;
 
-  constructor(private modalController: ModalController, private firebaseAuth: FirebaseAuthService) {}
+  constructor(
+    private modalController: ModalController,
+    private firebaseAuth: FirebaseAuthService
+  ) {}
 
   ngOnInit() {}
 
-  selectSong(songId: string, artistName: string, songName: string, albumArt: string) {
+  selectSong(
+    songId: string,
+    artistName: string,
+    songName: string,
+    albumArt: string,
+    externalUri: string,
+    previewUrl: string
+  ) {
     const date = new Date();
     const now = this.pipe.transform(date, "medium");
 
     this.selectedSong = {
-      UserID : this.firebaseAuth.getCurrentUserID(),
+      UserID: this.firebaseAuth.getCurrentUserID(),
       songId: songId,
       artistName: artistName,
       songName: songName,
       caption: "",
-      albumArt: albumArt, 
-      createdAt: now
+      albumArt: albumArt,
+      createdAt: now,
+      externalUri: externalUri,
+      previewUrl: previewUrl
     };
     this.presentModal(this.selectedSong);
   }
@@ -39,10 +50,10 @@ export class SpotifySearchResultComponent implements OnInit {
   async presentModal(currentSong) {
     let props = {
       post: currentSong
-    }
+    };
     const modal = await this.modalController.create({
       component: CreateSongModalPage,
-      componentProps: props, 
+      componentProps: props
     });
     return await modal.present();
   }

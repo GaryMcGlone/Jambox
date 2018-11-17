@@ -23,16 +23,7 @@ export class FirebaseAuthService {
     private dbService: DatabaseService,
     private toastCtrl: ToastController
   ) {
-    this.user = this._afAuth.authState.pipe(
-      switchMap(user => {
-        if (user) {
-          console.log('a user', this.afs.doc<IUser>(`users/${user.uid}`).valueChanges())
-          return this.afs.doc<IUser>(`users/${user.uid}`).valueChanges();
-        } else {
-          return null;
-        }
-      })
-    );
+    
   }
 
   stayLoggedIn() {
@@ -94,7 +85,6 @@ export class FirebaseAuthService {
         .signInWithEmailAndPassword(email, password)
         .then(
           res => {
-            console.log(res);
             resolve(res);
             this.loggedInStatus = true;
             this.router.navigate([""]);
