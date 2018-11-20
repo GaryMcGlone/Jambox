@@ -2,7 +2,7 @@ import { IPost } from '../interfaces/post-interface';
 export interface IUser {
     uid?: string;
     email: string;
-    username: string;
+    displayName: string;
     photoURL?:string;
     boi?:string
     followers?:string[];

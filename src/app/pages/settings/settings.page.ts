@@ -1,26 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { SpotifyService } from '../../services/spotify/spotify.service';
-import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
-import { Router } from '@angular/router';
-
+import { Component, OnInit } from "@angular/core";
+import { SpotifyService } from "../../services/spotify/spotify.service";
+import { Router } from "@angular/router";
+import { DatabaseService } from "../../services/database/database.service";
+import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
+import { IUser } from "../../interfaces/user-interface";
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.page.html',
-  styleUrls: ['./settings.page.scss'],
+  selector: "app-settings",
+  templateUrl: "./settings.page.html",
+  styleUrls: ["./settings.page.scss"]
 })
 export class SettingsPage implements OnInit {
-  user:any;
-  constructor(public spotifyService: SpotifyService, private auth: FirebaseAuthService, private router: Router) {
-    
-  }
+  spotifyUser: any;
+  user: IUser;
+  constructor(
+    public spotifyService: SpotifyService,
+    private dbService: DatabaseService,
+    private router: Router,
+    private authService: FirebaseAuthService
+  ) {}
 
   ngOnInit() {
     this.spotifyService.getLoggedInUser().subscribe(user => {
-      this.user = user
-    })
+      this.spotifyUser = user;
+    });
+
+    if (!this.spotifyUser) {
+      this.dbService
+        .getCurrentUser(this.authService.getCurrentUserID())
+        .subscribe(user => {
+          this.user = user;
+          console.log(this.user);
+        });
+    }
   }
+
+  logout() {
+    this.authService.doLogout();
+  }
+
   exit() {
-    this.router.navigate(['profile'])
+    this.router.navigate(["profile"]);
   }
 
 }

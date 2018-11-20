@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, Pipe } from "@angular/core";
 import { Post } from "../../models/post.model";
-import { DatabaseService } from "../../services/database/database.service";
-import { IUser } from "../../interfaces/user-interface";
-import { toBase64String } from "@angular/compiler/src/output/source_map";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
+import { SpotifyService } from "../../services/spotify/spotify.service";
 
 @Component({
   selector: "app-post",
@@ -12,14 +10,13 @@ import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.s
 })
 export class PostComponent implements OnInit {
   @Input() post: Post;
-  @Input() searchResult: Post;
+
   private btnValue = "follow";
   private buttonFill = "outline";
-  private username: string;
-  errorMessage: string;
-  user: IUser[];
 
-  constructor(private databaseService: DatabaseService, public auth: FirebaseAuthService) {}
+  errorMessage: string;
+
+  constructor(public auth: FirebaseAuthService, private spotifyService: SpotifyService) {}
 
   ngOnInit() {}
   follow() {
@@ -30,5 +27,13 @@ export class PostComponent implements OnInit {
       this.btnValue = "follow";
       this.buttonFill = "outline";
     }
+  }
+
+  play(previewUrl){
+    console.log('fc', previewUrl)
+    this.spotifyService.playSong(previewUrl) 
+  }
+  open(uri){
+    this.spotifyService.open(uri)
   }
 }

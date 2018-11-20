@@ -1,11 +1,15 @@
-<ion-card mode='ios' *ngIf="post && !searchResult">
-  <ion-item>
-    <ion-avatar item-left>
-
-    </ion-avatar>
-    <h2>Username</h2>
+<ion-card mode="md" *ngIf="post">
+  <!--
     <ion-button item-right (click)="follow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
-  </ion-item>
+  -->
+  <ion-button
+    (click)="open(post.externalUri)"
+    fill="clear"
+    size="small"
+    color="dark"
+  >
+    Play on spotify
+  </ion-button>
   <ion-img [src]="post.albumArt"></ion-img>
   <ion-card-header style="text-align:center">
     <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>
@@ -13,29 +17,35 @@
   </ion-card-header>
   <ion-card-content>
     <div text-wrap style="word-wrap: break-word; word-break: break-all;">
-      {{auth.user.email}}: {{ post.caption }}
+      {{ auth.displayName }}: {{ post.caption }}
     </div>
   </ion-card-content>
   <ion-row>
     <ion-col>
-      <ion-button icon-left fill='clear' size="small" color="dark">
+      <ion-button icon-left fill="clear" size="small" color="dark">
         <ion-icon name="heart-empty"></ion-icon>
       </ion-button>
     </ion-col>
     <ion-col>
-      <ion-button icon-left fill='clear' size="small" color="dark">
+      <ion-button icon-left fill="clear" size="small" color="dark">
         <ion-icon name="text"></ion-icon>
       </ion-button>
     </ion-col>
-    <ion-col center text-center>
-      <ion-note>
-        {{ post.createdAt | dateTimeConvert:'' }}
-      </ion-note>
+    <ion-col *ngIf='post.previewUrl'>
+      <ion-button
+        (click)="play(post.previewUrl)"
+        icon-left
+        fill="clear"
+        size="small"
+        color="dark"
+      >
+        <ion-icon name="play"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col style="margin-top:2%" center text-center>
+      <ion-note> {{ post.createdAt | dateTimeConvert: "" }} </ion-note>
     </ion-col>
   </ion-row>
 </ion-card>
 
-
-<!--
- 
--->
+<!---->
