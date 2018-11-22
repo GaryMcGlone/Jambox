@@ -11,13 +11,8 @@ const routes: Routes = [
   { path: 'create-song', loadChildren: './pages/create-song-modal/create-song-modal.module#CreateSongModalPageModule' , canActivate: [AuthGuard] },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'signUp', loadChildren: './pages/sign-up/sign-up.module#SignUpPageModule' },
-  { path: 'search-results-page', loadChildren: './pages/search-results-page/search-results-page.module#SearchResultsPagePageModule' },  { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
-
-
-
-
-
-
+  { path: 'search-results-page', loadChildren: './pages/search-results-page/search-results-page.module#SearchResultsPagePageModule',  canActivate: [AuthGuard] },
+  { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule',  canActivate: [AuthGuard] },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

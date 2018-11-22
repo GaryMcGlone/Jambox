@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "291849800543",
+    "firebase_url": "https://jamboxmusicapp.firebaseio.com",
+    "project_id": "jamboxmusicapp",
+    "storage_bucket": "jamboxmusicapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291849800543:android:764d2cb7da3280eb",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291849800543-p84vglc0elvnfi1neuli25o3gobe9dmt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.ionic.starter",
+            "certificate_hash": "51e8e8c5e4ad704a1279c9fab07a0fc2c7a95f96"
+          }
+        },
+        {
+          "client_id": "291849800543-6iahbke8rn6cqoejhft4nq5ekcaubdp0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNWSRz4a4c3AKTdhCz_EjOH6SJVQ7Cf9w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "291849800543-6iahbke8rn6cqoejhft4nq5ekcaubdp0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

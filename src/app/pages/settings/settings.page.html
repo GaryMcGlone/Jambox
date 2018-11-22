@@ -8,8 +8,12 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    Logged in as {{user.display_name}}
+  <ion-card *ngIf="spotifyUser">
+    Logged in as {{spotifyUser.display_name}}
     <ion-button shape='round' (click)="spotifyService.logout()" >Sign Out</ion-button>
+  </ion-card>
+  <ion-card *ngIf="user">
+    Logged in as {{user.displayName}}
+    <ion-button shape='round' (click)="logout()" >Sign Out</ion-button>
   </ion-card>
 </ion-content>

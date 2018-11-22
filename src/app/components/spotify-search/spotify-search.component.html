@@ -1,11 +1,19 @@
 <ion-item>
-    <ion-label position="floating">Search Spotify</ion-label>
-    <ion-input #search (keyup)="searchSpotify(search.value)"></ion-input>
+  <div style="margin-top:1.5%;text-align:center;" *ngIf="!spotifyService.loggedIn" class="not-connected">
+    Connect with spotify to enable searching spotify
+    <ion-button expand="full" (click)="spotifyService.authWithSpotify()"> Connect to spotify</ion-button>
+  </div>
+
+  <ion-label position="floating">Search Spotify</ion-label>
+  <ion-input
+    #search
+    [disabled]="!spotifyService.loggedIn"
+    (keyup)="searchSpotify(search.value)"
+  ></ion-input>
 </ion-item>
 
 <div no-padding>
-  <ion-item *ngFor="let item of items" no-padding >
-        <ion-ripple-effect></ion-ripple-effect>
-      <app-spotify-search-result [item]="item"></app-spotify-search-result>
+  <ion-item *ngFor="let item of items" no-padding>
+    <app-spotify-search-result [item]="item"></app-spotify-search-result>
   </ion-item>
 </div>

@@ -1,4 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { AnalyticsService } from '../services/analytics/analytics.service';
 
 @Component({
   selector: 'app-tabs',
@@ -8,10 +9,15 @@ import { Component, ViewChild } from '@angular/core';
 export class TabsPage {
   loggedIn: boolean = true;
 
-  constructor() {}
+  constructor(public analytics: AnalyticsService ) {}
 
   ngOnInit() {
  
+  }
+
+  logEvent() {
+    console.log('logging event')
+    this.analytics.logButtonClick('tabButton', {param: 'paramValue'})
   }
 
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Pipe } from "@angular/core";
 import { Post } from "../../models/post.model";
-import { DatabaseService } from "../../services/database/database.service";
-import { IUser } from "../../interfaces/user-interface";
-import { toBase64String } from "@angular/compiler/src/output/source_map";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
+import { SpotifyService } from "../../services/spotify/spotify.service";
+import { DatabaseService } from "../../services/database/database.service";
+import { IUser } from '../../interfaces/user-interface'
 
 @Component({
   selector: "app-post",
@@ -12,7 +12,7 @@ import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.s
 })
 export class PostComponent implements OnInit {
   @Input() post: Post;
-  @Input() searchResult: Post;
+
   private btnValue = "follow";
   private buttonFill = "outline";
   username: string;
@@ -24,7 +24,7 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
       this.user = data,
-        this.username = this.user.username
+        this.username = this.user.displayName
     })
   }
   follow() {
@@ -35,5 +35,13 @@ export class PostComponent implements OnInit {
       this.btnValue = "follow";
       this.buttonFill = "outline";
     }
+  }
+
+  play(previewUrl){
+    console.log('fc', previewUrl)
+    this.spotifyService.playSong(previewUrl) 
+  }
+  open(uri){
+    this.spotifyService.open(uri)
   }
 }

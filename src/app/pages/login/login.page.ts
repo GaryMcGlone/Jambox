@@ -3,6 +3,7 @@ import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.s
 import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
 import { SpotifyService } from "../../services/spotify/spotify.service";
+import { DatabaseService } from "../../services/database/database.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.page.html",
@@ -13,7 +14,8 @@ export class LoginPage implements OnInit {
     private auth: FirebaseAuthService,
     private router: Router,
     private menuCtrl: MenuController,
-    private spotifyService: SpotifyService
+    private spotifyService: SpotifyService,
+    private databaseService: DatabaseService
   ) {}
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -28,7 +30,9 @@ export class LoginPage implements OnInit {
     this.router.navigate(["signUp"]);
   }
   signInWithSpotify() {
-      this.spotifyService.authWithSpotify();
-    }
-  
+    this.spotifyService.authWithSpotify();
+  }
+  createSpotifyUser() {
+    
+  }
 }

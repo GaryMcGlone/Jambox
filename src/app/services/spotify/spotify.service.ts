@@ -5,6 +5,7 @@ import { tap } from "rxjs/operators";
 import { Platform } from "@ionic/angular";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { Router } from "@angular/router";
+import { Media, MediaObject } from "@ionic-native/media/ngx";
 
 declare var cordova: any;
 
@@ -13,20 +14,28 @@ declare var cordova: any;
 })
 export class SpotifyService {
   private searchEndpoint = "https://api.spotify.com/v1/search?q=";
- 
+
   private currentPlayingTrackEndpoint =
     "	https://api.spotify.com/v1/me/player/currently-playing";
- 
-  private profileUrl = 'https://api.spotify.com/v1/me'
+
+  private profileUrl = "https://api.spotify.com/v1/me";
 
   private options = "&type=track&market=US&limit=8&offset=0";
   private errorMessage: string;
- 
+
   private accessToken: string = "";
   loggedIn = false;
 
+  currentTrack: MediaObject = null;
+  playing: boolean;
 
-  constructor(private _http: HttpClient, private platform: Platform, private storage: NativeStorage, private router: Router) {
+  constructor(
+    private _http: HttpClient,
+    private platform: Platform,
+    private storage: NativeStorage,
+    private router: Router,
+    private media: Media
+  ) {
     this.platform.ready().then(() => {
       this.storage
         .getItem("logged_in")
@@ -48,7 +57,8 @@ export class SpotifyService {
         "playlist-read-private",
         "user-read-email",
         "user-read-private",
-        "user-read-currently-playing"
+        "user-read-currently-playing",
+        "user-read-birthdate"
       ],
       tokenExchangeUrl: "https://jambox-app.herokuapp.com/exchange",
       tokenRefreshUrl: "https://jambox-app.herokuapp.com/refresh"
@@ -60,7 +70,7 @@ export class SpotifyService {
         this.accessToken = accessToken;
         this.loggedIn = true;
         this.storage.setItem("logged_in", true);
-        this.router.navigate(['home'])
+        this.router.navigate(["home"]);
       });
   }
 
@@ -68,7 +78,7 @@ export class SpotifyService {
     cordova.plugins.spotifyAuth.forget();
     this.loggedIn = false;
     this.storage.setItem("logged_in", false);
-    this.router.navigate(['login'])
+    // this.router.navigate(["login"]);
   }
 
   searchSpotify(search): Observable<ISpotifyResponse> {
@@ -82,25 +92,48 @@ export class SpotifyService {
       .pipe(tap(res => res.tracks, error => (this.errorMessage = <any>error)));
   }
 
-  getCurrentlyPlayingTrack() : Observable<ISpotifyResponse> {
+  getCurrentlyPlayingTrack(): Observable<ISpotifyResponse> {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append("Authorization", "Bearer " + this.accessToken);
 
     return this._http
-    .get<ISpotifyResponse>(this.currentPlayingTrackEndpoint , {
-      headers: headers
-    })
-    .pipe(tap(res => console.log(res), error => (this.errorMessage = <any>error)));
+      .get<ISpotifyResponse>(this.currentPlayingTrackEndpoint, {
+        headers: headers
+      })
+      .pipe(
+        tap(res => console.log(res), error => (this.errorMessage = <any>error))
+      );
   }
-  
+
   getLoggedInUser() {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append("Authorization", "Bearer " + this.accessToken);
 
     return this._http
-    .get<ISpotifyResponse>(this.profileUrl , {
-      headers: headers
+      .get<ISpotifyResponse>(this.profileUrl, {
+        headers: headers
+      })
+      .pipe(
+        tap(res => console.log(res), error => (this.errorMessage = <any>error))
+      );
+  }
+
+  playSong(item) {
+
+    console.log('fs ',item)
+
+    this.playing = true
+    this.currentTrack = this.media.create(item)
+
+    this.currentTrack.onSuccess.subscribe(() => {
+      this.playing = false;
     })
-    .pipe(tap(res => console.log(res), error => (this.errorMessage = <any>error)));
+    this.currentTrack.onError.subscribe(() => {
+      this.playing = false
+    })
+    this.currentTrack.play()
+  }
+  open(item) {
+    window.open(item, '_system', 'location=yes')
   }
 }
