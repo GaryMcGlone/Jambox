@@ -15,13 +15,18 @@ export class PostComponent implements OnInit {
   @Input() searchResult: Post;
   private btnValue = "follow";
   private buttonFill = "outline";
-  private username: string;
+  username: string;
   errorMessage: string;
-  user: IUser[];
+  user: IUser;
 
-  constructor(private databaseService: DatabaseService, public auth: FirebaseAuthService) {}
+  constructor(private databaseService: DatabaseService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
+      this.user = data,
+        this.username = this.user.username
+    })
+  }
   follow() {
     if (this.buttonFill == "outline") {
       this.btnValue = "unfollow";
