@@ -29,9 +29,9 @@ export class PostComponent implements OnInit {
     }
   }
 
-  play(previewUrl){
-    console.log('fc', previewUrl)
-    this.spotifyService.playSong(previewUrl) 
+  play(songId){
+    console.log('fc', songId)
+    this.spotifyService.playSong(songId) 
   }
   open(uri){
     this.spotifyService.open(uri)

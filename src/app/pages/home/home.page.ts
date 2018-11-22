@@ -13,16 +13,16 @@ export class HomePage implements OnInit {
   spotify: any;
   constructor(
     private menuCtrl: MenuController,
-    private analytics: AnalyticsService
+    // private analytics: AnalyticsService
   ) {
-    this.analytics.currentScreen("Home");
+    // this.analytics.currentScreen("Home");
   }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
   ngOnInit() {}
   logEvent() {
-    console.log("logging event");
-    this.analytics.logButtonClick("testButton", { param: "_Test_Button_Click" });
+    // console.log("logging event");
+    // this.analytics.logButtonClick("testButton", { param: "_Test_Button_Click" });
   }
 }

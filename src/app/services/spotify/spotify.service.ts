@@ -6,6 +6,7 @@ import { Platform } from "@ionic/angular";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { Router } from "@angular/router";
 import { Media, MediaObject } from "@ionic-native/media/ngx";
+import SpotyWebApi from "spotify-web-api-js";
 
 declare var cordova: any;
 
@@ -28,6 +29,8 @@ export class SpotifyService {
 
   currentTrack: MediaObject = null;
   playing: boolean;
+  
+  spotifyWebApi:any
 
   constructor(
     private _http: HttpClient,
@@ -36,6 +39,9 @@ export class SpotifyService {
     private router: Router,
     private media: Media
   ) {
+
+    this.spotifyWebApi = new SpotyWebApi();
+
     this.platform.ready().then(() => {
       this.storage
         .getItem("logged_in")
@@ -67,6 +73,7 @@ export class SpotifyService {
     cordova.plugins.spotifyAuth
       .authorize(config)
       .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
+        this.spotifyWebApi.setAccessToken(accessToken)
         this.accessToken = accessToken;
         this.loggedIn = true;
         this.storage.setItem("logged_in", true);
@@ -132,6 +139,7 @@ export class SpotifyService {
       this.playing = false
     })
     this.currentTrack.play()
+    // this.spotifyWebApi.play({uri:[uri]})
   }
   open(item) {
     window.open(item, '_system', 'location=yes')

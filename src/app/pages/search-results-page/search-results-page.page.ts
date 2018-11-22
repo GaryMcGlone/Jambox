@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from '../../services/database/database.service';
 
 @Component({
   selector: 'app-search-results-page',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchResultsPagePage implements OnInit {
 
-  constructor() { }
+  constructor(private databaseService: DatabaseService) { }
 
   ngOnInit() {
+    // this.databaseService.searchResults.subscribe(results => {
+    //   console.log(results)
+    // })
   }
 
 }

@@ -92,5 +92,5 @@
     </plugin>
     <plugin name="cordova-plugin-media" spec="5.0.2" />
     <engine name="android" spec="7.1.1" />
-    <engine name="browser" spec="^5.0.4" />
+    <engine name="browser" spec="5.0.4" />
 </widget>

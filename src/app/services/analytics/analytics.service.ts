@@ -1,24 +1,32 @@
-import { Injectable } from '@angular/core';
-import { FirebaseAnalytics  } from "@ionic-native/firebase-analytics/ngx";
+import { Injectable } from "@angular/core";
+import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AnalyticsService {
-
-  constructor(private firebaseAnalytics: FirebaseAnalytics) { 
-    this.firebaseAnalytics.setEnabled(true)
+  constructor(private firebaseAnalytics: FirebaseAnalytics) {
+    this.firebaseAnalytics.setEnabled(false);
   }
 
-  logButtonClick(name:string,value:any) {
-    console.log('logging response from service ', name, value)
-    this.firebaseAnalytics.logEvent(name,{param:value})
-    .then(res => console.log(res))
-    .catch(error => console.log(error))
+  logButtonClick(name: string, value: any) {
+    console.log("logging response from service ", name, value);
+    this.firebaseAnalytics
+      .logEvent(name, { param: value })
+      .then(res => console.log(res))
+      .catch(error => console.log(error));
   }
   currentScreen(screenName) {
-   this.firebaseAnalytics.setCurrentScreen(screenName)
-   .then(res => console.log(res))
-   .catch(error => console.log(error))
+    this.firebaseAnalytics
+      .setCurrentScreen(screenName)
+      .then(res => console.log(res))
+      .catch(error => console.log(error));
+  }
+
+  setUserProperty(name, value) {
+    this.firebaseAnalytics
+      .setUserProperty(name, value)
+      .then(res => console.log(res))
+      .catch(res => console.log(res));
   }
 }

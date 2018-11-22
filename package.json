@@ -32,7 +32,7 @@
     "animate.css": "^3.7.0",
     "cordova": "^8.1.2",
     "cordova-android": "7.1.1",
-    "cordova-browser": "^5.0.4",
+    "cordova-browser": "5.0.4",
     "cordova-plugin-customurlscheme": "^4.3.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-file": "6.0.1",
@@ -52,7 +52,8 @@
     "rxjs": "6.2.2",
     "rxjs-compat": "^6.3.3",
     "spotify-web-api-js": "^1.1.1",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "cordova-plugin-firebase-analytics": "~1.0.1"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.7.2",
