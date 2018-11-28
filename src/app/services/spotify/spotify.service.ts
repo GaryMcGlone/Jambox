@@ -134,21 +134,21 @@ export class SpotifyService {
       );
   }
 
-  // playSong(previewUri) {
-  //   this.playing = true;
-  //   this.currentTrack = this.media.create(previewUri);
+  playSong(previewUri) {
+    this.playing = true;
+    this.currentTrack = this.media.create(previewUri);
 
-  //   this.currentTrack.onSuccess.subscribe(() => {
-  //     this.playing = false;
-  //   });
-  //   this.currentTrack.onError.subscribe(() => {
-  //     this.playing = false;
-  //   });
-  //   this.currentTrack.play();
+    this.currentTrack.onSuccess.subscribe(() => {
+      this.playing = false;
+    });
+    this.currentTrack.onError.subscribe(() => {
+      this.playing = false;
+    });
+    this.currentTrack.play();
 
-  //   // for playing full songs
-  //   // this.spotifyWebApi.play({uri:[uri]})
-  // }
+    // for playing full songs
+    // this.spotifyWebApi.play({uri:[uri]})
+  }
   pauseTrack() {
     cordova.plugins.spotify.pause().then(() => {
       this.playing = false;

@@ -32,8 +32,8 @@
   </ion-card-content>
   <ion-row>
     <ion-col>
-      <ion-button icon-left fill="clear" size="small" color="dark">
-        <ion-icon name="heart-empty"></ion-icon>
+      <ion-button icon-left fill="clear" size="small" [color]="heartColor" (click)="likeClicked()">
+        <ion-icon [name]="heartType"></ion-icon>
       </ion-button>
     </ion-col>
     <ion-col>
