@@ -27,6 +27,7 @@ import { CreateSongModalPage } from "./pages/create-song-modal/create-song-modal
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 import { Media, MediaObject } from "@ionic-native/media/ngx";
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { Media, MediaObject } from "@ionic-native/media/ngx";
     SplashScreen,
     AngularFireAuth,
     YouTubeApiService,
+    YoutubeVideoPlayer,
     NativeStorage,
     FirebaseAnalytics,
     Media,

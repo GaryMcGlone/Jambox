@@ -42,6 +42,17 @@
         <ion-icon name="play"></ion-icon>
       </ion-button>
     </ion-col>
+    <ion-col *ngIf='post.postType == "yt"'>
+      <ion-button
+        (click)="playYoutube(post.songId)"
+        icon-left
+        fill="clear"
+        size="small"
+        color="dark"
+      >
+        <ion-icon name="play"></ion-icon>
+      </ion-button>
+    </ion-col>
     <ion-col style="margin-top:2%" center text-center>
       <ion-note> {{ post.createdAt | dateTimeConvert: "" }} </ion-note>
     </ion-col>

@@ -13,6 +13,7 @@ export class SpotifySearchComponent implements OnInit {
   ngOnInit() {}
 
   searchSpotify(search) {
+    
     this.spotifyService.searchSpotify(search).subscribe(data => {
       this.items = data.tracks.items;
       console.log(this.items)

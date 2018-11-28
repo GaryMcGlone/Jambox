@@ -3,7 +3,8 @@ import { Post } from "../../models/post.model";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { SpotifyService } from "../../services/spotify/spotify.service";
 import { DatabaseService } from "../../services/database/database.service";
-import { IUser } from '../../interfaces/user-interface'
+import { IUser } from '../../interfaces/user-interface';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 
 @Component({
   selector: "app-post",
@@ -19,7 +20,9 @@ export class PostComponent implements OnInit {
   errorMessage: string;
   user: IUser;
 
-  constructor(private databaseService: DatabaseService) { }
+  constructor(private databaseService: DatabaseService,
+              private spotifyService: SpotifyService,
+              private youtube: YoutubeVideoPlayer ) { }
 
   ngOnInit() {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
@@ -35,6 +38,11 @@ export class PostComponent implements OnInit {
       this.btnValue = "follow";
       this.buttonFill = "outline";
     }
+  }
+
+  playYoutube(videoId: string){
+    console.log(videoId);
+    this.youtube.openVideo(videoId);
   }
 
   play(previewUrl){
