@@ -40,6 +40,12 @@ export class PostComponent implements OnInit {
     }
   }
 
+  // play(songId){
+  //   this.spotifyService.playFullTrack(songId) 
+  // }
+  pause() {
+    this.spotifyService.pauseTrack();
+  }
   playYoutube(videoId: string){
     console.log(videoId);
     this.youtube.openVideo(videoId);

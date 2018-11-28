@@ -25,4 +25,13 @@ export class HomePage implements OnInit {
     console.log("logging event");
     this.analytics.logButtonClick("testButton", { param: "_Test_Button_Click" });
   }
+
+  // doRefresh(refresher){
+
+
+  //   setTimeout(() => {
+  //     console.log("refresh end");
+  //     refresher.complete();
+  //   }, 2000);
+  // }
 }

@@ -41,9 +41,9 @@
         <ion-icon name="text"></ion-icon>
       </ion-button>
     </ion-col>
-    <ion-col *ngIf='post.previewUrl'>
+    <ion-col *ngIf='!spotifyService.playing'>
       <ion-button
-        (click)="play(post.previewUrl)"
+        (click)="play(post.songId)"
         icon-left
         fill="clear"
         size="small"

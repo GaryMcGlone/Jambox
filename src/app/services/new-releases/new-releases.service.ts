@@ -16,10 +16,6 @@ export class NewReleasesService {
   constructor(private http: HttpClient) {}
 
   getAlbums(): Observable<NewReleases> {
-    // let headers: HttpHeaders = new HttpHeaders();
-    // headers.append("X-Requested-With","XMLHttpRequest");
-    // headers.append("Access-Control-Allow-Credentials", "true" );
-    // headers.append('Access-Control-Allow-Credentials', 'localhost:8100')
     return this.http
       .get<NewReleases>(this.cors+this.newReleasesURL)
       .pipe(tap(res => console.log(res.feed.results)));

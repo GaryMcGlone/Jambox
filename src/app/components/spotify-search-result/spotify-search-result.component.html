@@ -5,7 +5,7 @@
     *ngIf="item"
     (click)="
       selectSong(
-        item.album.uri,
+        item.uri,
         item.artists[0].name,
         item.name,
         item.album.images[0].url,
@@ -23,7 +23,7 @@
     </ion-label>
   </ion-item>
   <ion-item-options side="start">
-    <ion-item-option style="width: 50px;" (click)="performSearch(item.id)">
+    <ion-item-option style="width: 50px;" (click)="performSearch(item.uri)">
       <ion-icon name="search" size="large"></ion-icon>
     </ion-item-option>
   </ion-item-options>

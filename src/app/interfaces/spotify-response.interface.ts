@@ -1,4 +1,6 @@
 interface ISpotifyResponse {
+    display_name: string;
+    email: string;
     tracks: ITrack;
     item: IItems;
   }

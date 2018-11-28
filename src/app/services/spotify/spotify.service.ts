@@ -6,6 +6,8 @@ import { Platform } from "@ionic/angular";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { Router } from "@angular/router";
 import { Media, MediaObject } from "@ionic-native/media/ngx";
+import { DatabaseService } from "../database/database.service";
+import { IUser } from "../../interfaces/user-interface";
 
 declare var cordova: any;
 
@@ -29,12 +31,15 @@ export class SpotifyService {
   currentTrack: MediaObject = null;
   playing: boolean;
 
+  spotifyWebApi: any;
+
   constructor(
     private _http: HttpClient,
     private platform: Platform,
     private storage: NativeStorage,
     private router: Router,
-    private media: Media
+    private media: Media,
+    private db: DatabaseService
   ) {
     this.platform.ready().then(() => {
       this.storage
@@ -69,6 +74,17 @@ export class SpotifyService {
       .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
         this.accessToken = accessToken;
         this.loggedIn = true;
+        this.getLoggedInUser()
+          .toPromise()
+          .then(user => {
+            console.log(user);
+            let spotifyUser: IUser = {
+              email: user.email,
+              displayName: user.display_name
+            };
+            console.log(spotifyUser);
+            this.db.addUser(spotifyUser);
+          });
         this.storage.setItem("logged_in", true);
         this.router.navigate(["home"]);
       });
@@ -78,7 +94,7 @@ export class SpotifyService {
     cordova.plugins.spotifyAuth.forget();
     this.loggedIn = false;
     this.storage.setItem("logged_in", false);
-    // this.router.navigate(["login"]);
+    this.router.navigate(["login"]);
   }
 
   searchSpotify(search): Observable<ISpotifyResponse> {
@@ -118,22 +134,41 @@ export class SpotifyService {
       );
   }
 
-  playSong(item) {
+  // playSong(previewUri) {
+  //   this.playing = true;
+  //   this.currentTrack = this.media.create(previewUri);
 
-    console.log('fs ',item)
+  //   this.currentTrack.onSuccess.subscribe(() => {
+  //     this.playing = false;
+  //   });
+  //   this.currentTrack.onError.subscribe(() => {
+  //     this.playing = false;
+  //   });
+  //   this.currentTrack.play();
 
-    this.playing = true
-    this.currentTrack = this.media.create(item)
-
-    this.currentTrack.onSuccess.subscribe(() => {
+  //   // for playing full songs
+  //   // this.spotifyWebApi.play({uri:[uri]})
+  // }
+  pauseTrack() {
+    cordova.plugins.spotify.pause().then(() => {
       this.playing = false;
-    })
-    this.currentTrack.onError.subscribe(() => {
-      this.playing = false
-    })
-    this.currentTrack.play()
+      console.log("Music is paused ⏸");
+    });
+  }
+
+  playFullTrack(uri) {
+    console.log(uri);
+    cordova.plugins.spotify
+      .play(uri, {
+        clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
+        token: this.accessToken
+      })
+      .then(() => {
+        this.playing = true;
+        console.log("Music is playing 🎶");
+      });
   }
   open(item) {
-    window.open(item, '_system', 'location=yes')
+    window.open(item, "_system", "location=yes");
   }
 }

@@ -16,8 +16,8 @@ export class TabsPage {
   }
 
   logEvent() {
-    console.log('logging event')
-    this.analytics.logButtonClick('tabButton', {param: 'paramValue'})
+    // console.log('logging event')
+    // this.analytics.logButtonClick('tabButton', {param: 'tab_switch'})
   }
 
 }
