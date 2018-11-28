@@ -27,9 +27,10 @@ export class PostListComponent implements OnInit {
     //get all the posts initially
     this.showSpinner = true;
     this.databaseService.getPosts().subscribe(posts => {
-      (this.posts = posts), error => (this.errorMessage = <any>error);
+      (this.posts = posts), error => (this.errorMessage = <any>error);  
       this.showSpinner = false;
     });
+
 
     this.databaseService
       .getCurrentUser(this.auth.getCurrentUserID())
