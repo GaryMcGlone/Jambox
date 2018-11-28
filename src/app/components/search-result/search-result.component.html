@@ -1,20 +1,73 @@
-<ion-card *ngIf="searchResult">
-  <ion-img [src]="searchResult.albumArt"></ion-img>
-  <ion-card-header style="text-align:center">
-    <ion-card-subtitle>{{ searchResult.songName }}</ion-card-subtitle>
-    <ion-card-title>{{ searchResult.artistName }}</ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    <div text-wrap style="word-wrap: break-word; word-break: break-all;">
-      Username: {{ searchResult.caption }}
-    </div>
-  </ion-card-content>
-  <ion-card-content>
-    <ion-icon name="heart-empty"></ion-icon>
-    <ion-icon name="chatbubbles"></ion-icon>
-    <ion-button (click)="follow()" [fill]="buttonFill" size="small" shape="round">Follow</ion-button>
-    <div class="timestamp">
-      {{ searchResult.createdAt | dateTimeConvert:'' }}
-    </div>
-  </ion-card-content>
-</ion-card>
+<ion-card mode="md" *ngIf="post">
+    <!--
+      <ion-button item-right (click)="follow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
+    -->
+    <ion-button
+      (click)="open(post.externalUri)"
+      fill="clear"
+      size="small"
+      color="dark"
+      *ngIf="post.postType == 's'"
+    >
+      Play on spotify
+    </ion-button>
+    <ion-button
+      (click)="open('https://www.youtube.com/watch?v=' + post.songId)"
+      fill="clear"
+      size="small"
+      color="dark"
+      *ngIf="post.postType == 'yt'"
+    >
+      Play on Youtube
+    </ion-button>
+    <ion-img [src]="post.albumArt"></ion-img>
+    <ion-card-header style="text-align:center">
+      <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>
+      <ion-card-title>{{ post.artistName }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div text-wrap style="word-wrap: break-word; word-break: break-all;">
+      {{username}} : {{ post.caption }}
+      </div>
+    </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <ion-button icon-left fill="clear" size="small" [color]="heartColor" (click)="likeClicked()">
+          <ion-icon [name]="heartType"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button icon-left fill="clear" size="small" color="dark">
+          <ion-icon name="text"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf='!spotifyService.playing'>
+        <ion-button
+          (click)="play(post.songId)"
+          icon-left
+          fill="clear"
+          size="small"
+          color="dark"
+        >
+          <ion-icon name="play"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf='post.postType == "yt"'>
+        <ion-button
+          (click)="playYoutube(post.songId)"
+          icon-left
+          fill="clear"
+          size="small"
+          color="dark"
+        >
+          <ion-icon name="play"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col style="margin-top:2%" center text-center>
+ <!--        <ion-note> {{ post.createdAt | dateTimeConvert: "" }} </ion-note> -->
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  
+  <!---->
+  

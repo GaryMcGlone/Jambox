@@ -35,7 +35,7 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
     SpotifySearchComponent,
     SpotifySearchResultComponent,
     YoutubeSearchComponent,
-    YoutubeSearchResultComponent
+    YoutubeSearchResultComponent,
   ],
   entryComponents: [CreateSongModalPage],
   imports: [
