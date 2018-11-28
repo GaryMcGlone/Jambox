@@ -11,6 +11,7 @@ export class YoutubeSearchComponent implements OnInit {
   filter: string = 'relevance';
   limit: string = '8';
   type: string = '10';
+  showSpinner: boolean = false;
 
   constructor(private youtubeService: YouTubeApiService) { }
 
@@ -18,9 +19,16 @@ export class YoutubeSearchComponent implements OnInit {
   }
 
   searchYouTube(search) {
+    this.showSpinner = true;
+    
     this.youtubeService.getSearchedVideos(search, this.filter, this.limit).subscribe(data => {
       this.items = data.items;
+      setTimeout(() => {
+        this.showSpinner = false;
+      }, 300);    
     });
+
+    
   }
 
 }
