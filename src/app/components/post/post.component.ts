@@ -19,7 +19,7 @@ export class PostComponent implements OnInit {
   errorMessage: string;
   user: IUser;
 
-  constructor(private databaseService: DatabaseService) { }
+  constructor(private databaseService: DatabaseService, private spotifyService: SpotifyService) { }
 
   ngOnInit() {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
@@ -38,8 +38,10 @@ export class PostComponent implements OnInit {
   }
 
   play(songId){
-    console.log('fc', songId)
-    this.spotifyService.playSong(songId) 
+    this.spotifyService.playFullTrack(songId) 
+  }
+  pause() {
+    this.spotifyService.pauseTrack();
   }
   open(uri){
     this.spotifyService.open(uri)

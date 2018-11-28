@@ -4,6 +4,7 @@ import { CreateSongModalPage } from "../../pages/create-song-modal/create-song-m
 import { ModalController, NavParams } from "@ionic/angular";
 import { DatePipe } from "@angular/common";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
+import { DatabaseService } from "../../services/database/database.service";
 
 @Component({
   selector: "app-spotify-search-result",
@@ -17,7 +18,8 @@ export class SpotifySearchResultComponent implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private firebaseAuth: FirebaseAuthService
+    private firebaseAuth: FirebaseAuthService,
+    private databaseService: DatabaseService
   ) {}
 
   ngOnInit() {}
@@ -56,5 +58,10 @@ export class SpotifySearchResultComponent implements OnInit {
       componentProps: props
     });
     return await modal.present();
+  }
+
+  performSearch(id) {
+    console.log(id)
+    this.databaseService.searchForASong(id).subscribe(data => console.log(data))
   }
 }
