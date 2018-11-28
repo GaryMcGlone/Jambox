@@ -23,9 +23,10 @@ export class YoutubeSearchComponent implements OnInit {
     
     this.youtubeService.getSearchedVideos(search, this.filter, this.limit).subscribe(data => {
       this.items = data.items;
-      setTimeout(() => {
-        this.showSpinner = false;
-      }, 300);    
+      // setTimeout(() => {
+      //   this.showSpinner = false;
+      // }, 300);   
+      this.showSpinner = false; 
     });
 
     
