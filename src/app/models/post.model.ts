@@ -6,10 +6,11 @@ export class Post {
     albumArt: string;
     caption: string;
     createdAt: string;
-    externalUri: string
-    previewUrl: string
+    externalUri: string;
+    previewUrl: string;
+    postType: string
   
-    constructor(userId:string, songId: string, artistName: string, songName: string, albumArt: string, caption: string, externalUri: string, previewUrl: string) {
+    constructor(userId:string, songId: string, artistName: string, songName: string, albumArt: string, caption: string, externalUri: string, previewUrl: string, postType: string) {
       this.songId = songId;
       this.artistName = artistName;
       this.songName = songName;
@@ -17,7 +18,8 @@ export class Post {
       this.caption = caption || "";
       this.UserID = userId || "";
       this.externalUri = externalUri,
-      this.previewUrl = previewUrl
+      this.previewUrl = previewUrl,
+      this.postType = postType
     }
   }
   

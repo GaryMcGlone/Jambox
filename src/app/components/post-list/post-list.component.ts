@@ -16,6 +16,8 @@ export class PostListComponent implements OnInit {
   cssClass: string;
   user: IUser;
   following: string[];
+  showSpinner: boolean = false;
+
   constructor(
     private databaseService: DatabaseService,
     private auth: FirebaseAuthService
@@ -23,8 +25,10 @@ export class PostListComponent implements OnInit {
 
   ngOnInit() {
     //get all the posts initially
+    this.showSpinner = true;
     this.databaseService.getPosts().subscribe(posts => {
       (this.posts = posts), error => (this.errorMessage = <any>error);
+      this.showSpinner = false;
     });
 
     this.databaseService

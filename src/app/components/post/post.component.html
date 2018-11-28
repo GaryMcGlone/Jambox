@@ -7,8 +7,18 @@
     fill="clear"
     size="small"
     color="dark"
+    *ngIf="post.postType == 's'"
   >
     Play on spotify
+  </ion-button>
+  <ion-button
+    (click)="open('https://www.youtube.com/watch?v=' + post.songId)"
+    fill="clear"
+    size="small"
+    color="dark"
+    *ngIf="post.postType == 'yt'"
+  >
+    Play on Youtube
   </ion-button>
   <ion-img [src]="post.albumArt"></ion-img>
   <ion-card-header style="text-align:center">
@@ -42,15 +52,15 @@
         <ion-icon name="play"></ion-icon>
       </ion-button>
     </ion-col>
-    <ion-col *ngIf='spotifyService.playing'>
+    <ion-col *ngIf='post.postType == "yt"'>
       <ion-button
-        (click)="pause()"
+        (click)="playYoutube(post.songId)"
         icon-left
         fill="clear"
         size="small"
         color="dark"
       >
-        <ion-icon name="pause"></ion-icon>
+        <ion-icon name="play"></ion-icon>
       </ion-button>
     </ion-col>
     <ion-col style="margin-top:2%" center text-center>

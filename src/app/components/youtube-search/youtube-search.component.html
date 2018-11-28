@@ -4,6 +4,9 @@
 </ion-item>
 
 <ion-list no-padding>
+    <div class="spinner-holder" align="center">
+        <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
+    </div>
   <ion-item *ngFor="let item of items" no-padding>
       <app-youtube-search-result [item]="item"></app-youtube-search-result>
   </ion-item>

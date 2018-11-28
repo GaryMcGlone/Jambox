@@ -33,7 +33,8 @@ export class YoutubeSearchResultComponent implements OnInit {
       albumArt: albumArt,
       createdAt: now,
       externalUri: '',
-      previewUrl:''
+      previewUrl:'',
+      postType: 'yt'
     };
     this.presentModal(this.selectedSong);
   }
