@@ -51,9 +51,9 @@ export class PostComponent implements OnInit {
     this.youtube.openVideo(videoId);
   }
 
-  play(previewUrl){
-    console.log('fc', previewUrl)
-    this.spotifyService.playSong(previewUrl) 
+  play(songId){
+    console.log('fc', songId)
+    this.spotifyService.playFullTrack(songId) 
   }
   open(uri){
     this.spotifyService.open(uri)

@@ -28,6 +28,7 @@ import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 import { Media, MediaObject } from "@ionic-native/media/ngx";
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
+import { UserSearchComponent } from './components/user-search/user-search.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
     SpotifySearchComponent,
     SpotifySearchResultComponent,
     YoutubeSearchComponent,
-    YoutubeSearchResultComponent
+    YoutubeSearchResultComponent,
+    UserSearchComponent
   ],
   entryComponents: [CreateSongModalPage],
   imports: [

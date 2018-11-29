@@ -15,14 +15,21 @@
           <ion-segment-button value="youtube">
             <ion-icon name="logo-youtube"></ion-icon>
           </ion-segment-button>
+          <ion-segment-button value="user">
+            <ion-icon name="person"></ion-icon>
+          </ion-segment-button>
         </ion-segment>
 
         <div *ngIf="spotifySelectedCheck()" no-padding>
           <app-spotify-search></app-spotify-search>
         </div>
 
-        <div *ngIf="!spotifySelectedCheck()" no-padding>
+        <div *ngIf="youtubeSelectedCheck()" no-padding>
           <app-youtube-search></app-youtube-search>
+        </div>
+
+        <div *ngIf="userSelectedCheck()"> 
+          <app-user-search></app-user-search> 
         </div>
         
       </ion-content>

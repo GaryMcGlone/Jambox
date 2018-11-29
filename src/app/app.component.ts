@@ -11,15 +11,16 @@ import { SpotifyService } from "./services/spotify/spotify.service";
 })
 export class AppComponent {
   spotifySelect: boolean = true;
+  youtubeSelect: boolean = false;
+  userSelect: boolean = false;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public spotifyService: SpotifyService,
+    public spotifyService: SpotifyService
   ) {
     this.initializeApp();
-    
   }
 
   initializeApp() {
@@ -33,15 +34,32 @@ export class AppComponent {
     switch (event.target.value) {
       case "spotify":
         this.spotifySelect = true;
+        this.youtubeSelect = false;
+        this.userSelect = false
         break;
       case "youtube":
+        this.youtubeSelect = true;
         this.spotifySelect = false;
+        this.userSelect = false
+        break;
+      case "user":
+        this.spotifySelect = false;
+        this.youtubeSelect = false
+        this.userSelect = true
         break;
     }
   }
 
   spotifySelectedCheck(): boolean {
     if (this.spotifySelect == true) return true;
+    else return false;
+  }
+  youtubeSelectedCheck(): boolean {
+    if (this.youtubeSelect == true) return true;
+    else return false;
+  }
+  userSelectedCheck() : boolean {
+    if (this.userSelect == true) return true;
     else return false;
   }
 }

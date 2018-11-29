@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AnalyticsService } from '../services/analytics/analytics.service';
+// import { AnalyticsService } from '../services/analytics/analytics.service';
 
 @Component({
   selector: 'app-tabs',
@@ -9,7 +9,7 @@ import { AnalyticsService } from '../services/analytics/analytics.service';
 export class TabsPage {
   loggedIn: boolean = true;
 
-  constructor(public analytics: AnalyticsService ) {}
+  constructor(/*public analytics: AnalyticsService*/ ) {}
 
   ngOnInit() {
  

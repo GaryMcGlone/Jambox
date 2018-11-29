@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import {
   AngularFirestoreCollection,
@@ -20,6 +20,10 @@ export class DatabaseService {
 
   currentUser: Observable<IUser>;
   filteredPosts: Observable<IPost[]>;
+
+  userSearch(start, end)  {
+  }
+  
 
   constructor(private _afs: AngularFirestore) {
     this.postsCollection = _afs.collection<IPost>("posts", ref =>
@@ -92,4 +96,6 @@ export class DatabaseService {
     );
     return this.filteredPosts;
   }
+
+
 }

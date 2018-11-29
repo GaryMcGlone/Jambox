@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MenuController } from "@ionic/angular";
 import { IUser } from "../../interfaces/user-interface";
-import { AnalyticsService } from "../../services/analytics/analytics.service";
+// import { AnalyticsService } from "../../services/analytics/analytics.service";
 
 @Component({
   selector: "app-home",
@@ -13,18 +13,18 @@ export class HomePage implements OnInit {
   spotify: any;
   constructor(
     private menuCtrl: MenuController,
-    private analytics: AnalyticsService
+    // private analytics: AnalyticsService
   ) {
-    this.analytics.currentScreen("Home");
+    // this.analytics.currentScreen("Home");
   }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
   ngOnInit() {}
-  logEvent() {
-    console.log("logging event");
-    this.analytics.logButtonClick("testButton", { param: "_Test_Button_Click" });
-  }
+  // logEvent() {
+  //   console.log("logging event");
+  //   this.analytics.logButtonClick("testButton", { param: "_Test_Button_Click" });
+  // }
 
   // doRefresh(refresher){
 
