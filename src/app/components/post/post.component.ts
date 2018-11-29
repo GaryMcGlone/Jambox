@@ -23,9 +23,7 @@ export class PostComponent implements OnInit {
   heartColor: string = 'dark'
   isLiked: boolean = false;
 
-  constructor(private databaseService: DatabaseService,
-              private spotifyService: SpotifyService,
-              private youtube: YoutubeVideoPlayer ) { }
+  constructor(private databaseService: DatabaseService, private spotifyService: SpotifyService, private youtube: YoutubeVideoPlayer ) { }
 
   ngOnInit() {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
@@ -59,21 +57,17 @@ export class PostComponent implements OnInit {
       this.buttonFill = "outline";
     }
   }
-  // Full Songs
-  // play(songId){
-  //   this.spotifyService.playFullTrack(songId) 
-  // }
+ 
   pause() {
     this.spotifyService.pauseTrack();
   }
-  playYoutube(videoId: string){
-    console.log(videoId);
+ 
+  playYoutube(videoId){
     this.youtube.openVideo(videoId);
   }
 
-  play(songId){
-    console.log('fc', songId)
-    this.spotifyService.playFullTrack(songId) 
+  play(post){
+    this.spotifyService.play(post) 
   }
   open(uri){
     this.spotifyService.open(uri)

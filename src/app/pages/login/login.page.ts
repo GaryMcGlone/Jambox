@@ -25,14 +25,10 @@ export class LoginPage implements OnInit {
   login(email: string, password: string) {
     this.auth.doLogin(email, password);
   }
-
   navigateToSignUp() {
     this.router.navigate(["signUp"]);
   }
   signInWithSpotify() {
     this.spotifyService.authWithSpotify();
-  }
-  createSpotifyUser() {
-    
   }
 }

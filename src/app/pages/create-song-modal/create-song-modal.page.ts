@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ModalController, NavParams } from "@ionic/angular";
 import { DatabaseService } from "../../services/database/database.service";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
+import { SpotifyService } from "../../services/spotify/spotify.service";
 
 @Component({
   selector: "app-create-song-modal",
@@ -16,7 +17,8 @@ export class CreateSongModalPage implements OnInit {
     private modalController: ModalController,
     private databaseService: DatabaseService,
     private navParams: NavParams,
-    private firebaseAuth: FirebaseAuthService
+    private firebaseAuth: FirebaseAuthService,
+    private spotifyService: SpotifyService
   ) {
     console.log(this.navParams);
     this.post = this.navParams.get("post");
