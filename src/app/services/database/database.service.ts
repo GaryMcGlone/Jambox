@@ -117,7 +117,20 @@ export class DatabaseService {
     this.commentsCollection.add(comment);
   }
 
-  getComments(postID): void {
-    
+  getComments(postID): Observable<IComment[]> {
+    /*this.comments = this.commentsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IComment;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );*/
+
+    this.commentsCollection = this._afs.collection<IComment>('posts')
+      .doc(this.postID).collection('comments')
+
+    return this.comments;
   }
 }
