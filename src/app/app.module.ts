@@ -30,6 +30,9 @@ import { Media, MediaObject } from "@ionic-native/media/ngx";
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { UserSearchComponent } from './components/user-search/user-search.component';
 
+import { CommentsPageModule } from "./pages/comments/comments.module"
+import { CommentsPage } from "./pages/comments/comments.page"
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +42,7 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
     YoutubeSearchResultComponent,
     UserSearchComponent
   ],
-  entryComponents: [CreateSongModalPage],
+  entryComponents: [CreateSongModalPage, CommentsPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
@@ -49,7 +52,8 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    CreateSongModalPageModule
+    CreateSongModalPageModule,
+    CommentsPageModule
   ],
   providers: [
     StatusBar,

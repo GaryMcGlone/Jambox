@@ -8,6 +8,8 @@ import {
 } from "@angular/fire/firestore";
 import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
+import { IComment } from "../../interfaces/comment-interface";
+
 @Injectable({
   providedIn: "root"
 })
@@ -20,6 +22,10 @@ export class DatabaseService {
 
   currentUser: Observable<IUser>;
   filteredPosts: Observable<IPost[]>;
+
+  comments: Observable<IComment[]>;
+  commentsCollection: AngularFirestoreCollection<IComment>;
+  postID;
 
   userSearch(start, end)  {
   }
@@ -47,8 +53,17 @@ export class DatabaseService {
     return this.posts;
   }
 
+  //this method adds a post, as well as the subcollection that holds the comments
   addPost(post): void {
-    this.postsCollection.add(post);
+    this.postsCollection.add(post)
+    .then(docRef => {
+      console.log("Document written with ID: ", docRef.id);
+      this._afs.collection('posts/' + docRef.id + '/comments').add({
+        'content': "",
+        'postedBy': "",
+        'likes': 0
+      });
+    })
   }
 
   // Search for a song in our database
@@ -71,6 +86,7 @@ export class DatabaseService {
   }
   
   //dis workds connord
+  //hurray
   addUser(user: IUser) {
     this.userCollection.doc(user.uid).set(user);
   }
@@ -97,5 +113,11 @@ export class DatabaseService {
     return this.filteredPosts;
   }
 
+  addComment(comment): void{
+    this.commentsCollection.add(comment);
+  }
 
+  getComments(postID): void {
+    
+  }
 }
