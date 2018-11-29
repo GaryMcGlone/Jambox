@@ -5,6 +5,7 @@ import { ModalController, NavParams } from "@ionic/angular";
 import { DatePipe } from "@angular/common";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { DatabaseService } from "../../services/database/database.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-spotify-search-result",
@@ -19,10 +20,11 @@ export class SpotifySearchResultComponent implements OnInit {
   constructor(
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService,
-    private databaseService: DatabaseService
-  ) {}
+    private databaseService: DatabaseService,
+    private router: Router
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   selectSong(
     songId: string,
@@ -64,5 +66,6 @@ export class SpotifySearchResultComponent implements OnInit {
   performSearch(id) {
     console.log(id)
     this.databaseService.searchForASong(id).subscribe(data => console.log(data))
+    this.router.navigateByUrl('/searchSongById/' + id)
   }
 }

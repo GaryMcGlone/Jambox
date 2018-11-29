@@ -19,6 +19,9 @@ export class PostComponent implements OnInit {
   username: string;
   errorMessage: string;
   user: IUser;
+  heartType: string = 'heart-empty';
+  heartColor: string = 'dark'
+  isLiked: boolean = false;
 
   constructor(private databaseService: DatabaseService,
               private spotifyService: SpotifyService,
@@ -30,6 +33,23 @@ export class PostComponent implements OnInit {
         this.username = this.user.displayName
     })
   }
+
+  likeClicked(){
+    if(this.isLiked == false){
+      this.isLiked = true;
+      this.changeHeart('heart', 'danger');
+    }
+    else{
+      this.isLiked = false
+      this.changeHeart('heart-empty', "dark");
+    }
+  }
+
+  changeHeart(type: string, color: string){
+    this.heartType = type;
+    this.heartColor = color;
+  }
+
   follow() {
     if (this.buttonFill == "outline") {
       this.btnValue = "unfollow";
@@ -39,7 +59,7 @@ export class PostComponent implements OnInit {
       this.buttonFill = "outline";
     }
   }
-
+  // Full Songs
   // play(songId){
   //   this.spotifyService.playFullTrack(songId) 
   // }
