@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { Media, MediaObject } from "@ionic-native/media/ngx";
 import { DatabaseService } from "../database/database.service";
 import { IUser } from "../../interfaces/user-interface";
+import { TouchSequence } from "selenium-webdriver";
 
 declare var cordova: any;
 
@@ -28,14 +29,13 @@ export class SpotifyService {
   private accessToken: string = "";
   private loggedIn = false;
 
-  private playing: boolean;
+  private playing: boolean = false;
   private paused: boolean = false;
   private songPos: number;
 
-  constructor( private _http: HttpClient, private platform: Platform, private storage: NativeStorage, private router: Router ) {
+  constructor(private _http: HttpClient, private platform: Platform, private storage: NativeStorage, private router: Router) {
     this.platform.ready().then(() => {
-      this.storage
-        .getItem("logged_in")
+      this.storage.getItem("logged_in")
         .then(res => {
           if (res) {
             this.authWithSpotify();
@@ -49,14 +49,7 @@ export class SpotifyService {
     const config = {
       clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
       redirectUrl: "jamboxapp://callback",
-      scopes: [
-        "streaming",
-        "playlist-read-private",
-        "user-read-email",
-        "user-read-private",
-        "user-read-currently-playing",
-        "user-read-birthdate"
-      ],
+      scopes: [ "streaming", "playlist-read-private", "user-read-email", "user-read-private", "user-read-currently-playing", "user-read-birthdate" ],
       tokenExchangeUrl: "https://jambox-app.herokuapp.com/exchange",
       tokenRefreshUrl: "https://jambox-app.herokuapp.com/refresh"
     };
@@ -114,48 +107,55 @@ export class SpotifyService {
       );
   }
 
+  getSongPosition(): number {
+    cordova.plugins.spotify.getPosition().then(pos => {
+      this.songPos = pos;
+      console.log('paused at : ', this.songPos)
+    });
+    return this.songPos;
+  }
+
   pauseTrack() {
     cordova.plugins.spotify.pause().then(() => {
-      this.paused = true;
+      this.paused = true
       this.playing = false;
     });
   }
 
-  getSongPosition() : number {
-    cordova.plugins.spotify.getPosition()
-    .then(pos => {
-      this.songPos = pos
-    })
-    return this.songPos
-  }
-
-  play(post) {
-    this.getSongPosition()
-    if(this.paused){
-      cordova.plugins.spotify
-      .resume(post.songId,  {
-        clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
-        token: this.accessToken
-      }, this.songPos)
-      .then(() => {
-        this.paused = false
-        this.playing = true;
-      });
-    } else {
-      cordova.plugins.spotify
-      .play(post.songId, {
+  play(songId: string) {
+    console.log('playing song with id = ', songId)
+    cordova.plugins.spotify
+      .play(songId, {
         clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
         token: this.accessToken
       })
       .then(() => {
-        this.paused = false
+        console.log("playing new song", songId);
         this.playing = true;
+        this.paused = false
       });
-    }
+  }
+
+  resumeSong(songId) {
+    this.getSongPosition()
+    console.log('resuming song with id = ', songId)
+    cordova.plugins.spotify
+      .resume(
+        songId,
+        {
+          clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
+          token: this.accessToken
+        },
+        this.songPos
+      )
+      .then(() => {
+        console.log("resume songId", songId);
+        this.playing = true;
+        this.paused = false;
+      });
   }
 
   open(item) {
     window.open(item, "_system", "location=yes");
   }
-
 }
