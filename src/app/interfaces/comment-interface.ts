@@ -3,4 +3,5 @@ export interface IComment{
     userID: string;
     postedBy: string;
     likes: number;
+    postedAt: string;
 }

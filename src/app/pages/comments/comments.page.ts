@@ -25,11 +25,6 @@ export class CommentsPage implements OnInit {
     }
 
   ngOnInit() {
-    /*this.databaseService.getComments(this.selectedpost).subscribe(comments => {
-      (this.comments = comments),
-      error => (this.errorMessage = <any>error);
-    });*/
-    //console.log("comments: " + this.comments)
   }
 
   closeModal(){

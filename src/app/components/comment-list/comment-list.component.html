@@ -1,3 +1,5 @@
-<p>
-  comment-list works!
-</p>
+<ion-list no-lines>
+  <ion-item *ngFor="let comment of comments" text-wrap>
+    <app-comment [comment]='comment'></app-comment>
+  </ion-item>
+</ion-list>

@@ -53,18 +53,9 @@ export class DatabaseService {
     return this.posts;
   }
 
-  //this method adds a post, as well as the subcollection that holds the comments
+  //this method adds a post
   addPost(post): void {
     this.postsCollection.add(post)
-    .then(docRef => {
-      console.log("Document written with ID: ", docRef.id);
-      this._afs.collection('posts/' + docRef.id + '/comments').add({
-        'content': "",
-        'userID': "",
-        'postedBy': "",
-        'likes': 0
-      });
-    })
   }
 
   // Search for a song in our database
@@ -114,24 +105,20 @@ export class DatabaseService {
     return this.filteredPosts;
   }
 
+  //adds a comment to a subcollection, creates subcollection if it doesn't exist
   addComment(comment, postID): void{
     this._afs.collection('posts/' + postID + '/comments').add(comment)
   }
 
-  /*getComments(postID): Observable<IComment[]> {
-    this.comments = this.commentsCollection.snapshotChanges().pipe(
+  getComments(postID): Observable<IComment[]> {
+    this.comments = this._afs.collection('posts/' + postID + '/comments', ref => ref.orderBy("postedAt", "desc")).snapshotChanges().pipe(
       map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as IComment;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      )
-    );
-
-    this.commentsCollection = this._afs.collection<IComment>('posts')
-      .doc(this.postID).collection('comments')
-
+      actions.map(a => {
+        const data = a.payload.doc.data() as IComment;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })
+    ));
     return this.comments;
-}*/
+  }
 }
