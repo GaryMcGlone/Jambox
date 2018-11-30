@@ -25,7 +25,7 @@ export class DatabaseService {
 
   comments: Observable<IComment[]>;
   commentsCollection: AngularFirestoreCollection<IComment>;
-  postID;
+
 
   userSearch(start, end)  {
   }
@@ -60,6 +60,7 @@ export class DatabaseService {
       console.log("Document written with ID: ", docRef.id);
       this._afs.collection('posts/' + docRef.id + '/comments').add({
         'content': "",
+        'userID': "",
         'postedBy': "",
         'likes': 0
       });
@@ -113,12 +114,12 @@ export class DatabaseService {
     return this.filteredPosts;
   }
 
-  addComment(comment): void{
-    this.commentsCollection.add(comment);
+  addComment(comment, postID): void{
+    this._afs.collection('posts/' + postID + '/comments').add(comment)
   }
 
-  getComments(postID): Observable<IComment[]> {
-    /*this.comments = this.commentsCollection.snapshotChanges().pipe(
+  /*getComments(postID): Observable<IComment[]> {
+    this.comments = this.commentsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
           const data = a.payload.doc.data() as IComment;
@@ -126,11 +127,11 @@ export class DatabaseService {
           return { id, ...data };
         })
       )
-    );*/
+    );
 
     this.commentsCollection = this._afs.collection<IComment>('posts')
       .doc(this.postID).collection('comments')
 
     return this.comments;
-  }
+}*/
 }
