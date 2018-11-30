@@ -1,18 +1,16 @@
 <ion-header>
   <ion-toolbar>
+      <ion-buttons>
+          <ion-menu-button>
+            <ion-icon icon="arrow-back" (click)="closeModal()" id="back"></ion-icon>
+          </ion-menu-button>
+        </ion-buttons>
     <ion-title>comments</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-item>
-      <img src={{post.albumArt}} slot="start" class="smallArt">
-      <h4>{{post.songName}}</h4>
-      <p slot="end">{{post.artistName}}</p>
-    </ion-item>
-  </ion-card>
-
+  <app-selected-post [post]="post"></app-selected-post>
   <app-comment-list [post]="post"></app-comment-list>
   <app-add-comment [post]="post"></app-add-comment>
 </ion-content>

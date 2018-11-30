@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-selected-post',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./selected-post.component.scss']
 })
 export class SelectedPostComponent implements OnInit {
+  @Input() post;
 
   constructor() { }
 
