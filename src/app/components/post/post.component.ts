@@ -4,8 +4,9 @@ import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.s
 import { SpotifyService } from "../../services/spotify/spotify.service";
 import { DatabaseService } from "../../services/database/database.service";
 import { IUser } from '../../interfaces/user-interface';
+import { ILike } from '../../interfaces/like-interface';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
-import { ModalController } from "@ionic/angular";
+import { ModalController, NavParams } from "@ionic/angular";
 import { CommentsPage } from '../../pages/comments/comments.page';
 
 @Component({
@@ -21,28 +22,52 @@ export class PostComponent implements OnInit {
   username: string;
   errorMessage: string;
   user: IUser;
+  currentUserID: string;
+  like: ILike;
   heartType: string = 'heart-empty';
   heartColor: string = 'dark'
-  isLiked: boolean = false;
   postID;
+  selectedPost;
+  liked: boolean;
+  likeID: string;
 
-  constructor(private databaseService: DatabaseService, private spotifyService: SpotifyService, private youtube: YoutubeVideoPlayer, private modalController: ModalController ) { }
+  constructor(private databaseService: DatabaseService, private spotifyService: SpotifyService,
+     private youtube: YoutubeVideoPlayer, private modalController: ModalController, 
+     private firebaseAuth: FirebaseAuthService) { }
 
   ngOnInit() {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
       this.user = data,
         this.username = this.user.displayName
     })
+
+    this.currentUserID = this.firebaseAuth.getCurrentUserID();
+    this.likeID = this.currentUserID + '_' + this.post.id;
+    console.log("UID: ", this.currentUserID)
+    console.log("LikeID: ", this.likeID)
+
+    this.liked = this.databaseService.checkIfLiked(this.likeID);
+    console.log("LIKED: ", this.liked)
+
+    if(this.liked){
+      this.changeHeart('heart', 'danger');
+      console.log("heart changed liked = true");
+    }
+    
   }
 
-  likeClicked(){
-    if(this.isLiked == false){
-      this.isLiked = true;
+  likeClicked(){    
+    if(!this.databaseService.checkIfLiked(this.likeID))
+    {
+      this.like = {userID: this.currentUserID, postID: this.post.id}
+      this.databaseService.addLike(this.like);
       this.changeHeart('heart', 'danger');
+      console.log("Post Liked");
     }
-    else{
-      this.isLiked = false
-      this.changeHeart('heart-empty', "dark");
+    else {
+      this.databaseService.removeLike(this.likeID);
+      this.changeHeart('heart-empty', 'dark');
+      console.log("Post UnLiked");
     }
   }
 
@@ -78,6 +103,7 @@ export class PostComponent implements OnInit {
   }
 
   commentClick(){
+    console.log("WTF: ",this.postID);
     this.selectComments(this.postID);
   }
 

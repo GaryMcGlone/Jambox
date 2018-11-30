@@ -9,6 +9,7 @@ import {
 import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
 import { IComment } from "../../interfaces/comment-interface";
+import { ILike } from "../../interfaces/like-interface";
 
 @Injectable({
   providedIn: "root"
@@ -26,6 +27,7 @@ export class DatabaseService {
   comments: Observable<IComment[]>;
   commentsCollection: AngularFirestoreCollection<IComment>;
 
+  found: boolean;
 
   userSearch(start, end)  {
   }
@@ -120,5 +122,44 @@ export class DatabaseService {
       })
     ));
     return this.comments;
+  }
+
+  //Checking if post is liked by a user
+  checkIfLiked(likeId: string) : boolean {
+    this._afs.firestore.doc('/likes/' + likeId).get()
+      .then(docSnapshot => {
+        if(docSnapshot.exists){
+          console.log("Document Found!");
+          this.found = true;
+          console.log("Returning: ",this.found)
+        }
+        else{
+          console.log("Document not found");
+          this.found = false;
+          console.log("Returning: ",this.found)
+        }
+      })
+    return this.found;
+  }
+
+  //Adding a like
+  addLike(like: ILike): void {
+    this._afs.collection('likes').doc(like.userID + '_' + like.postID).set({
+      postID: like.postID,
+      userID: like.userID
+    }).then(function() {
+      console.log("Document successfully added!");
+    }).catch(function(error) {
+      console.error("Error adding document: ", error);
+    })
+  }
+
+  //Remove a like
+  removeLike(likeId: string): void {
+    this._afs.collection('likes').doc(likeId).delete().then(function() {
+      console.log('Document successfully deleted!');
+    }).catch(function(error) {
+      console.error("Error removing document: ", error);
+    });
   }
 }
