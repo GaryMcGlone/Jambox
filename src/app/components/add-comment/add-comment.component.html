@@ -1,0 +1,15 @@
+  <div class="wrapper" style="position: fixed;left: 0;bottom: 10px;right: 0;">
+    <ion-item>
+      <ion-label position="floating">Comment</ion-label>
+      <ion-textarea rows="3" [(ngModel)]="content"></ion-textarea>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col width-50>
+          <ion-button expand='block' (click)="save()">
+            Post
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>

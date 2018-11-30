@@ -8,6 +8,8 @@ import {
 } from "@angular/fire/firestore";
 import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
+import { IComment } from "../../interfaces/comment-interface";
+
 @Injectable({
   providedIn: "root"
 })
@@ -20,6 +22,10 @@ export class DatabaseService {
 
   currentUser: Observable<IUser>;
   filteredPosts: Observable<IPost[]>;
+
+  comments: Observable<IComment[]>;
+  commentsCollection: AngularFirestoreCollection<IComment>;
+
 
   userSearch(start, end)  {
   }
@@ -47,8 +53,9 @@ export class DatabaseService {
     return this.posts;
   }
 
+  //this method adds a post
   addPost(post): void {
-    this.postsCollection.add(post);
+    this.postsCollection.add(post)
   }
 
   // Search for a song in our database
@@ -71,6 +78,7 @@ export class DatabaseService {
   }
   
   //dis workds connord
+  //hurray
   addUser(user: IUser) {
     this.userCollection.doc(user.uid).set(user);
   }
@@ -97,5 +105,20 @@ export class DatabaseService {
     return this.filteredPosts;
   }
 
+  //adds a comment to a subcollection, creates subcollection if it doesn't exist
+  addComment(comment, postID): void{
+    this._afs.collection('posts/' + postID + '/comments').add(comment)
+  }
 
+  getComments(postID): Observable<IComment[]> {
+    this.comments = this._afs.collection('posts/' + postID + '/comments', ref => ref.orderBy("postedAt", "desc")).snapshotChanges().pipe(
+      map(actions =>
+      actions.map(a => {
+        const data = a.payload.doc.data() as IComment;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })
+    ));
+    return this.comments;
+  }
 }
