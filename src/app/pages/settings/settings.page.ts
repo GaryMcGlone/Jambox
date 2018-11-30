@@ -12,15 +12,13 @@ import { IUser } from "../../interfaces/user-interface";
 export class SettingsPage implements OnInit {
   spotifyUser: any;
   user: IUser;
-  constructor(public spotifyService: SpotifyService, private dbService: DatabaseService, private router: Router, private authService: FirebaseAuthService) {
-    
+  constructor(public spotifyService: SpotifyService, private dbService: DatabaseService, private router: Router, private authService: FirebaseAuthService) {  
   }
 
   ngOnInit() {
     this.spotifyService.getLoggedInUser().subscribe(user => {
       this.spotifyUser = user;
     });
-
     if (!this.spotifyUser) {
       this.dbService
         .getCurrentUser(this.authService.getCurrentUserID())

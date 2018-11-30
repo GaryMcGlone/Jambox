@@ -65,19 +65,24 @@ export class PostComponent implements OnInit {
     this.spotifyService.pauseTrack();
   }
  
-  playYoutube(videoId){
-    this.youtube.openVideo(videoId);
+  play(songId){
+    this.spotifyService.play(songId) 
   }
 
-  play(post){
-    this.spotifyService.play(post) 
+  resume(songId) {
+    this.spotifyService.resumeSong(songId)
   }
+  
   open(uri){
     this.spotifyService.open(uri)
   }
 
   commentClick(){
     this.selectComments(this.postID);
+  }
+
+  playYoutube(videoId){
+    this.youtube.openVideo(videoId);
   }
 
   selectComments(selectedPost): void{

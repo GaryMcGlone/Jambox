@@ -6,7 +6,6 @@ import { DatePipe } from "@angular/common";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { DatabaseService } from "../../services/database/database.service";
 import { Router } from "@angular/router";
-import { SpotifyService } from "../../services/spotify/spotify.service";
 
 @Component({
   selector: "app-spotify-search-result",
@@ -22,8 +21,7 @@ export class SpotifySearchResultComponent implements OnInit {
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService,
     private databaseService: DatabaseService,
-    private router: Router,
-    private spotifyService: SpotifyService
+    private router: Router
   ) { }
 
   ngOnInit() { }
