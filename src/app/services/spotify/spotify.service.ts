@@ -74,17 +74,7 @@ export class SpotifyService {
       .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
         this.accessToken = accessToken;
         this.loggedIn = true;
-        this.getLoggedInUser()
-          .toPromise()
-          .then(user => {
-            console.log(user);
-            let spotifyUser: IUser = {
-              email: user.email,
-              displayName: user.display_name
-            };
-            console.log(spotifyUser);
-            this.db.addUser(spotifyUser);
-          });
+
         this.storage.setItem("logged_in", true);
         this.router.navigate(["home"]);
       });
@@ -134,21 +124,6 @@ export class SpotifyService {
       );
   }
 
-  playSong(previewUri) {
-    this.playing = true;
-    this.currentTrack = this.media.create(previewUri);
-
-    this.currentTrack.onSuccess.subscribe(() => {
-      this.playing = false;
-    });
-    this.currentTrack.onError.subscribe(() => {
-      this.playing = false;
-    });
-    this.currentTrack.play();
-
-    // for playing full songs
-    // this.spotifyWebApi.play({uri:[uri]})
-  }
   pauseTrack() {
     cordova.plugins.spotify.pause().then(() => {
       this.playing = false;
@@ -156,10 +131,10 @@ export class SpotifyService {
     });
   }
 
-  playFullTrack(uri) {
-    console.log(uri);
+  play(post) {
+    console.log(post);
     cordova.plugins.spotify
-      .play(uri, {
+      .play(post.songId, {
         clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
         token: this.accessToken
       })

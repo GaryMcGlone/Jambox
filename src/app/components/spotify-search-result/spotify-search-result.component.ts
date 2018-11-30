@@ -6,6 +6,7 @@ import { DatePipe } from "@angular/common";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { DatabaseService } from "../../services/database/database.service";
 import { Router } from "@angular/router";
+import { SpotifyService } from "../../services/spotify/spotify.service";
 
 @Component({
   selector: "app-spotify-search-result",
@@ -21,19 +22,13 @@ export class SpotifySearchResultComponent implements OnInit {
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService,
     private databaseService: DatabaseService,
-    private router: Router
+    private router: Router,
+    private spotifyService: SpotifyService
   ) { }
 
   ngOnInit() { }
 
-  selectSong(
-    songId: string,
-    artistName: string,
-    songName: string,
-    albumArt: string,
-    externalUri: string,
-    previewUrl: string
-  ) {
+  selectSong(songId: string, artistName: string, songName: string, albumArt: string, externalUri: string, previewUrl: string) {
     const date = new Date();
     const now = this.pipe.transform(date, "medium");
 

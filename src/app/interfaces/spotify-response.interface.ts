@@ -3,6 +3,7 @@ interface ISpotifyResponse {
     email: string;
     tracks: ITrack;
     item: IItems;
+    uri: string;
   }
   interface ITrack {
     items: IItems[];

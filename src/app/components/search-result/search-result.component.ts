@@ -64,21 +64,15 @@ export class SearchResultComponent implements OnInit {
       this.buttonFill = "outline";
     }
   }
-  // Full Songs
-  // play(songId){
-  //   this.spotifyService.playFullTrack(songId) 
-  // }
   pause() {
     this.spotifyService.pauseTrack();
   }
   playYoutube(videoId: string){
-    console.log(videoId);
     this.youtube.openVideo(videoId);
   }
 
-  play(previewUrl){
-    console.log('fc', previewUrl)
-    this.spotifyService.playSong(previewUrl) 
+  play(post){
+    this.spotifyService.play(post) 
   }
   open(uri){
     this.spotifyService.open(uri)

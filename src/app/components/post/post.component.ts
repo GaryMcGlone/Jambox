@@ -5,6 +5,8 @@ import { SpotifyService } from "../../services/spotify/spotify.service";
 import { DatabaseService } from "../../services/database/database.service";
 import { IUser } from '../../interfaces/user-interface';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
+import { ModalController } from "@ionic/angular";
+import { CommentsPage } from '../../pages/comments/comments.page';
 
 @Component({
   selector: "app-post",
@@ -22,10 +24,9 @@ export class PostComponent implements OnInit {
   heartType: string = 'heart-empty';
   heartColor: string = 'dark'
   isLiked: boolean = false;
+  postID;
 
-  constructor(private databaseService: DatabaseService,
-              private spotifyService: SpotifyService,
-              private youtube: YoutubeVideoPlayer ) { }
+  constructor(private databaseService: DatabaseService, private spotifyService: SpotifyService, private youtube: YoutubeVideoPlayer, private modalController: ModalController ) { }
 
   ngOnInit() {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
@@ -59,23 +60,39 @@ export class PostComponent implements OnInit {
       this.buttonFill = "outline";
     }
   }
-  // Full Songs
-  // play(songId){
-  //   this.spotifyService.playFullTrack(songId) 
-  // }
+ 
   pause() {
     this.spotifyService.pauseTrack();
   }
-  playYoutube(videoId: string){
-    console.log(videoId);
+ 
+  playYoutube(videoId){
     this.youtube.openVideo(videoId);
   }
 
-  play(songId){
-    console.log('fc', songId)
-    this.spotifyService.playFullTrack(songId) 
+  play(post){
+    this.spotifyService.play(post) 
   }
   open(uri){
     this.spotifyService.open(uri)
+  }
+
+  commentClick(){
+    this.selectComments(this.postID);
+  }
+
+  selectComments(selectedPost): void{
+    console.log("selectedpost: ", selectedPost);
+    this.presentModal(selectedPost);
+  }
+
+  async presentModal(selectedPost){
+    let props = {
+      post: selectedPost
+    }
+    const modal = await this.modalController.create({
+      component: CommentsPage,
+      componentProps: props
+    });
+    return await modal.present();
   }
 }
