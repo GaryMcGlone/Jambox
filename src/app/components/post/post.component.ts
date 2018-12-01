@@ -3,11 +3,11 @@ import { Post } from "../../models/post.model";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { SpotifyService } from "../../services/spotify/spotify.service";
 import { DatabaseService } from "../../services/database/database.service";
-import { IUser } from '../../interfaces/user-interface';
-import { ILike } from '../../interfaces/like-interface';
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
+import { IUser } from "../../interfaces/user-interface";
+import { ILike } from "../../interfaces/like-interface";
+import { YoutubeVideoPlayer } from "@ionic-native/youtube-video-player/ngx";
 import { ModalController, NavParams } from "@ionic/angular";
-import { CommentsPage } from '../../pages/comments/comments.page';
+import { CommentsPage } from "../../pages/comments/comments.page";
 
 @Component({
   selector: "app-post",
@@ -24,54 +24,48 @@ export class PostComponent implements OnInit {
   user: IUser;
   currentUserID: string;
   like: ILike;
-  heartType: string = 'heart-empty';
-  heartColor: string = 'dark'
+  heartType: string = "heart-empty";
+  heartColor: string = "dark";
   postID;
   selectedPost;
   liked: boolean;
   likeID: string;
 
-  constructor(private databaseService: DatabaseService, private spotifyService: SpotifyService,
-     private youtube: YoutubeVideoPlayer, private modalController: ModalController, 
-     private firebaseAuth: FirebaseAuthService) { }
+  constructor(
+    private databaseService: DatabaseService,
+    private spotifyService: SpotifyService,
+    private youtube: YoutubeVideoPlayer,
+    private modalController: ModalController,
+    private firebaseAuth: FirebaseAuthService
+  ) {}
 
   ngOnInit() {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
-      this.user = data,
-        this.username = this.user.displayName
-    })
-
-    this.currentUserID = this.firebaseAuth.getCurrentUserID();
-    this.likeID = this.currentUserID + '_' + this.post.id;
-    console.log("UID: ", this.currentUserID)
-    console.log("LikeID: ", this.likeID)
-
-    this.liked = this.databaseService.checkIfLiked(this.likeID);
-    console.log("LIKED: ", this.liked)
-
-    if(this.liked){
-      this.changeHeart('heart', 'danger');
-      console.log("heart changed liked = true");
-    }
-    
+      (this.user = data), (this.username = this.user.displayName);
+    });
+    this.databaseService.getAllLikes().subscribe(likes => {
+      console.log(likes);
+    });
   }
 
-  likeClicked(){    
-    if(!this.databaseService.checkIfLiked(this.likeID))
-    {
-      this.like = {userID: this.currentUserID, postID: this.post.id}
-      this.databaseService.addLike(this.like);
-      this.changeHeart('heart', 'danger');
-      console.log("Post Liked");
-    }
-    else {
-      this.databaseService.removeLike(this.likeID);
-      this.changeHeart('heart-empty', 'dark');
-      console.log("Post UnLiked");
-    }
+  addLike(id) {
+    console.log("liking post");
+    let like: ILike = {
+      postId: id,
+      userId: this.firebaseAuth.getCurrentUserID()
+    };
+    this.changeHeart('heart','danger')
+    this.liked = true;
+    this.databaseService.addLike(like);
+  }
+  removeLike(id) {
+    this.likeID = this.firebaseAuth.getCurrentUserID() + '_' + id
+    this.changeHeart('heart-empty','dark')
+    this.liked = false;
+    this.databaseService.removeLike(this.likeID);
   }
 
-  changeHeart(type: string, color: string){
+  changeHeart(type: string, color: string) {
     this.heartType = type;
     this.heartColor = color;
   }
@@ -85,41 +79,41 @@ export class PostComponent implements OnInit {
       this.buttonFill = "outline";
     }
   }
- 
+
   pause() {
     this.spotifyService.pauseTrack();
   }
- 
-  play(songId){
-    this.spotifyService.play(songId) 
+
+  play(songId) {
+    this.spotifyService.play(songId);
   }
 
   resume(songId) {
-    this.spotifyService.resumeSong(songId)
-  }
-  
-  open(uri){
-    this.spotifyService.open(uri)
+    this.spotifyService.resumeSong(songId);
   }
 
-  commentClick(){
-    console.log("WTF: ",this.postID);
+  open(uri) {
+    this.spotifyService.open(uri);
+  }
+
+  commentClick() {
+    console.log("WTF: ", this.postID);
     this.selectComments(this.postID);
   }
 
-  playYoutube(videoId){
+  playYoutube(videoId) {
     this.youtube.openVideo(videoId);
   }
 
-  selectComments(selectedPost): void{
+  selectComments(selectedPost): void {
     console.log("selectedpost: ", selectedPost);
     this.presentModal(selectedPost);
   }
 
-  async presentModal(selectedPost){
+  async presentModal(selectedPost) {
     let props = {
       post: selectedPost
-    }
+    };
     const modal = await this.modalController.create({
       component: CommentsPage,
       componentProps: props

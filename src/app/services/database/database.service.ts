@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, reduce } from "rxjs/operators";
 import {
   AngularFirestoreCollection,
   AngularFirestore,
@@ -10,35 +10,37 @@ import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
 import { IComment } from "../../interfaces/comment-interface";
 import { ILike } from "../../interfaces/like-interface";
+import { TouchSequence } from "selenium-webdriver";
 
 @Injectable({
   providedIn: "root"
 })
 export class DatabaseService {
-  postsCollection: AngularFirestoreCollection<IPost>;
-  posts: Observable<IPost[]>;
-  userCollection: AngularFirestoreCollection<IUser>;
-
-  private fireDocUser: AngularFirestoreDocument<IUser>;
-
-  currentUser: Observable<IUser>;
-  filteredPosts: Observable<IPost[]>;
-
-  comments: Observable<IComment[]>;
-  commentsCollection: AngularFirestoreCollection<IComment>;
-
-  found: boolean;
-
-  userSearch(start, end)  {
-  }
   
+  private postsCollection: AngularFirestoreCollection<IPost>;
+  private posts: Observable<IPost[]>;
+  private filteredPosts: Observable<IPost[]>;
+
+  private userCollection: AngularFirestoreCollection<IUser>;
+  private fireDocUser: AngularFirestoreDocument<IUser>;
+  private currentUser: Observable<IUser>;
+
+  private comments: Observable<IComment[]>;
+  private commentsCollection: AngularFirestoreCollection<IComment>;
+
+  private likes: Observable<ILike[]>
+  private likeCollection: AngularFirestoreCollection<ILike>
+
+  private found: boolean;
 
   constructor(private _afs: AngularFirestore) {
     this.postsCollection = _afs.collection<IPost>("posts", ref =>
       ref.orderBy("createdAt", "desc")
     );
-
+    //                                                             what do
+    // this.commentsCollection = _afs.collection<IComment>(`posts/${postID}/comments`)
     this.userCollection = _afs.collection<IUser>("users");
+    this.likeCollection = _afs.collection<ILike>('likes');
   }
 
   getPosts(): Observable<IPost[]> {
@@ -51,7 +53,6 @@ export class DatabaseService {
         })
       )
     );
-
     return this.posts;
   }
 
@@ -109,10 +110,16 @@ export class DatabaseService {
 
   //adds a comment to a subcollection, creates subcollection if it doesn't exist
   addComment(comment, postID): void{
+
+    // maybe do it this way - looks better this way
+    // BUT in the constructor idk what you would make this.commentsCollection equal to 
+    //this.commentsCollection.doc(`posts/${postID}/comments`).set(comment)
+
     this._afs.collection('posts/' + postID + '/comments').add(comment)
   }
 
   getComments(postID): Observable<IComment[]> {
+    // this._afs.collection(`posts/${postID}/comments`,ref => ref.orderBy('postedAt','desc'))
     this.comments = this._afs.collection('posts/' + postID + '/comments', ref => ref.orderBy("postedAt", "desc")).snapshotChanges().pipe(
       map(actions =>
       actions.map(a => {
@@ -122,6 +129,22 @@ export class DatabaseService {
       })
     ));
     return this.comments;
+  }
+
+  // checkLiked(id) {
+  //   this.likes = this.likeCollection.doc(id).snapshotChanges()
+  // }
+
+  getAllLikes() : Observable<ILike[]> {
+    this.likes = this.likeCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+          const likes = a.payload.doc.data() as ILike;
+          const id = a.payload.doc.id
+          return { id, ...likes }
+        })
+      )
+    )
+    return this.likes;
   }
 
   //Checking if post is liked by a user
@@ -144,22 +167,31 @@ export class DatabaseService {
 
   //Adding a like
   addLike(like: ILike): void {
-    this._afs.collection('likes').doc(like.userID + '_' + like.postID).set({
-      postID: like.postID,
-      userID: like.userID
-    }).then(function() {
-      console.log("Document successfully added!");
-    }).catch(function(error) {
-      console.error("Error adding document: ", error);
-    })
-  }
+
+    // this also looks better
+    console.log('adding like to database ', like)
+    this.likeCollection.doc(`${like.userId}_${like.postId}`).set(like)
+
+
+  //   this._afs.collection('likes').doc(like.userId + '_' + like.postId).set({
+  //     postID: like.postId,
+  //     userID: like.userId
+  //   }).then(function() {
+  //     console.log("Document successfully added!");
+  //   }).catch(function(error) {
+  //     console.error("Error adding document: ", error);
+  //   })
+   }
 
   //Remove a like
   removeLike(likeId: string): void {
-    this._afs.collection('likes').doc(likeId).delete().then(function() {
-      console.log('Document successfully deleted!');
-    }).catch(function(error) {
-      console.error("Error removing document: ", error);
-    });
+    //this looks better jakub
+    this.likeCollection.doc(likeId).delete()
+
+    // this._afs.collection('likes').doc(likeId).delete().then(function() {
+    //   console.log('Document successfully deleted!');
+    // }).catch(function(error) {
+    //   console.error("Error removing document: ", error);
+    // });
   }
 }

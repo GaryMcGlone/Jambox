@@ -20,7 +20,7 @@
   </ion-card-content>
   <ion-row>
     <ion-col>
-      <ion-button fill="clear" size="small" [color]="heartColor" (click)="likeClicked()">
+      <ion-button fill="clear" size="small" [color]="heartColor" (click)="liked ? removeLike(post.id) : addLike(post.id)">
         <ion-icon [name]="heartType"></ion-icon>
       </ion-button>
     </ion-col>
@@ -38,7 +38,7 @@
         <ion-button (click)="pause()" fill="clear" size="small" color="dark">
           <ion-icon name="pause"></ion-icon>
         </ion-button>
-      </ion-col>
+    </ion-col>
     <ion-col *ngIf='post.postType == "yt"'>
       <ion-button (click)="playYoutube(post.songId)" fill="clear" size="small" color="dark">
         <ion-icon name="play"></ion-icon>
