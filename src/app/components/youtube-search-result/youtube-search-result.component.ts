@@ -4,6 +4,7 @@ import { CreateSongModalPage } from "../../pages/create-song-modal/create-song-m
 import { ModalController } from "@ionic/angular";
 import { DatabaseService } from '../../services/database/database.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-youtube-search-result',
@@ -15,7 +16,9 @@ export class YoutubeSearchResultComponent implements OnInit {
   selectedSong: Post;
   pipe = new DatePipe("en-IE");
 
-  constructor(private modalController: ModalController, private databaseService: DatabaseService) {}
+  constructor(private modalController: ModalController,
+    private databaseService: DatabaseService,
+    private router: Router) { }
 
   ngOnInit() {
   }
@@ -33,7 +36,7 @@ export class YoutubeSearchResultComponent implements OnInit {
       albumArt: albumArt,
       createdAt: now,
       externalUri: '',
-      previewUrl:'',
+      previewUrl: '',
       postType: 'yt'
     };
     this.presentModal(this.selectedSong);
@@ -52,8 +55,6 @@ export class YoutubeSearchResultComponent implements OnInit {
 
   performSearch(songId) {
     console.log("searching for: ", songId);
-    this.databaseService.searchForASong(songId).subscribe(posts => {
-      console.log(posts);
-    })
+    this.router.navigateByUrl('/searchSongById/' + songId)
   }
 }

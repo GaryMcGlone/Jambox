@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPost } from '../../interfaces/post-interface';
 import { DatabaseService } from '../../services/database/database.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-song-by-id',
@@ -12,7 +12,9 @@ export class SearchSongByIdPage implements OnInit {
 
   searchResults: IPost[] = [];
 
-  constructor(private databaseService: DatabaseService, private route: ActivatedRoute) {
+  constructor(private databaseService: DatabaseService,
+     private route: ActivatedRoute,
+     private router: Router) {
   }
   //spotify:album:6ZksrxRWlJ7ExylPyJwfLJ
   songId: string;
@@ -25,6 +27,9 @@ export class SearchSongByIdPage implements OnInit {
     this.databaseService.searchForASong(songId).subscribe(data => {
      console.log(data), this.searchResults = data
     })
+  }
+  exit(){
+    this.router.navigate([''])
   }
 
 }

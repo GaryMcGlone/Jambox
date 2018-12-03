@@ -65,7 +65,6 @@ export class SpotifySearchResultComponent implements OnInit {
 
   performSearch(id) {
     console.log(id)
-    this.databaseService.searchForASong(id).subscribe(data => console.log(data))
     this.router.navigateByUrl('/searchSongById/' + id)
   }
 }
