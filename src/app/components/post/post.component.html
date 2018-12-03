@@ -3,9 +3,11 @@
     <ion-button item-right (click)="follow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
   -->
   <ion-button (click)="open(post.externalUri)" fill="clear" size="small" color="dark" *ngIf="post.postType == 's'">
+    <ion-icon class="topIcon" style="color:#1db954;font-size: 23px" src="/assets/icon/spotify.svg"></ion-icon>
     Play on spotify
   </ion-button>
   <ion-button (click)="open('https://www.youtube.com/watch?v=' + post.songId)" fill="clear" size="small" color="dark" *ngIf="post.postType == 'yt'">
+    <ion-icon class="topIcon" name="logo-youtube" style="color: #ff0000; font-size: 23px"></ion-icon>
     Play on Youtube
   </ion-button>
   <ion-img [src]="post.albumArt"></ion-img>
