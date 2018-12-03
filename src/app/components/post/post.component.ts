@@ -44,8 +44,8 @@ export class PostComponent implements OnInit {
       (this.user = data), (this.username = this.user.displayName);
     });
 
-  this.checkIfLiked();
-     }
+    this.checkIfLiked();
+  }
 
   addLike(id) {
     console.log("liking post");
@@ -53,13 +53,13 @@ export class PostComponent implements OnInit {
       postId: id,
       userId: this.firebaseAuth.getCurrentUserID()
     };
-    this.changeHeart('heart','danger')
+    this.changeHeart("heart", "danger");
     this.liked = true;
     this.databaseService.addLike(like);
   }
   removeLike(id) {
-    this.likeID = this.firebaseAuth.getCurrentUserID() + '_' + id
-    this.changeHeart('heart-empty','dark')
+    this.likeID = this.firebaseAuth.getCurrentUserID() + "_" + id;
+    this.changeHeart("heart-empty", "dark");
     this.liked = false;
     this.databaseService.removeLike(this.likeID);
   }
@@ -120,16 +120,16 @@ export class PostComponent implements OnInit {
     return await modal.present();
   }
 
-  checkIfLiked(){
-this.databaseService.checkIfLiked(this.post.id + "_" + this.firebaseAuth.getCurrentUserID()).subscribe( data =>
-  {
-    if(data != undefined){
-      this.changeHeart('heart','danger')
-    }
-    else{
-      console.log("not liked")
-      this.changeHeart('heart-empty','dark')
-    }
-  })
+  checkIfLiked() {
+    this.databaseService
+      .checkIfLiked(this.post.id + "_" + this.firebaseAuth.getCurrentUserID())
+      .subscribe(data => {
+        if (data != undefined) {
+          this.changeHeart("heart", "danger");
+        } else {
+          console.log("not liked");
+          this.changeHeart("heart-empty", "dark");
+        }
+      });
   }
 }
