@@ -16,7 +16,7 @@ import { TouchSequence } from "selenium-webdriver";
   providedIn: "root"
 })
 export class DatabaseService {
-  
+
   private postsCollection: AngularFirestoreCollection<IPost>;
   private posts: Observable<IPost[]>;
   private filteredPosts: Observable<IPost[]>;
@@ -31,7 +31,9 @@ export class DatabaseService {
   private likes: Observable<ILike[]>
   private likeCollection: AngularFirestoreCollection<ILike>
 
-  private found: boolean;
+  private found: boolean = false;
+  private likeDocument: AngularFirestoreDocument<ILike>;
+  private like: Observable<ILike>
 
   constructor(private _afs: AngularFirestore) {
     this.postsCollection = _afs.collection<IPost>("posts", ref =>
@@ -79,7 +81,7 @@ export class DatabaseService {
     console.log(this.searchResults);
     return this.searchResults;
   }
-  
+
   //dis workds connord
   //hurray
   addUser(user: IUser) {
@@ -109,7 +111,7 @@ export class DatabaseService {
   }
 
   //adds a comment to a subcollection, creates subcollection if it doesn't exist
-  addComment(comment, postID): void{
+  addComment(comment, postID): void {
 
     // maybe do it this way - looks better this way
     // BUT in the constructor idk what you would make this.commentsCollection equal to 
@@ -122,12 +124,12 @@ export class DatabaseService {
     // this._afs.collection(`posts/${postID}/comments`,ref => ref.orderBy('postedAt','desc'))
     this.comments = this._afs.collection('posts/' + postID + '/comments', ref => ref.orderBy("postedAt", "desc")).snapshotChanges().pipe(
       map(actions =>
-      actions.map(a => {
-        const data = a.payload.doc.data() as IComment;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      })
-    ));
+        actions.map(a => {
+          const data = a.payload.doc.data() as IComment;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      ));
     return this.comments;
   }
 
@@ -135,34 +137,24 @@ export class DatabaseService {
   //   this.likes = this.likeCollection.doc(id).snapshotChanges()
   // }
 
-  getAllLikes() : Observable<ILike[]> {
+  getAllLikes(): Observable<ILike[]> {
     this.likes = this.likeCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
-          const likes = a.payload.doc.data() as ILike;
-          const id = a.payload.doc.id
-          return { id, ...likes }
-        })
+        const likes = a.payload.doc.data() as ILike;
+        const id = a.payload.doc.id
+        return { id, ...likes }
+      })
       )
     )
     return this.likes;
   }
 
   //Checking if post is liked by a user
-  checkIfLiked(likeId: string) : boolean {
-    this._afs.firestore.doc('/likes/' + likeId).get()
-      .then(docSnapshot => {
-        if(docSnapshot.exists){
-          console.log("Document Found!");
-          this.found = true;
-          console.log("Returning: ",this.found)
-        }
-        else{
-          console.log("Document not found");
-          this.found = false;
-          console.log("Returning: ",this.found)
-        }
-      })
-    return this.found;
+  checkIfLiked(likeId: string): Observable<ILike> {
+    console.log(likeId)
+    this.likeDocument = this._afs.doc<ILike>("likes/" + likeId);
+    this.like = this.likeDocument.valueChanges();
+    return this.like
   }
 
   //Adding a like
@@ -170,18 +162,17 @@ export class DatabaseService {
 
     // this also looks better
     console.log('adding like to database ', like)
-    this.likeCollection.doc(`${like.userId}_${like.postId}`).set(like)
+    this.likeCollection.doc(like.postId + "_" + like.userId).set(like)
 
-
-  //   this._afs.collection('likes').doc(like.userId + '_' + like.postId).set({
-  //     postID: like.postId,
-  //     userID: like.userId
-  //   }).then(function() {
-  //     console.log("Document successfully added!");
-  //   }).catch(function(error) {
-  //     console.error("Error adding document: ", error);
-  //   })
-   }
+    //   this._afs.collection('likes').doc(like.userId + '_' + like.postId).set({
+    //     postID: like.postId,
+    //     userID: like.userId
+    //   }).then(function() {
+    //     console.log("Document successfully added!");
+    //   }).catch(function(error) {
+    //     console.error("Error adding document: ", error);
+    //   })
+  }
 
   //Remove a like
   removeLike(likeId: string): void {

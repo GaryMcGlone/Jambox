@@ -11,8 +11,7 @@ const routes: Routes = [
   { path: 'create-song', loadChildren: './pages/create-song-modal/create-song-modal.module#CreateSongModalPageModule' , canActivate: [AuthGuard] },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'signUp', loadChildren: './pages/sign-up/sign-up.module#SignUpPageModule' },
-  { path: 'search-results-page', loadChildren: './pages/search-results-page/search-results-page.module#SearchResultsPagePageModule',  canActivate: [AuthGuard] },
-  { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule',  canActivate: [AuthGuard] },
+ { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule',  canActivate: [AuthGuard] },
   { path: 'searchSongById/:songId', loadChildren: './pages/search-song-by-id/search-song-by-id.module#SearchSongByIdPageModule', canActivate: [AuthGuard] },
   { path: 'comments', loadChildren: './pages/comments/comments.module#CommentsPageModule' },
 ]

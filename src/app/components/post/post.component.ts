@@ -43,10 +43,9 @@ export class PostComponent implements OnInit {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
       (this.user = data), (this.username = this.user.displayName);
     });
-    this.databaseService.getAllLikes().subscribe(likes => {
-      console.log(likes);
-    });
-  }
+
+  this.checkIfLiked();
+     }
 
   addLike(id) {
     console.log("liking post");
@@ -119,5 +118,18 @@ export class PostComponent implements OnInit {
       componentProps: props
     });
     return await modal.present();
+  }
+
+  checkIfLiked(){
+this.databaseService.checkIfLiked(this.post.id + "_" + this.firebaseAuth.getCurrentUserID()).subscribe( data =>
+  {
+    if(data != undefined){
+      this.changeHeart('heart','danger')
+    }
+    else{
+      console.log("not liked")
+      this.changeHeart('heart-empty','dark')
+    }
+  })
   }
 }
