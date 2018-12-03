@@ -13,8 +13,8 @@ export class SearchSongByIdPage implements OnInit {
   searchResults: IPost[] = [];
 
   constructor(private databaseService: DatabaseService,
-     private route: ActivatedRoute,
-     private router: Router) {
+    private route: ActivatedRoute,
+    private router: Router) {
   }
   //spotify:album:6ZksrxRWlJ7ExylPyJwfLJ
   songId: string;
@@ -25,10 +25,10 @@ export class SearchSongByIdPage implements OnInit {
   }
   getPostsByID(songId: string) {
     this.databaseService.searchForASong(songId).subscribe(data => {
-     console.log(data), this.searchResults = data
+      console.log(data), this.searchResults = data
     })
   }
-  exit(){
+  exit() {
     this.router.navigate([''])
   }
 

@@ -8,13 +8,11 @@ import { SpotifyService } from '../spotify/spotify.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private auth: FirebaseAuthService, private router: Router, private spotifyService: SpotifyService){
-  
-  }
+  constructor(private auth: FirebaseAuthService, private router: Router, private spotifyService: SpotifyService){}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      if(this.auth.isLoggedIn() || this.spotifyService.loggedIn) {
+      if(this.auth.isLoggedIn()) {
         return true;
       }
       console.log("access denied");

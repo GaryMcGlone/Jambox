@@ -9,6 +9,7 @@ export class Post {
     externalUri: string;
     previewUrl: string;
     postType: string
+    id?:string;
   
     constructor(userId:string, songId: string, artistName: string, songName: string, albumArt: string, caption: string, externalUri: string, previewUrl: string, postType: string) {
       this.songId = songId;

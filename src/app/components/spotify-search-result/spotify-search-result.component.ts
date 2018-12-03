@@ -26,14 +26,7 @@ export class SpotifySearchResultComponent implements OnInit {
 
   ngOnInit() { }
 
-  selectSong(
-    songId: string,
-    artistName: string,
-    songName: string,
-    albumArt: string,
-    externalUri: string,
-    previewUrl: string
-  ) {
+  selectSong(songId: string, artistName: string, songName: string, albumArt: string, externalUri: string, previewUrl: string) {
     const date = new Date();
     const now = this.pipe.transform(date, "medium");
 
