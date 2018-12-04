@@ -36,6 +36,18 @@ export class AddCommentComponent implements OnInit {
     this.comment = {content: "", postedBy: "", userID: "", likes: 0, postedAt: ""}
   }
 
+  buttonIsDisabled:boolean=true;
+
+  public onAddComment(): void {
+    this.buttonIsDisabled=true;
+    if(this.content.match(/^\s+$/) === null && this.content != ''){
+      this.buttonIsDisabled=false;
+    }
+    else{
+      this.buttonIsDisabled=true;
+    }
+  }
+
   save(){
     const date = new Date();
     this.postedAt = this.pipe.transform(date, "medium");
@@ -44,5 +56,7 @@ export class AddCommentComponent implements OnInit {
     this.comment.postedBy = this.postedBy;
     this.comment.postedAt = this.postedAt;
     this.databaseService.addComment(this.comment, this.postID);
+    this.content = '';
+    this.buttonIsDisabled=true;
   }
 }
