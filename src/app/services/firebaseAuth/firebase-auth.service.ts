@@ -9,6 +9,7 @@ import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { switchMap } from "rxjs/operators";
 import { IUser } from "../../interfaces/user-interface";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { SpotifyService } from "../spotify/spotify.service";
 @Injectable({
   providedIn: "root"
 })
@@ -21,7 +22,8 @@ export class FirebaseAuthService {
     private afs: AngularFirestore,
     private router: Router,
     private dbService: DatabaseService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private spotifyService: SpotifyService
   ) {
     
   }
@@ -98,6 +100,7 @@ export class FirebaseAuthService {
 
   doLogout() {
     return new Promise((resolve, reject) => {
+      this.spotifyService.logout()
       firebase.auth().signOut();
       this.loggedInStatus = false;
       this.router.navigate(["login"]);
