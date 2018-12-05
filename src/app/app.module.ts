@@ -32,6 +32,8 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
 
 import { CommentsPageModule } from "./pages/comments/comments.module"
 import { CommentsPage } from "./pages/comments/comments.page"
+import { SearchSongByIdPage } from "./pages/search-song-by-id/search-song-by-id.page";
+import { SearchSongByIdPageModule } from "./pages/search-song-by-id/search-song-by-id.module";
 
 @NgModule({
   declarations: [
@@ -42,7 +44,7 @@ import { CommentsPage } from "./pages/comments/comments.page"
     YoutubeSearchResultComponent,
     UserSearchComponent
   ],
-  entryComponents: [CreateSongModalPage, CommentsPage],
+  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
@@ -53,7 +55,8 @@ import { CommentsPage } from "./pages/comments/comments.page"
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     CreateSongModalPageModule,
-    CommentsPageModule
+    CommentsPageModule,
+    SearchSongByIdPageModule
   ],
   providers: [
     StatusBar,

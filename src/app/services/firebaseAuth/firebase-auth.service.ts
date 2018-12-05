@@ -25,7 +25,7 @@ export class FirebaseAuthService {
     private toastCtrl: ToastController,
     private spotifyService: SpotifyService
   ) {
-    
+
   }
 
   stayLoggedIn() {
@@ -73,29 +73,35 @@ export class FirebaseAuthService {
     this._afAuth.authState.subscribe(user => {
       user
         .sendEmailVerification()
-        .then(() => {})
+        .then(() => { })
         .catch(err => {
           this.presentToast(err.message);
         });
     });
   }
 
-  doLogin(email: string, password: string) {
-    return new Promise<any>((resolve, reject) => {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(
-          res => {
-            resolve(res);
-            this.loggedInStatus = true;
-            this.router.navigate([""]);
-          },
-          err => reject(err)
-        );
-    }).catch(err => {
-      this.presentToast(err.message);
-    });
+ async doLogin(email: string, password: string) {
+    if (firebase.auth().currentUser.emailVerified) {
+      return new Promise<any>((resolve, reject) => {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(email, password)
+          .then(
+            res => {
+              resolve(res);
+              this.loggedInStatus = true;
+              this.router.navigate([""]);
+            },
+            err => reject(err)
+          );
+      }).catch(err => {
+        this.presentToast(err.message);
+      });
+    }
+    else {
+      this.presentToast("please verify your email");
+    }
+
   }
 
   doLogout() {

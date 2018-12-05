@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
   login(email: string, password: string) {
-    this.auth.doLogin(email, password);
+   this.auth.doLogin(email, password);
   }
   navigateToSignUp() {
     this.router.navigate(["signUp"]);

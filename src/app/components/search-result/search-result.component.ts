@@ -6,7 +6,8 @@ import { DatabaseService } from "../../services/database/database.service";
 import { IUser } from '../../interfaces/user-interface';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { ActivatedRoute } from "@angular/router";
-
+import {IPost} from '../../interfaces/post-interface'
+import { ILike } from "../../interfaces/like-interface";
 @Component({
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
@@ -23,31 +24,39 @@ export class SearchResultComponent implements OnInit {
   user: IUser;
   heartType: string = 'heart-empty';
   heartColor: string = 'dark'
-  isLiked: boolean = false;
+  liked: boolean = false;
   songId: string;
+  likeId: string;
   constructor(private databaseService: DatabaseService,
               private spotifyService: SpotifyService,
               private youtube: YoutubeVideoPlayer,
-            private route: ActivatedRoute ) { }
+            private route: ActivatedRoute,
+            private firebaseAuth: FirebaseAuthService ) { }
 
   ngOnInit() {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
       this.user = data,
         this.username = this.user.displayName
     })
-
+    this.checkIfLiked(this.post)
     this.songId = this.route.snapshot.paramMap.get('id');
   }
 
-  likeClicked(){
-    if(this.isLiked == false){
-      this.isLiked = true;
-      this.changeHeart('heart', 'danger');
-    }
-    else{
-      this.isLiked = false
-      this.changeHeart('heart-empty', "dark");
-    }
+  addLike(id) {
+    console.log("liking post");
+    let like: ILike = {
+      postId: id,
+      userId: this.firebaseAuth.getCurrentUserID()
+    };
+    this.changeHeart('heart','danger')
+    this.liked = true;
+    this.databaseService.addLike(like);
+  }
+  removeLike(id) {
+    this.likeId = this.firebaseAuth.getCurrentUserID() + '_' + id
+    this.changeHeart('heart-empty','dark')
+    this.liked = false;
+    this.databaseService.removeLike(this.likeId);
   }
 
   changeHeart(type: string, color: string){
@@ -77,4 +86,17 @@ export class SearchResultComponent implements OnInit {
   open(uri){
     this.spotifyService.open(uri)
   }
+
+  checkIfLiked(post: Post){
+    this.databaseService.checkIfLiked(post.id + "_" + this.firebaseAuth.getCurrentUserID()).subscribe( data =>
+      {
+        if(data != undefined){
+          this.changeHeart('heart','danger')
+        }
+        else{
+          console.log("not liked")
+          this.changeHeart('heart-empty','dark')
+        }
+      })
+      }
 }

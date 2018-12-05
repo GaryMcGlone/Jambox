@@ -6,6 +6,7 @@ import { DatePipe } from "@angular/common";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { DatabaseService } from "../../services/database/database.service";
 import { Router } from "@angular/router";
+import { SearchSongByIdPage } from "../../pages/search-song-by-id/search-song-by-id.page";
 
 @Component({
   selector: "app-spotify-search-result",
@@ -56,8 +57,16 @@ export class SpotifySearchResultComponent implements OnInit {
     return await modal.present();
   }
 
-  performSearch(id) {
-    console.log(id)
-    this.router.navigateByUrl('/searchSongById/' + id)
+  async searchSongByIdModal(songId) {
+    let props = {
+      songId: songId
+    };
+    const modal = await this.modalController.create({
+      component: SearchSongByIdPage,
+      componentProps: props
+    });
+    return await modal.present();
   }
+
+
 }
