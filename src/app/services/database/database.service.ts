@@ -35,14 +35,15 @@ export class DatabaseService {
   private likeDocument: AngularFirestoreDocument<ILike>;
   private like: Observable<ILike>
 
+
   constructor(private _afs: AngularFirestore) {
     this.postsCollection = _afs.collection<IPost>("posts", ref =>
       ref.orderBy("createdAt", "desc")
     );
-    //                                                             what do
-    // this.commentsCollection = _afs.collection<IComment>(`posts/${postID}/comments`)
+
     this.userCollection = _afs.collection<IUser>("users");
     this.likeCollection = _afs.collection<ILike>('likes');
+    this.commentsCollection = _afs.collection<IComment>("comments")
   }
 
   getPosts(): Observable<IPost[]> {
@@ -111,26 +112,27 @@ export class DatabaseService {
   }
 
   //adds a comment to a subcollection, creates subcollection if it doesn't exist
-  addComment(comment, postID): void {
-
-    // maybe do it this way - looks better this way
-    // BUT in the constructor idk what you would make this.commentsCollection equal to 
-    //this.commentsCollection.doc(`posts/${postID}/comments`).set(comment)
-
-    this._afs.collection('posts/' + postID + '/comments').add(comment)
+  addComment(comment): void {
+    this.commentsCollection.add(comment)
   }
 
-  getComments(postID): Observable<IComment[]> {
+  getComments(postID: string): Observable<IComment[]> {
     // this._afs.collection(`posts/${postID}/comments`,ref => ref.orderBy('postedAt','desc'))
-    this.comments = this._afs.collection('posts/' + postID + '/comments', ref => ref.orderBy("postedAt", "desc")).snapshotChanges().pipe(
+    this.commentsCollection = this._afs.collection<IComment>("comments", ref => {
+      return ref.where("postId", "==", postID)
+    });
+    this.comments = this.commentsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
           const data = a.payload.doc.data() as IComment;
           const id = a.payload.doc.id;
           return { id, ...data };
         })
-      ));
-    return this.comments;
+      )
+    );
+    return this.comments
+
+
   }
 
   // checkLiked(id) {

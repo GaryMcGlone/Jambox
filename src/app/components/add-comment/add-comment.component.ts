@@ -33,7 +33,7 @@ export class AddCommentComponent implements OnInit {
       this.user = data,
         this.postedBy = this.user.displayName
     });
-    this.comment = {content: "", postedBy: "", userID: "", likes: 0, postedAt: ""}
+    this.comment = {content: "", postedBy: "", userID: "", likes: 0, postedAt: "", postId: ""}
   }
 
   buttonIsDisabled:boolean=true;
@@ -55,7 +55,8 @@ export class AddCommentComponent implements OnInit {
     this.comment.userID = this.userID;
     this.comment.postedBy = this.postedBy;
     this.comment.postedAt = this.postedAt;
-    this.databaseService.addComment(this.comment, this.postID);
+    this.comment.postId = this.postID
+    this.databaseService.addComment(this.comment);
     this.content = '';
     this.buttonIsDisabled=true;
   }
