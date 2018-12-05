@@ -45,10 +45,10 @@ export class AddCommentComponent implements OnInit {
   disableButton(): boolean {
     this.buttonIsDisabled = true;
     if (this.content.match(/^\s+$/) === null && this.content != '') {
-    return  this.buttonIsDisabled = false;
+      return this.buttonIsDisabled = false;
     }
     else {
-     return this.buttonIsDisabled = true;
+      return this.buttonIsDisabled = true;
     }
   }
 
