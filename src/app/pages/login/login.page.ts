@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
 import { SpotifyService } from "../../services/spotify/spotify.service";
 import { DatabaseService } from "../../services/database/database.service";
+import { AnalyticsService } from "../../services/analytics/analytics.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.page.html",
@@ -15,7 +16,8 @@ export class LoginPage implements OnInit {
     private router: Router,
     private menuCtrl: MenuController,
     private spotifyService: SpotifyService,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private analytics: AnalyticsService
   ) {}
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -23,7 +25,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
   login(email: string, password: string) {
-   this.auth.doLogin(email, password);
+    this.analytics.logButtonClick("login", { param: "User_Login" });
+    this.auth.doLogin(email, password);
   }
   navigateToSignUp() {
     this.router.navigate(["signUp"]);

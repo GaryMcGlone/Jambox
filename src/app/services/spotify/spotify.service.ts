@@ -5,10 +5,7 @@ import { tap } from "rxjs/operators";
 import { Platform } from "@ionic/angular";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { Router } from "@angular/router";
-import { Media, MediaObject } from "@ionic-native/media/ngx";
-import { DatabaseService } from "../database/database.service";
-import { IUser } from "../../interfaces/user-interface";
-import { TouchSequence } from "selenium-webdriver";
+
 
 declare var cordova: any;
 
@@ -67,7 +64,6 @@ export class SpotifyService {
     cordova.plugins.spotifyAuth.forget();
     this.loggedIn = false;
     this.storage.setItem("logged_in", false);
-    this.router.navigate(["login"]);
   }
 
   searchSpotify(search): Observable<ISpotifyResponse> {
@@ -123,6 +119,7 @@ export class SpotifyService {
   }
 
   play(songId: string) {
+    this.songPos = 0;
     console.log('playing song with id = ', songId)
     cordova.plugins.spotify
       .play(songId, {
