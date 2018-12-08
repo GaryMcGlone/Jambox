@@ -5,6 +5,7 @@ import { ModalController } from "@ionic/angular";
 import { DatabaseService } from '../../services/database/database.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { SearchSongByIdPage } from "../../pages/search-song-by-id/search-song-by-id.page";
 
 @Component({
   selector: 'app-youtube-search-result',
@@ -53,8 +54,15 @@ export class YoutubeSearchResultComponent implements OnInit {
     return await modal.present();
   }
 
-  performSearch(songId) {
-    console.log("searching for: ", songId);
-    this.router.navigateByUrl('/searchSongById/' + songId)
+  async searchSongByIdModal(songId) {
+    let props = {
+      songId: songId
+    };
+    const modal = await this.modalController.create({
+      component: SearchSongByIdPage,
+      componentProps: props
+    });
+    return await modal.present();
   }
+
 }

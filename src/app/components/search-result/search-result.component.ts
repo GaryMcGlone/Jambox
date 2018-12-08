@@ -8,6 +8,9 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { ActivatedRoute } from "@angular/router";
 import {IPost} from '../../interfaces/post-interface'
 import { ILike } from "../../interfaces/like-interface";
+import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
+import { ModalController } from "@ionic/angular";
+import { CommentsPage } from "../../pages/comments/comments.page";
 @Component({
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
@@ -31,7 +34,10 @@ export class SearchResultComponent implements OnInit {
               private spotifyService: SpotifyService,
               private youtube: YoutubeVideoPlayer,
             private route: ActivatedRoute,
-            private firebaseAuth: FirebaseAuthService ) { }
+            private firebaseAuth: FirebaseAuthService,
+            private analytics: FirebaseAnalytics,
+            private modalController: ModalController,
+           ) { }
 
   ngOnInit() {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
@@ -43,7 +49,7 @@ export class SearchResultComponent implements OnInit {
   }
 
   addLike(id) {
-    console.log("liking post");
+    this.analytics.logEvent("srPostLiked", { param: "SR_User_Liked_Post" } )
     let like: ILike = {
       postId: id,
       userId: this.firebaseAuth.getCurrentUserID()
@@ -53,6 +59,7 @@ export class SearchResultComponent implements OnInit {
     this.databaseService.addLike(like);
   }
   removeLike(id) {
+    this.analytics.logEvent("srPostUnliked", { param: "SR_User_Unliked_Post" } )
     this.likeId = this.firebaseAuth.getCurrentUserID() + '_' + id
     this.changeHeart('heart-empty','dark')
     this.liked = false;
@@ -74,17 +81,37 @@ export class SearchResultComponent implements OnInit {
     }
   }
   pause() {
-    this.spotifyService.pauseTrack();
+    this.analytics.logEvent("srPausedSpotify", { param: "SR_User_Paused_Spotify" } )
+       this.spotifyService.pauseTrack();
   }
   playYoutube(videoId: string){
+    this.analytics.logEvent("srPlayYoutube", { param: "SR_User_Played_Youtube" } )
     this.youtube.openVideo(videoId);
   }
 
   play(post){
+    this.analytics.logEvent("srPlayedSpotify", { param: "SR_User_Played_Spotify" } )
     this.spotifyService.play(post) 
   }
   open(uri){
-    this.spotifyService.open(uri)
+    this.analytics.logEvent("srUserOpenedSpotify", { param: "SR_User_Opened_Song_On_Spotify" } )
+       this.spotifyService.open(uri)
+  }
+
+  selectComments(selectedPost): void {
+    this.analytics.logEvent("srUserOpenedComments", { param: "SR_User_Opened_Comments_Modal" } )
+    this.presentModal(selectedPost);
+  }
+
+  async presentModal(selectedPost) {
+    let props = {
+      post: selectedPost
+    };
+    const modal = await this.modalController.create({
+      component: CommentsPage,
+      componentProps: props
+    });
+    return await modal.present();
   }
 
   checkIfLiked(post: Post){
