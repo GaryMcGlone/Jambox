@@ -3,6 +3,7 @@ import { ModalController, NavParams } from "@ionic/angular";
 import { DatabaseService } from "../../services/database/database.service";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { SpotifyService } from "../../services/spotify/spotify.service";
+import { AnalyticsService } from "../../services/analytics/analytics.service";
 
 @Component({
   selector: "app-create-song-modal",
@@ -18,7 +19,7 @@ export class CreateSongModalPage implements OnInit {
     private databaseService: DatabaseService,
     private navParams: NavParams,
     private firebaseAuth: FirebaseAuthService,
-    private spotifyService: SpotifyService
+    private analytics: AnalyticsService
   ) {
     console.log(this.navParams);
     this.post = this.navParams.get("post");
@@ -37,5 +38,6 @@ export class CreateSongModalPage implements OnInit {
     this.post.UserID = this.userID;
     this.databaseService.addPost(this.post);
     this.modalController.dismiss();
+    this.analytics.logButtonClick("postSong", { param: "User_Posted_Song" });
   }
 }

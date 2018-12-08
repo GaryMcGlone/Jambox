@@ -5,6 +5,7 @@ import { ModalController } from "@ionic/angular";
 import { DatabaseService } from '../../services/database/database.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { AnalyticsService } from '../../services/analytics/analytics.service';
 
 @Component({
   selector: 'app-youtube-search-result',
@@ -18,12 +19,14 @@ export class YoutubeSearchResultComponent implements OnInit {
 
   constructor(private modalController: ModalController,
     private databaseService: DatabaseService,
+    private analytics: AnalyticsService,
     private router: Router) { }
 
   ngOnInit() {
   }
 
   selectSong(songId: string, artistName: string, songName: string, albumArt: string) {
+    this.analytics.logButtonClick("selectedYoutubeResult", { param: "User_Tapped_Youtube_Result" });
     const date = new Date();
     const now = this.pipe.transform(date, "medium");
 
@@ -43,6 +46,7 @@ export class YoutubeSearchResultComponent implements OnInit {
   }
 
   async presentModal(currentSong) {
+    this.analytics.logButtonClick("selectedYoutubeResultModalOpened", { param: "User_Tapped_Youtube_Result_Modal_Opened" });
     let props = {
       post: currentSong
     }
