@@ -5,14 +5,18 @@ import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { SpotifyService } from "./services/spotify/spotify.service";
 
+import { timer } from 'rxjs';
+
 @Component({
   selector: "app-root",
-  templateUrl: "app.component.html"
+  templateUrl: "app.component.html",
+  styleUrls: ['./app.scss']
 })
 export class AppComponent {
   spotifySelect: boolean = true;
   youtubeSelect: boolean = false;
   userSelect: boolean = false;
+  showSplash: boolean = true;
 
   constructor(
     private platform: Platform,
@@ -27,6 +31,8 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      timer(3000).subscribe(() => this.showSplash = false);
     });
   }
 
