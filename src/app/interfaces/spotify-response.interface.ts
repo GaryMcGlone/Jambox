@@ -10,6 +10,7 @@ interface ISpotifyResponse {
     
   }
   interface IItems {
+    uri: string;
     artists: IArtists[];
     album: IAlbum[];
   }

@@ -24,7 +24,7 @@ export class SpotifyService {
   private errorMessage: string;
 
   private accessToken: string = "";
-  private loggedIn = false;
+  public loggedIn = false;
 
   private playing: boolean = false;
   private paused: boolean = false;

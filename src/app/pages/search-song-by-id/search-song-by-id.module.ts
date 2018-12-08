@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SearchSongByIdPage } from './search-song-by-id.page';
 import { SearchResultComponent } from '../../components/search-result/search-result.component';
+import { SearchResultListComponent } from "../../components/search-result-list/search-result-list.component";
 
 const routes: Routes = [
   {
@@ -22,6 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SearchSongByIdPage, SearchResultComponent]
+  declarations: [SearchSongByIdPage, SearchResultComponent, SearchResultListComponent ]
 })
 export class SearchSongByIdPageModule { }
