@@ -6,7 +6,7 @@ import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 })
 export class AnalyticsService {
   constructor(private firebaseAnalytics: FirebaseAnalytics) {
-    this.firebaseAnalytics.setEnabled(false);
+    this.firebaseAnalytics.setEnabled(true);
   }
 
   logButtonClick(name: string, value: any) {

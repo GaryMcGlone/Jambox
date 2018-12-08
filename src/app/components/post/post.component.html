@@ -32,7 +32,7 @@
       </ion-button>
     </ion-col>
     <ion-col *ngIf='!spotifyService.playing && post.postType == "s"'>
-      <ion-button (click)="spotifyService.paused ? resume(post.songId) : play(post.songId)"  fill="clear" size="small" color="dark">
+      <ion-button (click)="spotifyService.paused && spotifyService.songPos > 0 ? resume(post.songId) : play(post.songId)"  fill="clear" size="small" color="dark">
         <ion-icon name="play"></ion-icon>
       </ion-button>
     </ion-col>
