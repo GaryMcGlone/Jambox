@@ -79,7 +79,7 @@ export class FirebaseAuthService {
   }
 
  async doLogin(email: string, password: string) {
-    if (firebase.auth().currentUser.emailVerified) {
+  //  if (firebase.auth().currentUser.emailVerified) {
       return new Promise<any>((resolve, reject) => {
         firebase
           .auth()
@@ -96,11 +96,12 @@ export class FirebaseAuthService {
         this.presentToast(err.message);
       });
     }
-    else {
+  /**  else {
       this.presentToast("please verify your email");
     }
-
+    
   }
+ */
 
   doLogout() {
     return new Promise((resolve, reject) => {
