@@ -83,8 +83,6 @@ export class DatabaseService {
     return this.searchResults;
   }
 
-  //dis workds connord
-  //hurray
   addUser(user: IUser) {
     this.userCollection.doc(user.uid).set(user);
   }
@@ -135,22 +133,6 @@ export class DatabaseService {
 
   }
 
-  // checkLiked(id) {
-  //   this.likes = this.likeCollection.doc(id).snapshotChanges()
-  // }
-
-  getAllLikes(): Observable<ILike[]> {
-    this.likes = this.likeCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const likes = a.payload.doc.data() as ILike;
-        const id = a.payload.doc.id
-        return { id, ...likes }
-      })
-      )
-    )
-    return this.likes;
-  }
-
   //Checking if post is liked by a user
   checkIfLiked(likeId: string): Observable<ILike> {
     console.log(likeId)
@@ -161,30 +143,11 @@ export class DatabaseService {
 
   //Adding a like
   addLike(like: ILike): void {
-
-    // this also looks better
-    console.log('adding like to database ', like)
     this.likeCollection.doc(like.postId + "_" + like.userId).set(like)
-
-    //   this._afs.collection('likes').doc(like.userId + '_' + like.postId).set({
-    //     postID: like.postId,
-    //     userID: like.userId
-    //   }).then(function() {
-    //     console.log("Document successfully added!");
-    //   }).catch(function(error) {
-    //     console.error("Error adding document: ", error);
-    //   })
   }
 
   //Remove a like
   removeLike(likeId: string): void {
-    //this looks better jakub
     this.likeCollection.doc(likeId).delete()
-
-    // this._afs.collection('likes').doc(likeId).delete().then(function() {
-    //   console.log('Document successfully deleted!');
-    // }).catch(function(error) {
-    //   console.error("Error removing document: ", error);
-    // });
   }
 }

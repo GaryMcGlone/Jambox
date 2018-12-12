@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../../services/database/database.service';
 import { IComment } from '../../interfaces/comment-interface';
 import { ModalController, NavParams } from "@ionic/angular";
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-comments',
@@ -12,14 +13,10 @@ export class CommentsPage implements OnInit {
 
   comments: IComment[] = [];
   errorMessage:string;
-  post;
-  selectedpost;
+  post: Post;
+  selectedpost: Post;
 
-  constructor(
-    private databaseService:DatabaseService,
-    private modalController: ModalController,
-    private navParams: NavParams
-    ) { 
+  constructor(private databaseService:DatabaseService, private modalController: ModalController, private navParams: NavParams) { 
       this.selectedpost = this.navParams.get("post");
       console.log("selected post: ", this.selectedpost);
     }
