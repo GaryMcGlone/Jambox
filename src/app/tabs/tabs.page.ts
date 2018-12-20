@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-// import { AnalyticsService } from '../services/analytics/analytics.service';
 
 @Component({
   selector: 'app-tabs',
@@ -7,17 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-  loggedIn: boolean = true;
 
-  constructor(/*public analytics: AnalyticsService*/ ) {}
+  constructor( ) {}
 
   ngOnInit() {
  
   }
-
-  logEvent() {
-    // console.log('logging event')
-    // this.analytics.logButtonClick('tabButton', {param: 'tab_switch'})
-  }
-
 }

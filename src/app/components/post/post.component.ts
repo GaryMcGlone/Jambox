@@ -8,7 +8,7 @@ import { ILike } from "../../interfaces/like-interface";
 import { YoutubeVideoPlayer } from "@ionic-native/youtube-video-player/ngx";
 import { ModalController, NavParams } from "@ionic/angular";
 import { CommentsPage } from "../../pages/comments/comments.page";
-import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
+//import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 
 @Component({
   selector: "app-post",
@@ -38,7 +38,7 @@ export class PostComponent implements OnInit {
     private youtube: YoutubeVideoPlayer,
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService,
-    private analytics: FirebaseAnalytics
+   // private analytics: FirebaseAnalytics
   ) {}
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class PostComponent implements OnInit {
   }
 
   addLike(id) {
-    this.analytics.logEvent("postLiked", { param: "User_Liked_Post" } )
+   // this.analytics.logEvent("postLiked", { param: "User_Liked_Post" } )
     let like: ILike = {
       postId: id,
       userId: this.firebaseAuth.getCurrentUserID()
@@ -60,7 +60,7 @@ export class PostComponent implements OnInit {
     this.databaseService.addLike(like);
   }
   removeLike(id) {
-    this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" } )
+   // this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" } )
     this.likeID = this.firebaseAuth.getCurrentUserID() + "_" + id;
     this.changeHeart("heart-empty", "dark");
     this.liked = false;
@@ -83,22 +83,22 @@ export class PostComponent implements OnInit {
   }
 
   pause() {
-    this.analytics.logEvent("pausedSpotify", { param: "User_Paused_Spotify" } )
+    // this.analytics.logEvent("pausedSpotify", { param: "User_Paused_Spotify" } )
     this.spotifyService.pauseTrack();
   }
 
   play(songId) {
-    this.analytics.logEvent("playedSpotify", { param: "User_Played_Spotify" } )
+    // this.analytics.logEvent("playedSpotify", { param: "User_Played_Spotify" } )
     this.spotifyService.play(songId);
   }
 
   resume(songId) {
-    this.analytics.logEvent("resumedSpotify", { param: "User_Resumed_Spotify" } )
+    // this.analytics.logEvent("resumedSpotify", { param: "User_Resumed_Spotify" } )
     this.spotifyService.resumeSong(songId);
   }
 
   open(uri) {
-    this.analytics.logEvent("userOpenedSpotify", { param: "User_Opened_Song_On_Spotify" } )
+    // this.analytics.logEvent("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
     this.spotifyService.open(uri);
   }
 
@@ -107,12 +107,12 @@ export class PostComponent implements OnInit {
   }
 
   playYoutube(videoId) {
-    this.analytics.logEvent("playYoutube", { param: "User_Played_Youtube" } )
+    // this.analytics.logEvent("playYoutube", { param: "User_Played_Youtube" } )
        this.youtube.openVideo(videoId);
   }
 
   selectComments(selectedPost): void {
-    this.analytics.logEvent("userOpenedComments", { param: "User_Opened_Comments_Modal" } )
+    // this.analytics.logEvent("userOpenedComments", { param: "User_Opened_Comments_Modal" } )
     this.presentModal(selectedPost);
   }
 

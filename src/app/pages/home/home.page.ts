@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MenuController, NavController } from "@ionic/angular";
 import { IUser } from "../../interfaces/user-interface";
-import { AnalyticsService } from "../../services/analytics/analytics.service";
+//import { AnalyticsService } from "../../services/analytics/analytics.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -14,7 +14,7 @@ export class HomePage implements OnInit {
   spotify: any;
   constructor(
     private menuCtrl: MenuController,
-    private analytics: AnalyticsService,
+    //private analytics: AnalyticsService,
     private router: Router
   ) {
     //   this.analytics.currentScreen("Home");
@@ -25,17 +25,5 @@ export class HomePage implements OnInit {
   ngOnInit() {
    
   }
-  logEvent() {
-    console.log("logging event");
-    //   this.analytics.logButtonClick("testButton", { param: "_Test_Button_Click" });
-  }
 
-  // doRefresh(refresher){
-
-
-  //   setTimeout(() => {
-  //     console.log("refresh end");
-  //     refresher.complete();
-  //   }, 2000);
-  // }
 }

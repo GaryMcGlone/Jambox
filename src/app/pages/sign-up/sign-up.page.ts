@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
-import { AnalyticsService } from "../../services/analytics/analytics.service";
+//import { AnalyticsService } from "../../services/analytics/analytics.service";
 
 @Component({
   selector: "app-sign-up",
@@ -14,7 +14,7 @@ export class SignUpPage implements OnInit {
     private auth: FirebaseAuthService,
     private router: Router,
     private menuCtrl: MenuController,
-    private analytics: AnalyticsService
+    // // private analytics: AnalyticsService
   ) {}
 
   ionViewWillEnter() {
@@ -24,7 +24,7 @@ export class SignUpPage implements OnInit {
   ngOnInit() {}
 
   signUp(email: string, password: string, displayName: string) {
-    this.analytics.logButtonClick("signUp", { param: "User_Sign_Up" });
+    // this.analytics.logButtonClick("signUp", { param: "User_Sign_Up" });
     this.auth.signUp(email, password, displayName);
   }
 

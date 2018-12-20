@@ -1,14 +1,14 @@
 <ion-tabs class="tabs" #myTabs>
-  <ion-tab label="Home" (ionChange)="logEvent()" icon="home" href="/tabs/(home:home)">
+  <ion-tab label="Home" icon="home" href="/tabs/(home:home)">
     <ion-router-outlet name="home"></ion-router-outlet>
   </ion-tab>
-  <ion-tab label="Discover" (ionChange)="logEvent()" icon="compass" href="/tabs/(discover:discover)">
+  <ion-tab label="Discover"  icon="compass" href="/tabs/(discover:discover)">
     <ion-router-outlet name="discover"></ion-router-outlet>
   </ion-tab>
-  <ion-tab label="Notifications" (ionChange)="logEvent()"  icon="notifications" href="/tabs/(notifications:notifications)">
+  <ion-tab label="Notifications"  icon="notifications" href="/tabs/(notifications:notifications)">
     <ion-router-outlet name="notifications"></ion-router-outlet>
   </ion-tab>
-  <ion-tab label="Profile" (ionChange)="logEvent()" icon="person" href="/tabs/(profile:profile)">
+  <ion-tab label="Profile" icon="person" href="/tabs/(profile:profile)">
     <ion-router-outlet name="profile"></ion-router-outlet>
   </ion-tab>
 </ion-tabs>
