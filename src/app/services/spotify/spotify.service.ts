@@ -5,8 +5,6 @@ import { tap } from "rxjs/operators";
 import { Platform } from "@ionic/angular";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { Router } from "@angular/router";
-
-
 declare var cordova: any;
 
 @Injectable({
@@ -15,8 +13,7 @@ declare var cordova: any;
 export class SpotifyService {
   private searchEndpoint = "https://api.spotify.com/v1/search?q=";
 
-  private currentPlayingTrackEndpoint =
-    "	https://api.spotify.com/v1/me/player/currently-playing";
+  private currentPlayingTrackEndpoint = "https://api.spotify.com/v1/me/player/currently-playing";
 
   private profileUrl = "https://api.spotify.com/v1/me";
 

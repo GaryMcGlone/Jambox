@@ -35,13 +35,18 @@ import { CommentsPage } from "./pages/comments/comments.page"
 import { SearchSongByIdPage } from "./pages/search-song-by-id/search-song-by-id.page";
 import { SearchSongByIdPageModule } from "./pages/search-song-by-id/search-song-by-id.module";
 
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+
+library.add(fas,far,fab)
+
 @NgModule({
   declarations: [
     AppComponent,
-    SpotifySearchComponent,
-    SpotifySearchResultComponent,
-    YoutubeSearchComponent,
-    YoutubeSearchResultComponent,
+ 
     UserSearchComponent
   ],
   entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage],
@@ -56,7 +61,8 @@ import { SearchSongByIdPageModule } from "./pages/search-song-by-id/search-song-
     AngularFirestoreModule,
     CreateSongModalPageModule,
     CommentsPageModule,
-    SearchSongByIdPageModule
+    SearchSongByIdPageModule,
+    FontAwesomeModule
   ],
   providers: [
     StatusBar,

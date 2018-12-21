@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row style="margin-top:2%">
+      <ion-buttons>
+        <ion-button (click)="goBack()" color="primary" fill="clear">
+          <ion-icon size="large" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-col size="3">
+        <ion-title>
+           Search
+        </ion-title> 
+      </ion-col>
+    </ion-row>
+    <ion-segment (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="youtube" checked> 
+        <fa-icon [icon]="['fab','youtube']"></fa-icon>
+      </ion-segment-button>
+      <ion-segment-button value="spotify"> 
+          <fa-icon [icon]="['fab','spotify']"></fa-icon>
+       </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+<ion-content no-padding>
+  <div *ngIf="spotifySelectedCheck()" no-padding>
+    <app-spotify-search></app-spotify-search>
+  </div>
+  <div *ngIf="youtubeSelectedCheck()" no-padding>
+    <app-youtube-search></app-youtube-search>
+  </div>
+</ion-content>

@@ -16,42 +16,6 @@
 </div>
 
 
-<ion-app>
-  <ion-split-pane>
-    <ion-menu>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Search</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-
-        <ion-segment (ionChange)="segmentChanged($event)">
-          <ion-segment-button value="spotify" checked>
-            <ion-icon style="color:gray;font-size: 23px" src="/assets/icon/spotify.svg"></ion-icon>
-          </ion-segment-button>
-          <ion-segment-button value="youtube">
-            <ion-icon name="logo-youtube"></ion-icon>
-          </ion-segment-button>
-          <!-- <ion-segment-button value="user">
-            <ion-icon name="person"></ion-icon>
-          </ion-segment-button> -->
-        </ion-segment>
-
-        <div *ngIf="spotifySelectedCheck()" no-padding>
-          <app-spotify-search></app-spotify-search>
-        </div>
-
-        <div *ngIf="youtubeSelectedCheck()" no-padding>
-          <app-youtube-search></app-youtube-search>
-        </div>
-        <!-- 
-        <div *ngIf="userSelectedCheck()"> 
-          <app-user-search></app-user-search> 
-        </div> -->
-        
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
-  </ion-split-pane>
+<ion-app> 
+    <ion-router-outlet></ion-router-outlet>
 </ion-app>

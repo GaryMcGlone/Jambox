@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { TabsPage } from './tabs.page';
-import { HomePage } from '../pages/home/home.page';
-import { ProfilePage } from '../pages/profile/profile.page';
-import { NotificationsPage } from '../pages/notifications/notifications.page';
-import { DiscoverPage } from '../pages/discover/discover.page';
 
 const routes: Routes = [
   {
@@ -12,37 +9,53 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: '',
-        redirectTo: '/tabs/(home:home)',
-        pathMatch: 'full',
-      },
-      {
         path: 'home',
-        outlet: 'home',
-        component: HomePage
-      },
-      {
-        path: 'profile',
-        outlet: 'profile',
-        component: ProfilePage
-      },
-      {
-        path: 'notifications',
-        outlet: 'notifications',
-        component: NotificationsPage
+        children: [
+          {
+            path: '',
+            loadChildren: '../pages/home/home.module#HomePageModule'
+          }
+        ]
       },
       {
         path: 'discover',
-        outlet: 'discover',
-        component: DiscoverPage
+        children: [
+          {
+            path: '',
+            loadChildren: '../pages/discover/discover.module#DiscoverPageModule'
+          }
+        ]
       },
+      {
+        path: 'notifications',
+        children: [
+          {
+            path: '',
+            loadChildren: '../pages/notifications/notifications.module#NotificationsPageModule'
+          }
+        ]
+      },
+      {
+        path: 'profile',
+        children: [
+          {
+            path: '',
+            loadChildren: '../pages/profile/profile.module#ProfilePageModule'
+          }
+        ]
+      },
+      {
+        path: '',
+        redirectTo: 'tabs/home',
+        pathMatch: 'full'
+      }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/(home:home)',
+    redirectTo: 'tabs/home',
     pathMatch: 'full'
-  },
+  }
 ];
 
 @NgModule({

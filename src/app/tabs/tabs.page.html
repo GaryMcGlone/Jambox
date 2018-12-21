@@ -1,14 +1,27 @@
-<ion-tabs class="tabs" #myTabs>
-  <ion-tab label="Home" icon="home" href="/tabs/(home:home)">
-    <ion-router-outlet name="home"></ion-router-outlet>
-  </ion-tab>
-  <ion-tab label="Discover"  icon="compass" href="/tabs/(discover:discover)">
-    <ion-router-outlet name="discover"></ion-router-outlet>
-  </ion-tab>
-  <ion-tab label="Notifications"  icon="notifications" href="/tabs/(notifications:notifications)">
-    <ion-router-outlet name="notifications"></ion-router-outlet>
-  </ion-tab>
-  <ion-tab label="Profile" icon="person" href="/tabs/(profile:profile)">
-    <ion-router-outlet name="profile"></ion-router-outlet>
-  </ion-tab>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+   
+    <ion-tab-button tab="home">
+      <fa-icon [icon]="['fas', 'home']" ></fa-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="discover">
+      <fa-icon [icon]="['fas','compass']" ></fa-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="notifications">
+      <fa-icon [icon]="['fas','bell']" ></fa-icon>
+    </ion-tab-button>
+   
+    <ion-tab-button tab="profile">
+      <fa-icon [icon]="['fas','user']"></fa-icon>
+    </ion-tab-button>
+    
+  </ion-tab-bar>
+
+  <ion-fab vertical="bottom" horizontal="center" (click)="presentModal()">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-tabs>
