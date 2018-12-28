@@ -10,6 +10,7 @@ import { switchMap } from "rxjs/operators";
 import { IUser } from "../../interfaces/user-interface";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { SpotifyService } from "../spotify/spotify.service";
+import { GooglePlus } from "@ionic-native/google-plus";
 @Injectable({
   providedIn: "root"
 })
@@ -23,10 +24,61 @@ export class FirebaseAuthService {
     private router: Router,
     private dbService: DatabaseService,
     private toastCtrl: ToastController,
-    private spotifyService: SpotifyService
+    private spotifyService: SpotifyService,
+    private gPlus: GooglePlus
   ) {
 
   }
+
+/**  async signInWithGoogle(){
+    const gplusUser = await this.gPlus.login({
+      'webClientId': '291849800543-n5vqnvtlaear75viu3ds8omlt8rlq84e.apps.googleusercontent.com',
+      'offline': true,
+      'scopes': 'profile email'
+    })
+
+    return await this._afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
+  }
+  async signInWithGoogle(): Promise<any> {
+    return new Promise((resolve, reject) => { 
+        this.googlePlus.login({
+          'webClientId': '291849800543-n5vqnvtlaear75viu3ds8omlt8rlq84e.apps.googleusercontent.com',
+          'offline': true
+        }).then( res => {
+                const googleCredential = firebase.auth.GoogleAuthProvider
+                    .credential(res.idToken);
+  
+                firebase.auth().signInWithCredential(googleCredential)
+              .then( response => {
+                  console.log("Firebase success: " + JSON.stringify(response));
+                  resolve(response)
+              });
+        }, err => {
+            console.error("Error: ", err)
+            reject(err);
+        });
+      });
+      }
+ 
+**/  
+
+async signInWithGoogle(): Promise<any> {
+  try {
+
+    const gplusUser = await this.gPlus.login({
+      'webClientId': '291849800543-n5vqnvtlaear75viu3ds8omlt8rlq84e.apps.googleusercontent.com',
+      'offline': true,
+      'scopes': 'profile email'
+    })
+
+    return await this._afAuth.auth.signInWithCredential(
+      firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
+    )
+
+  } catch(err) {
+    console.log(err)
+  }
+}
 
   stayLoggedIn() {
     firebase.auth().onAuthStateChanged(user => {
@@ -80,24 +132,24 @@ export class FirebaseAuthService {
     });
   }
 
- async doLogin(email: string, password: string) {
-  //  if (firebase.auth().currentUser.emailVerified) {
-      return new Promise<any>((resolve, reject) => {
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(email, password)
-          .then(
-            res => {
-              resolve(res);
-              this.loggedInStatus = true;
-              this.router.navigate([""]);
-            },
-            err => reject(err)
-          );
-      }).catch(err => {
-        this.presentToast(err.message);
-      });
-    }
+  async doLogin(email: string, password: string) {
+    //  if (firebase.auth().currentUser.emailVerified) {
+    return new Promise<any>((resolve, reject) => {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(
+          res => {
+            resolve(res);
+            this.loggedInStatus = true;
+            this.router.navigate([""]);
+          },
+          err => reject(err)
+        );
+    }).catch(err => {
+      this.presentToast(err.message);
+    });
+  }
   /**  else {
       this.presentToast("please verify your email");
     }

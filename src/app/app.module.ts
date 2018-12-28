@@ -23,6 +23,7 @@ import { YoutubeSearchComponent } from "./components/youtube-search/youtube-sear
 import { YoutubeSearchResultComponent } from "./components/youtube-search-result/youtube-search-result.component";
 import { YouTubeApiService } from "./services/youtube/youtube-api.service";
 import { CreateSongModalPage } from "./pages/create-song-modal/create-song-modal.page";
+// import { GooglePlus } from '@ionic-native/google-plus';
 
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
@@ -72,6 +73,7 @@ library.add(fas,far,fab)
     YoutubeVideoPlayer,
     NativeStorage,
     FirebaseAnalytics,
+ //   GooglePlus,
     Media,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
