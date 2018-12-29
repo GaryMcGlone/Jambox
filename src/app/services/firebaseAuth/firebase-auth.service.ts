@@ -10,7 +10,7 @@ import { switchMap } from "rxjs/operators";
 import { IUser } from "../../interfaces/user-interface";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { SpotifyService } from "../spotify/spotify.service";
-import { GooglePlus } from "@ionic-native/google-plus";
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 @Injectable({
   providedIn: "root"
 })
@@ -29,56 +29,17 @@ export class FirebaseAuthService {
   ) {
 
   }
+  async signInWithGoogle(): Promise<any> {
 
-/**  async signInWithGoogle(){
     const gplusUser = await this.gPlus.login({
-      'webClientId': '291849800543-n5vqnvtlaear75viu3ds8omlt8rlq84e.apps.googleusercontent.com',
+      'webClientId': '291849800543-6iahbke8rn6cqoejhft4nq5ekcaubdp0.apps.googleusercontent.com',
       'offline': true,
       'scopes': 'profile email'
     })
 
+    console.log("bouta log in with google")
     return await this._afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
   }
-  async signInWithGoogle(): Promise<any> {
-    return new Promise((resolve, reject) => { 
-        this.googlePlus.login({
-          'webClientId': '291849800543-n5vqnvtlaear75viu3ds8omlt8rlq84e.apps.googleusercontent.com',
-          'offline': true
-        }).then( res => {
-                const googleCredential = firebase.auth.GoogleAuthProvider
-                    .credential(res.idToken);
-  
-                firebase.auth().signInWithCredential(googleCredential)
-              .then( response => {
-                  console.log("Firebase success: " + JSON.stringify(response));
-                  resolve(response)
-              });
-        }, err => {
-            console.error("Error: ", err)
-            reject(err);
-        });
-      });
-      }
- 
-**/  
-
-async signInWithGoogle(): Promise<any> {
-  try {
-
-    const gplusUser = await this.gPlus.login({
-      'webClientId': '291849800543-n5vqnvtlaear75viu3ds8omlt8rlq84e.apps.googleusercontent.com',
-      'offline': true,
-      'scopes': 'profile email'
-    })
-
-    return await this._afAuth.auth.signInWithCredential(
-      firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
-    )
-
-  } catch(err) {
-    console.log(err)
-  }
-}
 
   stayLoggedIn() {
     firebase.auth().onAuthStateChanged(user => {
