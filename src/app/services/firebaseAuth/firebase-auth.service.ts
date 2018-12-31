@@ -29,6 +29,20 @@ export class FirebaseAuthService {
   ) {
 
   }
+
+   signInWithGoogle() {
+    this.gPlus.login({
+      'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+      'webClientId': '291849800543-6iahbke8rn6cqoejhft4nq5ekcaubdp0.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+      'offline': true // Optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+    }).then(() => {
+      console.log("logged in")
+      }, error => {
+        console.log(error);
+      })
+  };
+
+  /**
   async signInWithGoogle(): Promise<any> {
 
     const gplusUser = await this.gPlus.login({
@@ -40,7 +54,7 @@ export class FirebaseAuthService {
     console.log("bouta log in with google")
     return await this._afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
   }
-
+ */
   stayLoggedIn() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {

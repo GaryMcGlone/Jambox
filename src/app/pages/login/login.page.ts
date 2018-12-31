@@ -36,5 +36,4 @@ export class LoginPage implements OnInit {
   }
   signInWithGoogle(){
     this.auth.signInWithGoogle();
-  }
-}
+  }}
