@@ -34,4 +34,6 @@ export class LoginPage implements OnInit {
   signInWithSpotify() {
     this.spotifyService.authWithSpotify();
   }
-}
+  signInWithGoogle(){
+    this.auth.signInWithGoogle();
+  }}
