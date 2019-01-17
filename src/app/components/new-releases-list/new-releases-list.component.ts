@@ -21,7 +21,6 @@ export class NewReleasesListComponent implements OnInit {
   ngOnInit() {
     this.newReleasesService.getAlbums().subscribe(data => {
       this.albums = data.feed.results
-      console.log(this.albums)
     })
 
   }

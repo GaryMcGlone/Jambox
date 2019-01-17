@@ -13,7 +13,6 @@ export class CurrentPlayingComponent implements OnInit {
 
   ngOnInit() {
     this.spotifyService.getCurrentlyPlayingTrack().subscribe(res => {
-      console.log(res.item)
       this.currentTrack = res.item
     })
   }

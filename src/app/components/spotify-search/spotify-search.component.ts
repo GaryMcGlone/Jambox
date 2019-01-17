@@ -10,22 +10,22 @@ import { SpotifyService } from "../../services/spotify/spotify.service";
 export class SpotifySearchComponent implements OnInit {
   items: IItems[];
   showSpinner: boolean = false;
+  searchTerm:string
   constructor(public spotifyService: SpotifyService, 
     //private analytics: AnalyticsService
     ) {}
 
   ngOnInit() {}
 
-  searchSpotify(search) {
+  searchSpotify() {
     //this.analytics.logButtonClick("spotifySearch", { param: "User_Searched_Spotify" });
-    if(!search) {
+    if(!this.searchTerm) {
       this.showSpinner = false;
     } else {
       this.showSpinner = true;
     }
-    this.spotifyService.searchSpotify(search).subscribe(data => {
+    this.spotifyService.searchSpotify(this.searchTerm).subscribe(data => {
       this.items = data.tracks.items;
-      console.log(this.items)
       this.showSpinner = false;
     });
     

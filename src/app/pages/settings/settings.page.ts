@@ -41,6 +41,6 @@ export class SettingsPage implements OnInit {
   }
 
   exit() {
-    this.router.navigate(["profile"]);
+    this.router.navigate(["tabs/profile"]);
   }
 }

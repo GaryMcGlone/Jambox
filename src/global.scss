@@ -17,16 +17,13 @@ app-spotify-search-result {
 app-youtube-search-result {
     width: 100%;
 }
-ion-content.background {
-  --background: linear-gradient(
-    to bottom,
-    #fb9b7a,
-    #f892a6,
-    #d897ca,
-    #a7a1db,
-    #79a8d3
-  );
-}
+
 fa-icon {
   font-size: 1.4rem
+}
+app-post-list {
+  width: 100%;
+}
+app-post{
+  width: 100%;
 }

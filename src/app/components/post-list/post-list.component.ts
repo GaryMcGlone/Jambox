@@ -27,20 +27,18 @@ export class PostListComponent implements OnInit {
     //get all the posts initially
     this.showSpinner = true;
     this.databaseService.getPosts().subscribe(posts => {
-      (this.posts = posts), error => (this.errorMessage = <any>error);  
+      (this.posts = posts), error => (this.errorMessage = <any>error);
       this.showSpinner = false;
     });
-
 
     this.databaseService
       .getCurrentUser(this.auth.getCurrentUserID())
       .subscribe(data => {
         (this.user = data),
           console.log(this.user),
-          (this.following = this.user.following),
-          console.log(this.following);
+          (this.following = this.user.following);
       });
-    this.cssClass = "animated slideInUp faster";
+    this.cssClass = "animated slideInUp faster card";
   }
 
   filterPosts(following: string[]) {

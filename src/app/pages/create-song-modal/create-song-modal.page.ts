@@ -20,9 +20,7 @@ export class CreateSongModalPage implements OnInit {
     private firebaseAuth: FirebaseAuthService,
     //private analytics: AnalyticsService
   ) {
-    console.log(this.navParams);
     this.post = this.navParams.get("post");
-    console.log(this.post);
   }
 
   ngOnInit() {}

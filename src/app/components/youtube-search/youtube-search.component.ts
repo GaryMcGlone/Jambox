@@ -13,23 +13,21 @@ export class YoutubeSearchComponent implements OnInit {
   limit: string = '8';
   type: string = '10';
   showSpinner: boolean = false;
+  searchTerm: string;
 
   constructor(private youtubeService: YouTubeApiService, 
-    // // private analytics: AnalyticsService
+    // private analytics: AnalyticsService
     ) { }
 
   ngOnInit() {
   }
 
-  searchYouTube(search) {
+  searchYouTube() {
     this.showSpinner = true;
     
-    this.youtubeService.getSearchedVideos(search, this.filter, this.limit).subscribe(data => {
+    this.youtubeService.getSearchedVideos(this.searchTerm, this.filter, this.limit).subscribe(data => {
       // this.analytics.logButtonClick("searchedYoutube", { param: "User_Searched_Youtube" });
-      this.items = data.items;
-      // setTimeout(() => {
-      //   this.showSpinner = false;
-      // }, 300);   
+      this.items = data.items; 
       this.showSpinner = false; 
     });
 

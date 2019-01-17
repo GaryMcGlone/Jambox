@@ -1,9 +1,6 @@
-<ion-item>
-    <ion-label position="floating">Search YouTube</ion-label>
-    <ion-input #search (keyup)="searchYouTube(search.value)"></ion-input>
-</ion-item>
+<ion-searchbar mode="ios" [(ngModel)]="searchTerm" placeholder="Search Youtube" (ionChange)="searchYouTube()"></ion-searchbar>
 
-<ion-list no-padding>
+<ion-list lines="none" no-padding>
     <div class="spinner-holder" align="center">
         <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
     </div>

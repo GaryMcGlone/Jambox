@@ -135,7 +135,6 @@ export class DatabaseService {
 
   //Checking if post is liked by a user
   checkIfLiked(likeId: string): Observable<ILike> {
-    console.log(likeId)
     this.likeDocument = this._afs.doc<ILike>("likes/" + likeId);
     this.like = this.likeDocument.valueChanges();
     return this.like
