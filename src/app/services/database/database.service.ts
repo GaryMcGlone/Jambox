@@ -10,7 +10,7 @@ import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
 import { IComment } from "../../interfaces/comment-interface";
 import { ILike } from "../../interfaces/like-interface";
-import { TouchSequence } from "selenium-webdriver";
+import * as firebase from "firebase/";
 
 @Injectable({
   providedIn: "root"
@@ -149,4 +149,31 @@ export class DatabaseService {
   removeLike(likeId: string): void {
     this.likeCollection.doc(likeId).delete()
   }
+
+  storeProfilePicture(imageBlob){
+    console.log("uploadToFirebase");
+    return new Promise((resolve, reject) => {
+      let fileRef = firebase.storage()
+                        .ref("images/" + firebase.auth().currentUser.uid);
+      let uploadTask = fileRef.put(imageBlob);
+      uploadTask.on(
+        "state_changed",
+        (_snap: any) => {
+          console.log(
+            "progess " +
+              (_snap.bytesTransferred / _snap.totalBytes) * 100
+          );
+        },
+        _error => {
+          console.log(_error);
+          reject(_error);
+        },
+        () => {
+          // completion...
+          resolve(uploadTask.snapshot);
+        }
+      );
+    });
+  }
+  
 }

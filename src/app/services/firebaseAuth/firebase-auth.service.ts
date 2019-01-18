@@ -148,4 +148,5 @@ export class FirebaseAuthService {
   getCurrentUserID(): string {
     return firebase.auth().currentUser.uid;
   }
+
 }
