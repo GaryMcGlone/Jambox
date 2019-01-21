@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule', canActivate: [AuthGuard] },
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule' , canActivate: [AuthGuard] },
   { path: 'notifications', loadChildren: './pages/notifications/notifications.module#NotificationsPageModule', canActivate: [AuthGuard] },
-  { path: 'discover', loadChildren: './pages/discover/discover.module#DiscoverPageModule', canActivate: [AuthGuard] },
+  { path: 'discover', loadChildren: './pages/discover/discover.module#DiscoverPageModule', /*canActivate: [AuthGuard]*/ },
   { path: 'create-song', loadChildren: './pages/create-song-modal/create-song-modal.module#CreateSongModalPageModule' ,canActivate: [AuthGuard] },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'signUp', loadChildren: './pages/sign-up/sign-up.module#SignUpPageModule' },
