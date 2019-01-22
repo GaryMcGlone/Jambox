@@ -41,7 +41,9 @@ export class YoutubeSearchResultComponent implements OnInit {
       createdAt: now,
       externalUri: '',
       previewUrl: '',
-      postType: 'yt'
+      postType: 'yt',
+      commentCounter: 0,
+      likeCounter: 0
     };
     this.presentModal(this.selectedSong);
   }
