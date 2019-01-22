@@ -64,6 +64,14 @@ export class DatabaseService {
     this.postsCollection.add(post)
   }
 
+  //this method deletes a post
+  deletePost(post): void {
+    var ref = firebase.database().ref(
+        "posts/".concat(post.postID, "/")
+    );
+    ref.remove();
+  }
+
   // Search for a song in our database
   searchResults: Observable<IPost[]>;
   searchForASong(songId): Observable<IPost[]> {

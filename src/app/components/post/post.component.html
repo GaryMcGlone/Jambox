@@ -10,6 +10,9 @@
     <ion-icon class="topIcon" name="logo-youtube" style="color: #ff0000; font-size: 23px"></ion-icon>
     Play on Youtube
   </ion-button>
+  <ion-button (click)="delete(post)" fill="clear" size="small" *ngIf="post.UserID == this.firebaseAuth.getCurrentUserID()">
+    <ion-icon class="topIcon" name="close" style="color: #6b6161; font-size: 23px"></ion-icon>
+  </ion-button>
   <ion-img [src]="post.albumArt"></ion-img>
   <ion-card-header style="text-align:center">
     <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>

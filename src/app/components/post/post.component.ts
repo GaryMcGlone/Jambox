@@ -72,6 +72,10 @@ export class PostComponent implements OnInit {
     this.heartColor = color;
   }
 
+  delete(post) {
+    this.databaseService.deletePost(post)
+  }
+
   follow() {
     if (this.buttonFill == "outline") {
       this.btnValue = "unfollow";
