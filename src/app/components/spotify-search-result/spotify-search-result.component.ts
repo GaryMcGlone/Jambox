@@ -40,7 +40,9 @@ export class SpotifySearchResultComponent implements OnInit {
       createdAt: now,
       externalUri: externalUri,
       previewUrl: previewUrl,
-      postType: 's'
+      postType: 's',
+      commentCounter: 0,
+      likeCounter: 0
     };
     this.presentModal(this.selectedSong);
   }

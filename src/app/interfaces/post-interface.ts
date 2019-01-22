@@ -6,4 +6,6 @@ export interface IPost {
     songID: string;
     songName: string;
     UserID: string;
+    commentCounter: number;
+    likeCounter: number;
 }
