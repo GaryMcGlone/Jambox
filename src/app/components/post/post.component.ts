@@ -38,7 +38,7 @@ export class PostComponent implements OnInit {
     private youtube: YoutubeVideoPlayer,
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService,
-   // private analytics: FirebaseAnalytics
+    //private analytics: FirebaseAnalytics
   ) {}
 
   ngOnInit() {
@@ -70,6 +70,11 @@ export class PostComponent implements OnInit {
   changeHeart(type: string, color: string) {
     this.heartType = type;
     this.heartColor = color;
+  }
+
+  delete(postid: string) {
+    console.log(postid)
+    this.databaseService.deletePost(postid)
   }
 
   follow() {

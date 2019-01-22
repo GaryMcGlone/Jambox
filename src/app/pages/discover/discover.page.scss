@@ -1,9 +1,20 @@
-#search{
+.card {
+    padding: 55px;
+    
+}
+fa-icon {
+    font-size: 32px;
+    font-weight: lighter;
+    color: #fafafa;
+}
+ion-card-title {
+    color:  #fafafa;
     font-size: 24px;
+    font-weight: lighter;
+    margin-bottom: 1.5%;
 }
-.banner {
-    border-left: 8px solid var(--ion-color-secondary);
-    background: var(--ion-color-light);
-    height: 40px;
-    font-weight: 500;
+ion-card {
+    --background:linear-gradient(to top, #76a2f3, #cbdcfa);
 }
+
+//background-image: linear-gradient(to bottom, #fafafa, #dddcfb, #bbbffc, #8fa5fd, #4c8dff);

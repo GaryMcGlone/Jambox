@@ -14,17 +14,20 @@ export class CommentsPage implements OnInit {
   comments: IComment[] = [];
   errorMessage:string;
   post: Post;
-  selectedpost: Post;
+  selectedPost: Post;
 
   constructor(private databaseService:DatabaseService, private modalController: ModalController, private navParams: NavParams) { 
-      this.selectedpost = this.navParams.get("post");
-      console.log("selected post: ", this.selectedpost);
+      this.selectedPost = this.navParams.get("post");
+      console.log("selected post: ", this.selectedPost);
     }
 
   ngOnInit() {
   }
 
   closeModal(){
+    this.modalController.dismiss()
+  }
+  goBack() {
     this.modalController.dismiss()
   }
 }

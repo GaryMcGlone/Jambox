@@ -7,6 +7,7 @@ import { PostListComponent } from "../../components/post-list/post-list.componen
 import { HomePage } from './home.page';
 import { DateTimeConvertPipe } from '../../pipes/date-time-convert.pipe';
 import { Routes, RouterModule } from "@angular/router";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FontAwesomeModule
   ],
   declarations: [HomePage, PostComponent, PostListComponent, DateTimeConvertPipe]
 })

@@ -8,10 +8,15 @@ export class Post {
     createdAt: string;
     externalUri: string;
     previewUrl: string;
-    postType: string
+    postType: string;
+    commentCounter: number;
+    likeCounter: number;
     id?:string;
   
-    constructor(userId:string, songId: string, artistName: string, songName: string, albumArt: string, caption: string, externalUri: string, previewUrl: string, postType: string) {
+    constructor(userId:string, songId: string, artistName: string, 
+      songName: string, albumArt: string, caption: string,
+       externalUri: string, previewUrl: string, postType: string,
+       commentCounter: number, likeCounter: number) {
       this.songId = songId;
       this.artistName = artistName;
       this.songName = songName;
@@ -20,7 +25,9 @@ export class Post {
       this.UserID = userId || "";
       this.externalUri = externalUri,
       this.previewUrl = previewUrl,
-      this.postType = postType
+      this.postType = postType,
+      this.likeCounter = likeCounter,
+      this.commentCounter = commentCounter
     }
   }
   
