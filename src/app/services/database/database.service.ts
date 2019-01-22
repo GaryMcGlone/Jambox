@@ -70,6 +70,8 @@ export class DatabaseService {
         "posts/".concat(post.postID, "/")
     );
     ref.remove();
+
+    //  this.likeCollection.doc(likeId).delete()
   }
 
   // Search for a song in our database

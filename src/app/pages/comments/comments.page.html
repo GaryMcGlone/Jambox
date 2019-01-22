@@ -1,6 +1,27 @@
-<ion-icon icon="arrow-back" (click)="closeModal()" color="primary" id="back"></ion-icon>
+  
+  <ion-header>
+      <ion-toolbar>
+        <ion-row style="margin-top:2%">
+          <ion-buttons>
+            <ion-button (click)="goBack()" color="primary" fill="clear">
+              <ion-icon size="large" name="arrow-back"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-col size="5">
+            <ion-title>
+              Comments
+            </ion-title> 
+          </ion-col>
+        </ion-row>
+        <ion-item class="selected"  lines="none">
+            <img src={{post.albumArt}} slot="start" class="smallArt">
+            <ion-card-title>{{post.songName}}</ion-card-title>
+            <ion-card-subtitle slot="end">{{post.artistName}}</ion-card-subtitle>
+        </ion-item>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content padding>
+<ion-content no-padding>
   <app-selected-post [post]="post"></app-selected-post>
   <app-comment-list [post]="post"></app-comment-list>
   <app-add-comment [post]="post"></app-add-comment>
