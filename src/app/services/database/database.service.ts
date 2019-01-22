@@ -61,15 +61,12 @@ export class DatabaseService {
 
   //this method adds a post
   addPost(post): void {
-    this.postsCollection.add(post)
+    this.postsCollection.add(post);
   }
 
   //this method deletes a post
-  deletePost(post): void {
-    var ref = firebase.database().ref(
-        "posts/".concat(post.postID, "/")
-    );
-    ref.remove();
+  deletePost(postid: string): void {
+    this.postsCollection.doc(postid).delete();
   }
 
   // Search for a song in our database
