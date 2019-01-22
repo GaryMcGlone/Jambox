@@ -150,30 +150,22 @@ export class DatabaseService {
     this.likeCollection.doc(likeId).delete()
   }
 
-  storeProfilePicture(imageBlob){
-    console.log("uploadToFirebase");
+  storeProfilePicture(imageBlob) {
     return new Promise((resolve, reject) => {
       let fileRef = firebase.storage()
-                        .ref("images/" + firebase.auth().currentUser.uid);
+        .ref("images/" + firebase.auth().currentUser.uid);
       let uploadTask = fileRef.put(imageBlob);
+      this.userCollection.doc(firebase.auth().currentUser.uid).set({profilePicture: "images/" + firebase.auth().currentUser.uid}, { merge: true });
       uploadTask.on(
         "state_changed",
-        (_snap: any) => {
-          console.log(
-            "progess " +
-              (_snap.bytesTransferred / _snap.totalBytes) * 100
-          );
-        },
-        _error => {
-          console.log(_error);
-          reject(_error);
+        error => {
+          console.log(error);
         },
         () => {
-          // completion...
           resolve(uploadTask.snapshot);
         }
       );
     });
   }
-  
+
 }
