@@ -180,5 +180,5 @@ export class DatabaseService {
   let storageRef = firebase.storage().ref();
     return storageRef.child("images/" + firebase.auth().currentUser.uid).getDownloadURL()
   }
-
+ 
 }

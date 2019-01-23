@@ -21,7 +21,8 @@ export class ProfilePage implements OnInit {
     private camera: Camera,
     private file: File) { }
  ngOnInit() {
-   console.log(this.db.getProfilePictureURL())
+  let URL = this.db.getProfilePictureURL()
+  console.log(URL.a)
   }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
