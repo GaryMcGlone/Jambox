@@ -12,14 +12,16 @@ import { File } from '@ionic-native/File/ngx';
 })
 export class ProfilePage implements OnInit {
 
+  profilePicture: string;
+
   constructor(private auth: FirebaseAuthService,
     private menuCtrl: MenuController,
     private db: DatabaseService,
     private router: Router,
     private camera: Camera,
     private file: File) { }
-
-  ngOnInit() {
+ ngOnInit() {
+   console.log(this.db.getProfilePictureURL())
   }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
@@ -46,6 +48,10 @@ export class ProfilePage implements OnInit {
     };
     let cameraInfo = await this.camera.getPicture(options);
     this.makeFileIntoBlob(cameraInfo)
+  }
+
+  selectImageFromGallery(){
+
   }
   makeFileIntoBlob(_imagePath) {
     // INSTALL PLUGIN - cordova plugin add cordova-plugin-file

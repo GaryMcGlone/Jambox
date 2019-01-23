@@ -160,9 +160,11 @@ export class DatabaseService {
       let fileRef = firebase.storage()
         .ref("images/" + firebase.auth().currentUser.uid);
       let uploadTask = fileRef.put(imageBlob);
-      this.userCollection.doc(firebase.auth().currentUser.uid).set({profilePicture: "images/" + firebase.auth().currentUser.uid}, { merge: true });
+     
+       this.userCollection.doc(firebase.auth().currentUser.uid).set({profilePictureURL: uploadTask.snapshot.downloadURL}, { merge: true });
       uploadTask.on(
         "state_changed",
+
         error => {
           console.log(error);
         },
@@ -171,6 +173,12 @@ export class DatabaseService {
         }
       );
     });
+  }
+
+// gets URL of profile picture
+ getProfilePictureURL(): any {
+  let storageRef = firebase.storage().ref();
+    return storageRef.child("images/" + firebase.auth().currentUser.uid).getDownloadURL()
   }
 
 }

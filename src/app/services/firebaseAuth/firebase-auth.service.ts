@@ -149,4 +149,6 @@ export class FirebaseAuthService {
     return firebase.auth().currentUser.uid;
   }
 
+
+
 }
