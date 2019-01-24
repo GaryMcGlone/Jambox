@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from "@ionic/angular";
-import { SearchModalPage } from '../search-modal/search-modal.page';
+import { SearchModalPage } from '../pages/search-modal/search-modal.page';
 
 @Component({
   selector: 'app-tabs',

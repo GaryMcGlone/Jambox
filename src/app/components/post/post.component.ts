@@ -72,10 +72,7 @@ export class PostComponent implements OnInit {
     this.heartColor = color;
   }
 
-  delete(postid: string) {
-    console.log(postid)
-    this.databaseService.deletePost(postid)
-  }
+
 
   follow() {
     if (this.buttonFill == "outline") {
@@ -102,11 +99,7 @@ export class PostComponent implements OnInit {
     this.spotifyService.resumeSong(songId);
   }
 
-  open(uri) {
-    // this.analytics.logEvent("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
-    this.spotifyService.open(uri);
-  }
-
+  
   commentClick() {    
     this.selectComments(this.postID);
   }

@@ -17,10 +17,6 @@ import { AppComponent } from "./app.component";
 import { CreateSongModalPageModule } from "./pages/create-song-modal/create-song-modal.module";
 
 import "hammerjs";
-import { SpotifySearchComponent } from "./components/spotify-search/spotify-search.component";
-import { SpotifySearchResultComponent } from "./components/spotify-search-result/spotify-search-result.component";
-import { YoutubeSearchComponent } from "./components/youtube-search/youtube-search.component";
-import { YoutubeSearchResultComponent } from "./components/youtube-search-result/youtube-search-result.component";
 import { YouTubeApiService } from "./services/youtube/youtube-api.service";
 import { CreateSongModalPage } from "./pages/create-song-modal/create-song-modal.page";
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
@@ -43,13 +39,13 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
+
 library.add(fas, far, fab)
 
 @NgModule({
   declarations: [
     AppComponent,
-
-    UserSearchComponent
+    UserSearchComponent,
   ],
   entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage],
   imports: [
