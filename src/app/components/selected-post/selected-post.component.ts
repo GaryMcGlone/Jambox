@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-selected-post',
@@ -8,9 +9,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SelectedPostComponent implements OnInit {
   @Input() post;
 
-  constructor() { }
+  constructor(private modalController: ModalController) { }
 
   ngOnInit() {
   }
+
+
 
 }

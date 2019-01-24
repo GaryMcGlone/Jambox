@@ -1,12 +1,13 @@
-.postSong{
-    border-bottom: 1px,solid, black;
-    height: 12%;
+.smallArt {
+    width: 75px;
+    margin-right: 4.5%;
+}
+
+.selected {
+    margin-top: 1%;
     width: 100%;
 }
-.smallArt{
-    height: 17%;
-    width: 17%;
-}
-.songNameAndArtist{
-    text-align: right;
+
+.text {
+    font-size: 14px;
 }

@@ -12,7 +12,7 @@ import { ProfilePageModule } from "../pages/profile/profile.module";
 import { NotificationsPageModule } from "../pages/notifications/notifications.module";
 import { DiscoverPageModule } from "../pages/discover/discover.module";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { SearchModalPage } from "../search-modal/search-modal.page";
+import { SearchModalPage } from "../pages/search-modal/search-modal.page";
 import { SpotifySearchComponent } from "../components/spotify-search/spotify-search.component";
 import { YoutubeSearchComponent } from "../components/youtube-search/youtube-search.component";
 import { SpotifySearchResultComponent } from "../components/spotify-search-result/spotify-search-result.component";

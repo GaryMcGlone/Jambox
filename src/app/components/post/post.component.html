@@ -1,18 +1,4 @@
 <ion-card *ngIf="post" class="welcome-card">
-  <!--
-    <ion-button item-right (click)="follow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
-  -->
-  <ion-button (click)="open(post.externalUri)" fill="clear" size="small" color="dark" *ngIf="post.postType == 's'">
-    <ion-icon class="topIcon" style="color:#1db954;font-size: 23px" src="/assets/icon/spotify.svg"></ion-icon>
-    Play on spotify
-  </ion-button>
-  <ion-button (click)="open('https://www.youtube.com/watch?v=' + post.songId)" fill="clear" size="small" color="dark" *ngIf="post.postType == 'yt'">
-    <ion-icon class="topIcon" name="logo-youtube" style="color: #ff0000; font-size: 23px"></ion-icon>
-    Play on Youtube
-  </ion-button>
-  <ion-button (click)="delete(post.id)" fill="clear" size="small" *ngIf="post.UserID == this.firebaseAuth.getCurrentUserID()">
-    <ion-icon class="topIcon" name="close" style="color: #6b6161; font-size: 23px"></ion-icon>
-  </ion-button>
   <ion-img [src]="post.albumArt"></ion-img>
   <ion-card-header style="text-align:center">
     <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>
@@ -24,12 +10,14 @@
     </div>
   </ion-card-content>
   <ion-row>
+  <ion-buttons>
     <ion-col>
       <ion-button fill="clear" size="small" [color]="heartColor" (click)="liked ? removeLike(post.id) : addLike(post.id)">
         <ion-icon [name]="heartType"></ion-icon>
         <ion-note style="margin-left: 5px"> {{likeCounter}} </ion-note>
       </ion-button>
     </ion-col>
+  
     <ion-col>
       <ion-button icon-left fill="clear" (click)="selectComments(post)" size="small" color="dark">
         <ion-icon name="text"></ion-icon>    
@@ -37,22 +25,27 @@
       </ion-button>
     </ion-col>
     <ion-col *ngIf='!spotifyService.playing && post.postType == "s"'>
-      <ion-button (click)="spotifyService.paused && spotifyService.songPos > 0 ? resume(post.songId) : play(post.songId)"  fill="clear" size="small" color="dark">
+      <ion-button (click)="spotifyService.paused && spotifyService.songPos > 0 ? resume(post.songId) : play(post.songId)"
+        fill="clear" size="small" color="dark">
         <ion-icon name="play"></ion-icon>
       </ion-button>
     </ion-col>
     <ion-col *ngIf='spotifyService.playing && post.postType == "s"'>
-        <ion-button (click)="pause()" fill="clear" size="small" color="dark">
-          <ion-icon name="pause"></ion-icon>
-        </ion-button>
+      <ion-button (click)="pause()" fill="clear" size="small" color="dark">
+        <ion-icon name="pause"></ion-icon>
+      </ion-button>
     </ion-col>
     <ion-col *ngIf='post.postType == "yt"'>
       <ion-button (click)="playYoutube(post.songId)" fill="clear" size="small" color="dark">
         <ion-icon name="play"></ion-icon>
       </ion-button>
     </ion-col>
-    <ion-col style="margin-top:2%">
+    <ion-col>
       <ion-note> {{ post.createdAt | dateTimeConvert: "" }} </ion-note>
     </ion-col>
+    <ion-col>
+      <app-action-sheet [post]="post"> </app-action-sheet>
+    </ion-col>
+  </ion-buttons> 
   </ion-row>
 </ion-card>

@@ -1,5 +1,5 @@
-<ion-list no-lines style="padding-bottom: 33%;z-index: 1;">
-  <ion-item *ngFor="let comment of comments" text-wrap>
+<ion-list lines="none" text-wrap>
+  <ion-item *ngFor="let comment of comments">
     <app-comment [comment]='comment'></app-comment>
   </ion-item>
 </ion-list>
