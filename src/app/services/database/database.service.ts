@@ -115,8 +115,13 @@ export class DatabaseService {
   }
 
   //adds a comment to a subcollection, creates subcollection if it doesn't exist
-  addComment(comment): void {
-    this.commentsCollection.add(comment)
+  addComment(comment: IComment): void {
+    this.commentsCollection.doc(comment.postId + "_" + comment.userID).set(comment);
+  }
+
+  //removes a comment from a post
+  removeComment(commentId): void {
+    this.commentsCollection.doc(commentId).delete();
   }
 
   //Getting all comments for a post
@@ -169,6 +174,11 @@ export class DatabaseService {
   removeLike(likeId: string): void {
     this.likeCollection.doc(likeId).delete()
   }
+
+  //Delete all likes from a post
+  deleteLikesOnPost(postid: string): void {
+    
+  } 
 
   storeProfilePicture(imageBlob) {
     return new Promise((resolve, reject) => {

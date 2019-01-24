@@ -4,6 +4,8 @@ import { Post } from "../../models/post.model";
 import { DatabaseService } from "../../services/database/database.service";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { SpotifyService } from "../../services/spotify/spotify.service";
+import { ILike } from "../../interfaces/like-interface";
+import { IComment } from "../../interfaces/comment-interface";
 @Component({
   selector: "app-action-sheet",
   templateUrl: "./action-sheet.component.html",
@@ -13,14 +15,21 @@ export class ActionSheetComponent implements OnInit {
   @Input() post: Post;
 
   loggedIn: boolean;
+  userId: string;
+  likes: ILike[] = [];
+  comments: IComment[] = [];
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userId = this.firebaseAuth.getCurrentUserID();
+    this.getAllComments();
+    this.getAllLikes();
+  }
   constructor(
     public actionSheetController: ActionSheetController,
     private databaseService: DatabaseService,
     private firebaseAuth: FirebaseAuthService,
     private spotifyService: SpotifyService
-  ) {}
+  ) { }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
@@ -74,7 +83,39 @@ export class ActionSheetComponent implements OnInit {
   delete(postid: string) {
     console.log(postid);
     this.databaseService.deletePost(postid);
+    this.getAllComments();
+    this.getAllLikes();
+    this.deleteComments();
+    this.deleteLikes();  
   }
+
+  getAllComments() {
+    this.databaseService.getComments(this.post.id).subscribe(comments => {
+      this.comments = comments;
+    });
+    
+  }
+
+  deleteComments() {
+    console.log("comments as: ",this.comments)
+    this.comments.forEach(element => {
+      this.databaseService.removeComment(element.postId + "_" + element.userID);
+    });
+  }
+
+  deleteLikes(){
+    console.log("likes as: ",this.likes)
+    this.likes.forEach(element => {
+      this.databaseService.removeLike(element.postId + "_" + element.userId);
+    });
+  }
+
+  getAllLikes() {
+    this.databaseService.getLikes(this.post.id).subscribe(likes => {
+      this.likes = likes;
+    });
+  }
+
   open(uri) {
     // this.analytics.logEvent("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
     this.spotifyService.open(uri);
