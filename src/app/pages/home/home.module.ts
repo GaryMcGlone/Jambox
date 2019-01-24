@@ -8,6 +8,7 @@ import { HomePage } from './home.page';
 import { DateTimeConvertPipe } from '../../pipes/date-time-convert.pipe';
 import { Routes, RouterModule } from "@angular/router";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { ActionSheetComponent } from '../../components/action-sheet/action-sheet.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FontAwesomeModule
   ],
-  declarations: [HomePage, PostComponent, PostListComponent, DateTimeConvertPipe]
+  declarations: [HomePage, PostComponent, PostListComponent, DateTimeConvertPipe, ActionSheetComponent]
 })
 export class HomePageModule {}

@@ -8,6 +8,7 @@ import { ILike } from "../../interfaces/like-interface";
 import { YoutubeVideoPlayer } from "@ionic-native/youtube-video-player/ngx";
 import { ModalController, NavParams } from "@ionic/angular";
 import { CommentsPage } from "../../pages/comments/comments.page";
+import { IComment } from "../../interfaces/comment-interface";
 //import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 
 @Component({
@@ -31,6 +32,10 @@ export class PostComponent implements OnInit {
   selectedPost;
   liked: boolean;
   likeID: string;
+  comments: IComment[] = [];
+  commentCounter: number = 0;
+  likes: ILike[] = [];
+  likeCounter: number = 0;
 
   constructor(
     private databaseService: DatabaseService,
@@ -45,8 +50,17 @@ export class PostComponent implements OnInit {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
       (this.user = data), (this.username = this.user.displayName);
     });
-
+    this.databaseService.getComments(this.post.id).subscribe(comments => {
+        (this.comments = comments),
+        this.commentCounter = this.comments.length,
+        error => (this.errorMessage = <any>error);
+    });
     this.checkIfLiked();
+    this.databaseService.getLikes(this.post.id).subscribe(likes => {
+      this.likes = likes,
+      this.likeCounter = this.likes.length,
+      error => (this.errorMessage = <any>error);
+    });
   }
 
   addLike(id) {
@@ -61,7 +75,7 @@ export class PostComponent implements OnInit {
   }
   removeLike(id) {
    // this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" } )
-    this.likeID = this.firebaseAuth.getCurrentUserID() + "_" + id;
+    this.likeID = this.post.id + "_" + this.firebaseAuth.getCurrentUserID();
     this.changeHeart("heart-empty", "dark");
     this.liked = false;
     this.databaseService.removeLike(this.likeID);
@@ -72,10 +86,7 @@ export class PostComponent implements OnInit {
     this.heartColor = color;
   }
 
-  delete(postid: string) {
-    console.log(postid)
-    this.databaseService.deletePost(postid)
-  }
+
 
   follow() {
     if (this.buttonFill == "outline") {
@@ -102,11 +113,7 @@ export class PostComponent implements OnInit {
     this.spotifyService.resumeSong(songId);
   }
 
-  open(uri) {
-    // this.analytics.logEvent("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
-    this.spotifyService.open(uri);
-  }
-
+  
   commentClick() {    
     this.selectComments(this.postID);
   }

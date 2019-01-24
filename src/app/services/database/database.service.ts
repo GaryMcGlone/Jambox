@@ -119,6 +119,7 @@ export class DatabaseService {
     this.commentsCollection.add(comment)
   }
 
+  //Getting all comments for a post
   getComments(postID: string): Observable<IComment[]> {
     // this._afs.collection(`posts/${postID}/comments`,ref => ref.orderBy('postedAt','desc'))
     this.commentsCollection = this._afs.collection<IComment>("comments", ref => {
@@ -134,8 +135,22 @@ export class DatabaseService {
       )
     );
     return this.comments
+  }
 
-
+  //Getting all likes for a post
+  getLikes(postID: string): Observable<ILike[]> {
+    this.likeCollection = this._afs.collection<ILike>("likes", ref =>{
+      return ref.where("postId", "==", postID)
+    });
+    this.likes = this.likeCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as ILike;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }))
+    )
+    return this.likes
   }
 
   //Checking if post is liked by a user

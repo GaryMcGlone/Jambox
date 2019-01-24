@@ -6,11 +6,11 @@ import { Routes, RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 
 import { SearchModalPage } from "./search-modal.page";
-import { SpotifySearchComponent } from "../components/spotify-search/spotify-search.component";
-import { YoutubeSearchComponent } from "../components/youtube-search/youtube-search.component";
+import { SpotifySearchComponent } from "../../components/spotify-search/spotify-search.component";
+import { YoutubeSearchComponent } from "../../components/youtube-search/youtube-search.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { SpotifySearchResultComponent } from "../components/spotify-search-result/spotify-search-result.component";
-import { YoutubeSearchResultComponent } from "../components/youtube-search-result/youtube-search-result.component";
+import { SpotifySearchResultComponent } from "../../components/spotify-search-result/spotify-search-result.component";
+import { YoutubeSearchResultComponent } from "../../components/youtube-search-result/youtube-search-result.component";
 
 const routes: Routes = [
   {
