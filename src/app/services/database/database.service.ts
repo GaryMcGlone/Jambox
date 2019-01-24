@@ -16,10 +16,8 @@ import * as firebase from "firebase/";
   providedIn: "root"
 })
 export class DatabaseService {
-
   private postsCollection: AngularFirestoreCollection<IPost>;
   private posts: Observable<IPost[]>;
-  private filteredPosts: Observable<IPost[]>;
 
   private userCollection: AngularFirestoreCollection<IUser>;
   private fireDocUser: AngularFirestoreDocument<IUser>;
@@ -98,22 +96,6 @@ export class DatabaseService {
     return this.currentUser;
   }
 
-  filterPosts(following: string): Observable<IPost[]> {
-    this.postsCollection = this._afs.collection<IPost>("posts", ref => {
-      return ref.where("UserID", "==", following).orderBy("createdAt", "desc");
-    });
-    this.filteredPosts = this.postsCollection.snapshotChanges().pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as IPost;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      )
-    );
-    return this.filteredPosts;
-  }
-
   //adds a comment to a subcollection, creates subcollection if it doesn't exist
   addComment(comment): void {
     this.commentsCollection.add(comment)
@@ -134,8 +116,6 @@ export class DatabaseService {
       )
     );
     return this.comments
-
-
   }
 
   //Checking if post is liked by a user
@@ -180,5 +160,4 @@ export class DatabaseService {
   let storageRef = firebase.storage().ref();
     return storageRef.child("images/" + firebase.auth().currentUser.uid).getDownloadURL()
   }
- 
 }

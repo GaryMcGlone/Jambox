@@ -40,11 +40,4 @@ export class PostListComponent implements OnInit {
       });
     this.cssClass = "animated slideInUp faster card";
   }
-
-  filterPosts(following: string[]) {
-    for (let follower of following)
-      this.databaseService.filterPosts(follower).subscribe(data => {
-        console.log(data);
-      });
-  }
 }

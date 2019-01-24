@@ -1,37 +1,38 @@
 <ion-content padding class="background">
   <h2 text-center>Login</h2>
-  
+
   <ion-item>
-    <ion-label color="dark" position="floating" stacked>Email</ion-label>
+    <ion-label color="primary" position="floating" stacked>Email</ion-label>
     <ion-input #email color="dark" type="email"></ion-input>
   </ion-item>
 
-  
   <ion-item>
-    <ion-label color="dark"  position="floating" stacked>Password</ion-label>
+    <ion-label color="primary" position="floating" stacked>Password</ion-label>
     <ion-input color="dark" #password type="password"></ion-input>
   </ion-item>
-  
-  
-  <ion-button style="margin-top:16px" expand='block' (click)="login(email.value, password.value)">
-    <ion-icon slot="end" name="log-in"></ion-icon>
-    Sign In
-  </ion-button>
-  <!-- <ion-button style="margin-top:16px" expand='block' (click)="signInWithSpotify()">
-    <ion-icon slot='end' style="color:white;font-size: 22px" src="/assets/icon/spotify.svg"></ion-icon>
-    Continue With Spotify
-  </ion-button> -->
-  <ion-button style="margin-top:16px" expand='block' (click)="navigateToSignUp()">
-    <ion-icon slot="end" name="arrow-round-forward"></ion-icon>
-    Not A User? Sign Up Here
-  </ion-button>
-  <!-- <ion-button style="margin-top:16px" expand='block'>
-    <ion-icon slot="end" name="logo-facebook"></ion-icon>
-    Continue with Facebook
-  </ion-button> -->
-  <ion-button style="margin-top:16px" expand='block' (click)="signInWithGoogle()">
-    <ion-icon slot="end" name="logo-google"></ion-icon>
-    Continue with Google
-  </ion-button> 
-</ion-content>
 
+  <ion-row>
+    <ion-button style="margin-top:16px;margin-left:1.5%;width: 48%" expand="block" (click)="login(email.value, password.value)">
+      Sign In
+    </ion-button>
+    <ion-button style="margin-top:16px;width: 48%" expand="block" (click)="navigateToSignUp()">
+      Sign Up
+    </ion-button>
+  </ion-row>
+  <ion-row style="margin-top:16px" justify-content-center>
+      <ion-note> -- or continue with --</ion-note>  
+  </ion-row>
+  <ion-row>
+    
+    <ion-button id="google" style="margin-top:8px;width: 100%" expand='block' (click)="signInWithGoogle()">
+      <ion-icon slot="start" name="logo-google"></ion-icon>
+      Google
+    </ion-button>
+  </ion-row>
+  <ion-row>
+    <ion-button id="fb" style="margin-top:8px;width: 100%" expand='block'>
+      <ion-icon slot="start" name="logo-facebook"></ion-icon>
+      Facebook
+    </ion-button>
+  </ion-row>
+</ion-content>
