@@ -43,6 +43,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
+import { ImagePicker } from '@ionic-native/image-picker';
 library.add(fas, far, fab)
 
 @NgModule({
@@ -77,6 +78,7 @@ library.add(fas, far, fab)
     GooglePlus,
     Camera,
     File,
+  //  ImagePicker,
     Media,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
