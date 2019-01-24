@@ -5,6 +5,7 @@ import { DatabaseService } from '../../services/database/database.service'
 import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
+//import { ImagePicker } from '@ionic-native/image-picker/ngx';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -12,17 +13,24 @@ import { File } from '@ionic-native/File/ngx';
 })
 export class ProfilePage implements OnInit {
 
-  profilePicture: string;
+  profilePicture: any;
 
   constructor(private auth: FirebaseAuthService,
     private menuCtrl: MenuController,
     private db: DatabaseService,
     private router: Router,
     private camera: Camera,
-    private file: File) { }
- ngOnInit() {
-  let URL = this.db.getProfilePictureURL()
-  console.log(URL.a)
+    private file: File,
+ //   private imagePicker: ImagePicker
+    ) { }
+  ngOnInit() {
+    this.loadProfilePictureURL();
+  }
+
+  loadProfilePictureURL() {
+    this.db.getProfilePictureURL().then(data => {
+      this.profilePicture = data
+    })
   }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
@@ -51,7 +59,15 @@ export class ProfilePage implements OnInit {
     this.makeFileIntoBlob(cameraInfo)
   }
 
-  selectImageFromGallery(){
+  async selectImageFromGallery() {
+  /**
+    const options: ImagePickerOptions = {
+
+    };
+
+    let cameraInfo = await this.imagePicker.getPictures(options)
+ */
+    //   this.makeFileIntoBlob(cameraInfo)
 
   }
   makeFileIntoBlob(_imagePath) {
