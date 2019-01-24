@@ -34,6 +34,8 @@ export class PostComponent implements OnInit {
   likeID: string;
   comments: IComment[] = [];
   commentCounter: number = 0;
+  likes: ILike[] = [];
+  likeCounter: number = 0;
 
   constructor(
     private databaseService: DatabaseService,
@@ -54,6 +56,11 @@ export class PostComponent implements OnInit {
         error => (this.errorMessage = <any>error);
     });
     this.checkIfLiked();
+    this.databaseService.getLikes(this.post.id).subscribe(likes => {
+      this.likes = likes,
+      this.likeCounter = this.likes.length,
+      error => (this.errorMessage = <any>error);
+    });
   }
 
   addLike(id) {
@@ -68,7 +75,7 @@ export class PostComponent implements OnInit {
   }
   removeLike(id) {
    // this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" } )
-    this.likeID = this.firebaseAuth.getCurrentUserID() + "_" + id;
+    this.likeID = this.post.id + "_" + this.firebaseAuth.getCurrentUserID();
     this.changeHeart("heart-empty", "dark");
     this.liked = false;
     this.databaseService.removeLike(this.likeID);
