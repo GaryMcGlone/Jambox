@@ -84,7 +84,6 @@ export class DatabaseService {
         })
       )
     );
-    console.log(this.searchResults);
     return this.searchResults;
   }
 

@@ -18,10 +18,8 @@ export class SearchResultListComponent implements OnInit {
   }
 
   performSearch(songId) {
-    console.log("searching for:", songId)
     this.databaseService.searchForASong(songId).subscribe(results => {
       this.searchResults = results
-      console.log(results)
     })
   }
 

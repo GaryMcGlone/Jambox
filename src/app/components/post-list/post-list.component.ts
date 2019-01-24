@@ -35,7 +35,6 @@ export class PostListComponent implements OnInit {
       .getCurrentUser(this.auth.getCurrentUserID())
       .subscribe(data => {
         (this.user = data),
-          console.log(this.user),
           (this.following = this.user.following);
       });
     this.cssClass = "animated slideInUp faster card";
@@ -44,7 +43,6 @@ export class PostListComponent implements OnInit {
   filterPosts(following: string[]) {
     for (let follower of following)
       this.databaseService.filterPosts(follower).subscribe(data => {
-        console.log(data);
       });
   }
 }

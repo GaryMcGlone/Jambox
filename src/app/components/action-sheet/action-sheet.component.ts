@@ -97,14 +97,12 @@ export class ActionSheetComponent implements OnInit {
   }
 
   deleteComments() {
-    console.log("comments as: ",this.comments)
     this.comments.forEach(element => {
       this.databaseService.removeComment(element.postId + "_" + element.userID);
     });
   }
 
   deleteLikes(){
-    console.log("likes as: ",this.likes)
     this.likes.forEach(element => {
       this.databaseService.removeLike(element.postId + "_" + element.userId);
     });
