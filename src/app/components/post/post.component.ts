@@ -8,6 +8,7 @@ import { ILike } from "../../interfaces/like-interface";
 import { YoutubeVideoPlayer } from "@ionic-native/youtube-video-player/ngx";
 import { ModalController, NavParams } from "@ionic/angular";
 import { CommentsPage } from "../../pages/comments/comments.page";
+import { IComment } from "../../interfaces/comment-interface";
 //import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 
 @Component({
@@ -31,6 +32,8 @@ export class PostComponent implements OnInit {
   selectedPost;
   liked: boolean;
   likeID: string;
+  comments: IComment[] = [];
+  commentCounter: number = 0;
 
   constructor(
     private databaseService: DatabaseService,
@@ -45,7 +48,11 @@ export class PostComponent implements OnInit {
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
       (this.user = data), (this.username = this.user.displayName);
     });
-
+    this.databaseService.getComments(this.post.id).subscribe(comments => {
+        (this.comments = comments),
+        this.commentCounter = this.comments.length,
+        error => (this.errorMessage = <any>error);
+    });
     this.checkIfLiked();
   }
 
