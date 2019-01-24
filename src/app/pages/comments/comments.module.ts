@@ -8,6 +8,7 @@ import { AddCommentComponent } from '../../components/add-comment/add-comment.co
 import { CommentComponent } from '../../components/comment/comment.component';
 import { CommentListComponent } from '../../components/comment-list/comment-list.component';
 import { SelectedPostComponent } from '../../components/selected-post/selected-post.component';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    FontAwesomeModule,
     RouterModule.forChild(routes)
   ],
   declarations: [CommentsPage,

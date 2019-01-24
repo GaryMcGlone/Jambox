@@ -35,7 +35,6 @@ export class PostListComponent implements OnInit {
       .getCurrentUser(this.auth.getCurrentUserID())
       .subscribe(data => {
         (this.user = data),
-          console.log(this.user),
           (this.following = this.user.following);
       });
     this.cssClass = "animated slideInUp faster card";

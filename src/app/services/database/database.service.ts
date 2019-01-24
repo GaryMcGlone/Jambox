@@ -82,7 +82,6 @@ export class DatabaseService {
         })
       )
     );
-    console.log(this.searchResults);
     return this.searchResults;
   }
 
@@ -97,10 +96,16 @@ export class DatabaseService {
   }
 
   //adds a comment to a subcollection, creates subcollection if it doesn't exist
-  addComment(comment): void {
-    this.commentsCollection.add(comment)
+  addComment(comment: IComment): void {
+    this.commentsCollection.doc(comment.postId + "_" + comment.userID).set(comment);
   }
 
+  //removes a comment from a post
+  removeComment(commentId): void {
+    this.commentsCollection.doc(commentId).delete();
+  }
+
+  //Getting all comments for a post
   getComments(postID: string): Observable<IComment[]> {
     // this._afs.collection(`posts/${postID}/comments`,ref => ref.orderBy('postedAt','desc'))
     this.commentsCollection = this._afs.collection<IComment>("comments", ref => {
@@ -116,6 +121,22 @@ export class DatabaseService {
       )
     );
     return this.comments
+  }
+
+  //Getting all likes for a post
+  getLikes(postID: string): Observable<ILike[]> {
+    this.likeCollection = this._afs.collection<ILike>("likes", ref =>{
+      return ref.where("postId", "==", postID)
+    });
+    this.likes = this.likeCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as ILike;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }))
+    )
+    return this.likes
   }
 
   //Checking if post is liked by a user
@@ -135,16 +156,20 @@ export class DatabaseService {
     this.likeCollection.doc(likeId).delete()
   }
 
+  //Delete all likes from a post
+  deleteLikesOnPost(postid: string): void {
+    
+  } 
+
   storeProfilePicture(imageBlob) {
     return new Promise((resolve, reject) => {
       let fileRef = firebase.storage()
         .ref("images/" + firebase.auth().currentUser.uid);
       let uploadTask = fileRef.put(imageBlob);
-     
-       this.userCollection.doc(firebase.auth().currentUser.uid).set({profilePictureURL: uploadTask.snapshot.downloadURL}, { merge: true });
+
+      this.userCollection.doc(firebase.auth().currentUser.uid).set({ profilePictureURL: uploadTask.snapshot.downloadURL, uploadDate: new Date() }, {merge: true});
       uploadTask.on(
         "state_changed",
-
         error => {
           console.log(error);
         },
@@ -155,9 +180,9 @@ export class DatabaseService {
     });
   }
 
-// gets URL of profile picture
- getProfilePictureURL(): any {
-  let storageRef = firebase.storage().ref();
+  // gets URL of profile picture
+  getProfilePictureURL(): Promise<any> {
+    let storageRef = firebase.storage().ref();
     return storageRef.child("images/" + firebase.auth().currentUser.uid).getDownloadURL()
   }
 }
