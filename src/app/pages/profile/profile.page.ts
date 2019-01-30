@@ -5,7 +5,7 @@ import { DatabaseService } from '../../services/database/database.service'
 import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
-//import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -21,8 +21,8 @@ export class ProfilePage implements OnInit {
     private router: Router,
     private camera: Camera,
     private file: File,
- //   private imagePicker: ImagePicker
-    ) { }
+    private imagePicker: ImagePicker
+  ) { }
   ngOnInit() {
     this.loadProfilePictureURL();
   }
@@ -60,34 +60,31 @@ export class ProfilePage implements OnInit {
   }
 
   async selectImageFromGallery() {
-  /**
+
     const options: ImagePickerOptions = {
-
+      maximumImagesCount: 1
     };
-
-    let cameraInfo = await this.imagePicker.getPictures(options)
- */
-    //   this.makeFileIntoBlob(cameraInfo)
+    this.imagePicker.getPictures(options).then((results) => {
+      for (var i = 0; i < results.length; i++) {
+        console.log("gallery: ", results[i])
+        this.makeFileIntoBlob(results[i])
+      }
+    }, (err) => { });
 
   }
   makeFileIntoBlob(_imagePath) {
-    // INSTALL PLUGIN - cordova plugin add cordova-plugin-file
     return new Promise((resolve, reject) => {
       let fileName = "";
       this.file
         .resolveLocalFilesystemUrl(_imagePath)
         .then(fileEntry => {
           let { name, nativeURL } = fileEntry;
-          // get the path..
           let path = nativeURL
             .substring(0, nativeURL.lastIndexOf("/"));
           fileName = name;
-          // we are provided the name, so now read the file 
-          // into a buffer
           return this.file.readAsArrayBuffer(path, name);
         })
         .then(buffer => {
-          // get the buffer and make a blob to be saved
           let imgBlob = new Blob([buffer], {
             type: "image/jpeg"
           });
