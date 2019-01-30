@@ -62,6 +62,7 @@ export class FirebaseAuthService {
   stayLoggedIn() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        this.loggedInStatus = true;
         this.router.navigate([""]);
       } else {
         this.router.navigate(["login"]);

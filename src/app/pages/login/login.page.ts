@@ -18,11 +18,14 @@ export class LoginPage implements OnInit {
     private spotifyService: SpotifyService,
     private databaseService: DatabaseService,
    // private analytics: AnalyticsService
-  ) {}
+  ) {
+  }
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
-  ngOnInit() {}
+  ngOnInit() {
+    //this.auth.stayLoggedIn();
+  }
 
   login(email: string, password: string) {
    // this.analytics.logButtonClick("login", { param: "User_Login" });
