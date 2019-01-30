@@ -130,7 +130,6 @@ export class SearchResultComponent implements OnInit {
         if (data != undefined) {
           this.changeHeart("heart", "danger");
         } else {
-          console.log("not liked");
           this.changeHeart("heart-empty", "dark");
         }
       });

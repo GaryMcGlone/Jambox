@@ -10,7 +10,7 @@ import { switchMap } from "rxjs/operators";
 import { IUser } from "../../interfaces/user-interface";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { SpotifyService } from "../spotify/spotify.service";
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { GooglePlus } from "@ionic-native/google-plus/ngx";
 @Injectable({
   providedIn: "root"
 })
@@ -26,21 +26,25 @@ export class FirebaseAuthService {
     private toastCtrl: ToastController,
     private spotifyService: SpotifyService,
     private gPlus: GooglePlus
-  ) {
+  ) {}
 
-  }
-
-   signInWithGoogle() {
-    this.gPlus.login({
-      'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-      'webClientId': '291849800543-6iahbke8rn6cqoejhft4nq5ekcaubdp0.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
-      'offline': true // Optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
-    }).then(() => {
-      console.log("logged in")
-      }, error => {
-        console.log(error);
+  signInWithGoogle() {
+    this.gPlus
+      .login({
+        scopes: "", // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+        webClientId:
+          "291849800543-6iahbke8rn6cqoejhft4nq5ekcaubdp0.apps.googleusercontent.com", // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+        offline: true // Optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
       })
-  };
+      .then(
+        () => {
+          console.log("logged in");
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
 
   /**
   async signInWithGoogle(): Promise<any> {
@@ -78,7 +82,6 @@ export class FirebaseAuthService {
     this._afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
-
         let user: IUser = {
           uid: res.user.uid,
           email: email,
@@ -100,7 +103,7 @@ export class FirebaseAuthService {
     this._afAuth.authState.subscribe(user => {
       user
         .sendEmailVerification()
-        .then(() => { })
+        .then(() => {})
         .catch(err => {
           this.presentToast(err.message);
         });
@@ -134,10 +137,16 @@ export class FirebaseAuthService {
 
   doLogout() {
     return new Promise((resolve, reject) => {
-      this.spotifyService.logout()
-      firebase.auth().signOut();
-      this.loggedInStatus = false;
-      this.router.navigate(["login"]);
+      if (this.spotifyService.loggedIn) {
+        this.spotifyService.logout();
+        firebase.auth().signOut();
+        this.loggedInStatus = false;
+        this.router.navigate(["login"]);
+      } else {
+        firebase.auth().signOut();
+        this.loggedInStatus = false;
+        this.router.navigate(["login"]);
+      }
     });
   }
 
@@ -148,7 +157,4 @@ export class FirebaseAuthService {
   getCurrentUserID(): string {
     return firebase.auth().currentUser.uid;
   }
-
-
-
 }

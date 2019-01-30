@@ -17,7 +17,6 @@
         <ion-note style="margin-left: 5px"> {{likeCounter}} </ion-note>
       </ion-button>
     </ion-col>
-  
     <ion-col>
       <ion-button icon-left fill="clear" (click)="selectComments(post)" size="small" color="dark">
         <ion-icon name="text"></ion-icon>    
@@ -41,11 +40,11 @@
       </ion-button>
     </ion-col>
     <ion-col>
-      <ion-note> {{ post.createdAt | dateTimeConvert: "" }} </ion-note>
-    </ion-col>
-    <ion-col>
       <app-action-sheet [post]="post"> </app-action-sheet>
     </ion-col>
   </ion-buttons> 
+  <ion-col style="margin-top:2%;margin-left:2%">
+    <ion-note> {{ post.createdAt | dateTimeConvert: "" }} </ion-note>
+  </ion-col>
   </ion-row>
 </ion-card>

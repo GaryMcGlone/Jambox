@@ -4,12 +4,14 @@ export class Comment {
     postedBy: string;
     likes: number;
     postedAt: string;
+    postId: string;
 
-    constructor(content:string, userID: string, postedBy:string, likes: number, postedAt: string){
+    constructor(content:string, userID: string, postedBy:string, likes: number, postedAt: string, postId: string){
         this.content = content;
         this.userID = userID;
         this.postedBy = postedBy;
         this.likes = likes;
         this.postedAt = postedAt;
+        this.postId = postId;
     }
 }

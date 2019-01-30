@@ -18,7 +18,6 @@ export class CommentsPage implements OnInit {
 
   constructor(private databaseService:DatabaseService, private modalController: ModalController, private navParams: NavParams) { 
       this.selectedPost = this.navParams.get("post");
-      console.log("selected post: ", this.selectedPost);
     }
 
   ngOnInit() {

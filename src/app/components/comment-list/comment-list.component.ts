@@ -19,7 +19,6 @@ export class CommentListComponent implements OnInit {
   ngOnInit() {
     this.postID = this.post.id;
     this.databaseService.getComments(this.postID).subscribe(comments => {
-      console.log(this.comments),
         (this.comments = comments),
         error => (this.errorMessage = <any>error);
     });

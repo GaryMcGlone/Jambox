@@ -3,6 +3,8 @@ import { IComment } from '../../interfaces/comment-interface';
 import { IUser } from '../../interfaces/user-interface';
 import { Comment } from '../../models/comment.model';
 import { DatabaseService } from '../../services/database/database.service';
+import { FirebaseAuth } from '@angular/fire';
+import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
 
 @Component({
   selector: 'app-comment',
@@ -11,13 +13,16 @@ import { DatabaseService } from '../../services/database/database.service';
 })
 export class CommentComponent implements OnInit {
   @Input() comment: Comment;
-  user: IUser;
-  constructor(private databaseService: DatabaseService) { }
+  userid: string;
+  constructor(private databaseService: DatabaseService, 
+    private firebaseAuth: FirebaseAuthService) { }
 
   ngOnInit() {
-    this.databaseService.getCurrentUser(this.comment.userID).subscribe(data => {
-      this.user = data; this.comment.postedBy = this.user.displayName
-    })
+    this.userid = this.firebaseAuth.getCurrentUserID();
+  }
+
+  deleteComment() {
+    this.databaseService.removeComment(this.comment.postId + "_" + this.comment.userID);
   }
 
 }

@@ -16,10 +16,8 @@ import * as firebase from "firebase/";
   providedIn: "root"
 })
 export class DatabaseService {
-
   private postsCollection: AngularFirestoreCollection<IPost>;
   private posts: Observable<IPost[]>;
-  private filteredPosts: Observable<IPost[]>;
 
   private userCollection: AngularFirestoreCollection<IUser>;
   private fireDocUser: AngularFirestoreDocument<IUser>;
@@ -84,7 +82,6 @@ export class DatabaseService {
         })
       )
     );
-    console.log(this.searchResults);
     return this.searchResults;
   }
 
@@ -98,25 +95,14 @@ export class DatabaseService {
     return this.currentUser;
   }
 
-  filterPosts(following: string): Observable<IPost[]> {
-    this.postsCollection = this._afs.collection<IPost>("posts", ref => {
-      return ref.where("UserID", "==", following).orderBy("createdAt", "desc");
-    });
-    this.filteredPosts = this.postsCollection.snapshotChanges().pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as IPost;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      )
-    );
-    return this.filteredPosts;
+  //adds a comment to a subcollection, creates subcollection if it doesn't exist
+  addComment(comment: IComment): void {
+    this.commentsCollection.doc(comment.postId + "_" + comment.userID).set(comment);
   }
 
-  //adds a comment to a subcollection, creates subcollection if it doesn't exist
-  addComment(comment): void {
-    this.commentsCollection.add(comment)
+  //removes a comment from a post
+  removeComment(commentId): void {
+    this.commentsCollection.doc(commentId).delete();
   }
 
   //Getting all comments for a post
@@ -170,6 +156,11 @@ export class DatabaseService {
     this.likeCollection.doc(likeId).delete()
   }
 
+  //Delete all likes from a post
+  deleteLikesOnPost(postid: string): void {
+    
+  } 
+
   storeProfilePicture(imageBlob) {
     return new Promise((resolve, reject) => {
       let fileRef = firebase.storage()
@@ -194,5 +185,4 @@ export class DatabaseService {
     let storageRef = firebase.storage().ref();
     return storageRef.child("images/" + firebase.auth().currentUser.uid).getDownloadURL()
   }
-
 }
