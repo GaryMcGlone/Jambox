@@ -13,7 +13,7 @@ export class SignUpPage implements OnInit {
   constructor(
     private auth: FirebaseAuthService,
     private router: Router,
-    private menuCtrl: MenuController,
+    private menuCtrl: MenuController
     // // private analytics: AnalyticsService
   ) {}
 
@@ -23,9 +23,18 @@ export class SignUpPage implements OnInit {
 
   ngOnInit() {}
 
-  signUp(email: string, password: string, displayName: string) {
+  signUp(email: string, password: string, confirmPassword:string, displayName: string) {
     // this.analytics.logButtonClick("signUp", { param: "User_Sign_Up" });
-    this.auth.signUp(email, password, displayName);
+    if(password == confirmPassword)
+    {
+      this.auth.signUp(email, password, displayName);
+    }
+    else
+    {
+      console.log(password)
+      console.log(confirmPassword)
+      this.auth.presentToast("Passwords must match!")
+    }
   }
 
   navigateToLogin() {
