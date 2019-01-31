@@ -4,13 +4,12 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
 import * as firebase from "firebase/";
 import { DatabaseService } from "../database/database.service";
-import { ToastController, MenuController, Platform } from "@ionic/angular";
-import { NativeStorage } from "@ionic-native/native-storage/ngx";
-import { switchMap } from "rxjs/operators";
+import { ToastController } from "@ionic/angular";
 import { IUser } from "../../interfaces/user-interface";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { SpotifyService } from "../spotify/spotify.service";
 import { GooglePlus } from "@ionic-native/google-plus/ngx";
+
 @Injectable({
   providedIn: "root"
 })
@@ -128,12 +127,6 @@ export class FirebaseAuthService {
       this.presentToast(err.message);
     });
   }
-  /**  else {
-      this.presentToast("please verify your email");
-    }
-    
-  }
- */
 
   doLogout() {
     return new Promise((resolve, reject) => {

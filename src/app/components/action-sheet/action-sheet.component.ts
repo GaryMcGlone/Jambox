@@ -6,6 +6,10 @@ import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.s
 import { SpotifyService } from "../../services/spotify/spotify.service";
 import { ILike } from "../../interfaces/like-interface";
 import { IComment } from "../../interfaces/comment-interface";
+import { IFollow } from "../../interfaces/follow.interface";
+import { FollowService } from "../../services/follow/follow.service";
+import * as firebase from "firebase/"
+
 @Component({
   selector: "app-action-sheet",
   templateUrl: "./action-sheet.component.html",
@@ -20,36 +24,28 @@ export class ActionSheetComponent implements OnInit {
   comments: IComment[] = [];
 
   ngOnInit() {
-    this.userId = this.firebaseAuth.getCurrentUserID();
+    this.userId = firebase.auth().currentUser.uid
     this.getAllComments();
     this.getAllLikes();
   }
-  constructor(
-    public actionSheetController: ActionSheetController,
-    private databaseService: DatabaseService,
-    private firebaseAuth: FirebaseAuthService,
-    private spotifyService: SpotifyService
-  ) { }
+  constructor(public actionSheetController: ActionSheetController, private databaseService: DatabaseService, private firebaseAuth: FirebaseAuthService, private spotifyService: SpotifyService, private followingService: FollowService) {
+    this.followingService.getFollowedUsers().subscribe(data => console.log(data));
+  }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
-        this.post.UserID == this.firebaseAuth.getCurrentUserID()
-          ? {
-              text: "Delete",
-              role: "destructive",
-              icon: "trash",
-              handler: () => {
-                this.delete(this.post.id);
-              }
-            }
-          : {
-              text: "Share",
-              icon: "share",
-              handler: () => {
-                console.log("Share clicked");
-              }
-            },
+        this.post.UserID != firebase.auth().currentUser.uid ?
+        {
+          text: "Follow",
+          icon: "person-add",
+          handler: () => {
+            this.follow(firebase.auth().currentUser.uid, this.post.UserID);
+          }
+        }
+        :
+        {}
+        ,
         this.post.postType == "yt"
           ? {
               text: "Play on Youtube",
@@ -67,6 +63,22 @@ export class ActionSheetComponent implements OnInit {
                 this.open(this.post.externalUri);
               }
             },
+        this.post.UserID == firebase.auth().currentUser.uid
+          ? {
+              text: "Delete",
+              role: "destructive",
+              icon: "trash",
+              handler: () => {
+                this.delete(this.post.id);
+              }
+            }
+          : {
+              text: "Share",
+              icon: "share",
+              handler: () => {
+                console.log("Share clicked");
+              }
+            },
         {
           text: "Cancel",
           icon: "close",
@@ -74,7 +86,7 @@ export class ActionSheetComponent implements OnInit {
           handler: () => {
             this.actionSheetController.dismiss();
           }
-        }
+        },
       ]
     });
     await actionSheet.present();
@@ -86,14 +98,13 @@ export class ActionSheetComponent implements OnInit {
     this.getAllComments();
     this.getAllLikes();
     this.deleteComments();
-    this.deleteLikes();  
+    this.deleteLikes();
   }
 
   getAllComments() {
     this.databaseService.getComments(this.post.id).subscribe(comments => {
       this.comments = comments;
     });
-    
   }
 
   deleteComments() {
@@ -102,7 +113,7 @@ export class ActionSheetComponent implements OnInit {
     });
   }
 
-  deleteLikes(){
+  deleteLikes() {
     this.likes.forEach(element => {
       this.databaseService.removeLike(element.postId + "_" + element.userId);
     });
@@ -117,5 +128,15 @@ export class ActionSheetComponent implements OnInit {
   open(uri) {
     // this.analytics.logEvent("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
     this.spotifyService.open(uri);
+  }
+
+  follow(followerId, followedId) {
+    console.log("docId", followerId + "_" + followedId)
+    let follow: IFollow = {
+      followerId: followerId,
+      followedId: followedId,
+      createdAt: new Date
+    }
+    this.followingService.addFollow(follow)
   }
 }

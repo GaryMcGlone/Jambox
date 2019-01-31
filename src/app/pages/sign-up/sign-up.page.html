@@ -1,16 +1,16 @@
 <ion-content padding class="background">
   <h2>Sign Up</h2>
   <ion-item>
-    <ion-label position='floating' color="light" stacked>Username</ion-label>
-    <ion-input #displayName type="text"></ion-input>
+    <ion-label position='floating' color="primary" stacked>Username</ion-label>
+    <ion-input #displayName type="text" color="primary"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position='floating' color='light' stacked>Email</ion-label>
-    <ion-input #email type="email"></ion-input>
+    <ion-label position='floating' color='primary' stacked>Email</ion-label>
+    <ion-input #email type="email" color="primary" ></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color="light" position='floating' stacked>Password</ion-label>
-    <ion-input #password type="password"></ion-input>
+    <ion-label color="light" position='floating' color="primary" stacked>Password</ion-label>
+    <ion-input #password type="password" color="primary"></ion-input>
   </ion-item>
   <ion-button style="margin-top:16px" expand='block' (click)="signUp(email.value, password.value, displayName.value)">
     <ion-icon slot="end" name="log-in"></ion-icon>
