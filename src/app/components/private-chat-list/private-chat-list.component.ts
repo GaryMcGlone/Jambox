@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { IPrivateChatRoom } from '../../interfaces/private-chat-room-interface';
 import { ChatService } from '../../services/chat/chat.service';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
+import { PrivateChat } from '../../models/private-chat.model';
 
 @Component({
-  selector: 'app-private-chat-list',
+  selector: 'private-chat-list',
   templateUrl: './private-chat-list.component.html',
   styleUrls: ['./private-chat-list.component.scss']
 })
 export class PrivateChatListComponent implements OnInit {
-  chats: IPrivateChatRoom[] = [];
+  chats: PrivateChat[] = [];
   cssClass: string;
   userID: string;
   errorMessage: string;

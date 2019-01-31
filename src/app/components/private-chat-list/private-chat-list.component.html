@@ -3,6 +3,6 @@
     <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
   </div>
   <ion-item [ngClass]="cssClass" *ngFor="let chat of chats">
-    <app-private-chat [chat]="chat"></app-private-chat>
+    <private-chat [currentChat]="chat"></private-chat>
   </ion-item>
 </ion-list>
