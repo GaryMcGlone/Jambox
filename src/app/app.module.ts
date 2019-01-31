@@ -40,6 +40,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { PrivateChatsPipe } from './private-chats.pipe';
 
 library.add(fas, far, fab)
 
@@ -47,6 +48,7 @@ library.add(fas, far, fab)
   declarations: [
     AppComponent,
     UserSearchComponent,
+    PrivateChatsPipe,
   ],
   entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage],
   imports: [
