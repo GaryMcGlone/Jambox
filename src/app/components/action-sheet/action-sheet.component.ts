@@ -22,14 +22,16 @@ export class ActionSheetComponent implements OnInit {
   userId: string;
   likes: ILike[] = [];
   comments: IComment[] = [];
+  following: IFollow[] = [];
 
   ngOnInit() {
     this.userId = firebase.auth().currentUser.uid
     this.getAllComments();
     this.getAllLikes();
-  }
+
+ }
   constructor(public actionSheetController: ActionSheetController, private databaseService: DatabaseService, private firebaseAuth: FirebaseAuthService, private spotifyService: SpotifyService, private followingService: FollowService) {
-    this.followingService.getFollowedUsers().subscribe(data => console.log(data));
+
   }
 
   async presentActionSheet() {
@@ -44,7 +46,13 @@ export class ActionSheetComponent implements OnInit {
           }
         }
         :
-        {}
+        {
+          text: "Follow",
+          icon: "person-add",
+          handler: () => {
+            this.follow(firebase.auth().currentUser.uid, this.post.UserID);
+          }
+        }
         ,
         this.post.postType == "yt"
           ? {
@@ -129,7 +137,6 @@ export class ActionSheetComponent implements OnInit {
     // this.analytics.logEvent("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
     this.spotifyService.open(uri);
   }
-
   follow(followerId, followedId) {
     console.log("docId", followerId + "_" + followedId)
     let follow: IFollow = {

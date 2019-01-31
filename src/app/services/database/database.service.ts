@@ -35,27 +35,27 @@ export class DatabaseService {
 
 
   constructor(private _afs: AngularFirestore) {
-    this.postsCollection = _afs.collection<IPost>("posts", ref =>
-      ref.orderBy("createdAt", "desc")
-    );
+    // this.postsCollection = _afs.collection<IPost>("posts", ref =>
+    //   ref.orderBy("createdAt", "desc")
+    // );
 
     this.userCollection = _afs.collection<IUser>("users");
     this.likeCollection = _afs.collection<ILike>('likes');
     this.commentsCollection = _afs.collection<IComment>("comments")
   }
 
-  getPosts(): Observable<IPost[]> {
-    this.posts = this.postsCollection.snapshotChanges().pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as IPost;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      )
-    );
-    return this.posts;
-  }
+  // getPosts(): Observable<IPost[]> {
+  //   this.posts = this.postsCollection.snapshotChanges().pipe(
+  //     map(actions =>
+  //       actions.map(a => {
+  //         const data = a.payload.doc.data() as IPost;
+  //         const id = a.payload.doc.id;
+  //         return { id, ...data };
+  //       })
+  //     )
+  //   );
+  //   return this.posts;
+  // }
 
   //this method adds a post
   addPost(post): void {

@@ -4,6 +4,8 @@ import { IPost } from "../../interfaces/post-interface";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { IUser } from "../../interfaces/user-interface";
 import { TouchSequence } from "selenium-webdriver";
+import { IFollow } from "../../interfaces/follow.interface";
+import { FollowService } from "../../services/follow/follow.service";
 
 @Component({
   selector: "app-post-list",
@@ -15,27 +17,39 @@ export class PostListComponent implements OnInit {
   errorMessage: string;
   cssClass: string;
   user: IUser;
-  following: string[];
+  following: IFollow[];
+  followingIds: string[] = []
   showSpinner: boolean = false;
 
   constructor(
     private databaseService: DatabaseService,
-    private auth: FirebaseAuthService
+    private auth: FirebaseAuthService,
+    private followingService: FollowService
   ) {}
 
   ngOnInit() {
-    //get all the posts initially
+    this.followingService.getFollowedUsers().subscribe(data => {
+      if(data) {
+        this.following = data;
+        this.following.forEach(follow => {
+          this.followingIds.push(follow.followedId)
+          this.followingService.filterPostsCollection(this.followingIds)
+        })
+        console.log(this.followingIds)
+      }
+    });
     this.showSpinner = true;
-    this.databaseService.getPosts().subscribe(posts => {
-      (this.posts = posts), error => (this.errorMessage = <any>error);
+
+    this.followingService.getFollowedUsersPosts().subscribe(posts => {
+      this.posts = posts
+      console.log(posts)
       this.showSpinner = false;
     });
 
     this.databaseService
       .getCurrentUser(this.auth.getCurrentUserID())
       .subscribe(data => {
-        (this.user = data),
-          (this.following = this.user.following);
+        (this.user = data)
       });
     this.cssClass = "animated slideInUp faster card";
   }
