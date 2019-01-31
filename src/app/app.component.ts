@@ -4,6 +4,7 @@ import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { SpotifyService } from "./services/spotify/spotify.service";
+import { FirebaseAuthService } from "./services/firebaseAuth/firebase-auth.service";
 
 import { timer } from 'rxjs';
 
@@ -22,7 +23,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public spotifyService: SpotifyService
+    public spotifyService: SpotifyService,
+    private auth: FirebaseAuthService
   ) {
     this.initializeApp();
   }
@@ -31,7 +33,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
+      this.auth.stayLoggedIn();
       timer(3000).subscribe(() => this.showSplash = false);
     });
   }
