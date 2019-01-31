@@ -16,7 +16,9 @@ export class CommentsPage implements OnInit {
   post: Post;
   selectedPost: Post;
 
-  constructor(private databaseService:DatabaseService, private modalController: ModalController, private navParams: NavParams) { 
+  constructor(private databaseService:DatabaseService, 
+    private modalController: ModalController,
+     private navParams: NavParams) { 
       this.selectedPost = this.navParams.get("post");
     }
 

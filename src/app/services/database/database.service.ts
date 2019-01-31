@@ -10,6 +10,7 @@ import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
 import { IComment } from "../../interfaces/comment-interface";
 import { ILike } from "../../interfaces/like-interface";
+
 import * as firebase from "firebase/";
 
 @Injectable({
@@ -185,4 +186,5 @@ export class DatabaseService {
     let storageRef = firebase.storage().ref();
     return storageRef.child("images/" + firebase.auth().currentUser.uid).getDownloadURL()
   }
+
 }

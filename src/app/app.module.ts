@@ -40,6 +40,10 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { PrivateChatsPage } from "./pages/private-chats/private-chats.page";
+import { PrivateChatPage } from "./pages/private-chat/private-chat.page";
+import { PrivateChatPageModule } from "./pages/private-chat/private-chat.module";
+import { PrivateChatsPageModule } from "./pages/private-chats/private-chats.module";
 
 library.add(fas, far, fab)
 
@@ -48,7 +52,7 @@ library.add(fas, far, fab)
     AppComponent,
     UserSearchComponent,
   ],
-  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage],
+  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
@@ -59,6 +63,8 @@ library.add(fas, far, fab)
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     CreateSongModalPageModule,
+    PrivateChatPageModule,
+    PrivateChatsPageModule,
     CommentsPageModule,
     SearchSongByIdPageModule,
     FontAwesomeModule
