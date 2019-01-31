@@ -17,8 +17,10 @@ import { PrivateChatPage } from '../../pages/private-chat/private-chat.page';
 export class PrivateChatComponent implements OnInit {
   @Input() currentChat;
 
-  lastMessage: IChatMessage[];
+  lastMessages: IChatMessage[];
+  lastMessage: IChatMessage;
   userId: string;
+  user: IUser;
   otherUser: IUser;
 
 
@@ -31,6 +33,9 @@ export class PrivateChatComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.firebaseAuth.getCurrentUserID();
+    this.databaseService.getCurrentUser(this.userId).subscribe(data =>{
+      this.user = data;
+    });
     this.currentChat.members.forEach(element => {
       if(element != this.userId){
         this.databaseService.getCurrentUser(element).subscribe(data => {
@@ -39,8 +44,11 @@ export class PrivateChatComponent implements OnInit {
       }
     });
     this.chatService.getLastChatRoomMessage(this.currentChat.id).subscribe(message => {
-      this.lastMessage = message;
+      this.lastMessages = message;
+      this.lastMessage = this.lastMessages[0];
+      console.log("last message 2: ", this.lastMessages)
     });
+    console.log("lastmessage: ", this.lastMessages)
   }
 
   selectChat(selectedChat) {
