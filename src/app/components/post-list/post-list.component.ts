@@ -40,3 +40,4 @@ export class PostListComponent implements OnInit {
     this.cssClass = "animated slideInUp faster card";
   }
 }
+ 

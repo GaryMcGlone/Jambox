@@ -41,6 +41,8 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { PrivateChatsPipe } from './private-chats.pipe';
+import { PrivateChatListComponent } from './private-chat-list/private-chat-list.component';
+import { PrivateChatComponent } from './components/private-chat/private-chat.component';
 
 library.add(fas, far, fab)
 
@@ -49,6 +51,8 @@ library.add(fas, far, fab)
     AppComponent,
     UserSearchComponent,
     PrivateChatsPipe,
+    PrivateChatListComponent,
+    PrivateChatComponent,
   ],
   entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage],
   imports: [
