@@ -70,6 +70,22 @@ export class ChatService {
       })));
     return this.chatMessages;
   }
+  //Gets last chat room message
+  getLastChatRoomMessage(chatRoomId: string): Observable<IChatMessage[]> {
+    this.chatMessagesCollection = this._afs.collection<IChatMessage>("messages", ref => {
+      return ref.where('chatRoomId', '==', chatRoomId)
+                .orderBy('createdAt')
+                .limit(1);
+    });
+    this.chatMessages = this.chatMessagesCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IChatMessage;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+      })));
+    return this.chatMessages;
+  }
 
   //POST Requests
   //Creates a new private chat room / Adds a new document into private chats collection

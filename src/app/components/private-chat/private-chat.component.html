@@ -1,5 +1,12 @@
-<ion-card *ngIf="chat" class="welcome-card">
+<ion-card *ngIf="chat">
   <ion-card-header>
-    
+    <b>{{otherUser.displayName}}</b>
   </ion-card-header>
+  <ion-card-content>
+    <div text-wrap>
+      <p *ngIf="lastMessage.senderID != userId">{{lastMessage[0].senderName}}</p>
+      <p *ngIf="lastMessage.senderID == userId">You: </p>
+      {{lastMessage[0].message}}
+    </div>
+  </ion-card-content>
 </ion-card>
