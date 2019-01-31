@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { PrivateChatsPage } from './private-chats.page';
 import { PrivateChatListComponent } from '../../components/private-chat-list/private-chat-list.component';
+import { PrivateChatComponent } from '../../components/private-chat/private-chat.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PrivateChatsPage,
-    PrivateChatListComponent]
+  declarations: [PrivateChatsPage, PrivateChatListComponent, PrivateChatComponent]
 })
 export class PrivateChatsPageModule {}
