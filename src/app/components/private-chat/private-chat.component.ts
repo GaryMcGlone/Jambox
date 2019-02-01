@@ -32,6 +32,7 @@ export class PrivateChatComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("current room id: ", this.currentChat.id)
     this.userId = this.firebaseAuth.getCurrentUserID();
     this.databaseService.getCurrentUser(this.userId).subscribe(data =>{
       this.user = data;
@@ -46,9 +47,7 @@ export class PrivateChatComponent implements OnInit {
     this.chatService.getLastChatRoomMessage(this.currentChat.id).subscribe(message => {
       this.lastMessages = message;
       this.lastMessage = this.lastMessages[0];
-      console.log("last message 2: ", this.lastMessages)
     });
-    console.log("lastmessage: ", this.lastMessages)
   }
 
   selectChat(selectedChat) {

@@ -73,8 +73,8 @@ export class ChatService {
   //Gets last chat room message
   getLastChatRoomMessage(chatRoomId: string): Observable<IChatMessage[]> {
     this.chatMessagesCollection = this._afs.collection<IChatMessage>("messages", ref => {
-      return ref.where('chatRoomId', '==', chatRoomId)
-                .orderBy('createdAt')
+      return ref.where('chatRoomID', '==', chatRoomId)
+                .orderBy('createdAt', 'desc')
                 .limit(1);
     });
     this.chatMessages = this.chatMessagesCollection.snapshotChanges().pipe(

@@ -25,14 +25,11 @@ export class PrivateChatListComponent implements OnInit {
     //get all the private chat rooms
     this.showSpinner = true;
     this.userID = this.auth.getCurrentUserID();
-    console.log("user id: ", this.userID)
     this.chatService.getPrivateChatRooms(this.userID).subscribe(chats => {
       this.chats = chats
-      console.log("In chat list: 2", this.chats)
       error => (this.errorMessage = <any>error);
       this.showSpinner = false;
     });
-    console.log("In chat list: ", this.chats)
     this.cssClass = "animated slideInUp faster card";
   }
 
