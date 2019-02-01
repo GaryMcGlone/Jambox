@@ -3,7 +3,6 @@ import { DatabaseService } from "../../services/database/database.service";
 import { IPost } from "../../interfaces/post-interface";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { IUser } from "../../interfaces/user-interface";
-import { TouchSequence } from "selenium-webdriver";
 import { IFollow } from "../../interfaces/follow.interface";
 import { FollowService } from "../../services/follow/follow.service";
 
