@@ -14,10 +14,8 @@ export class MessageListComponent implements OnInit {
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
-    console.log("chat id: ", this.chat.id)
     this.chatService.getChatRoomMessages(this.chat.id).subscribe(messages => {
       this.messages = messages
-      console.log("messages for chat: ", this.messages)
     });
   }
 
