@@ -6,7 +6,6 @@ import { DatabaseService } from "../../services/database/database.service";
 import { IUser } from "../../interfaces/user-interface";
 import { YoutubeVideoPlayer } from "@ionic-native/youtube-video-player/ngx";
 import { ActivatedRoute } from "@angular/router";
-import { IPost } from "../../interfaces/post-interface";
 import { ILike } from "../../interfaces/like-interface";
 //import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 import { ModalController } from "@ionic/angular";

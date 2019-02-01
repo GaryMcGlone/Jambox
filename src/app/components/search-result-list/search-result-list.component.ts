@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { IPost } from '../../interfaces/post-interface';
-import { NavParams } from '@ionic/angular';
 import { DatabaseService } from '../../services/database/database.service';
 
 @Component({

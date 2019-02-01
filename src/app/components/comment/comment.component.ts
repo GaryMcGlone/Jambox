@@ -1,9 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IComment } from '../../interfaces/comment-interface';
-import { IUser } from '../../interfaces/user-interface';
 import { Comment } from '../../models/comment.model';
 import { DatabaseService } from '../../services/database/database.service';
-import { FirebaseAuth } from '@angular/fire';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
 
 @Component({

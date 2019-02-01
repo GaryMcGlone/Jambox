@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IPrivateChatRoom } from '../../interfaces/private-chat-room-interface';
 import { ChatService } from '../../services/chat/chat.service';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
 import { PrivateChat } from '../../models/private-chat.model';
