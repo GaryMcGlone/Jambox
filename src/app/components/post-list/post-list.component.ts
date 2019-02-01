@@ -18,7 +18,6 @@ export class PostListComponent implements OnInit {
   cssClass: string;
   user: IUser;
   following: IFollow[];
-  followingIds: string[] = []
   showSpinner: boolean = false;
 
   constructor(
@@ -31,16 +30,11 @@ export class PostListComponent implements OnInit {
     this.followingService.getFollowedUsers().subscribe(data => {
       if(data) {
         this.following = data;
-        this.following.forEach(follow => {
-          this.followingIds.push(follow.followedId)
-          this.followingService.filterPostsCollection(this.followingIds)
-        })
-        console.log(this.followingIds)
       }
     });
     this.showSpinner = true;
 
-    this.followingService.getFollowedUsersPosts().subscribe(posts => {
+    this.databaseService.getPosts().subscribe(posts => {
       this.posts = posts
       console.log(posts)
       this.showSpinner = false;

@@ -27,22 +27,8 @@ export class FollowService {
         });
       }
     })
-    // this.getFollowedUsers().subscribe(data => {
-    //   console.log(data)
-    //   data.forEach(followedUser => {
-    //     this.postsCollection = this._afs.collection<IPost>('posts', ref => {
-    //       return ref.where("UserID", "==",  followedUser.followedId)
-    //     })
-    //   })
-    // })
+    this.postsCollection = this._afs.collection<IPost>('posts')
    }
-
-  filterPostsCollection(followingIds: string[]) {
-    console.log(followingIds)
-    this.postsCollection = this._afs.collection<IPost>('posts', ref => {
-      return ref.where("UserID", "array-contains", followingIds)
-    })
-  }
 
    addFollow(follow: IFollow) {
       console.log("following object:", follow)
