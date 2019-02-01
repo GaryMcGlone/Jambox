@@ -59,7 +59,8 @@ export class ChatService {
   //Gets messages for a specific chat room using chatRoomId
   getChatRoomMessages(chatRoomId: string): Observable<IChatMessage[]> {
     this.chatMessagesCollection = this._afs.collection<IChatMessage>("messages", ref => {
-      return ref.where('chatRoomId', '==', chatRoomId);
+      return ref.where('chatRoomID', '==', chatRoomId)
+                .orderBy('createdAt', 'desc');
     });
     this.chatMessages = this.chatMessagesCollection.snapshotChanges().pipe(
       map(actions =>
