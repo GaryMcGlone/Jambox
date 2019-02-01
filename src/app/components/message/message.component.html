@@ -1,10 +1,34 @@
-<ion-card *ngIf="message" text-wrap>
-    <ion-card-content text-wrap>
-      <ion-row>
-          <ion-col>
-              <b text-wrap>{{message?.senderName}}</b>
-              <p text-wrap>{{message?.message}}</p>
-          </ion-col>
-      </ion-row>
-    </ion-card-content>
-</ion-card>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+
+    </ion-col>
+    <ion-col size="10">
+        <ion-card color="primary" class="myMessage" *ngIf="message && sender" text-wrap>
+            <ion-card-content text-wrap>
+              <ion-row align="center">
+                  <b text-wrap>You</b>
+              </ion-row>
+              <ion-row>
+                  <p text-wrap>{{message?.message}}</p>
+              </ion-row>
+            </ion-card-content>
+        </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="10">
+        <ion-card class="otherMessage" *ngIf="message && !sender" text-wrap>
+            <ion-card-content text-wrap>
+              <ion-row align="center">
+                <b text-wrap>{{message?.senderName}}</b>                  
+              </ion-row>
+              <ion-row>
+                  <p text-wrap>{{message?.message}}</p>
+              </ion-row>
+            </ion-card-content>
+        </ion-card>
+    </ion-col>   
+  </ion-row>
+</ion-grid>
+

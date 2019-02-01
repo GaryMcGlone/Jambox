@@ -60,7 +60,7 @@ export class ChatService {
   getChatRoomMessages(chatRoomId: string): Observable<IChatMessage[]> {
     this.chatMessagesCollection = this._afs.collection<IChatMessage>("messages", ref => {
       return ref.where('chatRoomID', '==', chatRoomId)
-                .orderBy('createdAt', 'desc');
+                .orderBy('createdAt', 'asc');
     });
     this.chatMessages = this.chatMessagesCollection.snapshotChanges().pipe(
       map(actions =>

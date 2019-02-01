@@ -16,6 +16,7 @@ export class MessageListComponent implements OnInit {
   ngOnInit() {
     this.chatService.getChatRoomMessages(this.chat.id).subscribe(messages => {
       this.messages = messages
+      this.messages.reverse();
     });
   }
 
