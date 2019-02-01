@@ -6,6 +6,7 @@ import { IPost } from "../../interfaces/post-interface";
 import * as firebase from "firebase/";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map } from "rxjs/operators";
+import { Post } from '../../models/post.model';
 
 
 @Injectable({
@@ -27,7 +28,6 @@ export class FollowService {
         });
       }
     })
-    this.postsCollection = this._afs.collection<IPost>('posts')
    }
 
    addFollow(follow: IFollow) {
@@ -52,7 +52,13 @@ export class FollowService {
     return this.followersList;
    }
    
-   getFollowedUsersPosts() {
+   getFollowedUsersPosts(follows) : Observable<IPost[]> {
+    console.log(follows)
+    follows.forEach(follow => {
+      this.postsCollection = this._afs.collection<IPost>('posts', ref => {
+        return ref.where("UserID", "==", follow.followedId)
+      })
+    })
     this.posts = this.postsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {

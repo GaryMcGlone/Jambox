@@ -27,24 +27,19 @@ export class PostListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.showSpinner = true;
     this.followingService.getFollowedUsers().subscribe(data => {
       if(data) {
         this.following = data;
+        this.followingService.getFollowedUsersPosts(this.following).subscribe(data => {
+          this.posts = data
+          this.showSpinner = false;
+        })
       }
     });
-    this.showSpinner = true;
-
-    this.databaseService.getPosts().subscribe(posts => {
-      this.posts = posts
-      console.log(posts)
-      this.showSpinner = false;
+    this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
+      this.user = data
     });
-
-    this.databaseService
-      .getCurrentUser(this.auth.getCurrentUserID())
-      .subscribe(data => {
-        (this.user = data)
-      });
     this.cssClass = "animated slideInUp faster card";
   }
 }
