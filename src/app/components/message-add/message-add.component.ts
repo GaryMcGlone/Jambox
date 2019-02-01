@@ -12,9 +12,13 @@ import { DatePipe } from "@angular/common";
 })
 export class MessageAddComponent implements OnInit {
   @Input() chat;
-  message: IChatMessage;
   pipe = new DatePipe("en-IE");
+  message: IChatMessage;
   content: string;
+  chatID: string;
+  senderID: string;
+  senderName: string;
+  createdAt: string;
   buttonIsDisabled: boolean = true;
 
   constructor(private chatService: ChatService,
@@ -22,30 +26,27 @@ export class MessageAddComponent implements OnInit {
     private databaseService: DatabaseService) { }
 
   ngOnInit() {
-    this.message.chatRoomID = this.chat.id;
-    this.message.message = "";
-    this.message.senderID = this.firebaseAuth.getCurrentUserID();
-    this.databaseService.getCurrentUser(this.message.senderID).subscribe(user => {
-      this.message.senderName = user.displayName
+    this.chatID = this.chat.id;
+    this.content = "";
+    this.senderName = "";
+    this.senderID = this.firebaseAuth.getCurrentUserID();
+    this.databaseService.getCurrentUser(this.senderID).subscribe(user => {
+      this.senderName = user.displayName
     });
+    this.message = { message: "", createdAt: "", senderID: "", chatRoomID: "", senderName: "" }
   }
 
-  disableButton(): boolean {
-    this.buttonIsDisabled = true;
-    if (this.content.match(/^\s+$/) === null && this.content != '') {
-      return this.buttonIsDisabled = false;
-    }
-    else {
-      return this.buttonIsDisabled = true;
-    }
-  }
 
   sendMessage() {
     const date = new Date();
-    this.message.createdAt = this.pipe.transform(date, "medium");
+    this.createdAt = this.pipe.transform(date, "medium");
     this.message.message = this.content;
+    this.message.senderID = this.senderID;
+    this.message.senderName = this.senderName;
+    this.message.createdAt = this.createdAt;
+    this.message.chatRoomID = this.chatID;
     this.chatService.createChatMessage(this.message);
-    this.content = '';
+    this.content = "";
     this.buttonIsDisabled = true;
   }
 

@@ -16,6 +16,11 @@
 </ion-header>
 
 <ion-content no-padding>
-  <message-list></message-list>
-  <message-add></message-add>
+  <message-list [chat]="chat"></message-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      <message-add [chat]="chat"></message-add>
+  </ion-toolbar>
+</ion-footer>
