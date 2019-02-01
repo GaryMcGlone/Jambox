@@ -26,7 +26,7 @@ export class PrivateChatListComponent implements OnInit {
     this.showSpinner = true;
     this.userID = this.auth.getCurrentUserID();
     this.chatService.getPrivateChatRooms(this.userID).subscribe(chats => {
-      (this.chats = chats),
+      this.chats = chats
       error => (this.errorMessage = <any>error);
       this.showSpinner = false;
     });

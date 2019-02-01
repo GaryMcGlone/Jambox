@@ -1,12 +1,13 @@
-<ion-card *ngIf="chat">
+<ion-card *ngIf="currentChat" (click)="selectChat(currentChat)">
   <ion-card-header>
-    <b>{{otherUser.displayName}}</b>
+    <div *ngIf="otherUser">
+        <b>{{otherUser.displayName}}</b>
+    </div>
   </ion-card-header>
   <ion-card-content>
-    <div text-wrap>
-      <p *ngIf="lastMessage.senderID != userId">{{lastMessage[0].senderName}}</p>
-      <p *ngIf="lastMessage.senderID == userId">You: </p>
-      {{lastMessage[0].message}}
+    <div text-wrap *ngIf="lastMessage">
+      <p *ngIf="user.displayName != lastMessage.senderName">{{otherUser.displayName}}: {{lastMessage.message}}</p>
+      <p *ngIf="user.displayName == lastMessage.senderName">You: {{lastMessage.message}}</p>
     </div>
   </ion-card-content>
 </ion-card>
