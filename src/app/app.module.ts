@@ -44,13 +44,16 @@ import { PrivateChatsPage } from "./pages/private-chats/private-chats.page";
 import { PrivateChatPage } from "./pages/private-chat/private-chat.page";
 import { PrivateChatPageModule } from "./pages/private-chat/private-chat.module";
 import { PrivateChatsPageModule } from "./pages/private-chats/private-chats.module";
+import { MessageListComponent } from './components/message-list/message-list.component';
+import { MessageAddComponent } from './components/message-add/message-add.component';
+import { MessageComponent } from './components/message/message.component';
 
 library.add(fas, far, fab)
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserSearchComponent,
+    UserSearchComponent
   ],
   entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage],
   imports: [

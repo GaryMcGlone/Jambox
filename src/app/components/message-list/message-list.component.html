@@ -1,0 +1,8 @@
+<ion-list lines="none">
+    <div class="spinner-holder" align="center">
+      <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
+    </div>
+    <ion-item *ngFor="let message of messages">
+      <private-chat [message]="message"></private-chat>
+    </ion-item>
+  </ion-list>

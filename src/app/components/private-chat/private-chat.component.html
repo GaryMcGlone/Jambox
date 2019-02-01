@@ -1,4 +1,4 @@
-<ion-card *ngIf="currentChat">
+<ion-card *ngIf="currentChat" (click)="selectChat(currentChat)">
   <ion-card-header>
     <div *ngIf="otherUser">
         <b>{{otherUser.displayName}}</b>
