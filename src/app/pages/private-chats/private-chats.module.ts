@@ -1,19 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { Routes, RouterModule } from "@angular/router";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
-import { PrivateChatsPage } from './private-chats.page';
-import { PrivateChatListComponent } from '../../components/private-chat-list/private-chat-list.component';
-import { PrivateChatComponent } from '../../components/private-chat/private-chat.component';
-import { MessageListComponent } from '../../components/message-list/message-list.component';
-import { MessageAddComponent } from '../../components/message-add/message-add.component';
+import { PrivateChatsPage } from "./private-chats.page";
+import { PrivateChatListComponent } from "../../components/private-chat-list/private-chat-list.component";
+import { PrivateChatComponent } from "../../components/private-chat/private-chat.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: PrivateChatsPage
   }
 ];
@@ -25,8 +23,10 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PrivateChatsPage, 
-    PrivateChatListComponent, PrivateChatComponent,
-    MessageAddComponent, MessageListComponent]
+  declarations: [
+    PrivateChatsPage,
+    PrivateChatListComponent,
+    PrivateChatComponent
+  ]
 })
 export class PrivateChatsPageModule {}
