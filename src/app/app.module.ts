@@ -47,6 +47,10 @@ import { PrivateChatsPageModule } from "./pages/private-chats/private-chats.modu
 import { MessageListComponent } from './components/message-list/message-list.component';
 import { MessageAddComponent } from './components/message-add/message-add.component';
 import { MessageComponent } from './components/message/message.component';
+import { GroupChatComponent } from './components/group-chat/group-chat.component';
+import { GroupChatListComponent } from './components/group-chat-list/group-chat-list.component';
+import { GroupChatsPage } from "./pages/group-chats/group-chats.page";
+import { GroupChatsPageModule } from "./pages/group-chats/group-chats.module";
 
 library.add(fas, far, fab)
 
@@ -55,7 +59,7 @@ library.add(fas, far, fab)
     AppComponent,
     UserSearchComponent
   ],
-  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage],
+  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
@@ -68,6 +72,7 @@ library.add(fas, far, fab)
     CreateSongModalPageModule,
     PrivateChatPageModule,
     PrivateChatsPageModule,
+    GroupChatsPageModule,
     CommentsPageModule,
     SearchSongByIdPageModule,
     FontAwesomeModule
