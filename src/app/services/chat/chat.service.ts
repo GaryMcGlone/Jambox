@@ -111,6 +111,8 @@ export class ChatService {
   deleteGroupChatRoom(chatRoomID: string): void {
     this.groupChatsCollection.doc(chatRoomID).delete();
   }
-  //Deletes all messages from a chat room using id
-  
+  //Deletes a message from a chat room using id
+  deleteChatRoomMessage(chatMessageId: string): void {
+    this.chatMessagesCollection.doc(chatMessageId).delete();
+  }
 }

@@ -14,8 +14,10 @@ const routes: Routes = [
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule', canActivate: [AuthGuard] },
   { path: 'searchSongById/:songId', loadChildren: './pages/search-song-by-id/search-song-by-id.module#SearchSongByIdPageModule',canActivate: [AuthGuard] },
   { path: 'comments', loadChildren: './pages/comments/comments.module#CommentsPageModule' },
-  { path: 'search-modal', loadChildren: './pages/search-modal/search-modal.module#SearchModalPageModule' },  { path: 'private-chats', loadChildren: './pages/private-chats/private-chats.module#PrivateChatsPageModule' },
+  { path: 'search-modal', loadChildren: './pages/search-modal/search-modal.module#SearchModalPageModule' },
+  { path: 'private-chats', loadChildren: './pages/private-chats/private-chats.module#PrivateChatsPageModule' },
   { path: 'private-chat', loadChildren: './pages/private-chat/private-chat.module#PrivateChatPageModule' },
+  { path: 'group-chats', loadChildren: './pages/group-chats/group-chats.module#GroupChatsPageModule' },
 
 ]
 @NgModule({

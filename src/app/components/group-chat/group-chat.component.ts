@@ -1,27 +1,26 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IChatMessage } from '../../interfaces/chat-message-interface';
+import { IUser } from '../../interfaces/user-interface';
 import { ChatService } from '../../services/chat/chat.service';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
-import { IUser } from '../../interfaces/user-interface';
 import { DatabaseService } from '../../services/database/database.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, proxyOutputs } from '@ionic/angular';
 import { PrivateChatPage } from '../../pages/private-chat/private-chat.page';
 
 @Component({
-  selector: 'private-chat',
-  templateUrl: './private-chat.component.html',
-  styleUrls: ['./private-chat.component.scss']
+  selector: 'group-chat',
+  templateUrl: './group-chat.component.html',
+  styleUrls: ['./group-chat.component.scss']
 })
-export class PrivateChatComponent implements OnInit {
+export class GroupChatComponent implements OnInit {
   @Input() currentChat;
 
   lastMessages: IChatMessage[];
   lastMessage: IChatMessage;
   userId: string;
   user: IUser;
-  otherUser: IUser;
-
-
+  otherUsers: IUser[]= [];
+  
   constructor(
     private chatService: ChatService,
     private firebaseAuth: FirebaseAuthService,
@@ -31,13 +30,13 @@ export class PrivateChatComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.firebaseAuth.getCurrentUserID();
-    this.databaseService.getCurrentUser(this.userId).subscribe(data =>{
+    this.databaseService.getCurrentUser(this.userId).subscribe(data => {
       this.user = data;
     });
     this.currentChat.members.forEach(element => {
-      if(element != this.userId){
+      if(element != this.userId) {
         this.databaseService.getCurrentUser(element).subscribe(data => {
-          this.otherUser = data
+          this.otherUsers.push(data);
         });
       }
     });
@@ -51,9 +50,9 @@ export class PrivateChatComponent implements OnInit {
     this.presentModal(selectedChat);
   }
 
-  async presentModal(selectedChat) {
+  async presentModal(selectChat) {
     let props = {
-      chat: selectedChat
+      chat: selectChat
     };
     const modal = await this.modalController.create({
       component: PrivateChatPage,
@@ -61,5 +60,5 @@ export class PrivateChatComponent implements OnInit {
     });
     return await modal.present();
   }
- 
+
 }

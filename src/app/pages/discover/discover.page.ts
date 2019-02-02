@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, ModalController } from '@ionic/angular';
 import { PrivateChatsPage } from '../private-chats/private-chats.page';
+import { GroupChatsPage } from '../group-chats/group-chats.page';
+import { Page } from '@ionic/core';
 
 @Component({
   selector: 'app-discover',
@@ -19,12 +21,16 @@ export class DiscoverPage implements OnInit {
   }
 
   openChats() {
-    this.presentModal();
+    this.presentModal(PrivateChatsPage);
   }
 
-  async presentModal(){
+  openGroupChats() {
+    this.presentModal(GroupChatsPage);
+  }
+
+  async presentModal(ChatPage){
     const modal = await this.modalController.create({
-      component: PrivateChatsPage
+      component: ChatPage
     });
     return await modal.present();
   }
