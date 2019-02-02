@@ -5,6 +5,7 @@ export class Comment {
     likes: number;
     postedAt: string;
     postId: string;
+    id?: string;
 
     constructor(content:string, userID: string, postedBy:string, likes: number, postedAt: string, postId: string){
         this.content = content;

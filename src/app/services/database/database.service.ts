@@ -98,7 +98,7 @@ export class DatabaseService {
 
   //adds a comment to a subcollection, creates subcollection if it doesn't exist
   addComment(comment: IComment): void {
-    this.commentsCollection.doc(comment.postId + "_" + comment.userID).set(comment);
+    this.commentsCollection.add(comment);
   }
 
   //removes a comment from a post

@@ -19,7 +19,7 @@ export class CommentComponent implements OnInit {
   }
 
   deleteComment() {
-    this.databaseService.removeComment(this.comment.postId + "_" + this.comment.userID);
+    this.databaseService.removeComment(this.comment.id);
   }
 
 }
