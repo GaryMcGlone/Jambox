@@ -6,7 +6,7 @@
     <ion-grid>
       <ion-row>
         <ion-col width-50>
-          <ion-button expand='block' (click)="sendMessage()">
+          <ion-button expand='block' [disabled]="disableButton()" (click)="sendMessage()">
             Send
           </ion-button>
         </ion-col>
