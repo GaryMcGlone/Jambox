@@ -36,6 +36,15 @@ export class MessageAddComponent implements OnInit {
     this.message = { message: "", createdAt: "", senderID: "", chatRoomID: "", senderName: "" }
   }
 
+  disableButton(): boolean {
+    if(this.content != '') {
+      return this.buttonIsDisabled = false;
+    }
+    else {
+      return this.buttonIsDisabled = true;
+    }
+  }
+
 
   sendMessage() {
     const date = new Date();
