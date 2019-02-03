@@ -10,6 +10,7 @@ import { PrivateChatListComponent } from "../../components/private-chat-list/pri
 import { PrivateChatComponent } from "../../components/private-chat/private-chat.component";
 import { UserSearchPage } from "../user-search/user-search.page";
 import { UserListComponent } from "../../components/user-list/user-list.component";
+import { UserComponent } from "../../components/user/user.component";
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
     PrivateChatsPage,
     UserSearchPage,
     UserListComponent,
+    UserComponent,
     PrivateChatListComponent,
     PrivateChatComponent
   ]

@@ -90,7 +90,7 @@ export class ChatService {
 
   //POST Requests
   //Creates a new private chat room / Adds a new document into private chats collection
-  createPrivateChatRoom(privateChatRoom): void {
+  createPrivateChatRoom(privateChatRoom) {
     this.privateChatsCollection.add(privateChatRoom);
   }
   //Creates a new group chat room / Adds a new document into group chats collection

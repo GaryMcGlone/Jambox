@@ -1,0 +1,11 @@
+
+    <ion-card (click)="selectUser()" color="primary" *ngIf="user" text-wrap>
+      <ion-card-content text-wrap>
+        <ion-row>
+            <b text-wrap>{{user.displayName}}</b>
+        </ion-row>
+        <ion-row>
+            <p text-wrap>Last Online: 2h ago</p>
+        </ion-row>
+      </ion-card-content>
+  </ion-card>

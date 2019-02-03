@@ -53,6 +53,7 @@ import { GroupChatsPage } from "./pages/group-chats/group-chats.page";
 import { GroupChatsPageModule } from "./pages/group-chats/group-chats.module";
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserSearchPage } from "./pages/user-search/user-search.page";
+import { UserComponent } from './components/user/user.component';
 
 library.add(fas, far, fab)
 

@@ -10,8 +10,7 @@
     <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
   </div>
   <ion-item [ngClass]="cssClass" *ngFor="let user of users">
-    <!-- <user-item [user]="user"></user-item> -->
-    <p>{{user.displayName}}</p>
+    <app-user [user]="user"></app-user>
   </ion-item>
-  <p *ngIf="!users">No results found</p>
+  <p *ngIf="users == null">No results found</p>
 </ion-list>
