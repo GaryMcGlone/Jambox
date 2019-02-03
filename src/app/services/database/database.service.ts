@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, merge } from "rxjs";
 import { map, reduce } from "rxjs/operators";
 import {
   AngularFirestoreCollection,
@@ -185,6 +185,13 @@ export class DatabaseService {
   getProfilePictureURL(): Promise<any> {
     let storageRef = firebase.storage().ref();
     return storageRef.child("images/" + firebase.auth().currentUser.uid).getDownloadURL()
+  }
+
+  //Changes displayName of user
+  updateUserDisplayName(userId: string, newDisplayName: string): void {
+    this.userCollection.doc(userId).set({
+      displayName: newDisplayName
+    }, {merge: true});
   }
 
 }
