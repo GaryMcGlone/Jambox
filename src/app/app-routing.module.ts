@@ -17,7 +17,8 @@ const routes: Routes = [
   { path: 'search-modal', loadChildren: './pages/search-modal/search-modal.module#SearchModalPageModule' },
   { path: 'private-chats', loadChildren: './pages/private-chats/private-chats.module#PrivateChatsPageModule' },
   { path: 'private-chat', loadChildren: './pages/private-chat/private-chat.module#PrivateChatPageModule' },
-  { path: 'group-chats', loadChildren: './pages/group-chats/group-chats.module#GroupChatsPageModule' },
+  { path: 'group-chats', loadChildren: './pages/group-chats/group-chats.module#GroupChatsPageModule' },  { path: 'user-search', loadChildren: './pages/user-search/user-search.module#UserSearchPageModule' },
+
 
 ]
 @NgModule({

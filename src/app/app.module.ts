@@ -51,6 +51,8 @@ import { GroupChatComponent } from './components/group-chat/group-chat.component
 import { GroupChatListComponent } from './components/group-chat-list/group-chat-list.component';
 import { GroupChatsPage } from "./pages/group-chats/group-chats.page";
 import { GroupChatsPageModule } from "./pages/group-chats/group-chats.module";
+import { UserListComponent } from './components/user-list/user-list.component';
+import { UserSearchPage } from "./pages/user-search/user-search.page";
 
 library.add(fas, far, fab)
 
@@ -59,7 +61,7 @@ library.add(fas, far, fab)
     AppComponent,
     UserSearchComponent
   ],
-  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage],
+  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
