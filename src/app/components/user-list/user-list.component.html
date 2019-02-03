@@ -1,4 +1,9 @@
-<input type="text" (keyup)="search($event)" placeholder="Search users...">
+<div class="wrapper">
+  <ion-item>
+    <ion-label position="floating">Search users...</ion-label>
+    <ion-textarea rows="1" (keyup)="search($event)"></ion-textarea>
+  </ion-item>
+</div>
 
 <ion-list lines="none">
   <div class="spinner-holder" align="center">

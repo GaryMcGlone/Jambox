@@ -21,10 +21,14 @@ export class UserListComponent implements OnInit {
   }
 
   search($event) {
-    this.userService.getUsersByQuery($event.target.value).subscribe(users => {
-      this.users = users
-      console.log(users)
-    })
+    let q: string = $event.target.value;
+    if(q == '' || q == null || q == ' '){
+      this.users = [];
+    }
+    else{
+      this.userService.getUsersByQuery(q.toLowerCase()).subscribe(users => {
+        this.users = users
+      })
+    }
   }
-
 }

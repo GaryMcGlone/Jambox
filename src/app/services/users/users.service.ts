@@ -17,7 +17,7 @@ export class UsersService {
   
   getUsersByQuery(query: string): Observable<IUser[]> {
     this.usersColection = this._afs.collection<IUser>("users", ref => {
-      return ref.orderBy('displayName', 'asc')
+      return ref.orderBy('lowerDisplayName', 'asc')
                 .startAt(query)
                 .endAt(query + "\uf8ff")
                 .limit(5);
