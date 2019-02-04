@@ -14,6 +14,7 @@ export class MessageComponent implements OnInit {
   userID: string;
   user: IUser;
   sender: boolean = false;
+  showTime: boolean = false;
 
   constructor(private firebaseAuth: FirebaseAuthService,
     private databaseService: DatabaseService) { }
@@ -26,6 +27,13 @@ export class MessageComponent implements OnInit {
         this.sender = true;
       }
     });
+  }
+
+  showTimeSent() {
+    if(this.showTime)
+      this.showTime = false;
+    else
+      this.showTime = true
   }
 
 }
