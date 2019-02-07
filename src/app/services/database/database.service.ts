@@ -12,6 +12,8 @@ import { IComment } from "../../interfaces/comment-interface";
 import { ILike } from "../../interfaces/like-interface";
 
 import * as firebase from "firebase/";
+import { FirebaseAuth } from "@angular/fire";
+import { AngularFireAuth } from "@angular/fire/auth";
 
 @Injectable({
   providedIn: "root"
@@ -35,10 +37,12 @@ export class DatabaseService {
   private like: Observable<ILike>
 
 
-  constructor(private _afs: AngularFirestore) {
-    this.postsCollection = _afs.collection<IPost>("posts", ref =>
-      ref.orderBy("createdAt", "desc")
-    );
+  constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
+    this._firebaseAuth.authState.subscribe(user => {
+      if(user) {
+        this.postsCollection = this._afs.collection<IPost>(`posts`);
+      }
+    })
 
     this.userCollection = _afs.collection<IUser>("users");
     this.likeCollection = _afs.collection<ILike>('likes');

@@ -22,7 +22,7 @@ export class FollowService {
   constructor(private _afs: AngularFirestore,private _firebaseAuth: AngularFireAuth) {
     this._firebaseAuth.authState.subscribe(user => {
       if(user) {
-        this.relationshipCollection = this._afs.collection<IFollow>('relationships', ref => {
+        this.relationshipCollection = this._afs.collection<IFollow>(`relationships/`, ref => {
           console.log('uid', user.uid)
           return ref.where("followerId", "==", user.uid)
         });
@@ -30,10 +30,9 @@ export class FollowService {
     })
    }
 
-   addFollow(follow: IFollow) {
-      console.log("following object:", follow)
-      this.relationshipCollection.doc(follow.followerId + "_" + follow.followedId).set(follow)
-   }
+  addFollow(follow: any) {
+    this.relationshipCollection.add(follow)
+  }
 
    removeFollowing(docId:string) {
       this.relationshipCollection.doc(docId).delete()
@@ -52,13 +51,11 @@ export class FollowService {
     return this.followersList;
    }
    
-   getFollowedUsersPosts(follows) : Observable<IPost[]> {
-    console.log(follows)
-    follows.forEach(follow => {
+   getFollowedUsersPosts(UserId) : Observable<IPost[]> {
+     console.log("users", UserId)
       this.postsCollection = this._afs.collection<IPost>('posts', ref => {
-        return ref.where("UserID", "==", follow.followedId)
+        return ref.where("UserID", "==", UserId)
       })
-    })
     this.posts = this.postsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {

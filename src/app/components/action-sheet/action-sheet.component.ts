@@ -137,13 +137,15 @@ export class ActionSheetComponent implements OnInit {
     // this.analytics.logEvent("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
     this.spotifyService.open(uri);
   }
+  followArray: any[] = []
   follow(followerId, followedId) {
-    console.log("docId", followerId + "_" + followedId)
     let follow: IFollow = {
       followerId: followerId,
       followedId: followedId,
       createdAt: new Date
     }
-    this.followingService.addFollow(follow)
+    this.followArray.push(follow.followedId)
+    console.log('following array', this.followArray)
+    this.followingService.addFollow(this.followArray)
   }
 }
