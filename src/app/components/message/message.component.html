@@ -4,30 +4,37 @@
 
     </ion-col>
     <ion-col size="10">
-        <ion-card color="primary" class="myMessage" *ngIf="message && sender" text-wrap>
-            <ion-card-content text-wrap>
-              <ion-row align="center">
-                  <b text-wrap>You</b>
-              </ion-row>
-              <ion-row>
-                  <p text-wrap>{{message?.message}}</p>
-              </ion-row>
-            </ion-card-content>
-        </ion-card>
+        <div *ngIf="message && sender">
+            <ion-row >
+                <b class="usernameTag" text-wrap>You</b>
+                <b class="timeSent" *ngIf="showTime">{{message?.createdAt | date: 'shortTime'}}</b>
+            </ion-row>
+            <ion-card color="primary" class="myMessage" text-wrap (click)="showTimeSent()">
+                <ion-card-content text-wrap>
+                    <ion-row>
+                        <p text-wrap>{{message?.message}}</p>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+        </div>
+        
     </ion-col>
   </ion-row>
   <ion-row>
     <ion-col size="10">
-        <ion-card class="otherMessage" *ngIf="message && !sender" text-wrap>
-            <ion-card-content text-wrap>
-              <ion-row align="center">
-                <b text-wrap>{{message?.senderName}}</b>                  
-              </ion-row>
-              <ion-row>
-                  <p text-wrap>{{message?.message}}</p>
-              </ion-row>
-            </ion-card-content>
-        </ion-card>
+        <div *ngIf="message && !sender">
+            <ion-row>
+                <b class="usernameTag" text-wrap>{{message?.senderName}}</b>   
+                <b class="timeSent" *ngIf="showTime">{{message?.createdAt | date: 'shortTime'}}</b>
+           </ion-row>
+            <ion-card class="otherMessage" (click)="showTimeSent()" text-wrap>
+               <ion-card-content text-wrap>
+                     <ion-row>
+                         <p text-wrap>{{message?.message}}</p>
+                     </ion-row>
+               </ion-card-content>
+           </ion-card>
+        </div>
     </ion-col>   
   </ion-row>
 </ion-grid>

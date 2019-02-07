@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat/chat.service';
 import { IPrivateChatRoom } from '../../interfaces/private-chat-room-interface';
 import { ModalController } from '@ionic/angular';
+import { UserSearchPage } from '../user-search/user-search.page';
 
 @Component({
   selector: 'app-private-chats',
@@ -23,6 +24,14 @@ export class PrivateChatsPage implements OnInit {
 
   goBack() {
     this.modalController.dismiss()
+  }
+
+  async presentAddChatModal() {
+    
+    const modal = await this.modalController.create({
+      component: UserSearchPage
+    });
+    return await modal.present();
   }
 
 }

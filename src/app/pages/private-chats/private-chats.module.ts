@@ -8,6 +8,9 @@ import { IonicModule } from "@ionic/angular";
 import { PrivateChatsPage } from "./private-chats.page";
 import { PrivateChatListComponent } from "../../components/private-chat-list/private-chat-list.component";
 import { PrivateChatComponent } from "../../components/private-chat/private-chat.component";
+import { UserSearchPage } from "../user-search/user-search.page";
+import { UserListComponent } from "../../components/user-list/user-list.component";
+import { UserComponent } from "../../components/user/user.component";
 
 const routes: Routes = [
   {
@@ -25,6 +28,9 @@ const routes: Routes = [
   ],
   declarations: [
     PrivateChatsPage,
+    UserSearchPage,
+    UserListComponent,
+    UserComponent,
     PrivateChatListComponent,
     PrivateChatComponent
   ]
