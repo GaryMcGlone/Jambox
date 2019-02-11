@@ -23,7 +23,9 @@ export class SettingsPage implements OnInit {
 
   ngOnInit() {
     this.spotifyService.getLoggedInUser().subscribe(user => {
-      this.spotifyUser = user;
+      if(user) {
+        this.spotifyUser = user;
+      }
     });
     if (!this.spotifyUser) {
       this.dbService

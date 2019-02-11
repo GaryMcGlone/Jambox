@@ -40,7 +40,7 @@ export class DatabaseService {
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     this._firebaseAuth.authState.subscribe(user => {
       if(user) {
-        this.postsCollection = this._afs.collection<IPost>(`posts`);
+        this.postsCollection = this._afs.collection<IPost>(`posts/${user.uid}/userPosts/`);
       }
     })
 
@@ -63,8 +63,8 @@ export class DatabaseService {
   }
 
   //this method adds a post
-  addPost(post): void {
-    this.postsCollection.add(post);
+  addPost(post: IPost): void {
+    this.postsCollection.add(post)
   }
 
   //this method deletes a post

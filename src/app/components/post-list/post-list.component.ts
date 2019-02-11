@@ -16,7 +16,7 @@ export class PostListComponent implements OnInit {
   errorMessage: string;
   cssClass: string;
   user: IUser;
-  following: any;
+  following: any[];
   showSpinner: boolean = false;
 
   constructor(
@@ -27,17 +27,23 @@ export class PostListComponent implements OnInit {
 
   ngOnInit() {
     this.showSpinner = true;
-    this.databaseService.getPosts().subscribe(data=> {
-      this.posts = data
-      this.showSpinner = false
-    })
-    this.followingService.getFollowedUsers().subscribe(data => {
-      console.log(data)
-    })
-
-    // })
-
     
+    this.followingService.getFollowedUsers().subscribe(data => {
+      this.following = data
+      console.log("following users",this.following)
+      
+    if(this.following.length > 0) {
+      this.following.forEach(follow => {
+        this.followingService.getFollowedUsersPosts(follow.id).subscribe(data => {
+          this.posts = data
+          console.log("following users posts",this.posts)
+          this.showSpinner = false
+        })
+      })
+    }
+
+    })
+
     this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
       this.user = data
     });
