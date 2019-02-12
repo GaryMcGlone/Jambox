@@ -18,11 +18,11 @@ export class FollowService {
   private followersList: Observable<IFollow[]>
 
   private postsCollection: AngularFirestoreCollection<IPost>;
-  private posts:IPost[] = []
+  private posts: IPost[] = []
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     this._firebaseAuth.authState.subscribe(user => {
-      if(user) {
+      if (user) {
         this.relationshipCollection = this._afs.collection<IFollow>(`relationships/${user.uid}/userFollowing`);
       }
     })
@@ -31,7 +31,7 @@ export class FollowService {
 
   addFollow(follow) {
     console.log("updating following array with", follow)
-    this.relationshipCollection.doc(follow.followerId + "/userFollowing/" + follow.followedId ).set({})
+    this.relationshipCollection.doc(follow.followerId + "/userFollowing/" + follow.followedId).set({})
   }
 
   removeFollowing(docId: string) {
@@ -40,7 +40,7 @@ export class FollowService {
 
   getFollowedUsers(): Observable<IFollow[]> {
     // return this.followersList = this.relationshipCollection.valueChanges()
-    this.followersList = this.relationshipCollection.snapshotChanges().pipe( 
+    this.followersList = this.relationshipCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
           const data = a.payload.doc.data() as IFollow;
@@ -57,9 +57,17 @@ export class FollowService {
     const string$ = new Subject<string>();
 
     const Query = string$.pipe(
-      switchMap(string => 
-        this._afs.collection<IPost>(`posts/${UserId}/userPosts/`).valueChanges()
+      switchMap(string =>
+        this._afs.collection<IPost>(`posts/${UserId}/userPosts/`).snapshotChanges().pipe(
+          map(actions =>
+            actions.map(a => {
+              const data = a.payload.doc.data() as IPost;
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            })
+          )
         )
+      )
     )
     Query.subscribe(queryObvs => {
       queryObvs.forEach(post => {
@@ -69,5 +77,5 @@ export class FollowService {
     string$.next(UserId)
 
     return this.posts;
-   }
+  }
 }
