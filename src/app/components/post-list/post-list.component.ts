@@ -32,22 +32,19 @@ export class PostListComponent implements OnInit {
       this.following = data
       console.log("following users",this.following)
       
-    if(this.following.length > 0) {
       this.following.forEach(follow => {
-        this.followingService.getFollowedUsersPosts(follow.id).subscribe(data => {
-          this.posts = data
-          console.log("following users posts",this.posts)
-          this.showSpinner = false
-        })
+       this.posts = this.followingService.getFollowedUsersPosts(follow.id)
+       this.showSpinner = false
       })
-    }
-
+      console.log(this.posts) 
     })
-
     this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
       this.user = data
     });
     this.cssClass = "animated slideInUp faster card";
+
+    this.databaseService.getPosts().subscribe()
   }
+
 }
  

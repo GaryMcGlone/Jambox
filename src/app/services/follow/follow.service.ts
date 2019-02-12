@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
-import { AngularFirestoreCollection, AngularFirestore } from "@angular/fire/firestore";
+import { Observable, Subject } from "rxjs";
+import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firestore";
 import { IFollow } from "../../interfaces/follow.interface";
 import { IPost } from "../../interfaces/post-interface";
+import * as firebase from "firebase/";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map } from "rxjs/operators";
+import { Post } from '../../models/post.model';
+import { switchMap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +18,7 @@ export class FollowService {
   private followersList: Observable<IFollow[]>
 
   private postsCollection: AngularFirestoreCollection<IPost>;
-  private posts: Observable<IPost[]>;
+  private posts:IPost[] = []
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     this._firebaseAuth.authState.subscribe(user => {
@@ -22,6 +26,7 @@ export class FollowService {
         this.relationshipCollection = this._afs.collection<IFollow>(`relationships/${user.uid}/userFollowing`);
       }
     })
+
   }
 
   addFollow(follow) {
@@ -34,6 +39,7 @@ export class FollowService {
   }
 
   getFollowedUsers(): Observable<IFollow[]> {
+    // return this.followersList = this.relationshipCollection.valueChanges()
     this.followersList = this.relationshipCollection.snapshotChanges().pipe( 
       map(actions =>
         actions.map(a => {
@@ -46,18 +52,22 @@ export class FollowService {
     return this.followersList;
   }
 
-  getFollowedUsersPosts(UserId): Observable<IPost[]> {
-    console.log("uids", UserId)
-    this.postsCollection = this._afs.collection<IPost>(`posts/${UserId}/userPosts/`);
-    this.posts = this.postsCollection.snapshotChanges().pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as IPost;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      )
-    );
+  uid: string[] = []
+  getFollowedUsersPosts(UserId: string): IPost[] {
+    const string$ = new Subject<string>();
+
+    const Query = string$.pipe(
+      switchMap(string => 
+        this._afs.collection<IPost>(`posts/${UserId}/userPosts/`).valueChanges()
+        )
+    )
+    Query.subscribe(queryObvs => {
+      queryObvs.forEach(post => {
+        this.posts.push(post)
+      })
+    })
+    string$.next(UserId)
+
     return this.posts;
-  }
+   }
 }

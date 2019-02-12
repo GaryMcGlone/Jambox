@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IUser } from '../../interfaces/user-interface';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  usersColection: AngularFirestoreCollection<IUser>;
-  users: Observable<IUser[]>;
+  private usersColection: AngularFirestoreCollection<IUser>;
+  private users: Observable<IUser[]>;
+  private userDoc: AngularFirestoreDocument<IUser>;
+
 
   constructor(private _afs: AngularFirestore) {
     this.usersColection = _afs.collection<IUser>("users");
@@ -31,6 +33,22 @@ export class UsersService {
         }))
     );
 
+    return this.users;
+  }
+
+  checkIfUsernameExists(username: string): Observable<IUser[]> {
+    this.usersColection = this._afs.collection<IUser>("users", ref => {
+      return ref.where('lowerDisplayName', '==', username.toLowerCase())
+    });
+
+    this.users = this.usersColection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IUser;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }))
+    );
     return this.users;
   }
 }
