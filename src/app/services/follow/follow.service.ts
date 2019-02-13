@@ -52,7 +52,6 @@ export class FollowService {
     return this.followersList;
   }
 
-  uid: string[] = []
   getFollowedUsersPosts(UserId: string): IPost[] {
     const string$ = new Subject<string>();
 

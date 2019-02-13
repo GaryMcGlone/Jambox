@@ -2,7 +2,7 @@
     <div class="spinner-holder" align="center">
         <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
     </div>
-        <ion-item [ngClass]="cssClass" *ngFor="let post of posts">
+        <ion-item class="animated slideInUp faster card" *ngFor="let post of posts">
             <app-post [post]="post"></app-post>
       </ion-item>
 </ion-list> 
