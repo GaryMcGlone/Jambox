@@ -22,15 +22,30 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
     this.showSpinner = true;
 
-    this.followingService.getFollowedUsers().subscribe(data => {
-      this.following = data
-      this.showSpinner = false
-      this.following.forEach(follow => {
-        this.posts = this.followingService.getFollowedUsersPosts(follow.id)
-      })
-    })
-    this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
+
+    this.getFollowing()
+
+   //this.databaseService.getPosts().subscribe(data => this.posts = data)
+    
+   this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
       this.user = data
     });
+  }
+
+  getFollowing() {
+    this.followingService.getFollowedUsers().subscribe(data => {
+      this.following = data
+      console.log("following", this.following)
+      this.showSpinner = false
+        this.getPosts(this.following)
+    })
+  }
+
+  getPosts(following: IFollow[]) {
+    
+      this.followingService.getFollowedUserPosts(following).subscribe(data => {
+        this.posts = data
+        console.log("posts", this.posts)
+      })
   }
 }
