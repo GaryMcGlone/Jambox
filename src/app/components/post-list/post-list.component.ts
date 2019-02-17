@@ -13,6 +13,7 @@ import { FollowService } from "../../services/follow/follow.service";
 })
 export class PostListComponent implements OnInit {
   posts: IPost[] = [];
+  followerPosts: IPost[] = [];
   user: IUser;
   following: IFollow[];
   showSpinner: boolean = false;
@@ -25,27 +26,41 @@ export class PostListComponent implements OnInit {
 
     this.getFollowing()
 
-   //this.databaseService.getPosts().subscribe(data => this.posts = data)
-    
-   this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
+    //this.databaseService.getPosts().subscribe(data => this.posts = data)
+
+    this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
       this.user = data
     });
   }
 
   getFollowing() {
     this.followingService.getFollowedUsers().subscribe(data => {
+
       this.following = data
       console.log("following", this.following)
       this.showSpinner = false
-        this.getPosts(this.following)
+      this.getPosts(this.following)
     })
   }
 
   getPosts(following: IFollow[]) {
-    
-      this.followingService.getFollowedUserPosts(following).subscribe(data => {
+
+    for (let follower of following) {
+      console.log("fid", follower.followedId)
+
+      this.databaseService.getPostByUserID(follower.followedId).subscribe(data => {
+        console.log("data", data)
         this.posts = data
-        console.log("posts", this.posts)
+        for (let post of this.posts) {
+          this.followerPosts.push(post)
+          console.log(this.followerPosts)
+        }
       })
+
+
+    }
+
+
+
   }
 }

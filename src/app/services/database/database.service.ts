@@ -35,7 +35,7 @@ export class DatabaseService {
   private found: boolean = false;
   private likeDocument: AngularFirestoreDocument<ILike>;
   private like: Observable<ILike>
-
+  followerPosts: Observable<IPost[]>;
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     this.postsCollection = this._afs.collection<IPost>(`posts`);
@@ -191,6 +191,23 @@ export class DatabaseService {
     this.userCollection.doc(userId).set({
       displayName: newDisplayName
     }, {merge: true});
+  }
+
+  getPostByUserID(UserID: string): Observable<IPost[]>{
+    console.log("uid", UserID)
+    this.postsCollection = this._afs.collection<IPost>("posts", ref => {
+      return ref.where("UserID", "==", UserID)
+    });
+    this.followerPosts = this.postsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IPost;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+       return this.followerPosts;
   }
 
 }

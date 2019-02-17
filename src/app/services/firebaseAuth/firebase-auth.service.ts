@@ -58,16 +58,16 @@ export class FirebaseAuthService {
     return await this._afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
   }
  */
-  stayLoggedIn() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.loggedInStatus = true;
-        this.router.navigate([""]);
-      } else {
-        this.router.navigate(["login"]);
-      }
-    });
-  }
+  // stayLoggedIn() {
+  //   firebase.auth().onAuthStateChanged(user => {
+  //     if (user) {
+  //       this.loggedInStatus = true;
+  //       this.router.navigate([""]);
+  //     } else {
+  //       this.router.navigate(["login"]);
+  //     }
+  //   });
+  // }
 
   async presentToast(message: string) {
     const toast = await this.toastCtrl.create({
