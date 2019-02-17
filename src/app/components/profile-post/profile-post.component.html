@@ -1,0 +1,50 @@
+<ion-card *ngIf="post" class="welcome-card">
+  <ion-img [src]="post.albumArt"></ion-img>
+  <ion-card-header style="text-align:center">
+    <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>
+    <ion-card-title>{{ post.artistName }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <div text-wrap style="word-wrap: break-word;">
+    <b>{{username}}</b> {{ post.caption }}
+    </div>
+  </ion-card-content>
+  <ion-row>
+  <ion-buttons>
+    <ion-col>
+      <ion-button fill="clear" size="small" [color]="heartColor" (click)="liked ? removeLike(post.id) : addLike(post.id)">
+        <ion-icon [name]="heartType"></ion-icon>
+        <ion-note style="margin-left: 5px"> {{likeCounter}} </ion-note>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button icon-left fill="clear" (click)="selectComments(post)" size="small" color="dark">
+        <ion-icon name="text"></ion-icon>    
+        <ion-note style="margin-left: 5px"> {{commentCounter}} </ion-note>  
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf='!spotifyService.playing && post.postType == "s"'>
+      <ion-button (click)="spotifyService.paused && spotifyService.songPos > 0 ? resume(post.songId) : play(post.songId)"
+        fill="clear" size="small" color="dark">
+        <ion-icon name="play"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf='spotifyService.playing && post.postType == "s"'>
+      <ion-button (click)="pause()" fill="clear" size="small" color="dark">
+        <ion-icon name="pause"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf='post.postType == "yt"'>
+      <ion-button (click)="playYoutube(post.songId)" fill="clear" size="small" color="dark">
+        <ion-icon name="play"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <app-action-sheet [post]="post"> </app-action-sheet>
+    </ion-col>
+  </ion-buttons> 
+  <ion-col style="margin-top:2%;margin-left:2%">
+    <ion-note> {{ post.createdAt | dateTimeConvert: "" }} </ion-note>
+  </ion-col>
+  </ion-row>
+</ion-card>

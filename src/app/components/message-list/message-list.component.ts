@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { IChatMessage } from '../../interfaces/chat-message-interface';
 import { ChatService } from '../../services/chat/chat.service';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'message-list',
@@ -9,14 +10,26 @@ import { ChatService } from '../../services/chat/chat.service';
 })
 export class MessageListComponent implements OnInit {
   @Input() chat;
+  @ViewChild(IonContent) content : IonContent;
   messages: IChatMessage[] = [];
+  doIt: boolean = true;
+  showSpinner: boolean = true;
 
   constructor(private chatService: ChatService) { }
 
   ngOnInit() {
     this.chatService.getChatRoomMessages(this.chat.id).subscribe(messages => {
       this.messages = messages
+      this.doIt = true;
+      this.toBottom();
     });
+  }
+
+  toBottom(): void {
+      setTimeout(() => {
+        this.content.scrollToBottom(300);
+        this.showSpinner = false;
+      });
   }
 
 }

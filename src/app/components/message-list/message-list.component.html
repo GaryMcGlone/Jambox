@@ -1,8 +1,12 @@
-<ion-list no-padding lines="none" *ngIf="chat">
+<ion-content>
+  <ion-list no-padding lines="none" *ngIf="chat">
     <div class="spinner-holder" align="center">
       <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
     </div>
-    <ion-item *ngFor="let message of messages">
-      <message [message]="message"></message>
-    </ion-item>
+    <div *ngIf="messages">
+      <ion-item *ngFor="let message of messages; let last = last">
+        <message [message]="message"></message>
+      </ion-item>
+    </div>
 </ion-list>
+</ion-content>

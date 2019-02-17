@@ -54,13 +54,17 @@ import { GroupChatsPageModule } from "./pages/group-chats/group-chats.module";
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserSearchPage } from "./pages/user-search/user-search.page";
 import { UserComponent } from './components/user/user.component';
+import { ProfilePostListComponent } from './components/profile-post-list/profile-post-list.component';
+import { ProfilePostComponent } from './components/profile-post/profile-post.component';
 
 library.add(fas, far, fab)
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserSearchComponent
+    UserSearchComponent,
+    ProfilePostListComponent,
+    ProfilePostComponent
   ],
   entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage],
   imports: [
