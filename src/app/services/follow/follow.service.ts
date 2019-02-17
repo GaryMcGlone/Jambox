@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from "rxjs";
-import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firestore";
+import { AngularFirestoreCollection, AngularFirestore } from "@angular/fire/firestore";
 import { IFollow } from "../../interfaces/follow.interface";
 import { IPost } from "../../interfaces/post-interface";
-import * as firebase from "firebase/";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map } from "rxjs/operators";
-import { Post } from '../../models/post.model';
 import { switchMap } from 'rxjs/operators';
-
+import { IonFooter } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -18,20 +16,21 @@ export class FollowService {
   private followersList: Observable<IFollow[]>
 
   private postsCollection: AngularFirestoreCollection<IPost>;
-  private posts: IPost[] = []
+  private posts: Observable<IPost[]>
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     this._firebaseAuth.authState.subscribe(user => {
       if (user) {
-        this.relationshipCollection = this._afs.collection<IFollow>(`relationships/${user.uid}/userFollowing`);
+        this.postsCollection = this._afs.collection<IPost>(`posts/${user.uid}/userPosts`);
+        this.relationshipCollection = this._afs.collection<IFollow>(`relationships`, ref => {
+          return ref.where("followerId", "==", user.uid)
+        }); 
       }
     })
-
   }
 
-  addFollow(follow) {
-    console.log("updating following array with", follow)
-    this.relationshipCollection.doc(follow.followerId + "/userFollowing/" + follow.followedId).set({})
+  addFollow(follow:IFollow) {
+    this.relationshipCollection.add(follow)
   }
 
   removeFollowing(docId: string) {
@@ -39,7 +38,6 @@ export class FollowService {
   }
 
   getFollowedUsers(): Observable<IFollow[]> {
-    // return this.followersList = this.relationshipCollection.valueChanges()
     this.followersList = this.relationshipCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
@@ -49,18 +47,43 @@ export class FollowService {
         })
       )
     );
+     
     return this.followersList;
   }
 
-  getFollowedUsersPosts(UserId: string): IPost[] {
+  getFollowedUserPosts(followingId: IFollow[]): Observable<IPost[]> {
+    console.log(followingId)
+    followingId.forEach(following => {
+      this.postsCollection = this._afs.collection<IPost>(`posts`, ref => {
+        return ref.where("UserID", "==", following.followedId)
+      });
+    })
+    this.posts = this.postsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IPost;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+    return this.posts;
+  }
+}
+
+
+/* 
+  getFollowedUsersPosts(UserId: string): Observable<IPost[]> {
+    console.log("uids", UserId)
     const string$ = new Subject<string>();
 
-    const Query = string$.pipe(
+     const Query = string$.pipe(
       switchMap(string =>
-        this._afs.collection<IPost>(`posts/${UserId}/userPosts/`).snapshotChanges().pipe(
+        this._afs.collection<IPost>(`posts/${string}/userPosts/`).snapshotChanges().pipe(
           map(actions =>
             actions.map(a => {
               const data = a.payload.doc.data() as IPost;
+              console.log("Service Data",data)
               const id = a.payload.doc.id;
               return { id, ...data };
             })
@@ -68,13 +91,10 @@ export class FollowService {
         )
       )
     )
-    Query.subscribe(queryObvs => {
-      queryObvs.forEach(post => {
-        this.posts.push(post)
-      })
-    })
+    Query.subscribe(data => console.log("Query",data))
     string$.next(UserId)
-
     return this.posts;
   }
-}
+
+
+*/

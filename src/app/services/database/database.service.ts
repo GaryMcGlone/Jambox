@@ -38,12 +38,7 @@ export class DatabaseService {
 
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
-    this._firebaseAuth.authState.subscribe(user => {
-      if(user) {
-        this.postsCollection = this._afs.collection<IPost>(`posts/${user.uid}/userPosts/`);
-      }
-    })
-
+    this.postsCollection = this._afs.collection<IPost>(`posts`);
     this.userCollection = _afs.collection<IUser>("users");
     this.likeCollection = _afs.collection<ILike>('likes');
     this.commentsCollection = _afs.collection<IComment>("comments")

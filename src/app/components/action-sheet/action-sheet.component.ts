@@ -138,12 +138,12 @@ export class ActionSheetComponent implements OnInit {
     this.spotifyService.open(uri);
   }
 
-  follow(followerId, followedId) {
+  follow(followerId,followedId) {
     let follow: IFollow = {
       followerId: followerId,
-      followedId: followedId,
-      createdAt: new Date
+      followedId: followedId
     }
+    console.log("followed", follow)
     this.followingService.addFollow(follow)
   }
 }
