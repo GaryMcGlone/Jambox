@@ -38,7 +38,7 @@ export class UsersService {
 
   checkIfUsernameExists(username: string): Observable<IUser[]> {
     this.usersColection = this._afs.collection<IUser>("users", ref => {
-      return ref.where('lowerDisplayName', '==', username.toLowerCase())
+      return ref.where('lowerDisplayName', '==', username.toString().toLowerCase())
     });
 
     this.users = this.usersColection.snapshotChanges().pipe(
