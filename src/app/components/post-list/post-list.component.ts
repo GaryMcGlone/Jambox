@@ -23,29 +23,20 @@ export class PostListComponent implements OnInit {
     this.showSpinner = true;
 
 
-    this.getFollowing()
-
+    this.followingService.getFollowedUsers().subscribe(data => {
+      this.following = data
+      console.log("following users",this.following)
+      
+      this.following.forEach(follow => {
+       this.posts = this.followingService.getFollowedUsersPosts(follow.followedId)
+       console.log(this.posts) 
+       this.showSpinner = false
+      })
+    })
    //this.databaseService.getPosts().subscribe(data => this.posts = data)
     
    this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
       this.user = data
     });
-  }
-
-  getFollowing() {
-    this.followingService.getFollowedUsers().subscribe(data => {
-      this.following = data
-      console.log("following", this.following)
-      this.showSpinner = false
-        this.getPosts(this.following)
-    })
-  }
-
-  getPosts(following: IFollow[]) {
-    
-      this.followingService.getFollowedUserPosts(following).subscribe(data => {
-        this.posts = data
-        console.log("posts", this.posts)
-      })
   }
 }

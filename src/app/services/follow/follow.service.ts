@@ -16,7 +16,8 @@ export class FollowService {
   private followersList: Observable<IFollow[]>
 
   private postsCollection: AngularFirestoreCollection<IPost>;
-  private posts: Observable<IPost[]>
+  // private posts: Observable<IPost[]>
+  private posts: IPost[] = []
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     this._firebaseAuth.authState.subscribe(user => {
@@ -47,43 +48,41 @@ export class FollowService {
         })
       )
     );
-     
     return this.followersList;
   }
 
-  getFollowedUserPosts(followingId: IFollow[]): Observable<IPost[]> {
-    console.log(followingId)
-    followingId.forEach(following => {
-      this.postsCollection = this._afs.collection<IPost>(`posts`, ref => {
-        return ref.where("UserID", "==", following.followedId)
-      });
-    })
-    this.posts = this.postsCollection.snapshotChanges().pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as IPost;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      )
-    );
-    return this.posts;
-  }
-}
+  // getFollowedUserPosts(followingId: IFollow[]): Observable<IPost[]> {
+  //   console.log(followingId)
+  //   followingId.forEach(following => {
+  //     this.postsCollection = this._afs.collection<IPost>(`posts`, ref => {
+  //       return ref.where("UserID", "==", following.followedId)
+  //     });
+  //   })
+  //   this.posts = this.postsCollection.snapshotChanges().pipe(
+  //     map(actions =>
+  //       actions.map(a => {
+  //         const data = a.payload.doc.data() as IPost;
+  //         const id = a.payload.doc.id;
+  //         return { id, ...data };
+  //       })
+  //     )
+  //   );
+  //   return this.posts;
+  // }
 
-
-/* 
-  getFollowedUsersPosts(UserId: string): Observable<IPost[]> {
-    console.log("uids", UserId)
+  getFollowedUsersPosts(UserId: string): IPost[] {
+    console.log("uid", UserId)
     const string$ = new Subject<string>();
 
-     const Query = string$.pipe(
+    const Query = string$.pipe(
       switchMap(string =>
-        this._afs.collection<IPost>(`posts/${string}/userPosts/`).snapshotChanges().pipe(
+        this._afs.collection<IPost>(`posts`, ref => {
+           return ref.where("UserID", "==", string)
+          })
+          .snapshotChanges().pipe(
           map(actions =>
             actions.map(a => {
               const data = a.payload.doc.data() as IPost;
-              console.log("Service Data",data)
               const id = a.payload.doc.id;
               return { id, ...data };
             })
@@ -91,10 +90,20 @@ export class FollowService {
         )
       )
     )
-    Query.subscribe(data => console.log("Query",data))
+    Query.subscribe(queryObvs => {
+      queryObvs.forEach(post => {
+        this.posts.push(post)
+      })
+    })
     string$.next(UserId)
+
     return this.posts;
   }
+}
+
+
+/* 
+
 
 
 */
