@@ -16,8 +16,7 @@ export class FollowService {
   private followersList: Observable<IFollow[]>
 
   private postsCollection: AngularFirestoreCollection<IPost>;
-  // private posts: Observable<IPost[]>
-  private posts: IPost[] = []
+  private posts: Observable<IPost[]>
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     this._firebaseAuth.authState.subscribe(user => {
@@ -50,60 +49,20 @@ export class FollowService {
     );
     return this.followersList;
   }
-
-  // getFollowedUserPosts(followingId: IFollow[]): Observable<IPost[]> {
-  //   console.log(followingId)
-  //   followingId.forEach(following => {
-  //     this.postsCollection = this._afs.collection<IPost>(`posts`, ref => {
-  //       return ref.where("UserID", "==", following.followedId)
-  //     });
-  //   })
-  //   this.posts = this.postsCollection.snapshotChanges().pipe(
-  //     map(actions =>
-  //       actions.map(a => {
-  //         const data = a.payload.doc.data() as IPost;
-  //         const id = a.payload.doc.id;
-  //         return { id, ...data };
-  //       })
-  //     )
-  //   );
-  //   return this.posts;
-  // }
-
-  getFollowedUsersPosts(UserId: string): IPost[] {
-    console.log("uid", UserId)
-    const string$ = new Subject<string>();
-
-    const Query = string$.pipe(
-      switchMap(string =>
-        this._afs.collection<IPost>(`posts`, ref => {
-           return ref.where("UserID", "==", string)
-          })
-          .snapshotChanges().pipe(
-          map(actions =>
-            actions.map(a => {
-              const data = a.payload.doc.data() as IPost;
-              const id = a.payload.doc.id;
-              return { id, ...data };
-            })
-          )
-        )
+  getFollowedUsersPosts(UserID: string): Observable<IPost[]>{
+    console.log("uid", UserID)
+    this.postsCollection = this._afs.collection<IPost>("posts", ref => {
+      return ref.where("UserID", "==", UserID).orderBy("createdAt", "desc")
+    });
+    this.posts = this.postsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IPost;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
       )
-    )
-    Query.subscribe(queryObvs => {
-      queryObvs.forEach(post => {
-        this.posts.push(post)
-      })
-    })
-    string$.next(UserId)
-
+    );
     return this.posts;
   }
 }
-
-
-/* 
-
-
-
-*/

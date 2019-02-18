@@ -35,7 +35,7 @@ export class DatabaseService {
   private found: boolean = false;
   private likeDocument: AngularFirestoreDocument<ILike>;
   private like: Observable<ILike>
-
+  followerPosts: Observable<IPost[]>;
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     this.postsCollection = this._afs.collection<IPost>(`posts`);

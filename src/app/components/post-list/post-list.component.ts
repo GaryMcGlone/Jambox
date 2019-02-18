@@ -5,6 +5,7 @@ import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.s
 import { IUser } from "../../interfaces/user-interface";
 import { IFollow } from "../../interfaces/follow.interface";
 import { FollowService } from "../../services/follow/follow.service";
+import  * as _  from "lodash";
 
 @Component({
   selector: "app-post-list",
@@ -13,6 +14,7 @@ import { FollowService } from "../../services/follow/follow.service";
 })
 export class PostListComponent implements OnInit {
   posts: IPost[] = [];
+  followerPosts: IPost[] = [];
   user: IUser;
   following: IFollow[];
   showSpinner: boolean = false;
@@ -21,22 +23,31 @@ export class PostListComponent implements OnInit {
 
   ngOnInit() {
     this.showSpinner = true;
+    this.getFollowing()
 
-
-    this.followingService.getFollowedUsers().subscribe(data => {
-      this.following = data
-      console.log("following users",this.following)
-      
-      this.following.forEach(follow => {
-       this.posts = this.followingService.getFollowedUsersPosts(follow.followedId)
-       console.log(this.posts) 
-       this.showSpinner = false
-      })
-    })
-   //this.databaseService.getPosts().subscribe(data => this.posts = data)
-    
-   this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
+    this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
       this.user = data
     });
+    
+  }
+
+  getFollowing() {
+    this.followingService.getFollowedUsers().subscribe(data => {
+      this.following = data
+      console.log("following", this.following)
+      this.showSpinner = false
+      this.getPosts(this.following)
+    })
+  }
+
+  getPosts(following: IFollow[]) {
+    for (let follower of following) {
+      this.followingService.getFollowedUsersPosts(follower.followedId).subscribe(data => {
+        this.posts = data
+        this.followerPosts.push(...this.posts)
+        // remove all duplicates from array
+        this.followerPosts = _.uniqBy([...this.followerPosts], 'id');
+      })
+    } 
   }
 }

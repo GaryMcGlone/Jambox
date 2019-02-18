@@ -1,4 +1,5 @@
 export interface IPost {
+    id:string;
     albumArt: string;
     artistName: string;
     caption: string;
