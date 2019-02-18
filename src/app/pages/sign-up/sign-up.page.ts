@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
+import { UsersService } from '../../services/users/users.service';
+import { User } from '../../models/user.model';
 //import { AnalyticsService } from "../../services/analytics/analytics.service";
 
 @Component({
@@ -13,9 +15,13 @@ export class SignUpPage implements OnInit {
   constructor(
     private auth: FirebaseAuthService,
     private router: Router,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private usersService: UsersService
     // // private analytics: AnalyticsService
   ) {}
+
+  passwordErrorBool = false;
+  usernames: User[] = [];
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -23,18 +29,26 @@ export class SignUpPage implements OnInit {
 
   ngOnInit() {}
 
+  checkUsername($event){
+    let displayName: string = $event.target.value;
+    this.usersService.checkIfUsernameExists(displayName).subscribe(users => {
+      this.usernames = users
+    })
+  }
+
+  checkPassword($event, password){
+    let confirmPassword: string = $event.target.value;
+    if(password.value !== confirmPassword){
+      this.passwordErrorBool = true;
+    }
+    else{
+      this.passwordErrorBool = false;
+    }
+  }
+
   signUp(email: string, password: string, confirmPassword:string, displayName: string) {
     // this.analytics.logButtonClick("signUp", { param: "User_Sign_Up" });
-    if(password == confirmPassword)
-    {
-      this.auth.signUp(email, password, displayName);
-    }
-    else
-    {
-      console.log(password)
-      console.log(confirmPassword)
-      this.auth.presentToast("Passwords must match!")
-    }
+    this.auth.signUp(email, password, displayName);
   }
 
   navigateToLogin() {
