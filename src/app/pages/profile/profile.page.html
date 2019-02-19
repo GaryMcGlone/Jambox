@@ -18,7 +18,8 @@
       <ion-button (click)="takePicture()">Camera<i class="fas fa-camera"></i></ion-button>
       <ion-button (click)="selectImageFromGallery()"> Gallery <i class="fas fa-images"> </i> </ion-button>
     </ion-card-content>
-    <ion-img style="width: 80px; height: 80px;" src="{{profilePicture}}"></ion-img>
+    <ion-img *ngIf="profilePicture"  style="width: 80px; height: 80px;" src="{{profilePicture}}"></ion-img>
+    <!-- <ion-img *ngIf="!profilePicture"  style="width: 80px; height: 80px;" src="https://banner2.kisspng.com/20180420/ahw/kisspng-headphones-computer-icons-symbol-headphone-logo-5ad977ff1cbe74.0665303015242014711178.jpg"></ion-img> -->
   </ion-card>
 </ion-content>
 

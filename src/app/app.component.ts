@@ -31,7 +31,10 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      if(this.platform.is('android')) {
+        this.statusBar.styleDefault();
+        this.statusBar.backgroundColorByHexString("#ffffff")
+      }
       this.splashScreen.hide();
  //     this.auth.stayLoggedIn();
       timer(3000).subscribe(() => this.showSplash = false);

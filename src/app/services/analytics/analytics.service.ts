@@ -13,20 +13,17 @@ export class AnalyticsService {
     console.log("logging response from service ", name, value);
     this.firebaseAnalytics
       .logEvent(name, { param: value })
-      .then(res => console.log(res))
       .catch(error => console.log(error));
   }
   currentScreen(screenName) {
     this.firebaseAnalytics
       .setCurrentScreen(screenName)
-      .then(res => console.log(res))
       .catch(error => console.log(error));
   }
 
   setUserProperty(name, value) {
     this.firebaseAnalytics
       .setUserProperty(name, value)
-      .then(res => console.log(res))
       .catch(res => console.log(res));
   }
 }

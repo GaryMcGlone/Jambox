@@ -32,7 +32,6 @@ export class SettingsPage implements OnInit {
         .getCurrentUser(this.authService.getCurrentUserID())
         .subscribe(user => {
           this.user = user;
-          console.log(this.user);
         });
     }
   }

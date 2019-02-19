@@ -6,21 +6,29 @@
 
   <ion-item>
     <ion-label position='floating' color="primary" stacked>Username</ion-label>
-    <ion-input #displayName type="text" color="dark"></ion-input>
+    <ion-input #displayName type="text" color="dark" (keyup)="checkUsername($event)"></ion-input>
   </ion-item>
+  <div style="min-height: 3%;">
+    <label *ngIf="usernames.length!=0" style="font-size: 70%;color: red;padding-left: 4%">Username is taken!</label>
+  </div>
   <ion-item>
     <ion-label position='floating' color='primary' stacked>Email</ion-label>
     <ion-input #email type="email" color="dark" ></ion-input>
   </ion-item>
+  <div style="min-height: 3%;"></div>
   <ion-item>
     <ion-label position='floating' color="primary" stacked>Password</ion-label>
     <ion-input #password type="password" color="dark"></ion-input>
   </ion-item>
+  <div style="min-height: 3%;"></div>
   <ion-item>
     <ion-label color="primary" position='floating' stacked>Confirm Password</ion-label>
-    <ion-input #confirmPassword type="password" color="dark"></ion-input>
+    <ion-input #confirmPassword type="password" color="dark" (keyup)="checkPassword($event, password)"></ion-input>
   </ion-item>
-  <ion-button style="margin-top:16px" expand='block' (click)="signUp(email.value, password.value, confirmPassword.value, displayName.value)">
+  <div style="min-height: 3%;">
+    <label *ngIf="passwordErrorBool" style="font-size: 70%;color: red;padding-left: 4%">Passwords don't match!</label>
+  </div>
+  <ion-button style="margin-top:16px" expand='block' [disabled]="passwordErrorBool || usernames.length!=0" (click)="signUp(email.value, password.value, confirmPassword.value, displayName.value)">
     <ion-icon slot="end" name="log-in"></ion-icon>
     Sign Up
   </ion-button>

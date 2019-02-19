@@ -48,17 +48,13 @@ export class FollowService {
         })
       )
     );
-     
     return this.followersList;
   }
-
-  getFollowedUserPosts(followingId: IFollow[]): Observable<IPost[]> {
-    console.log(followingId)
-    followingId.forEach(following => {
-      this.postsCollection = this._afs.collection<IPost>(`posts`, ref => {
-        return ref.where("UserID", "==", following.followedId)
-      });
-    })
+  
+  getFollowedUsersPosts(UserID: string): Observable<IPost[]>{
+    this.postsCollection = this._afs.collection<IPost>("posts", ref => {
+      return ref.where("UserID", "==", UserID).orderBy("createdAt", "desc")
+    });
     this.posts = this.postsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
@@ -70,32 +66,4 @@ export class FollowService {
     );
     return this.posts;
   }
-
-
-
-/* 
-  getFollowedUsersPosts(UserId: string): Observable<IPost[]> {
-    console.log("uids", UserId)
-    const string$ = new Subject<string>();
-
-     const Query = string$.pipe(
-      switchMap(string =>
-        this._afs.collection<IPost>(`posts/${string}/userPosts/`).snapshotChanges().pipe(
-          map(actions =>
-            actions.map(a => {
-              const data = a.payload.doc.data() as IPost;
-              console.log("Service Data",data)
-              const id = a.payload.doc.id;
-              return { id, ...data };
-            })
-          )
-        )
-      )
-    )
-    Query.subscribe(data => console.log("Query",data))
-    string$.next(UserId)
-    return this.posts;
-  }
-*/
-
 }

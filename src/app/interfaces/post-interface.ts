@@ -1,5 +1,5 @@
 export interface IPost {
-    id: string,
+    id:string;
     albumArt: string;
     artistName: string;
     caption: string;

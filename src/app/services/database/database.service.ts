@@ -39,13 +39,20 @@ export class DatabaseService {
 
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
-    this.postsCollection = this._afs.collection<IPost>(`posts`);
+    
+    this._firebaseAuth.authState.subscribe(user => {
+      this.postsCollection = this._afs.collection<IPost>(`posts`, ref => {
+        return ref.where("UserID", "==", user.uid)
+      });
+    })
+    
+
     this.userCollection = _afs.collection<IUser>("users");
     this.likeCollection = _afs.collection<ILike>('likes');
     this.commentsCollection = _afs.collection<IComment>("comments")
   }
 
-  getPosts(): Observable<IPost[]> {
+  getLoggedInUserPosts(): Observable<IPost[]> {
     this.posts = this.postsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {

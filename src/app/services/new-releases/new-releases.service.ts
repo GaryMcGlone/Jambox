@@ -18,6 +18,6 @@ export class NewReleasesService {
   getAlbums(): Observable<NewReleases> {
     return this.http
       .get<NewReleases>(this.cors+this.newReleasesURL)
-      .pipe(tap(res => console.log(res.feed.results)));
+      .pipe(tap());
   }
 }
