@@ -32,21 +32,6 @@ export class YouTubeApiService {
       catchError(this.handleError));
   }
 
-
-  getFeaturedVideos(): Observable<YouTubeResponse> {
-    return this._http.get<YouTubeResponse>(this._mostPopSiteURL 
-      + this._param + this._key)
-      .pipe(tap(data => console.log('Featured Videos', data)),
-      catchError(this.handleError));
-  }
-
-  getNextPage(token, filter, query): Observable<YouTubeResponseSearch> {
-    return this._http.get<YouTubeResponseSearch>(this._nextPageURL + token + this._max + '5' + this._sort + filter
-      + this._query + query + this._param + this._key)
-      .pipe(tap(data => console.log('Next Page', data)),
-      catchError(this.handleError));
-  }
-
   private handleError(err: HttpErrorResponse) {
     console.log('YouTubeApiService: ' + err.message);
     return Observable.throw(err.message);

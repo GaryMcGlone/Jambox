@@ -49,8 +49,8 @@ export class FollowService {
     );
     return this.followersList;
   }
+  
   getFollowedUsersPosts(UserID: string): Observable<IPost[]>{
-    console.log("uid", UserID)
     this.postsCollection = this._afs.collection<IPost>("posts", ref => {
       return ref.where("UserID", "==", UserID).orderBy("createdAt", "desc")
     });

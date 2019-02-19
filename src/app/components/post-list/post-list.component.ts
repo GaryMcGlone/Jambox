@@ -15,8 +15,9 @@ import  * as _  from "lodash";
 export class PostListComponent implements OnInit {
   posts: IPost[] = [];
   followerPosts: IPost[] = [];
+  userPosts: IPost[] = [];
   user: IUser;
-  following: IFollow[];
+  following: IFollow[] =[];
   showSpinner: boolean = false;
 
   constructor(private databaseService: DatabaseService, private auth: FirebaseAuthService, private followingService: FollowService) { }
@@ -34,7 +35,6 @@ export class PostListComponent implements OnInit {
   getFollowing() {
     this.followingService.getFollowedUsers().subscribe(data => {
       this.following = data
-      console.log("following", this.following)
       this.showSpinner = false
       this.getPosts(this.following)
     })
@@ -45,9 +45,13 @@ export class PostListComponent implements OnInit {
       this.followingService.getFollowedUsersPosts(follower.followedId).subscribe(data => {
         this.posts = data
         this.followerPosts.push(...this.posts)
-        // remove all duplicates from array
-        this.followerPosts = _.uniqBy([...this.followerPosts], 'id');
+
+        this.databaseService.getLoggedInUserPosts().subscribe(data => {
+          this.userPosts = data
+          // remove all duplicates from array
+          this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
+        })
       })
-    } 
+    }
   }
 }

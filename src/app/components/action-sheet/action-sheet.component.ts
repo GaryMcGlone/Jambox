@@ -17,76 +17,80 @@ import * as firebase from "firebase/"
 })
 export class ActionSheetComponent implements OnInit {
   @Input() post: Post;
-
+  @Input() following: IFollow[];
+  compareFollow: IFollow;
   loggedIn: boolean;
   userId: string;
   likes: ILike[] = [];
   comments: IComment[] = [];
-  following: IFollow[] = [];
 
   ngOnInit() {
     this.userId = firebase.auth().currentUser.uid
     this.getAllComments();
     this.getAllLikes();
 
+    this.compareFollow = {
+      followedId: this.post.UserID,
+      followerId: this.firebaseAuth.getCurrentUserID()
+    }
  }
   constructor(public actionSheetController: ActionSheetController, private databaseService: DatabaseService, private firebaseAuth: FirebaseAuthService, private spotifyService: SpotifyService, private followingService: FollowService) {
-
+    
   }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
-        this.post.UserID != firebase.auth().currentUser.uid ?
-        {
-          text: "Follow",
-          icon: "person-add",
-          handler: () => {
-            this.follow(firebase.auth().currentUser.uid, this.post.UserID);
+        this.post.UserID != firebase.auth().currentUser.uid && this.following.includes(this.compareFollow) ?
+          {
+            text: "Follow",
+            icon: "person-add",
+            handler: () => {
+              this.follow(firebase.auth().currentUser.uid, this.post.UserID);
+            }
           }
-        }
-        :
-        {
-          text: "Follow",
-          icon: "person-add",
-          handler: () => {
-            this.follow(firebase.auth().currentUser.uid, this.post.UserID);
+          :
+          {
+            text: "Unfollow",
+            icon: "close",
+            handler: () => {
+              //this.followingService.removeFollowing(id);
+            }
           }
-        }
         ,
         this.post.postType == "yt"
           ? {
-              text: "Play on Youtube",
-              icon: "arrow-dropright-circle",
-              handler: () => {
-                this.open(
-                  "https://www.youtube.com/watch?v=" + this.post.songId
-                );
-              }
+            text: "Play on Youtube",
+            icon: "arrow-dropright-circle",
+            handler: () => {
+              this.open(
+                "https://www.youtube.com/watch?v=" + this.post.songId
+              );
             }
+          }
           : {
-              text: "Play on Spotify",
-              icon: "arrow-dropright-circle",
-              handler: () => {
-                this.open(this.post.externalUri);
-              }
-            },
+            text: "Play on Spotify",
+            icon: "arrow-dropright-circle",
+            handler: () => {
+              this.open(this.post.externalUri);
+            }
+          },
         this.post.UserID == firebase.auth().currentUser.uid
           ? {
-              text: "Delete",
-              role: "destructive",
-              icon: "trash",
-              handler: () => {
-                this.delete(this.post.id);
-              }
+            text: "Delete",
+            role: "destructive",
+            icon: "trash",
+            handler: () => {
+              this.delete(this.post.id);
             }
+          }
           : {
-              text: "Share",
-              icon: "share",
-              handler: () => {
-                console.log("Share clicked");
-              }
-            },
+            text: "Share",
+            icon: "share",
+            handler: () => {
+              console.log("Share clicked");
+            }
+          },
         {
           text: "Cancel",
           icon: "close",
@@ -101,7 +105,6 @@ export class ActionSheetComponent implements OnInit {
   }
 
   delete(postid: string) {
-    console.log(postid);
     this.databaseService.deletePost(postid);
     this.getAllComments();
     this.getAllLikes();
@@ -143,7 +146,6 @@ export class ActionSheetComponent implements OnInit {
       followerId: followerId,
       followedId: followedId
     }
-    console.log("followed", follow)
     this.followingService.addFollow(follow)
   }
 }

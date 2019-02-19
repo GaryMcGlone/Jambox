@@ -15,23 +15,19 @@ export class ProfilePage implements OnInit {
 
   profilePicture: any;
 
-  constructor(private auth: FirebaseAuthService,
-    private menuCtrl: MenuController,
-    private db: DatabaseService,
-    private router: Router,
-    private camera: Camera,
-    private file: File,
-    private imagePicker: ImagePicker
-  ) { }
+  constructor(private auth: FirebaseAuthService, private menuCtrl: MenuController, private db: DatabaseService, private router: Router, private camera: Camera, private file: File, private imagePicker: ImagePicker) { }
   ngOnInit() {
     this.loadProfilePictureURL();
   }
 
   loadProfilePictureURL() {
     this.db.getProfilePictureURL().then(data => {
-      this.profilePicture = data
+      if(data) {
+        this.profilePicture = data
+      }
     })
   }
+  
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
@@ -66,7 +62,6 @@ export class ProfilePage implements OnInit {
     };
     this.imagePicker.getPictures(options).then((results) => {
       for (var i = 0; i < results.length; i++) {
-        console.log("gallery: ", results[i])
         this.makeFileIntoBlob(results[i])
       }
     }, (err) => { });
