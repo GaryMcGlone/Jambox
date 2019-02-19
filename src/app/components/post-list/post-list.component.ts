@@ -29,7 +29,7 @@ export class PostListComponent implements OnInit {
     this.showSpinner = true;
     this.getFollowing()
 
-    this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
+    this.databaseService.getCurrentUser().subscribe(data => {
       this.user = data
     });
     

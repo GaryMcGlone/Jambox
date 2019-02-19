@@ -36,7 +36,7 @@ export class AppComponent {
         this.statusBar.backgroundColorByHexString("#ffffff")
       }
       this.splashScreen.hide();
- //     this.auth.stayLoggedIn();
+      this.auth.stayLoggedIn();
       timer(3000).subscribe(() => this.showSplash = false);
     });
   }

@@ -97,8 +97,8 @@ export class DatabaseService {
     this.userCollection.doc(user.uid).set(user);
   }
 
-  getCurrentUser(userId: string): Observable<IUser> {
-    this.fireDocUser = this._afs.doc<IUser>("users/" + userId);
+  getCurrentUser(): Observable<IUser> {
+    this.fireDocUser = this._afs.doc<IUser>("users/" + firebase.auth().currentUser.uid);
     this.currentUser = this.fireDocUser.valueChanges();
     return this.currentUser;
   }
@@ -200,6 +200,13 @@ export class DatabaseService {
       displayName: newDisplayName
     }, { merge: true });
   }
+
+  updateBio(bio: string): void {
+    this.userCollection.doc(firebase.auth().currentUser.uid).set({
+      bio: bio
+    }, { merge: true });
+  }
+
 
   getPostByUserID(): Observable<IPost[]> {
     this.postsCollection = this._afs.collection<IPost>("posts", ref => {

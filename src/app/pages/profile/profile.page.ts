@@ -14,11 +14,14 @@ import { DateTimeConvertPipe } from '../../pipes/date-time-convert.pipe';
 })
 export class ProfilePage implements OnInit {
 
-  profilePicture: any;
-
+  profilePicture: any = null;
+  userBio: string;
   constructor(private auth: FirebaseAuthService, private menuCtrl: MenuController, private db: DatabaseService, private router: Router, private camera: Camera, private file: File, private imagePicker: ImagePicker) { }
   ngOnInit() {
     this.loadProfilePictureURL();
+    this.db.getCurrentUser().subscribe(data => {
+      this.userBio = data.boi
+    })
   }
 
   loadProfilePictureURL() {
@@ -67,6 +70,10 @@ export class ProfilePage implements OnInit {
       }
     }, (err) => { });
 
+  }
+
+  saveBio(){
+this.db.updateBio(this.userBio)
   }
   makeFileIntoBlob(_imagePath) {
     return new Promise((resolve, reject) => {
