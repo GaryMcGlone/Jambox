@@ -1,4 +1,4 @@
-<!-- <ion-card *ngIf="post" class="welcome-card">
+<ion-card *ngIf="post" class="welcome-card">
   <ion-img [src]="post.albumArt"></ion-img>
   <ion-card-header style="text-align:center">
     <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>
@@ -39,12 +39,9 @@
         <ion-icon name="play"></ion-icon>
       </ion-button>
     </ion-col>
-    <ion-col>
-      <app-action-sheet [post]="post"> </app-action-sheet>
-    </ion-col>
   </ion-buttons> 
-  <ion-col style="margin-top:2%;margin-left:2%">
+  <!-- <ion-col style="margin-top:2%;margin-left:2%">
     <ion-note> {{ post.createdAt | dateTimeConvert: "" }} </ion-note>
-  </ion-col>
+  </ion-col> -->
   </ion-row>
-</ion-card> -->
+</ion-card>

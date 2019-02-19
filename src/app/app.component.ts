@@ -33,7 +33,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.auth.stayLoggedIn();
+ //     this.auth.stayLoggedIn();
       timer(3000).subscribe(() => this.showSplash = false);
     });
   }

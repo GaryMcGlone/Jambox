@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
+import { DateTimeConvertPipe } from '../../pipes/date-time-convert.pipe';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',

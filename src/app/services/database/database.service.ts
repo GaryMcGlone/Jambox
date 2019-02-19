@@ -35,7 +35,8 @@ export class DatabaseService {
   private found: boolean = false;
   private likeDocument: AngularFirestoreDocument<ILike>;
   private like: Observable<ILike>
-  followerPosts: Observable<IPost[]>;
+  private userPosts: Observable<IPost[]>
+
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     this.postsCollection = this._afs.collection<IPost>(`posts`);
@@ -125,7 +126,7 @@ export class DatabaseService {
 
   //Getting all likes for a post
   getLikes(postID: string): Observable<ILike[]> {
-    this.likeCollection = this._afs.collection<ILike>("likes", ref =>{
+    this.likeCollection = this._afs.collection<ILike>("likes", ref => {
       return ref.where("postId", "==", postID)
     });
     this.likes = this.likeCollection.snapshotChanges().pipe(
@@ -158,8 +159,8 @@ export class DatabaseService {
 
   //Delete all likes from a post
   deleteLikesOnPost(postid: string): void {
-    
-  } 
+
+  }
 
   storeProfilePicture(imageBlob) {
     return new Promise((resolve, reject) => {
@@ -167,7 +168,7 @@ export class DatabaseService {
         .ref("images/" + firebase.auth().currentUser.uid);
       let uploadTask = fileRef.put(imageBlob);
 
-      this.userCollection.doc(firebase.auth().currentUser.uid).set({ profilePictureURL: uploadTask.snapshot.downloadURL, uploadDate: new Date() }, {merge: true});
+      this.userCollection.doc(firebase.auth().currentUser.uid).set({ profilePictureURL: uploadTask.snapshot.downloadURL, uploadDate: new Date() }, { merge: true });
       uploadTask.on(
         "state_changed",
         error => {
@@ -190,15 +191,14 @@ export class DatabaseService {
   updateUserDisplayName(userId: string, newDisplayName: string): void {
     this.userCollection.doc(userId).set({
       displayName: newDisplayName
-    }, {merge: true});
+    }, { merge: true });
   }
 
-  getPostByUserID(UserID: string): Observable<IPost[]>{
-    console.log("uid", UserID)
+  getPostByUserID(): Observable<IPost[]> {
     this.postsCollection = this._afs.collection<IPost>("posts", ref => {
-      return ref.where("UserID", "==", UserID)
+      return ref.where("UserID", "==", firebase.auth().currentUser.uid)
     });
-    this.followerPosts = this.postsCollection.snapshotChanges().pipe(
+    this.userPosts = this.postsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
           const data = a.payload.doc.data() as IPost;
@@ -207,7 +207,11 @@ export class DatabaseService {
         })
       )
     );
-       return this.followerPosts;
+    return this.userPosts;
   }
+
+
+
+
 
 }

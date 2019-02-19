@@ -14,6 +14,7 @@ import { IonFooter } from '@ionic/angular';
 export class FollowService {
   private relationshipCollection: AngularFirestoreCollection<IFollow>;
   private followersList: Observable<IFollow[]>
+  followerPosts: Observable<IPost[]>;
 
   private postsCollection: AngularFirestoreCollection<IPost>;
   private posts: Observable<IPost[]>
@@ -69,7 +70,7 @@ export class FollowService {
     );
     return this.posts;
   }
-}
+
 
 
 /* 
@@ -95,6 +96,6 @@ export class FollowService {
     string$.next(UserId)
     return this.posts;
   }
-
-
 */
+
+}

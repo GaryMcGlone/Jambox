@@ -62,9 +62,7 @@ library.add(fas, far, fab)
 @NgModule({
   declarations: [
     AppComponent,
-    UserSearchComponent,
-    ProfilePostListComponent,
-    ProfilePostComponent
+    UserSearchComponent
   ],
   entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage],
   imports: [

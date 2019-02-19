@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IPost } from '../../interfaces/post-interface';
+import { DatabaseService } from '../../services/database/database.service';
 
 @Component({
   selector: 'app-profile-post-list',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePostListComponent implements OnInit {
 
-  constructor() { }
+  public userPosts: IPost[];
+  constructor(public db: DatabaseService) { }
 
   ngOnInit() {
+    this.db.getPostByUserID().subscribe(data => {
+      this.userPosts = data
+    })
   }
 
 }
