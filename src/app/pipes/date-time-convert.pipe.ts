@@ -1,11 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { myDate } from '../interfaces/post-interface';
 
 @Pipe({
   name: 'dateTimeConvert'
 })
 export class DateTimeConvertPipe implements PipeTransform {
 
-  transform(date: Date, args?: any): any {
+  transform(date: myDate, args?: any): any {
     var value: string;
     var newDateMilliseconds = new Date().getTime();
     var seconds = (newDateMilliseconds / 1000) - date.seconds;
