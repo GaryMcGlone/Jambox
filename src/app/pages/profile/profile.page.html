@@ -15,15 +15,32 @@
 <ion-content>
   <ion-card>
     <ion-card-content>
-        <ion-img *ngIf="profilePicture"  class="profilePicture" src="{{profilePicture}}"></ion-img>
+      <ion-img *ngIf="profilePicture"  class="profilePicture" src="{{profilePicture}}"></ion-img>
      <ion-img *ngIf="!profilePicture"  class="profilePicture"   src="https://banner2.kisspng.com/20180420/ahw/kisspng-headphones-computer-icons-symbol-headphone-logo-5ad977ff1cbe74.0665303015242014711178.jpg"></ion-img> 
+  <div class="countersContiner">
+    <ion-grid>
+        <ion-row>
+            <ion-col class="borderRight">{{followersCounter}}</ion-col>
+            <ion-col class="borderRight">{{followingCounter}}</ion-col>
+            <ion-col class="borderTop">{{postsCounter}}</ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col class="borderBoth">Followers</ion-col>
+              <ion-col class="borderBoth">Following</ion-col>
+              <ion-col class="borderDown">Posts</ion-col>
+          </ion-row>
+    </ion-grid>
+  </div>
   <div>
       <ion-button class="imageButton" (click)="takePicture()">Camera<i class="fas fa-camera"></i></ion-button>
       <ion-button class="imageButton" (click)="selectImageFromGallery()"> Gallery <i class="fas fa-images"> </i> </ion-button>
   </div>
    <div>
-      <ion-input value="{{userBio}}"></ion-input>
-      <ion-button  (click)="saveBio()"> Save Bio <i class="fas fa-images"> </i> </ion-button>
+      <ion-item>
+          <ion-label *ngIf="userBioEmpty" style="margin:4px" position="floating">Enter your bio here...</ion-label>
+          <ion-textarea rows="3" [(ngModel)]="userBio" (ionChange)="updateBio($event)"></ion-textarea>
+      </ion-item>
+      <ion-button *ngIf="!userBioEmpty" (click)="saveBio()"> Save Bio <i class="fas fa-images"> </i> </ion-button>
    </div>
     </ion-card-content>
   </ion-card>

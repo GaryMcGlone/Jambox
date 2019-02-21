@@ -7,7 +7,7 @@ export interface IUser {
     followerCount?: number;
     followingCount?: number;
     photoURL?:string;
-    boi?:string
+    bio?:string
     followers?:string[];
     following?:string[];
     likes?: IPost[];

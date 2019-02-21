@@ -11,3 +11,32 @@
     width: 100%;
     height: 40%;
 }
+
+.countersContainer {
+    width: 65%;
+    height: 20%;
+}
+
+ion-col {
+    text-align: center;
+    font-size: 1.15em;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+ion-grid {
+    padding-top: 0;
+}
+
+.borderDown {
+    border-bottom: 1px lightgray solid;
+}
+
+.borderBoth {
+    border-right: 1px lightgray solid;
+    border-bottom: 1px lightgray solid;
+}
+
+.borderRight {
+    border-right: 1px lightgray solid;
+}

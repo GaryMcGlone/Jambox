@@ -55,6 +55,21 @@ export class FollowService {
     return this.followersList;
   }
 
+  getFollowingUsers(followedId:string): Observable<IFollow[]> {
+    this.testCollection = this._afs.collection<IFollow>("relationships", ref => {
+      return ref.where("followedId", "==", followedId)
+    })
+    this.followersList = this.testCollection.snapshotChanges().pipe(
+      map(actions => 
+        actions.map(a => {
+          const data = a.payload.doc.data() as IFollow;
+          const id = a.payload.doc.id;
+          return { id,...data };
+        }))
+    );
+    return this.followersList;
+  }
+
   getSpecificFollow(followedId:string, followerId:string): Observable<IFollow[]> {
     this.testCollection = this._afs.collection<IFollow>("relationships", ref => {
       return ref.where("followerId", "==", followerId)

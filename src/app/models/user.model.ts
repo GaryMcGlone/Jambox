@@ -7,20 +7,20 @@ export class User {
     displayName: string;
     lowerDisplayName: string;
     photoURL?:string;
-    boi?:string
+    bio?:string
     followers?:string[];
     following?:string[];
     likes?: IPost[];
     
 
-    constructor(uid: string, email: string, displayName: string, photoURL: string, boi: string,
+    constructor(uid: string, email: string, displayName: string, photoURL: string, bio: string,
         followers: string[], following: string[], likes: IPost[]) {
             this.uid = uid;
             this.email = email;
             this.displayName = displayName;
             this.lowerDisplayName = displayName.toLowerCase();
             this.photoURL = photoURL;
-            this.boi = boi;
+            this.bio = bio;
             this.followers = followers;
             this.following = following;
             this.likes = likes;

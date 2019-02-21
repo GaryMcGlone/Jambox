@@ -7,21 +7,60 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
 import { DateTimeConvertPipe } from '../../pipes/date-time-convert.pipe';
+import { IPost } from '../../interfaces/post-interface';
+import { IFollow } from '../../interfaces/follow.interface';
+import { FollowService } from '../../services/follow/follow.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-
+  followersCounter: number;
+  followingCounter: number;
+  postsCounter: number;
   profilePicture: any = null;
   userBio: string;
-  constructor(private auth: FirebaseAuthService, private menuCtrl: MenuController, private db: DatabaseService, private router: Router, private camera: Camera, private file: File, private imagePicker: ImagePicker) { }
+  userBioEmpty: boolean = false;
+  posts: IPost[];
+  following: IFollow[];
+  followers: IFollow[];
+  constructor(
+          private auth: FirebaseAuthService, 
+          private menuCtrl: MenuController, 
+          private db: DatabaseService, 
+          private router: Router, 
+          private camera: Camera, 
+          private file: File, 
+          private imagePicker: ImagePicker,
+          private followService: FollowService) { }
   ngOnInit() {
     this.loadProfilePictureURL();
     this.db.getCurrentUser().subscribe(data => {
-      this.userBio = data.boi
+      this.userBio = data.bio
+      if(this.userBio == null || this.userBio == '')
+        this.userBioEmpty = true;
     })
+    this.db.getLoggedInUserPosts().subscribe(posts => {
+      this.posts = posts
+      this.postsCounter = this.posts.length
+    });
+    this.followService.getFollowedUsers().subscribe(following => {
+      this.following = following
+      this.followingCounter = this.following.length
+    });
+    this.followService.getFollowingUsers(this.auth.getCurrentUserID()).subscribe(followers => {
+      this.followers = followers
+      this.followersCounter = this.followers.length
+    })
+  }
+
+  updateBio($event) {
+    this.userBio = $event.target.value;
+    if(this.userBio == '' || this.userBio == null)
+      this.userBioEmpty = true;
+    else
+      this.userBioEmpty = false;
   }
 
   loadProfilePictureURL() {
@@ -73,8 +112,9 @@ export class ProfilePage implements OnInit {
   }
 
   saveBio(){
-this.db.updateBio(this.userBio)
+    this.db.updateBio(this.userBio)
   }
+
   makeFileIntoBlob(_imagePath) {
     return new Promise((resolve, reject) => {
       let fileName = "";
