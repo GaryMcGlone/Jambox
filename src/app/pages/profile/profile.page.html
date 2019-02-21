@@ -15,8 +15,8 @@
 <ion-content>
   <ion-card>
     <ion-card-content>
-      <ion-img *ngIf="profilePicture"  class="profilePicture" src="{{profilePicture}}"></ion-img>
-     <ion-img *ngIf="!profilePicture"  class="profilePicture"   src="https://banner2.kisspng.com/20180420/ahw/kisspng-headphones-computer-icons-symbol-headphone-logo-5ad977ff1cbe74.0665303015242014711178.jpg"></ion-img> 
+      <ion-img *ngIf="profilePicture" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
+     <ion-img *ngIf="!profilePicture" (click)="toggleBtn()" class="profilePicture" src="https://banner2.kisspng.com/20180420/ahw/kisspng-headphones-computer-icons-symbol-headphone-logo-5ad977ff1cbe74.0665303015242014711178.jpg"></ion-img> 
   <div class="countersContiner">
     <ion-grid>
         <ion-row>
@@ -32,8 +32,8 @@
     </ion-grid>
   </div>
   <div>
-      <ion-button class="imageButton" (click)="takePicture()">Camera<i class="fas fa-camera"></i></ion-button>
-      <ion-button class="imageButton" (click)="selectImageFromGallery()"> Gallery <i class="fas fa-images"> </i> </ion-button>
+      <ion-button *ngIf="toggled" class="imageButton" (click)="takePicture()">Camera<i class="fas fa-camera"></i></ion-button>
+      <ion-button *ngIf="toggled" class="imageButton" (click)="selectImageFromGallery()"> Gallery <i class="fas fa-images"> </i> </ion-button>
   </div>
    <div>
       <ion-item>

@@ -23,6 +23,7 @@ export class ProfilePage implements OnInit {
   userBio: string;
   userBioEmpty: boolean = false;
   posts: IPost[];
+  toggled:boolean = false;
   following: IFollow[];
   followers: IFollow[];
   constructor(
@@ -61,6 +62,13 @@ export class ProfilePage implements OnInit {
       this.userBioEmpty = true;
     else
       this.userBioEmpty = false;
+  }
+
+  toggleBtn() {
+    if(this.toggled == false)
+      this.toggled = true;
+    else 
+      this.toggled = false;
   }
 
   loadProfilePictureURL() {
