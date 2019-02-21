@@ -7,6 +7,7 @@ import { IFollow } from "../../interfaces/follow.interface";
 import { FollowService } from "../../services/follow/follow.service";
 import { ModalController } from "@ionic/angular";
 import { UserSearchPage } from "../../pages/user-search/user-search.page";
+import { Observable } from "rxjs";
 import  * as _  from "lodash";
 
 @Component({
@@ -17,9 +18,11 @@ import  * as _  from "lodash";
 export class PostListComponent implements OnInit {
   posts: IPost[] = [];
   followerPosts: IPost[] = [];
-  userPosts: IPost[] = [];
+  filteredPosts: IPost[] = [];
   user: IUser;
-  following: IFollow[] =[];
+  following: IFollow[];
+  observableArrays : Observable<IPost[]>
+  userPosts: IPost[] = [];
   showSpinner: boolean = false;
 
   constructor(private databaseService: DatabaseService, private auth: FirebaseAuthService, private followingService: FollowService, private modalController: ModalController) { }
@@ -27,11 +30,12 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
     this.showSpinner = true;
 
-    this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
+    this.databaseService.getCurrentUser().subscribe(data => {
       this.user = data
     });
 
     this.followingService.getFollowedUsers().subscribe(data => {
+      this.followerPosts = []
       this.following = data
       this.showSpinner = false
 

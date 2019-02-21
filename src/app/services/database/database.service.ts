@@ -30,7 +30,8 @@ export class DatabaseService {
   private found: boolean = false;
   private likeDocument: AngularFirestoreDocument<ILike>;
   private like: Observable<ILike>
-  followerPosts: Observable<IPost[]>;
+  private userPosts: Observable<IPost[]>
+
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     
@@ -92,8 +93,8 @@ export class DatabaseService {
     this.userCollection.doc(user.uid).set(user);
   }
 
-  getCurrentUser(userId: string): Observable<IUser> {
-    this.fireDocUser = this._afs.doc<IUser>("users/" + userId);
+  getCurrentUser(): Observable<IUser> {
+    this.fireDocUser = this._afs.doc<IUser>("users/" + firebase.auth().currentUser.uid);
     this.currentUser = this.fireDocUser.valueChanges();
     return this.currentUser;
   }
@@ -127,7 +128,7 @@ export class DatabaseService {
 
   //Getting all likes for a post
   getLikes(postID: string): Observable<ILike[]> {
-    this.likeCollection = this._afs.collection<ILike>("likes", ref =>{
+    this.likeCollection = this._afs.collection<ILike>("likes", ref => {
       return ref.where("postId", "==", postID)
     });
     this.likes = this.likeCollection.snapshotChanges().pipe(
@@ -158,13 +159,14 @@ export class DatabaseService {
     this.likeCollection.doc(likeId).delete()
   }
 
+
   storeProfilePicture(imageBlob) {
     return new Promise((resolve, reject) => {
       let fileRef = firebase.storage()
         .ref("images/" + firebase.auth().currentUser.uid);
       let uploadTask = fileRef.put(imageBlob);
 
-      this.userCollection.doc(firebase.auth().currentUser.uid).set({ profilePictureURL: uploadTask.snapshot.downloadURL, uploadDate: new Date() }, {merge: true});
+      this.userCollection.doc(firebase.auth().currentUser.uid).set({ profilePictureURL: uploadTask.snapshot.downloadURL, uploadDate: new Date() }, { merge: true });
       uploadTask.on(
         "state_changed",
         error => {
@@ -187,7 +189,34 @@ export class DatabaseService {
   updateUserDisplayName(userId: string, newDisplayName: string): void {
     this.userCollection.doc(userId).set({
       displayName: newDisplayName
-    }, {merge: true});
+    }, { merge: true });
   }
+
+  updateBio(bio: string): void {
+    this.userCollection.doc(firebase.auth().currentUser.uid).set({
+      bio: bio
+    }, { merge: true });
+  }
+
+
+  getPostByUserID(): Observable<IPost[]> {
+    this.postsCollection = this._afs.collection<IPost>("posts", ref => {
+      return ref.where("UserID", "==", firebase.auth().currentUser.uid)
+    });
+    this.userPosts = this.postsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IPost;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+    return this.userPosts;
+  }
+
+
+
+
 
 }
