@@ -203,6 +203,7 @@ export class DatabaseService {
   getPostByUserID(): Observable<IPost[]> {
     this.postsCollection = this._afs.collection<IPost>("posts", ref => {
       return ref.where("UserID", "==", firebase.auth().currentUser.uid)
+                 .orderBy('createdAt', 'desc')
     });
     this.userPosts = this.postsCollection.snapshotChanges().pipe(
       map(actions =>
