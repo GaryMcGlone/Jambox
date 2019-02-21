@@ -39,11 +39,11 @@ export class UserComponent implements OnInit {
   }
 
   selectUser() {
-    // this.currentUserId = this.firebaseAuth.getCurrentUserID();
-    // this.members = [this.currentUserId, this.user.uid];
-    // this.chatRoom.members.push(this.currentUserId, this.user.id);
-  //  this.chatService.createPrivateChatRoom(this.chatRoom);
-   // this.modalController.dismiss();
+    this.currentUserId = this.firebaseAuth.getCurrentUserID();
+    this.members = [this.currentUserId, this.user.uid];
+    this.chatRoom.members = this.members;
+    this.chatService.createPrivateChatRoom(this.chatRoom);
+    this.modalController.dismiss();
   }
 
   follow(user) {

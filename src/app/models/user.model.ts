@@ -5,6 +5,7 @@ export class User {
     uid?: string;
     email: string;
     displayName: string;
+    lowerDisplayName: string;
     photoURL?:string;
     boi?:string
     followers?:string[];
@@ -17,6 +18,7 @@ export class User {
             this.uid = uid;
             this.email = email;
             this.displayName = displayName;
+            this.lowerDisplayName = displayName.toLowerCase();
             this.photoURL = photoURL;
             this.boi = boi;
             this.followers = followers;
