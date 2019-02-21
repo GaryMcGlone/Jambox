@@ -9,6 +9,7 @@ import { ModalController } from "@ionic/angular";
 import { UserSearchPage } from "../../pages/user-search/user-search.page";
 import { Observable } from "rxjs";
 import  * as _  from "lodash";
+import { InitialUserSearchPage } from "../../pages/initial-user-search/initial-user-search.page";
 
 @Component({
   selector: "app-post-list",
@@ -41,15 +42,15 @@ export class PostListComponent implements OnInit {
 
       this.databaseService.getLoggedInUserPosts().subscribe(data => {
         this.userPosts = data
-        this.followerPosts.push(...this.userPosts)
+        this.followerPosts.unshift(...this.userPosts)
         this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
         this.following.forEach(follow => {
           this.followingService.getFollowedUsersPosts(follow.followedId).subscribe(data => {
             this.posts = data
-            this.followerPosts.push(...this.posts)
+            this.followerPosts.unshift(...this.posts)
             this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
-            this.followerPosts = _.sortBy(this.followerPosts, ["createdAt"]);
-            this.followerPosts.reverse();
+            // this.followerPosts = _.sortBy(this.followerPosts, ["createdAt"]);
+            // this.followerPosts.reverse();
             console.log("posts", this.followerPosts)
           })
         })
@@ -60,7 +61,7 @@ export class PostListComponent implements OnInit {
 
   async presentModal() {
     const modal = await this.modalController.create({
-      component: UserSearchPage,
+      component: InitialUserSearchPage,
       // componentProps: following
     });
     return await modal.present();
