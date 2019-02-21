@@ -8,7 +8,7 @@ export class DateTimeConvertPipe implements PipeTransform {
   transform(date: Date, args?: any): any {
     var value: string;
     var newDateMilliseconds = new Date().getTime();
-    var seconds = (newDateMilliseconds / 1000) /*- date.seconds*/;
+    var seconds = (newDateMilliseconds / 1000) - date.seconds;
     var minutes = seconds / 60;
     var hours = minutes / 60;
     var days = hours / 24;

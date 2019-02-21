@@ -35,6 +35,13 @@ export class PostListComponent implements OnInit {
       this.showSpinner = false
 
       this.databaseService.getLoggedInUserPosts().subscribe(data => {
+        let counter = 1;
+        if(counter = 1)
+        {
+          this.followerPosts = [];
+          this.posts = [];
+          this.userPosts = [];
+        }
         this.userPosts = data
         this.followerPosts.unshift(...this.userPosts)
         this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
@@ -44,6 +51,8 @@ export class PostListComponent implements OnInit {
             this.posts = data
             this.followerPosts.unshift(...this.posts)
             this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
+            // this.followerPosts = _.sortBy(this.filteredPosts, ['createdAt']);
+            // this.filteredPosts.reverse();
             console.log("posts", this.followerPosts)
           })
         })
