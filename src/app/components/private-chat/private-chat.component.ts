@@ -6,6 +6,7 @@ import { IUser } from '../../interfaces/user-interface';
 import { DatabaseService } from '../../services/database/database.service';
 import { ModalController } from '@ionic/angular';
 import { PrivateChatPage } from '../../pages/private-chat/private-chat.page';
+import { UsersService } from '../../services/users/users.service';
 
 @Component({
   selector: 'private-chat',
@@ -26,7 +27,8 @@ export class PrivateChatComponent implements OnInit {
     private chatService: ChatService,
     private firebaseAuth: FirebaseAuthService,
     private databaseService: DatabaseService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private usersService: UsersService
   ) { }
 
   ngOnInit() {
@@ -36,8 +38,10 @@ export class PrivateChatComponent implements OnInit {
     });
     this.currentChat.members.forEach(element => {
       if(element != this.userId){
-        this.databaseService.getCurrentUser().subscribe(data => {
-          this.otherUser = data
+        console.log(element)
+        this.usersService.getSpecificUserById(element).subscribe(data => {
+          this.otherUser = data[0]
+          console.log("data: ", data)
         });
       }
     });

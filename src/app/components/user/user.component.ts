@@ -39,10 +39,9 @@ export class UserComponent implements OnInit {
   }
 
   selectUser() {
-    console.log("hello")
     this.currentUserId = this.firebaseAuth.getCurrentUserID();
     this.members = [this.currentUserId, this.user.uid];
-    this.chatRoom.members.push(this.currentUserId, this.user.id);
+    this.chatRoom.members = this.members;
     this.chatService.createPrivateChatRoom(this.chatRoom);
     this.modalController.dismiss();
   }
