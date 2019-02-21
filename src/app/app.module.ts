@@ -41,14 +41,8 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { PrivateChatsPage } from "./pages/private-chats/private-chats.page";
-import { PrivateChatPage } from "./pages/private-chat/private-chat.page";
 import { PrivateChatPageModule } from "./pages/private-chat/private-chat.module";
 import { PrivateChatsPageModule } from "./pages/private-chats/private-chats.module";
-import { MessageListComponent } from './components/message-list/message-list.component';
-import { MessageAddComponent } from './components/message-add/message-add.component';
-import { MessageComponent } from './components/message/message.component';
-import { GroupChatComponent } from './components/group-chat/group-chat.component';
-import { GroupChatListComponent } from './components/group-chat-list/group-chat-list.component';
 import { GroupChatsPage } from "./pages/group-chats/group-chats.page";
 import { GroupChatsPageModule } from "./pages/group-chats/group-chats.module";
 import { UserListComponent } from './components/user-list/user-list.component';
@@ -56,13 +50,19 @@ import { UserSearchPage } from "./pages/user-search/user-search.page";
 import { UserComponent } from './components/user/user.component';
 import { ProfilePostListComponent } from './components/profile-post-list/profile-post-list.component';
 import { ProfilePostComponent } from './components/profile-post/profile-post.component';
+import { InitialUserSearchPage } from "./pages/initial-user-search/initial-user-search.page";
+import { InitialUserSearchPageModule } from "./pages/initial-user-search/initial-user-search.module";
+import { InitialUserListComponent } from "./components/initial-user-list/initial-user-list.component";
+import { InitialUserResultComponent } from "./components/initial-user-result/initial-user-result.component";
+// import { InitialUserSearchComponent } from './components/initial-user-search/initial-user-search.component';
 
 library.add(fas, far, fab)
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserSearchComponent
+    UserSearchComponent,
+    // InitialUserSearchComponent
   ],
   entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage],
   imports: [
@@ -80,7 +80,7 @@ library.add(fas, far, fab)
     GroupChatsPageModule,
     CommentsPageModule,
     SearchSongByIdPageModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [
     StatusBar,

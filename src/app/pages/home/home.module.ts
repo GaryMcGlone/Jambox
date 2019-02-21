@@ -9,6 +9,9 @@ import { DateTimeConvertPipe } from '../../pipes/date-time-convert.pipe';
 import { Routes, RouterModule } from "@angular/router";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { ActionSheetComponent } from '../../components/action-sheet/action-sheet.component';
+import { InitialUserSearchPage } from '../initial-user-search/initial-user-search.page';
+import { InitialUserListComponent } from '../../components/initial-user-list/initial-user-list.component';
+import { InitialUserResultComponent } from '../../components/initial-user-result/initial-user-result.component';
 
 const routes: Routes = [
   {
@@ -26,6 +29,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FontAwesomeModule
   ],
-  declarations: [HomePage, PostComponent, PostListComponent, DateTimeConvertPipe, ActionSheetComponent]
+  declarations: [HomePage, PostComponent, PostListComponent, DateTimeConvertPipe, ActionSheetComponent, InitialUserSearchPage, InitialUserListComponent, InitialUserResultComponent],
+  entryComponents: [InitialUserSearchPage]
 })
 export class HomePageModule {}
