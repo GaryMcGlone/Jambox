@@ -5,7 +5,7 @@ export class Post {
     songName: string;
     albumArt: string;
     caption: string;
-    createdAt: string;
+    createdAt: Date;
     externalUri: string;
     previewUrl: string;
     postType: string;

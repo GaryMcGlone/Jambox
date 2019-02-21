@@ -33,6 +33,7 @@ export class CreateSongModalPage implements OnInit {
     this.userID = this.firebaseAuth.getCurrentUserID()
     this.post.caption = this.caption || "";
     this.post.UserID = this.userID;
+    this.post.createdAt = new Date();
     this.databaseService.addPost(this.post);
     this.modalController.dismiss();
    // this.analytics.logButtonClick("postSong", { param: "User_Posted_Song" });

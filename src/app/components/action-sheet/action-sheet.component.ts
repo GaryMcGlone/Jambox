@@ -9,6 +9,7 @@ import { IComment } from "../../interfaces/comment-interface";
 import { IFollow } from "../../interfaces/follow.interface";
 import { FollowService } from "../../services/follow/follow.service";
 import * as firebase from "firebase/"
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-action-sheet",
@@ -17,7 +18,7 @@ import * as firebase from "firebase/"
 })
 export class ActionSheetComponent implements OnInit {
   @Input() post: Post;
-
+  singleFollow: IFollow[] = [];
   loggedIn: boolean;
   userId: string;
   likes: ILike[] = [];
@@ -28,7 +29,7 @@ export class ActionSheetComponent implements OnInit {
     this.userId = firebase.auth().currentUser.uid
     this.getAllComments();
     this.getAllLikes();
-
+    this.getFollow();
  }
   constructor(public actionSheetController: ActionSheetController, private databaseService: DatabaseService, private firebaseAuth: FirebaseAuthService, private spotifyService: SpotifyService, private followingService: FollowService) {
 
@@ -47,10 +48,10 @@ export class ActionSheetComponent implements OnInit {
         }
         :
         {
-          text: "Follow",
+          text: "Unfollow",
           icon: "person-add",
           handler: () => {
-            this.follow(firebase.auth().currentUser.uid, this.post.UserID);
+            this.unFollow();
           }
         }
         ,
@@ -109,6 +110,12 @@ export class ActionSheetComponent implements OnInit {
     this.deleteLikes();
   }
 
+  getFollow() {
+    this.followingService.getOneFollow(this.post.UserID, this.firebaseAuth.getCurrentUserID()).subscribe(follow => {
+      this.singleFollow = follow
+    })
+  }
+
   getAllComments() {
     this.databaseService.getComments(this.post.id).subscribe(comments => {
       this.comments = comments;
@@ -145,5 +152,10 @@ export class ActionSheetComponent implements OnInit {
     }
     console.log("followed", follow)
     this.followingService.addFollow(follow)
+  }
+
+  unFollow(): void {
+    console.log(this.singleFollow);
+    this.followingService.removeFollowing(this.singleFollow[0].id);
   }
 }

@@ -5,9 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DateTimeConvertPipe implements PipeTransform {
 
-  transform(value: string, args?: any): any {
-    var milliseconds = new Date().getTime() - new Date(value).getTime();
-    var seconds = milliseconds / 1000;
+  transform(date: Date, args?: any): any {
+    var value: string;
+    var newDateMilliseconds = new Date().getTime();
+    var seconds = (newDateMilliseconds / 1000) - date.seconds;
     var minutes = seconds / 60;
     var hours = minutes / 60;
     var days = hours / 24;

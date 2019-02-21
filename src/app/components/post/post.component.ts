@@ -9,6 +9,7 @@ import { YoutubeVideoPlayer } from "@ionic-native/youtube-video-player/ngx";
 import { ModalController, NavParams } from "@ionic/angular";
 import { CommentsPage } from "../../pages/comments/comments.page";
 import { IComment } from "../../interfaces/comment-interface";
+import { stringify } from "@angular/compiler/src/util";
 //import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 
 @Component({
@@ -47,6 +48,7 @@ export class PostComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.changeToDate()
     this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
       (this.user = data), (this.username = this.user.displayName);
     });
@@ -61,6 +63,10 @@ export class PostComponent implements OnInit {
       this.likeCounter = this.likes.length,
       error => (this.errorMessage = <any>error);
     });
+  }
+
+  changeToDate() {
+    console.log(this.post.createdAt)
   }
 
   addLike(id) {

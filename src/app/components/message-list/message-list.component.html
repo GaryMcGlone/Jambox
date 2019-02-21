@@ -4,7 +4,7 @@
       <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
     </div>
     <div *ngIf="messages">
-      <ion-item *ngFor="let message of messages; let last = last">
+      <ion-item *ngFor="let message of messages; let last = last" slot="end">
         <message [message]="message"></message>
       </ion-item>
     </div>

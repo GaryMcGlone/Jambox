@@ -37,7 +37,7 @@ export class SpotifySearchResultComponent implements OnInit {
       songName: songName,
       caption: "",
       albumArt: albumArt,
-      createdAt: '',
+      createdAt: new Date(),
       externalUri: externalUri,
       previewUrl: previewUrl,
       postType: 's',

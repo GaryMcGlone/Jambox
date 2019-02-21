@@ -38,7 +38,7 @@ export class YoutubeSearchResultComponent implements OnInit {
       songName: songName,
       caption: "",
       albumArt: albumArt,
-      createdAt: '',
+      createdAt: new Date(),
       externalUri: '',
       previewUrl: '',
       postType: 'yt',

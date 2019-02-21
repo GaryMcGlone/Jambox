@@ -18,6 +18,8 @@ export class FollowService {
   private postsCollection: AngularFirestoreCollection<IPost>;
   private posts: Observable<IPost[]>
 
+  private follow: Observable<IFollow>;
+
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     this._firebaseAuth.authState.subscribe(user => {
       if (user) {
@@ -49,6 +51,25 @@ export class FollowService {
     );
     return this.followersList;
   }
+
+  getOneFollow(followedId:string, followerId:string): Observable<IFollow[]> {
+    this.relationshipCollection = this._afs.collection<IFollow>("relationships", ref => {
+      return ref.where("followerId", "==", followerId)
+                .where("followedId", "==", followedId)
+    })
+
+    this.followersList = this.relationshipCollection.snapshotChanges().pipe(
+      map(actions => 
+        actions.map(a => {
+          const data = a.payload.doc.data() as IFollow;
+          const id = a.payload.doc.id;
+          return { id,...data };
+        }))
+    );
+
+    return this.followersList;
+  }
+
   getFollowedUsersPosts(UserID: string): Observable<IPost[]>{
     console.log("uid", UserID)
     this.postsCollection = this._afs.collection<IPost>("posts", ref => {

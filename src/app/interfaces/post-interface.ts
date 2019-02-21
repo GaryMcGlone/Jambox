@@ -3,7 +3,7 @@ export interface IPost {
     albumArt: string;
     artistName: string;
     caption: string;
-    createdAt: string;
+    createdAt: Date;
     songID: string;
     songName: string;
     UserID: string;

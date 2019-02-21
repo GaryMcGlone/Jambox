@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { IChatMessage } from '../../interfaces/chat-message-interface';
 import { ChatService } from '../../services/chat/chat.service';
 import { IonContent } from '@ionic/angular';
@@ -6,7 +6,8 @@ import { IonContent } from '@ionic/angular';
 @Component({
   selector: 'message-list',
   templateUrl: './message-list.component.html',
-  styleUrls: ['./message-list.component.scss']
+  styleUrls: ['./message-list.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MessageListComponent implements OnInit {
   @Input() chat;
