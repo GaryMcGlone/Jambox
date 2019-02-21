@@ -51,6 +51,9 @@ export class PostListComponent implements OnInit {
             this.posts = data
             this.followerPosts.unshift(...this.posts)
             this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
+            this.followerPosts.sort(function(obj1, obj2) {
+              return  obj2.createdAt.seconds - obj1.createdAt.seconds
+            })
             // this.followerPosts = _.sortBy(this.filteredPosts, ['createdAt']);
             // this.filteredPosts.reverse();
             console.log("posts", this.followerPosts)
