@@ -46,7 +46,7 @@ export class ActionSheetComponent implements OnInit {
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
-        this.post.UserID != firebase.auth().currentUser.uid && this.compareFollow != null ?
+        this.post.UserID != firebase.auth().currentUser.uid && this.compareFollow == null ?
           {
             text: "Follow",
             icon: "person-add",
@@ -110,6 +110,7 @@ export class ActionSheetComponent implements OnInit {
   }
 
   delete(postid: string) {
+    console.log("delete", postid)
     this.databaseService.deletePost(postid);
     this.getAllComments();
     this.getAllLikes();

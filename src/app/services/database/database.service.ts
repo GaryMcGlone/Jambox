@@ -38,7 +38,7 @@ export class DatabaseService {
     this._firebaseAuth.authState.subscribe(user => {
       this.postsCollection = this._afs.collection<IPost>(`posts`, ref => {
         if(user) {
-          return ref.where("UserID", "==", user.uid)
+          return ref.where("UserID", "==", user.uid).orderBy("createdAt","desc")
         }
       });
     })
@@ -68,6 +68,7 @@ export class DatabaseService {
 
   //this method deletes a post
   deletePost(postid: string): void {
+    console.log("delete s", postid)
     this.postsCollection.doc(postid).delete();
   }
 

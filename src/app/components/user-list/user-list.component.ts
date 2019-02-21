@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UsersService } from '../../services/users/users.service';
+import { IUser } from '../../interfaces/user-interface';
 
 @Component({
   selector: 'user-list',
@@ -8,7 +9,7 @@ import { UsersService } from '../../services/users/users.service';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  users: User[] = [];
+  users: IUser[] = [];
   startAt: string;
   endAt: string;
   showSpinner: boolean = false;

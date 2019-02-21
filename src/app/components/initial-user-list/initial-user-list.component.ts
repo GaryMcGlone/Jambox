@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users/users.service';
-import { User } from '../../models/user.model';
+import { IUser } from '../../interfaces/user-interface';
 
 @Component({
   selector: 'app-initial-user-list',
@@ -8,7 +8,7 @@ import { User } from '../../models/user.model';
   styleUrls: ['./initial-user-list.component.scss']
 })
 export class InitialUserListComponent implements OnInit {
-  users: User[] = [];
+  users: IUser[] = [];
   startAt: string;
   endAt: string;
   showSpinner: boolean = false;

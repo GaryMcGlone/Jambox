@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
 import { UsersService } from '../../services/users/users.service';
 import { User } from '../../models/user.model';
+import { IUser } from "../../interfaces/user-interface";
 //import { AnalyticsService } from "../../services/analytics/analytics.service";
 
 @Component({
@@ -21,7 +22,7 @@ export class SignUpPage implements OnInit {
   ) {}
 
   passwordErrorBool = false;
-  usernames: User[] = [];
+  usernames: IUser[] = [];
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);

@@ -3,7 +3,7 @@ export interface IUser {
     uid?: string;
     email: string;
     displayName: string;
-    lowerDisplayName: string;
+    lowerDisplayName?: string;
     followerCount?: number;
     followingCount?: number;
     photoURL?:string;

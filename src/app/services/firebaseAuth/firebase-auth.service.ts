@@ -17,15 +17,7 @@ export class FirebaseAuthService {
   private user: Observable<IUser>;
   loggedInStatus: boolean = false;
 
-  constructor(
-    private _afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private router: Router,
-    private dbService: DatabaseService,
-    private toastCtrl: ToastController,
-    private spotifyService: SpotifyService,
-    private gPlus: GooglePlus
-  ) {}
+  constructor(private _afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router, private dbService: DatabaseService, private toastCtrl: ToastController, private spotifyService: SpotifyService, private gPlus: GooglePlus) {}
 
   signInWithGoogle() {
     this.gPlus
@@ -87,11 +79,7 @@ export class FirebaseAuthService {
           email: email,
           displayName: displayName
         };
-
         this.dbService.addUser(user);
-
-        this.sendEmailVerification();
-        this.presentToast("Email verification sent");
         this.router.navigate(["login"]);
       })
       .catch(err => {
@@ -99,19 +87,7 @@ export class FirebaseAuthService {
       });
   }
 
-  sendEmailVerification() {
-    this._afAuth.authState.subscribe(user => {
-      user
-        .sendEmailVerification()
-        .then(() => {})
-        .catch(err => {
-          this.presentToast(err.message);
-        });
-    });
-  }
-
   async doLogin(email: string, password: string) {
-    //  if (firebase.auth().currentUser.emailVerified) {
     return new Promise<any>((resolve, reject) => {
       firebase
         .auth()

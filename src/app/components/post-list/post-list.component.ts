@@ -8,7 +8,7 @@ import { FollowService } from "../../services/follow/follow.service";
 import { ModalController } from "@ionic/angular";
 import { UserSearchPage } from "../../pages/user-search/user-search.page";
 import { Observable } from "rxjs";
-import  * as _  from "lodash";
+import * as _ from "lodash";
 import { InitialUserSearchPage } from "../../pages/initial-user-search/initial-user-search.page";
 
 @Component({
@@ -20,9 +20,7 @@ export class PostListComponent implements OnInit {
   posts: IPost[] = [];
   followerPosts: IPost[] = [];
   filteredPosts: IPost[] = [];
-  user: IUser;
   following: IFollow[] = [];
-  observableArrays : Observable<IPost[]>
   userPosts: IPost[] = [];
   showSpinner: boolean = false;
 
@@ -31,12 +29,7 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
     this.showSpinner = true;
 
-    this.databaseService.getCurrentUser().subscribe(data => {
-      this.user = data
-    });
-
     this.followingService.getFollowedUsers().subscribe(data => {
-      this.followerPosts = []
       this.following = data
       console.log("following", this.following)
       this.showSpinner = false
@@ -45,20 +38,18 @@ export class PostListComponent implements OnInit {
         this.userPosts = data
         this.followerPosts.unshift(...this.userPosts)
         this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
+      
         this.following.forEach(follow => {
           this.followingService.getFollowedUsersPosts(follow.followedId).subscribe(data => {
             this.posts = data
             this.followerPosts.unshift(...this.posts)
             this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
-            // this.followerPosts = _.sortBy(this.followerPosts, ["createdAt"]);
-            // this.followerPosts.reverse();
             console.log("posts", this.followerPosts)
           })
         })
       })
     })
   }
-
 
   async presentModal() {
     const modal = await this.modalController.create({
