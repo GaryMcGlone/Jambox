@@ -21,17 +21,6 @@ export class UserListComponent implements OnInit {
 
   search($event) {
     let q: string = $event.target.value;
-    if (q == '' || q == null || q == ' ') {
-      console.log("q", q)
-      this.userService.getAllUsers().subscribe(data => this.users = data)
-    }
-    else {
-      this.userService.getUsersByQuery(q.toLowerCase()).subscribe(users => {
-        this.users = users
-        console.log("users", this.users)
-      })
-    }
-
     if (q) {
       this.userService.getUsersByQuery(q.toLowerCase()).subscribe(users => {
         this.users = users

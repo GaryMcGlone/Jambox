@@ -38,6 +38,7 @@ export class PostListComponent implements OnInit {
     this.followingService.getFollowedUsers().subscribe(data => {
       this.followerPosts = []
       this.following = data
+      console.log("following", this.following)
       this.showSpinner = false
 
       this.databaseService.getLoggedInUserPosts().subscribe(data => {
