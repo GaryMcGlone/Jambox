@@ -13,12 +13,8 @@ import { IUser } from "../../interfaces/user-interface";
 export class SettingsPage implements OnInit {
   spotifyUser: any;
   user: IUser;
-  constructor(
-    public spotifyService: SpotifyService,
-    private dbService: DatabaseService,
-    private router: Router,
-    private authService: FirebaseAuthService,
-    // // private analytics: AnalyticsService
+  
+  constructor( public spotifyService: SpotifyService, private dbService: DatabaseService, private router: Router, private authService: FirebaseAuthService, // private analytics: AnalyticsService
   ) {}
 
   ngOnInit() {

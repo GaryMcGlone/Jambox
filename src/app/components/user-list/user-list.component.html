@@ -1,16 +1,11 @@
-<div class="wrapper">
-  <ion-item>
-    <ion-label position="floating">Search users...</ion-label>
-    <ion-textarea rows="1" (keyup)="search($event)"></ion-textarea>
-  </ion-item>
-</div>
+<ion-searchbar mode="ios" placeholder="Search People" (ionChange)="search($event)"></ion-searchbar>
 
 <ion-list lines="none">
   <div class="spinner-holder" align="center">
     <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
   </div>
-  <ion-item [ngClass]="cssClass" *ngFor="let user of users">
+  <ion-item *ngFor="let user of users">
     <app-user [user]="user"></app-user>
   </ion-item>
-  <p *ngIf="users == null">No results found</p>
+  <p text-center *ngIf="users.length == 0">No results found</p>
 </ion-list>

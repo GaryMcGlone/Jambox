@@ -2,11 +2,13 @@
     <div class="spinner-holder" align="center">
         <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
     </div>
-    <ion-card *ngIf="following.length == 0" class="not-following">
-        You're not following anyone, click the search icon to find people to follow
-        <fa-icon [icon]="['fas','search']"></fa-icon>
-    </ion-card>
+
     <ion-item class="animated slideInUp faster card" *ngFor="let post of followerPosts">
         <app-post [following]="following" [post]="post"></app-post>
     </ion-item>
+    <ion-button text-wrap *ngIf="following.length == 0" color="light" expand="block" class="not-following"
+        (click)="presentModal()">
+        You're not following anyone, click here to find people to follow
+        <fa-icon [icon]="['fas','search']"></fa-icon>
+    </ion-button>
 </ion-list>

@@ -10,8 +10,6 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 export class UsersService {
   private usersColection: AngularFirestoreCollection<IUser>;
   private users: Observable<IUser[]>;
-  private userDoc: AngularFirestoreDocument<IUser>;
-
 
   constructor(private _afs: AngularFirestore) {
     this.usersColection = _afs.collection<IUser>("users");
@@ -32,7 +30,6 @@ export class UsersService {
           return { id, ...data };
         }))
     );
-
     return this.users;
   }
 
@@ -48,6 +45,20 @@ export class UsersService {
           const id = a.payload.doc.id;
           return { id, ...data };
         }))
+    );
+    return this.users;
+  }
+  
+  getAllUsers() : Observable<IUser[]> {
+    this.usersColection = this._afs.collection<IUser>("users");
+    this.users = this.usersColection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IUser;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
     );
     return this.users;
   }
