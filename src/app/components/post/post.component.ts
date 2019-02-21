@@ -10,6 +10,7 @@ import { ModalController, NavParams } from "@ionic/angular";
 import { CommentsPage } from "../../pages/comments/comments.page";
 import { IComment } from "../../interfaces/comment-interface";
 import { IFollow } from "../../interfaces/follow.interface";
+import { UsersService } from "../../services/users/users.service";
 //import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 
 @Component({
@@ -44,13 +45,17 @@ export class PostComponent implements OnInit {
     private youtube: YoutubeVideoPlayer,
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService,
+    private usersService: UsersService
     //private analytics: FirebaseAnalytics
   ) {}
 
   ngOnInit() {
-    this.databaseService.getCurrentUser().subscribe(data => {
-      (this.user = data), (this.username = this.user.displayName);
-    });
+    // this.databaseService.getCurrentUser().subscribe(data => {
+    //   (this.user = data), (this.username = this.user.displayName);
+    // });
+    this.usersService.getSpecificUserById(this.post.UserID).subscribe(data => {
+      this.username = data[0].displayName;
+    })
     this.databaseService.getComments(this.post.id).subscribe(comments => {
         (this.comments = comments),
         this.commentCounter = this.comments.length,
