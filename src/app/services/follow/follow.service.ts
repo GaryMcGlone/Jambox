@@ -13,8 +13,10 @@ import { IonFooter } from '@ionic/angular';
 })
 export class FollowService {
   private relationshipCollection: AngularFirestoreCollection<IFollow>;
-  private followersList: Observable<IFollow[]>
+  private testCollection: AngularFirestoreCollection<IFollow>;
+  private followersList: Observable<IFollow[]>;
   followerPosts: Observable<IPost[]>;
+  private onefollowersList: Observable<IFollow[]>;
 
   private postsCollection: AngularFirestoreCollection<IPost>;
   private posts: Observable<IPost[]>
@@ -53,13 +55,13 @@ export class FollowService {
     return this.followersList;
   }
 
-  getOneFollow(followedId:string, followerId:string): Observable<IFollow[]> {
-    this.relationshipCollection = this._afs.collection<IFollow>("relationships", ref => {
+  getSpecificFollow(followedId:string, followerId:string): Observable<IFollow[]> {
+    this.testCollection = this._afs.collection<IFollow>("relationships", ref => {
       return ref.where("followerId", "==", followerId)
                 .where("followedId", "==", followedId)
     })
 
-    this.followersList = this.relationshipCollection.snapshotChanges().pipe(
+    this.onefollowersList = this.testCollection.snapshotChanges().pipe(
       map(actions => 
         actions.map(a => {
           const data = a.payload.doc.data() as IFollow;
@@ -68,7 +70,7 @@ export class FollowService {
         }))
     );
 
-    return this.followersList;
+    return this.onefollowersList;
   }
 
   getFollowedUsersPosts(UserID: string): Observable<IPost[]>{

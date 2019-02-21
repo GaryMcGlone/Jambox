@@ -30,10 +30,14 @@ export class ActionSheetComponent implements OnInit {
     this.getAllComments();
     this.getAllLikes();
 
-    this.compareFollow = {
-      followedId: this.post.UserID,
-      followerId: this.firebaseAuth.getCurrentUserID()
-    }
+    // this.compareFollow = {
+    //   followedId: this.post.UserID,
+    //   followerId: this.firebaseAuth.getCurrentUserID()
+    // }
+    this.followingService.getSpecificFollow(this.post.UserID, this.firebaseAuth.getCurrentUserID()).subscribe(data => {
+      this.compareFollow = data[0]
+      console.log("compare follow:", this.compareFollow)
+    })
  }
   constructor(public actionSheetController: ActionSheetController, private databaseService: DatabaseService, private firebaseAuth: FirebaseAuthService, private spotifyService: SpotifyService, private followingService: FollowService) {
     
@@ -42,7 +46,7 @@ export class ActionSheetComponent implements OnInit {
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
-        this.post.UserID != firebase.auth().currentUser.uid && this.following.includes(this.compareFollow) ?
+        this.post.UserID != firebase.auth().currentUser.uid && this.compareFollow != null ?
           {
             text: "Follow",
             icon: "person-add",
@@ -55,7 +59,7 @@ export class ActionSheetComponent implements OnInit {
             text: "Unfollow",
             icon: "close",
             handler: () => {
-              //this.followingService.removeFollowing(id);
+              this.followingService.removeFollowing(this.compareFollow.id);
             }
           }
         ,
