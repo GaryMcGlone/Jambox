@@ -43,7 +43,7 @@ export class SpotifyService {
     const config = {
       clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
       redirectUrl: "jamboxapp://callback",
-      scopes: [ "streaming", "playlist-read-private", "user-read-email", "user-read-private", "user-read-currently-playing", "user-read-birthdate" ],
+      scopes: ["streaming", "playlist-read-private", "user-read-email", "user-read-private", "user-read-currently-playing", "user-read-birthdate"],
       tokenExchangeUrl: "https://jambox-app.herokuapp.com/exchange",
       tokenRefreshUrl: "https://jambox-app.herokuapp.com/refresh"
     };

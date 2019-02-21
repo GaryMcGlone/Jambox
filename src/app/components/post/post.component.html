@@ -39,11 +39,11 @@
         <ion-icon name="play"></ion-icon>
       </ion-button>
     </ion-col>
-    <ion-col>
-      <app-action-sheet [post]="post"> </app-action-sheet>
+    <ion-col no-margin no-padding>
+      <app-action-sheet [following]="following" [post]="post"> </app-action-sheet>
     </ion-col>
   </ion-buttons> 
-  <ion-col style="margin-top:2%;margin-left:2%">
+  <ion-col style="margin-top:3%">
     <ion-note> {{ post.createdAt | dateTimeConvert: "" }} </ion-note>
   </ion-col>
   </ion-row>

@@ -9,7 +9,7 @@ import { YoutubeVideoPlayer } from "@ionic-native/youtube-video-player/ngx";
 import { ModalController, NavParams } from "@ionic/angular";
 import { CommentsPage } from "../../pages/comments/comments.page";
 import { IComment } from "../../interfaces/comment-interface";
-import { stringify } from "@angular/compiler/src/util";
+import { IFollow } from "../../interfaces/follow.interface";
 //import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 
 @Component({
@@ -19,7 +19,7 @@ import { stringify } from "@angular/compiler/src/util";
 })
 export class PostComponent implements OnInit {
   @Input() post: Post;
-
+  @Input() following: IFollow[];
   private btnValue = "follow";
   private buttonFill = "outline";
   username: string;
@@ -48,8 +48,7 @@ export class PostComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.changeToDate()
-    this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
+    this.databaseService.getCurrentUser().subscribe(data => {
       (this.user = data), (this.username = this.user.displayName);
     });
     this.databaseService.getComments(this.post.id).subscribe(comments => {

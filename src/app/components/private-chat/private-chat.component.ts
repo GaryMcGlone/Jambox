@@ -31,12 +31,12 @@ export class PrivateChatComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.firebaseAuth.getCurrentUserID();
-    this.databaseService.getCurrentUser(this.userId).subscribe(data =>{
+    this.databaseService.getCurrentUser().subscribe(data =>{
       this.user = data;
     });
     this.currentChat.members.forEach(element => {
       if(element != this.userId){
-        this.databaseService.getCurrentUser(element).subscribe(data => {
+        this.databaseService.getCurrentUser().subscribe(data => {
           this.otherUser = data
         });
       }

@@ -11,7 +11,7 @@ export class SearchModalPage implements OnInit {
 
   spotifySelect: boolean = true;
   youtubeSelect: boolean = false;
-
+  userSearchSelect: boolean = false;
   constructor(private modalController: ModalController) { }
 
   ngOnInit() {
@@ -40,6 +40,10 @@ export class SearchModalPage implements OnInit {
   }
   youtubeSelectedCheck(): boolean {
     if (this.youtubeSelect == true) return true;
+    else return false;
+  }
+  userSearchSelected(): boolean {
+    if (this.userSearchSelect == true) return true;
     else return false;
   }
 }

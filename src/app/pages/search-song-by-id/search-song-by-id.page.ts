@@ -26,13 +26,12 @@ export class SearchSongByIdPage implements OnInit {
   songId: string;
 
   ngOnInit() {
-    console.log(this.navParams);
     this.songId = this.navParams.get("songId");
     this.getPostsByID(this.songId)
   }
   getPostsByID(songId: string) {
     this.databaseService.searchForASong(songId).subscribe(data => {
-      console.log(data), this.searchResults = data
+        this.searchResults = data
     })
   }                   
   closeModal() {

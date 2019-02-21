@@ -14,6 +14,7 @@ import { IonFooter } from '@ionic/angular';
 export class FollowService {
   private relationshipCollection: AngularFirestoreCollection<IFollow>;
   private followersList: Observable<IFollow[]>
+  followerPosts: Observable<IPost[]>;
 
   private postsCollection: AngularFirestoreCollection<IPost>;
   private posts: Observable<IPost[]>
@@ -71,7 +72,6 @@ export class FollowService {
   }
 
   getFollowedUsersPosts(UserID: string): Observable<IPost[]>{
-    console.log("uid", UserID)
     this.postsCollection = this._afs.collection<IPost>("posts", ref => {
       return ref.where("UserID", "==", UserID).orderBy("createdAt", "desc")
     });

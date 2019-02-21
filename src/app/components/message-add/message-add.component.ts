@@ -30,7 +30,7 @@ export class MessageAddComponent implements OnInit {
     this.content = "";
     this.senderName = "";
     this.senderID = this.firebaseAuth.getCurrentUserID();
-    this.databaseService.getCurrentUser(this.senderID).subscribe(user => {
+    this.databaseService.getCurrentUser().subscribe(user => {
       this.senderName = user.displayName
     });
     this.message = { message: "", createdAt: "", senderID: "", chatRoomID: "", senderName: "" }

@@ -10,6 +10,7 @@ export class User {
     followers?:string[];
     following?:string[];
     likes?: IPost[];
+    
 
     constructor(uid: string, email: string, displayName: string, photoURL: string, boi: string,
         followers: string[], following: string[], likes: IPost[]) {

@@ -13,13 +13,7 @@ export class CreateSongModalPage implements OnInit {
   post;
   caption: string;
   userID: string;
-  constructor(
-    private modalController: ModalController,
-    private databaseService: DatabaseService,
-    private navParams: NavParams,
-    private firebaseAuth: FirebaseAuthService,
-    //private analytics: AnalyticsService
-  ) {
+  constructor(private modalController: ModalController, private databaseService: DatabaseService, private navParams: NavParams, private firebaseAuth: FirebaseAuthService) {
     this.post = this.navParams.get("post");
   }
 

@@ -1,18 +1,12 @@
-import { Injectable, OnInit } from "@angular/core";
-import { Observable, Subject, merge } from "rxjs";
-import { map, reduce } from "rxjs/operators";
-import {
-  AngularFirestoreCollection,
-  AngularFirestore,
-  AngularFirestoreDocument
-} from "@angular/fire/firestore";
+import { Injectable } from "@angular/core";
+import { Observable} from "rxjs";
+import { map } from "rxjs/operators";
+import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firestore";
 import { IPost } from "../../interfaces/post-interface";
 import { IUser } from "../../interfaces/user-interface";
 import { IComment } from "../../interfaces/comment-interface";
 import { ILike } from "../../interfaces/like-interface";
-
 import * as firebase from "firebase/";
-import { FirebaseAuth } from "@angular/fire";
 import { AngularFireAuth } from "@angular/fire/auth";
 
 @Injectable({
@@ -26,6 +20,7 @@ export class DatabaseService {
   private fireDocUser: AngularFirestoreDocument<IUser>;
   private currentUser: Observable<IUser>;
 
+
   private comments: Observable<IComment[]>;
   private commentsCollection: AngularFirestoreCollection<IComment>;
 
@@ -35,16 +30,25 @@ export class DatabaseService {
   private found: boolean = false;
   private likeDocument: AngularFirestoreDocument<ILike>;
   private like: Observable<ILike>
-  followerPosts: Observable<IPost[]>;
+  private userPosts: Observable<IPost[]>
+
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
-    this.postsCollection = this._afs.collection<IPost>(`posts`);
+    
+    this._firebaseAuth.authState.subscribe(user => {
+      this.postsCollection = this._afs.collection<IPost>(`posts`, ref => {
+        if(user) {
+          return ref.where("UserID", "==", user.uid)
+        }
+      });
+    })
     this.userCollection = _afs.collection<IUser>("users");
     this.likeCollection = _afs.collection<ILike>('likes');
     this.commentsCollection = _afs.collection<IComment>("comments")
   }
 
-  getPosts(): Observable<IPost[]> {
+
+  getLoggedInUserPosts(): Observable<IPost[]> {
     this.posts = this.postsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
@@ -89,8 +93,8 @@ export class DatabaseService {
     this.userCollection.doc(user.uid).set(user);
   }
 
-  getCurrentUser(userId: string): Observable<IUser> {
-    this.fireDocUser = this._afs.doc<IUser>("users/" + userId);
+  getCurrentUser(): Observable<IUser> {
+    this.fireDocUser = this._afs.doc<IUser>("users/" + firebase.auth().currentUser.uid);
     this.currentUser = this.fireDocUser.valueChanges();
     return this.currentUser;
   }
@@ -107,7 +111,6 @@ export class DatabaseService {
 
   //Getting all comments for a post
   getComments(postID: string): Observable<IComment[]> {
-    // this._afs.collection(`posts/${postID}/comments`,ref => ref.orderBy('postedAt','desc'))
     this.commentsCollection = this._afs.collection<IComment>("comments", ref => {
       return ref.where("postId", "==", postID)
     });
@@ -125,7 +128,7 @@ export class DatabaseService {
 
   //Getting all likes for a post
   getLikes(postID: string): Observable<ILike[]> {
-    this.likeCollection = this._afs.collection<ILike>("likes", ref =>{
+    this.likeCollection = this._afs.collection<ILike>("likes", ref => {
       return ref.where("postId", "==", postID)
     });
     this.likes = this.likeCollection.snapshotChanges().pipe(
@@ -156,10 +159,6 @@ export class DatabaseService {
     this.likeCollection.doc(likeId).delete()
   }
 
-  //Delete all likes from a post
-  deleteLikesOnPost(postid: string): void {
-    
-  } 
 
   storeProfilePicture(imageBlob) {
     return new Promise((resolve, reject) => {
@@ -167,7 +166,7 @@ export class DatabaseService {
         .ref("images/" + firebase.auth().currentUser.uid);
       let uploadTask = fileRef.put(imageBlob);
 
-      this.userCollection.doc(firebase.auth().currentUser.uid).set({ profilePictureURL: uploadTask.snapshot.downloadURL, uploadDate: new Date() }, {merge: true});
+      this.userCollection.doc(firebase.auth().currentUser.uid).set({ profilePictureURL: uploadTask.snapshot.downloadURL, uploadDate: new Date() }, { merge: true });
       uploadTask.on(
         "state_changed",
         error => {
@@ -190,7 +189,34 @@ export class DatabaseService {
   updateUserDisplayName(userId: string, newDisplayName: string): void {
     this.userCollection.doc(userId).set({
       displayName: newDisplayName
-    }, {merge: true});
+    }, { merge: true });
   }
+
+  updateBio(bio: string): void {
+    this.userCollection.doc(firebase.auth().currentUser.uid).set({
+      bio: bio
+    }, { merge: true });
+  }
+
+
+  getPostByUserID(): Observable<IPost[]> {
+    this.postsCollection = this._afs.collection<IPost>("posts", ref => {
+      return ref.where("UserID", "==", firebase.auth().currentUser.uid)
+    });
+    this.userPosts = this.postsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IPost;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+    return this.userPosts;
+  }
+
+
+
+
 
 }

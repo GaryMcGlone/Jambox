@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
+import { DateTimeConvertPipe } from '../../pipes/date-time-convert.pipe';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -13,25 +14,24 @@ import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx'
 })
 export class ProfilePage implements OnInit {
 
-  profilePicture: any;
-
-  constructor(private auth: FirebaseAuthService,
-    private menuCtrl: MenuController,
-    private db: DatabaseService,
-    private router: Router,
-    private camera: Camera,
-    private file: File,
-    private imagePicker: ImagePicker
-  ) { }
+  profilePicture: any = null;
+  userBio: string;
+  constructor(private auth: FirebaseAuthService, private menuCtrl: MenuController, private db: DatabaseService, private router: Router, private camera: Camera, private file: File, private imagePicker: ImagePicker) { }
   ngOnInit() {
     this.loadProfilePictureURL();
+    this.db.getCurrentUser().subscribe(data => {
+      this.userBio = data.boi
+    })
   }
 
   loadProfilePictureURL() {
     this.db.getProfilePictureURL().then(data => {
-      this.profilePicture = data
+      if(data) {
+        this.profilePicture = data
+      }
     })
   }
+  
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
@@ -66,11 +66,14 @@ export class ProfilePage implements OnInit {
     };
     this.imagePicker.getPictures(options).then((results) => {
       for (var i = 0; i < results.length; i++) {
-        console.log("gallery: ", results[i])
         this.makeFileIntoBlob(results[i])
       }
     }, (err) => { });
 
+  }
+
+  saveBio(){
+this.db.updateBio(this.userBio)
   }
   makeFileIntoBlob(_imagePath) {
     return new Promise((resolve, reject) => {

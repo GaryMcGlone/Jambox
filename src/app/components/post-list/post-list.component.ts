@@ -5,6 +5,9 @@ import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.s
 import { IUser } from "../../interfaces/user-interface";
 import { IFollow } from "../../interfaces/follow.interface";
 import { FollowService } from "../../services/follow/follow.service";
+import { ModalController } from "@ionic/angular";
+import { UserSearchPage } from "../../pages/user-search/user-search.page";
+import { Observable } from "rxjs";
 import  * as _  from "lodash";
 
 @Component({
@@ -15,39 +18,51 @@ import  * as _  from "lodash";
 export class PostListComponent implements OnInit {
   posts: IPost[] = [];
   followerPosts: IPost[] = [];
+  filteredPosts: IPost[] = [];
   user: IUser;
-  following: IFollow[];
+  following: IFollow[] = [];
+  observableArrays : Observable<IPost[]>
+  userPosts: IPost[] = [];
   showSpinner: boolean = false;
 
-  constructor(private databaseService: DatabaseService, private auth: FirebaseAuthService, private followingService: FollowService) { }
+  constructor(private databaseService: DatabaseService, private auth: FirebaseAuthService, private followingService: FollowService, private modalController: ModalController) { }
 
   ngOnInit() {
     this.showSpinner = true;
-    this.getFollowing()
 
-    this.databaseService.getCurrentUser(this.auth.getCurrentUserID()).subscribe(data => {
+    this.databaseService.getCurrentUser().subscribe(data => {
       this.user = data
     });
-    
-  }
 
-  getFollowing() {
     this.followingService.getFollowedUsers().subscribe(data => {
+      this.followerPosts = []
       this.following = data
-      console.log("following", this.following)
       this.showSpinner = false
-      this.getPosts(this.following)
+
+      this.databaseService.getLoggedInUserPosts().subscribe(data => {
+        this.userPosts = data
+        this.followerPosts.push(...this.userPosts)
+        this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
+        this.following.forEach(follow => {
+          this.followingService.getFollowedUsersPosts(follow.followedId).subscribe(data => {
+            this.posts = data
+            this.followerPosts.push(...this.posts)
+            this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
+            this.followerPosts = _.sortBy(this.followerPosts, ["createdAt"]);
+            this.followerPosts.reverse();
+            console.log("posts", this.followerPosts)
+          })
+        })
+      })
     })
   }
 
-  getPosts(following: IFollow[]) {
-    for (let follower of following) {
-      this.followingService.getFollowedUsersPosts(follower.followedId).subscribe(data => {
-        this.posts = data
-        this.followerPosts.push(...this.posts)
-        // remove all duplicates from array
-        this.followerPosts = _.uniqBy([...this.followerPosts], 'id');
-      })
-    } 
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: UserSearchPage,
+      // componentProps: following
+    });
+    return await modal.present();
   }
 }
