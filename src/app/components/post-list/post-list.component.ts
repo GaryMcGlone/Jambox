@@ -20,7 +20,7 @@ export class PostListComponent implements OnInit {
   followerPosts: IPost[] = [];
   filteredPosts: IPost[] = [];
   user: IUser;
-  following: IFollow[];
+  following: IFollow[] = [];
   observableArrays : Observable<IPost[]>
   userPosts: IPost[] = [];
   showSpinner: boolean = false;
@@ -42,7 +42,7 @@ export class PostListComponent implements OnInit {
       this.databaseService.getLoggedInUserPosts().subscribe(data => {
         this.userPosts = data
         this.followerPosts.push(...this.userPosts)
-
+        this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
         this.following.forEach(follow => {
           this.followingService.getFollowedUsersPosts(follow.followedId).subscribe(data => {
             this.posts = data
@@ -50,6 +50,7 @@ export class PostListComponent implements OnInit {
             this.followerPosts = _.uniqBy([...this.followerPosts, ...this.userPosts], 'id');
             this.followerPosts = _.sortBy(this.followerPosts, ["createdAt"]);
             this.followerPosts.reverse();
+            console.log("posts", this.followerPosts)
           })
         })
       })

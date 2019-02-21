@@ -21,7 +21,7 @@ export class MessageComponent implements OnInit {
 
   ngOnInit() {
     this.userID = this.firebaseAuth.getCurrentUserID();
-    this.databaseService.getCurrentUser(this.userID).subscribe(user => {
+    this.databaseService.getCurrentUser().subscribe(user => {
       this.user = user
       if(this.message.senderName == this.user.displayName){
         this.sender = true;

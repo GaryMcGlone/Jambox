@@ -32,7 +32,7 @@ export class AddCommentComponent implements OnInit {
     this.content = "";
     this.postedBy = "";
     this.userID = this.firebaseAuth.getCurrentUserID();
-    this.databaseService.getCurrentUser(this.userID).subscribe(data => {
+    this.databaseService.getCurrentUser().subscribe(data => {
       this.user = data,
         this.postedBy = this.user.displayName
     });

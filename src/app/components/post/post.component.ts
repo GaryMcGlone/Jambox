@@ -48,7 +48,7 @@ export class PostComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.databaseService.getCurrentUser(this.post.UserID).subscribe(data => {
+    this.databaseService.getCurrentUser().subscribe(data => {
       (this.user = data), (this.username = this.user.displayName);
     });
     this.databaseService.getComments(this.post.id).subscribe(comments => {

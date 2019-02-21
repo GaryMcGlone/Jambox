@@ -25,7 +25,7 @@ export class SettingsPage implements OnInit {
     });
     if (!this.spotifyUser) {
       this.dbService
-        .getCurrentUser(this.authService.getCurrentUserID())
+        .getCurrentUser()
         .subscribe(user => {
           this.user = user;
         });
