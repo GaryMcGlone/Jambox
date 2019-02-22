@@ -2,6 +2,10 @@
     font-size: 24px;
 }
 
+.profileGrid {
+    margin-top: 25px;
+}
+
 .imageButton{
     display:inline-block;
     width: 45%;
@@ -16,9 +20,8 @@ ion-avatar {
 
 #cog {
     color: black;
-    font-size: 1.25em;
-    margin-left: 5px;
-    margin-top: 5px;
+    font-size: 1.75em;
+    margin-right: 10px;
 }
 
 .profilePicture{
@@ -76,5 +79,10 @@ ion-avatar {
 }
 
 .usernameContainer {
+    width: 100%;
     display: inline-flex;
+}
+
+.bioBtnContainer {
+    height: 40px;
 }

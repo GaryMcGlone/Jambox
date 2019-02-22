@@ -68,6 +68,7 @@ export class ProfilePage implements OnInit {
 
   updateBio($event) {
     this.userBio = $event.target.value;
+    
     if(this.userBio == '' || this.userBio == null)
       this.userBioEmpty = true;
     else
@@ -130,7 +131,8 @@ export class ProfilePage implements OnInit {
   }
 
   saveBio(){
-    this.db.updateBio(this.userBio)
+    if(this.userBio != null && this.userBio != '' && this.userBio != ' ')
+      this.db.updateBio(this.userBio)
   }
 
   makeFileIntoBlob(_imagePath) {
