@@ -4,6 +4,7 @@ import { ChatService } from '../../services/chat/chat.service';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
 import { DatabaseService } from '../../services/database/database.service';
 import { DatePipe } from "@angular/common";
+import { Message } from '../../models/message.model';
 import { AnalyticsService } from '../../services/analytics/analytics.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { AnalyticsService } from '../../services/analytics/analytics.service';
 export class MessageAddComponent implements OnInit {
   @Input() chat;
   pipe = new DatePipe("en-IE");
-  message: IChatMessage;
+  message: Message;
   content: string;
   chatID: string;
   senderID: string;
@@ -36,7 +37,7 @@ export class MessageAddComponent implements OnInit {
     this.databaseService.getCurrentUser().subscribe(user => {
       this.senderName = user.displayName
     });
-    this.message = { message: "", createdAt: "", senderID: "", chatRoomID: "", senderName: "" }
+    this.message = { message: "", createdAt: new Date(), senderID: "", chatRoomID: "", senderName: "" }
   }
 
   disableButton(): boolean {
@@ -51,12 +52,10 @@ export class MessageAddComponent implements OnInit {
 
   sendMessage() {
     this.analytics.log("messageSent", { param: "Message_Sent" } )
-    const date = new Date();
-    this.createdAt = this.pipe.transform(date, "medium");
     this.message.message = this.content;
     this.message.senderID = this.senderID;
     this.message.senderName = this.senderName;
-    this.message.createdAt = this.createdAt;
+    this.message.createdAt = new Date();
     this.message.chatRoomID = this.chatID;
     this.chatService.createChatMessage(this.message);
     this.content = "";

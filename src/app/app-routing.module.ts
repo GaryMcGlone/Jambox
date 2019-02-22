@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'private-chat', loadChildren: './pages/private-chat/private-chat.module#PrivateChatPageModule' },
   { path: 'group-chats', loadChildren: './pages/group-chats/group-chats.module#GroupChatsPageModule' },  { path: 'user-search', loadChildren: './pages/user-search/user-search.module#UserSearchPageModule' },
   { path: 'initial-user-search', loadChildren: './pages/initial-user-search/initial-user-search.module#InitialUserSearchPageModule' },
+  { path: 'user-search-group', loadChildren: './pages/user-search-group/user-search-group.module#UserSearchGroupPageModule' },
 
 
 ]

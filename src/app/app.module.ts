@@ -49,6 +49,7 @@ import { UserSearchPage } from "./pages/user-search/user-search.page";
 import { InitialUserSearchPage } from "./pages/initial-user-search/initial-user-search.page";
 import { InitialUserSearchPageModule } from "./pages/initial-user-search/initial-user-search.module";
 import { UserSearchPageModule } from "./pages/user-search/user-search.module";
+import { UserSearchGroupPage } from "./pages/user-search-group/user-search-group.page";
 
 library.add(fas, far, fab)
 
@@ -57,7 +58,7 @@ library.add(fas, far, fab)
     AppComponent,
     UserSearchComponent,
   ],
-  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage, InitialUserSearchPage],
+  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage, UserSearchGroupPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
