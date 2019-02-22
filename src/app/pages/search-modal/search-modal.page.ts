@@ -7,8 +7,6 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./search-modal.page.scss'],
 })
 export class SearchModalPage implements OnInit {
-
-
   spotifySelect: boolean = false;
   youtubeSelect: boolean = false;
   userSearchSelect: boolean = true;

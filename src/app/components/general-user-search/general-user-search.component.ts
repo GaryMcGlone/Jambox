@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser } from '../../interfaces/user-interface';
 import { UsersService } from '../../services/users/users.service';
+import { AnalyticsService } from '../../services/analytics/analytics.service';
 
 @Component({
   selector: 'app-general-user-search',
@@ -13,23 +14,22 @@ export class GeneralUserSearchComponent implements OnInit {
   endAt: string;
   showSpinner: boolean = false;
 
-  constructor(private userService: UsersService) { }
+  constructor(private userService: UsersService, private analytics: AnalyticsService ) { }
 
   ngOnInit() {
      this.userService.getAllUsers().subscribe(data => this.users = data)
    }
 
   search($event) {
+    this.analytics.log("searchedUserInSearchPage", { param: "User_Searched_SearchPage" } )
     let q: string = $event.target.value;
     if (q) {
       this.userService.getUsersByQuery(q.toLowerCase()).subscribe(users => {
         this.users = users
-        console.log("searched users", this.users)
       })
     } else {
       this.users = []
       this.userService.getAllUsers().subscribe(data => {
-        console.log("all users", data)
         this.users = data
       })
     }

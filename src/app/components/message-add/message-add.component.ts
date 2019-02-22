@@ -4,6 +4,7 @@ import { ChatService } from '../../services/chat/chat.service';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
 import { DatabaseService } from '../../services/database/database.service';
 import { DatePipe } from "@angular/common";
+import { AnalyticsService } from '../../services/analytics/analytics.service';
 
 @Component({
   selector: 'message-add',
@@ -23,7 +24,9 @@ export class MessageAddComponent implements OnInit {
 
   constructor(private chatService: ChatService,
     private firebaseAuth: FirebaseAuthService,
-    private databaseService: DatabaseService) { }
+    private databaseService: DatabaseService,
+    private analytics: AnalyticsService
+    ) { }
 
   ngOnInit() {
     this.chatID = this.chat.id;
@@ -47,6 +50,7 @@ export class MessageAddComponent implements OnInit {
 
 
   sendMessage() {
+    this.analytics.log("messageSent", { param: "Message_Sent" } )
     const date = new Date();
     this.createdAt = this.pipe.transform(date, "medium");
     this.message.message = this.content;

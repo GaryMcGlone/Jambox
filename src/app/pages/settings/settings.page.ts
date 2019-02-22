@@ -5,7 +5,7 @@ import { DatabaseService } from "../../services/database/database.service";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { IUser } from "../../interfaces/user-interface";
 import { ToastController } from "@ionic/angular";
-//import { AnalyticsService } from "../../services/analytics/analytics.service";
+import { AnalyticsService } from "../../services/analytics/analytics.service";
 @Component({
   selector: "app-settings",
   templateUrl: "./settings.page.html",
@@ -15,7 +15,7 @@ export class SettingsPage implements OnInit {
   spotifyUser: any;
   user: IUser;
   
-  constructor( public spotifyService: SpotifyService, private dbService: DatabaseService, private router: Router, private authService: FirebaseAuthService, private toastController: ToastController // private analytics: AnalyticsService
+  constructor( public spotifyService: SpotifyService, private dbService: DatabaseService, private router: Router, private authService: FirebaseAuthService, private toastController: ToastController , private analytics: AnalyticsService
   ) {}
 
   ngOnInit() {
@@ -36,7 +36,7 @@ export class SettingsPage implements OnInit {
   }
 
   logout() {
-    // this.analytics.logButtonClick("logout", { param: "Logout" });
+     this.analytics.log("logout", { param: "Logout" });
     this.authService.doLogout();
   }
 
@@ -52,6 +52,7 @@ export class SettingsPage implements OnInit {
     toast.present();
   }
   report(bug){
+    this.analytics.log("bugReportFeedback", { param: "Feedback" });
     this.presentToast("Thank you for your feedback!")
     this.dbService.addBug(bug)
   }

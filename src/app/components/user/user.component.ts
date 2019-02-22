@@ -7,6 +7,7 @@ import { IPrivateChatRoom } from '../../interfaces/private-chat-room-interface';
 import { IUser } from '../../interfaces/user-interface';
 import { FollowService } from '../../services/follow/follow.service';
 import { IFollow } from '../../interfaces/follow.interface';
+import { AnalyticsService } from '../../services/analytics/analytics.service';
 
 @Component({
   selector: 'app-user',
@@ -23,13 +24,12 @@ export class UserComponent implements OnInit {
   private compareFollow: IFollow
   private following: IFollow[];
 
-  constructor(private modalController: ModalController, private chatService: ChatService, private firebaseAuth: FirebaseAuthService, private followService: FollowService ) { }
+  constructor(private modalController: ModalController, private chatService: ChatService, private firebaseAuth: FirebaseAuthService, private followService: FollowService, private analytics: AnalyticsService ) { }
 
   ngOnInit() {
     this.chatRoom = { members: [] }
     this.followService.getFollowedUsers().subscribe(data => {
       this.following = data
-      console.log(this.following)
     })
     this.compareFollow = {
       followedId: this.user.id,
@@ -39,6 +39,7 @@ export class UserComponent implements OnInit {
   }
 
   selectUser() {
+    this.analytics.log("selectedUserToChat", { param: "Selected_User_ToChat" } )
     this.currentUserId = this.firebaseAuth.getCurrentUserID();
     this.members = [this.currentUserId, this.user.uid];
     this.chatRoom.members = this.members;
@@ -47,7 +48,7 @@ export class UserComponent implements OnInit {
   }
 
   follow(user) {
-    console.log("adding follow", user)
+    this.analytics.log("followInChatView", { param: "Follow_InChatView" } )
     if (this.buttonFill == "outline") {
       this.btnValue = "unfollow";
       this.buttonFill = "solid";
@@ -55,13 +56,12 @@ export class UserComponent implements OnInit {
         followedId: user.id,
         followerId: this.firebaseAuth.getCurrentUserID()
       }
-      console.log("follow", follow)
      this.followService.addFollow(follow)
     } else {
-      console.log("removing follow")
+      this.analytics.log("unfollowInChatView", { param: "Unfollow_InChatView" } )
       this.btnValue = "follow";
       this.buttonFill = "outline";
-     // this.followService.removeFollowing(follow.id)
+      this.followService.removeFollowing(this.compareFollow.id)
     }
   }
   

@@ -9,7 +9,7 @@ export class AnalyticsService {
     this.firebaseAnalytics.setEnabled(true);
   }
 
-  logButtonClick(name: string, value: any) {
+  log(name: string, value: any) {
     console.log("logging response from service ", name, value);
     this.firebaseAnalytics
       .logEvent(name, { param: value })

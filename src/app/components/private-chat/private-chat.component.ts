@@ -38,10 +38,8 @@ export class PrivateChatComponent implements OnInit {
     });
     this.currentChat.members.forEach(element => {
       if(element != this.userId){
-        console.log(element)
         this.usersService.getSpecificUserById(element).subscribe(data => {
           this.otherUser = data[0]
-          console.log("data: ", data)
         });
       }
     });

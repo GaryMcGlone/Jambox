@@ -5,7 +5,7 @@ import { MenuController } from "@ionic/angular";
 import { UsersService } from '../../services/users/users.service';
 import { User } from '../../models/user.model';
 import { IUser } from "../../interfaces/user-interface";
-//import { AnalyticsService } from "../../services/analytics/analytics.service";
+import { AnalyticsService } from "../../services/analytics/analytics.service";
 
 @Component({
   selector: "app-sign-up",
@@ -17,8 +17,8 @@ export class SignUpPage implements OnInit {
     private auth: FirebaseAuthService,
     private router: Router,
     private menuCtrl: MenuController,
-    private usersService: UsersService
-    // // private analytics: AnalyticsService
+    private usersService: UsersService,
+    private analytics: AnalyticsService
   ) {}
 
   passwordErrorBool = false;
@@ -48,7 +48,7 @@ export class SignUpPage implements OnInit {
   }
 
   signUp(email: string, password: string, confirmPassword:string, displayName: string) {
-    // this.analytics.logButtonClick("signUp", { param: "User_Sign_Up" });
+    this.analytics.log("signUp", { param: "User_Sign_Up" });
     this.auth.signUp(email, password, displayName);
   }
 
