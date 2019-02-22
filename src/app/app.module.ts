@@ -46,6 +46,9 @@ import { PrivateChatsPageModule } from "./pages/private-chats/private-chats.modu
 import { GroupChatsPage } from "./pages/group-chats/group-chats.page";
 import { GroupChatsPageModule } from "./pages/group-chats/group-chats.module";
 import { UserSearchPage } from "./pages/user-search/user-search.page";
+import { InitialUserSearchPage } from "./pages/initial-user-search/initial-user-search.page";
+import { InitialUserSearchPageModule } from "./pages/initial-user-search/initial-user-search.module";
+import { UserSearchPageModule } from "./pages/user-search/user-search.module";
 
 library.add(fas, far, fab)
 
@@ -53,10 +56,8 @@ library.add(fas, far, fab)
   declarations: [
     AppComponent,
     UserSearchComponent,
-
-    // InitialUserSearchComponent
   ],
-  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage],
+  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage, InitialUserSearchPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
@@ -73,6 +74,8 @@ library.add(fas, far, fab)
     CommentsPageModule,
     SearchSongByIdPageModule,
     FontAwesomeModule,
+    InitialUserSearchPageModule,
+    UserSearchPageModule
   ],
   providers: [
     StatusBar,

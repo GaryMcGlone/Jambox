@@ -23,8 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [InitialUserSearchPage,    
-    InitialUserListComponent,
-    InitialUserResultComponent]
+  declarations: [InitialUserSearchPage, InitialUserListComponent, InitialUserResultComponent],
 })
 export class InitialUserSearchPageModule { }

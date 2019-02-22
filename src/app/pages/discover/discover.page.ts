@@ -24,7 +24,7 @@ export class DiscoverPage implements OnInit {
   }
 
   openChats() {
-    this.analytics.log("openedChats", { param: "Chat_View" })
+   this.analytics.log("openedChats", { param: "Chat_View" })
     this.presentModal(PrivateChatsPage);
   }
 

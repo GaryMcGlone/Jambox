@@ -28,9 +28,7 @@ const routes: Routes = [
   ],
   declarations: [
     PrivateChatsPage,
-    UserSearchPage,
-    UserListComponent,
-    UserComponent,
+    
     PrivateChatListComponent,
     PrivateChatComponent
   ]
