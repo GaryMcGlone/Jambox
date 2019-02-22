@@ -44,7 +44,7 @@
       </ion-item>
    </div>
    <div class="bioBtnContainer">
-      <ion-button *ngIf="!userBioEmpty" class="imageButton" (click)="saveBio()">Save Bio</ion-button>
+      <ion-button [disabled]="disableButton()"(click)="saveBio()">Save Bio</ion-button>
    </div>
 
     <ion-grid class="postsTitleGrid">

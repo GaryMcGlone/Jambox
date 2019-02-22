@@ -24,6 +24,7 @@ export class ProfilePage implements OnInit {
   userBioEmpty: boolean = false;
   posts: IPost[];
   toggled:boolean = false;
+  buttonIsDisabled: boolean = true;
   following: IFollow[];
   followers: IFollow[];
   username: string;
@@ -68,11 +69,21 @@ export class ProfilePage implements OnInit {
 
   updateBio($event) {
     this.userBio = $event.target.value;
-    
+
     if(this.userBio == '' || this.userBio == null)
       this.userBioEmpty = true;
     else
       this.userBioEmpty = false;
+  }
+
+  disableButton(): boolean {
+    this.buttonIsDisabled = true;
+    if (this.userBio != null && this.userBio != '') {
+      return this.buttonIsDisabled = false;
+    }
+    else {
+      return this.buttonIsDisabled = true;
+    }
   }
 
   toggleBtn() {

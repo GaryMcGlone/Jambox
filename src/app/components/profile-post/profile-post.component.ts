@@ -10,6 +10,8 @@ import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.s
 import { IComment } from '../../interfaces/comment-interface';
 import { IUser } from '../../interfaces/user-interface';
 import { Post } from '../../models/post.model';
+import { myDate } from '../../interfaces/my-date.interface';
+import { IPost } from '../../interfaces/post-interface';
 @Component({
   selector: 'app-profile-post',
   templateUrl: './profile-post.component.html',
@@ -17,7 +19,7 @@ import { Post } from '../../models/post.model';
 })
 export class ProfilePostComponent implements OnInit {
 
-  @Input() post: Post;
+  @Input() post: IPost;
   private btnValue = "follow";
   private buttonFill = "outline";
   username: string;
@@ -35,6 +37,7 @@ export class ProfilePostComponent implements OnInit {
   commentCounter: number = 0;
   likes: ILike[] = [];
   likeCounter: number = 0;
+  newCreatedAt: string;
 
   constructor(
     private databaseService: DatabaseService,
@@ -46,6 +49,7 @@ export class ProfilePostComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.newCreatedAt = this.getCreatedAt(this.post.createdAt);
     this.databaseService.getCurrentUser().subscribe(data => {
       (this.user = data), (this.username = this.user.displayName);
     });
@@ -61,6 +65,35 @@ export class ProfilePostComponent implements OnInit {
       error => (this.errorMessage = <any>error);
     });
   }
+
+  getCreatedAt(date: myDate): any {
+    var value: string;
+    var newDateMilliseconds = new Date().getTime();
+    var seconds = (newDateMilliseconds / 1000) - date.seconds;
+    var minutes = seconds / 60;
+    var hours = minutes / 60;
+    var days = hours / 24;
+
+    if(this.round(seconds, 0) < 60)
+      value = this.round(seconds, 0).toString() + "s ago";
+    else if(this.round(minutes, 0) < 60)
+      value = this.round(minutes, 0).toString() + "m ago";
+    else if(this.round(minutes, 0) >= 60 && this.round(hours, 0) < 24)
+      value = this.round(hours, 0).toString() + "h ago";
+    else
+      value = this.round(days, 0).toString() + "d ago";
+
+    return value;
+  }
+
+  round(number, precision){
+    var factor = Math.pow(10, precision);
+    var tempNumber = number * factor;
+    var roundedTempNumber = Math.round(tempNumber);
+
+    return roundedTempNumber / factor;
+  }
+
 
   addLike(id) {
    // this.analytics.logEvent("postLiked", { param: "User_Liked_Post" } )
