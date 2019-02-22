@@ -10,7 +10,6 @@ import { GroupChatListComponent } from '../../components/group-chat-list/group-c
 import { GroupChatComponent } from '../../components/group-chat/group-chat.component';
 import { UserGroupComponent } from '../../components/user-group/user-group.component';
 import { UserListGroupComponent } from '../../components/user-list-group/user-list-group.component';
-import { UserSearchGroupPage } from '../user-search-group/user-search-group.page';
 
 const routes: Routes = [
   {
@@ -28,9 +27,7 @@ const routes: Routes = [
   ],
   declarations: [
     GroupChatsPage,
-    UserSearchGroupPage,
-    UserListGroupComponent,
-    UserGroupComponent,
+
     GroupChatListComponent,
     GroupChatComponent
   ]

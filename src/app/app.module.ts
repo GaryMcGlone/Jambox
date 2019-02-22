@@ -50,6 +50,7 @@ import { InitialUserSearchPage } from "./pages/initial-user-search/initial-user-
 import { InitialUserSearchPageModule } from "./pages/initial-user-search/initial-user-search.module";
 import { UserSearchPageModule } from "./pages/user-search/user-search.module";
 import { UserSearchGroupPage } from "./pages/user-search-group/user-search-group.page";
+import { UserSearchGroupPageModule } from "./pages/user-search-group/user-search-group.module";
 
 library.add(fas, far, fab)
 
@@ -76,7 +77,8 @@ library.add(fas, far, fab)
     SearchSongByIdPageModule,
     FontAwesomeModule,
     InitialUserSearchPageModule,
-    UserSearchPageModule
+    UserSearchPageModule,
+    UserSearchGroupPageModule,
   ],
   providers: [
     StatusBar,
