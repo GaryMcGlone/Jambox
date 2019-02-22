@@ -20,7 +20,8 @@ export class GeneralUserSearchResultComponent implements OnInit {
 
   ngOnInit() {
     this.followService.getFollowedUsers().subscribe(data => {
-      this.following = data
+      this.following = data    
+      this.checkFollowing(this.following)
     })
     this.compareFollow = {
       followedId: this.user.id,
@@ -32,23 +33,35 @@ export class GeneralUserSearchResultComponent implements OnInit {
     })
   }
 
-
-  follow(user) {
-    console.log("adding follow", user)
-    if (this.buttonFill == "outline" && this.compareFollow == null) {
+  checkFollowing(following: IFollow[]) : boolean {
+    if (following.includes(this.compareFollow)) {
       this.btnValue = "unfollow";
       this.buttonFill = "solid";
+      return true
+    }
+    else {
+      this.btnValue = "follow";
+      this.buttonFill = "outline";
+      return false
+    }
+  }
+
+  follow(user) {
+      this.btnValue = "unfollow";
+      this.buttonFill = "solid";
+     
       let follow: IFollow = {
         followedId: user.id,
         followerId: this.firebaseAuth.getCurrentUserID()
       }
-      console.log("follow", follow)
       this.followService.addFollow(follow)
-    } else {
-      console.log("removing follow")
-      this.btnValue = "follow";
-      this.buttonFill = "outline";
-      this.followService.removeFollowing(this.compareFollow.id)
+    
     }
+
+  unfollow(id) {
+    this.btnValue = "follow";
+    this.buttonFill = "outline";
+
+    this.followService.removeFollowing(this.compareFollow.id)
   }
 }
