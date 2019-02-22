@@ -15,6 +15,7 @@ export class GeneralUserSearchResultComponent implements OnInit {
   private buttonFill = "outline";
   private compareFollow: IFollow
   private following: IFollow[];
+  private isFollowing: boolean;
 
   constructor(private firebaseAuth: FirebaseAuthService, private followService: FollowService) { }
 
@@ -31,26 +32,19 @@ export class GeneralUserSearchResultComponent implements OnInit {
           element.followedId == this.compareFollow.followedId){
           this.btnValue = "unfollow"
           this.buttonFill = "solid"
+          this.isFollowing = true
         }
       });
+      this.followService.getSpecificFollow(this.user.id, this.firebaseAuth.getCurrentUserID()).subscribe(data => {
+        this.compareFollow = data[0]
+        console.log("compare follow:", this.compareFollow)
+      })
     })
 
   }
 
-  checkFollowing(following: IFollow[]) : boolean {
-    if (following.includes(this.compareFollow)) {
-      this.btnValue = "unfollow";
-      this.buttonFill = "solid";
-      return true
-    }
-    else {
-      this.btnValue = "follow";
-      this.buttonFill = "outline";
-      return false
-    }
-  }
-
   follow(user) {
+    console.log("gonna follow ")
       this.btnValue = "unfollow";
       this.buttonFill = "solid";
      
@@ -62,7 +56,8 @@ export class GeneralUserSearchResultComponent implements OnInit {
     
     }
 
-  unfollow(id) {
+  unfollow() {
+    console.log("gonna unfollow")
     this.btnValue = "follow";
     this.buttonFill = "outline";
 
