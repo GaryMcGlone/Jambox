@@ -46,6 +46,7 @@ import { PrivateChatsPageModule } from "./pages/private-chats/private-chats.modu
 import { GroupChatsPage } from "./pages/group-chats/group-chats.page";
 import { GroupChatsPageModule } from "./pages/group-chats/group-chats.module";
 import { UserSearchPage } from "./pages/user-search/user-search.page";
+import { UserSearchGroupPage } from "./pages/user-search-group/user-search-group.page";
 
 library.add(fas, far, fab)
 
@@ -53,10 +54,9 @@ library.add(fas, far, fab)
   declarations: [
     AppComponent,
     UserSearchComponent,
-
     // InitialUserSearchComponent
   ],
-  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage],
+  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage, UserSearchGroupPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({

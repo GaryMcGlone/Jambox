@@ -23,7 +23,11 @@ export class UserComponent implements OnInit {
   private compareFollow: IFollow
   private following: IFollow[];
 
-  constructor(private modalController: ModalController, private chatService: ChatService, private firebaseAuth: FirebaseAuthService, private followService: FollowService ) { }
+  constructor(
+      private modalController: ModalController, 
+      private chatService: ChatService, 
+      private firebaseAuth: FirebaseAuthService, 
+      private followService: FollowService ) { }
 
   ngOnInit() {
     this.chatRoom = { members: [] }

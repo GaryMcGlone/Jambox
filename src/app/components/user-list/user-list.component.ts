@@ -25,12 +25,10 @@ export class UserListComponent implements OnInit {
     if (q) {
       this.userService.getUsersByQuery(q.toLowerCase()).subscribe(users => {
         this.users = users
-        console.log("searched users", this.users)
       })
     } else {
       this.users = []
       this.userService.getAllUsers().subscribe(data => {
-        console.log("all users", data)
         this.users = data
       })
     }
