@@ -46,7 +46,7 @@ export class DatabaseService {
     this.userCollection = _afs.collection<IUser>("users");
     this.likeCollection = _afs.collection<ILike>('likes');
     this.commentsCollection = _afs.collection<IComment>("comments")
-    this.bugCollection = _afs.collection<any>("bugReports")
+    this.bugCollection = _afs.collection<any>("feedback")
   }
 
 

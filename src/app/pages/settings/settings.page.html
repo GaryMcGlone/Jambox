@@ -33,4 +33,9 @@
         <ion-button id="sendBtn" shape='round' (click)="report(bug.value)">Send</ion-button>
   </ion-card>
 
+  <ion-item>
+    <ion-label position="floating">Send us your feedback or bugs</ion-label>
+    <ion-textarea #bug clearOnEdit="true"></ion-textarea>
+  </ion-item>
+  <ion-button shape='round' (click)="report(bug.value)">Send</ion-button>
 </ion-content>

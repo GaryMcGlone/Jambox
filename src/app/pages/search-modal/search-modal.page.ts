@@ -9,9 +9,9 @@ import { ModalController } from '@ionic/angular';
 export class SearchModalPage implements OnInit {
 
 
-  spotifySelect: boolean = true;
+  spotifySelect: boolean = false;
   youtubeSelect: boolean = false;
-  userSearchSelect: boolean = false;
+  userSearchSelect: boolean = true;
   constructor(private modalController: ModalController) { }
 
   ngOnInit() {
@@ -26,9 +26,15 @@ export class SearchModalPage implements OnInit {
       case "spotify":
         this.spotifySelect = true;
         this.youtubeSelect = false;
+        this.userSearchSelect = false;
         break;
       case "youtube":
         this.youtubeSelect = true;
+        this.spotifySelect = false;
+        this.userSearchSelect = false;
+      case "user":
+        this.userSearchSelect = true;
+        this.youtubeSelect = false;
         this.spotifySelect = false;
         break;
     }
@@ -42,8 +48,8 @@ export class SearchModalPage implements OnInit {
     if (this.youtubeSelect == true) return true;
     else return false;
   }
-  userSearchSelected(): boolean {
-    if (this.userSearchSelect == true) return true;
+  userSelectedCheck(): boolean {
+    if (this.userSearchSelect == true && this.youtubeSelect == false) return true;
     else return false;
   }
 }
