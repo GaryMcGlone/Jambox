@@ -15,8 +15,19 @@
 <ion-content>
   <ion-card>
     <ion-card-content>
-      <ion-img *ngIf="profilePicture" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
-     <ion-img *ngIf="!profilePicture" (click)="toggleBtn()" class="profilePicture" src="https://banner2.kisspng.com/20180420/ahw/kisspng-headphones-computer-icons-symbol-headphone-logo-5ad977ff1cbe74.0665303015242014711178.jpg"></ion-img> 
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+              <ion-img *ngIf="profilePicture" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
+              <ion-img *ngIf="!profilePicture" (click)="toggleBtn()" class="profilePicture" src="https://banner2.kisspng.com/20180420/ahw/kisspng-headphones-computer-icons-symbol-headphone-logo-5ad977ff1cbe74.0665303015242014711178.jpg"></ion-img> 
+          </ion-col>
+          <ion-col>
+              <ion-title class="usernameTitle">{{username}}</ion-title>
+              <p>Member since: </p>
+              <p>{{memberSince | date: 'longDate' }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
   <div class="countersContiner">
     <ion-grid class="counterGrid">
         <ion-row>
