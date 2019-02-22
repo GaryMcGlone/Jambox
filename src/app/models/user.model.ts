@@ -5,6 +5,7 @@ export class User {
     uid?: string;
     email: string;
     displayName: string;
+    createdAt: Date;
     lowerDisplayName: string;
     photoURL?:string;
     bio?:string
