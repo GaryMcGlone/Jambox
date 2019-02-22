@@ -12,6 +12,7 @@ import { IUser } from '../../interfaces/user-interface';
 import { Post } from '../../models/post.model';
 import { myDate } from '../../interfaces/my-date.interface';
 import { IPost } from '../../interfaces/post-interface';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 @Component({
   selector: 'app-profile-post',
   templateUrl: './profile-post.component.html',
@@ -45,8 +46,8 @@ export class ProfilePostComponent implements OnInit {
     private youtube: YoutubeVideoPlayer,
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService,
-    //private analytics: FirebaseAnalytics
-  ) {}
+    private analytics: FirebaseAnalytics
+  ) { }
 
   ngOnInit() {
     this.newCreatedAt = this.getCreatedAt(this.post.createdAt);
@@ -54,15 +55,15 @@ export class ProfilePostComponent implements OnInit {
       (this.user = data), (this.username = this.user.displayName);
     });
     this.databaseService.getComments(this.post.id).subscribe(comments => {
-        (this.comments = comments),
+      (this.comments = comments),
         this.commentCounter = this.comments.length,
         error => (this.errorMessage = <any>error);
     });
     this.checkIfLiked();
     this.databaseService.getLikes(this.post.id).subscribe(likes => {
       this.likes = likes,
-      this.likeCounter = this.likes.length,
-      error => (this.errorMessage = <any>error);
+        this.likeCounter = this.likes.length,
+        error => (this.errorMessage = <any>error);
     });
   }
 
@@ -96,7 +97,7 @@ export class ProfilePostComponent implements OnInit {
 
 
   addLike(id) {
-   // this.analytics.logEvent("postLiked", { param: "User_Liked_Post" } )
+    this.analytics.logEvent("postLiked", { param: "User_Liked_Post" })
     let like: ILike = {
       postId: id,
       userId: this.firebaseAuth.getCurrentUserID()
@@ -106,7 +107,7 @@ export class ProfilePostComponent implements OnInit {
     this.databaseService.addLike(like);
   }
   removeLike(id) {
-   // this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" } )
+    this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" })
     this.likeID = this.post.id + "_" + this.firebaseAuth.getCurrentUserID();
     this.changeHeart("heart-empty", "dark");
     this.liked = false;
@@ -131,28 +132,28 @@ export class ProfilePostComponent implements OnInit {
   }
 
   pause() {
-    // this.analytics.logEvent("pausedSpotify", { param: "User_Paused_Spotify" } )
+    this.analytics.logEvent("pausedSpotify", { param: "User_Paused_Spotify" })
     this.spotifyService.pauseTrack();
   }
 
   play(songId) {
-    // this.analytics.logEvent("playedSpotify", { param: "User_Played_Spotify" } )
+    this.analytics.logEvent("playedSpotify", { param: "User_Played_Spotify" })
     this.spotifyService.play(songId);
   }
 
   resume(songId) {
-    // this.analytics.logEvent("resumedSpotify", { param: "User_Resumed_Spotify" } )
+    this.analytics.logEvent("resumedSpotify", { param: "User_Resumed_Spotify" })
     this.spotifyService.resumeSong(songId);
   }
 
-  
-  commentClick() {    
+
+  commentClick() {
     this.selectComments(this.postID);
   }
 
   playYoutube(videoId) {
-    // this.analytics.logEvent("playYoutube", { param: "User_Played_Youtube" } )
-       this.youtube.openVideo(videoId);
+    this.analytics.logEvent("playYoutube", { param: "User_Played_Youtube" })
+    this.youtube.openVideo(videoId);
   }
 
   selectComments(selectedPost): void {

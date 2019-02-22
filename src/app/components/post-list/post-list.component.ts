@@ -10,6 +10,7 @@ import { UserSearchPage } from "../../pages/user-search/user-search.page";
 import { Observable } from "rxjs";
 import * as _ from "lodash";
 import { InitialUserSearchPage } from "../../pages/initial-user-search/initial-user-search.page";
+import { AnalyticsService } from "../../services/analytics/analytics.service";
 
 @Component({
   selector: "app-post-list",
@@ -24,14 +25,14 @@ export class PostListComponent implements OnInit {
   userPosts: IPost[] = [];
   showSpinner: boolean = false;
 
-  constructor(private databaseService: DatabaseService, private auth: FirebaseAuthService, private followingService: FollowService, private modalController: ModalController) { }
+  constructor(private databaseService: DatabaseService, private auth: FirebaseAuthService, private followingService: FollowService, private modalController: ModalController, private analytics: AnalyticsService) { }
 
   ngOnInit() {
+    this.analytics.log("userBrowsingFeed", { param: "User_Browsing_Feed" } )
     this.showSpinner = true;
 
     this.followingService.getFollowedUsers().subscribe(data => {
-      this.following = data
-      console.log("following", this.following)
+      this.following = data;
       this.showSpinner = false
 
       this.databaseService.getLoggedInUserPosts().subscribe(data => {
@@ -54,9 +55,6 @@ export class PostListComponent implements OnInit {
             this.followerPosts.sort(function(obj1, obj2) {
               return  obj2.createdAt.seconds - obj1.createdAt.seconds
             })
-            // this.followerPosts = _.sortBy(this.filteredPosts, ['createdAt']);
-            // this.filteredPosts.reverse();
-            console.log("posts", this.followerPosts)
           })
         })
       })
@@ -64,9 +62,9 @@ export class PostListComponent implements OnInit {
   }
 
   async presentModal() {
+    this.analytics.log("clickedSearchPopup", { param: "Clicked_Search_Popup" } )
     const modal = await this.modalController.create({
       component: InitialUserSearchPage,
-      // componentProps: following
     });
     return await modal.present();
   }

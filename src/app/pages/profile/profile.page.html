@@ -5,7 +5,8 @@
           <ion-col class="profilePictureContainer">
             <ion-avatar>
                 <ion-img *ngIf="profilePicture" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
-                <ion-img *ngIf="!profilePicture" (click)="toggleBtn()" class="profilePicture" src="https://banner2.kisspng.com/20180420/ahw/kisspng-headphones-computer-icons-symbol-headphone-logo-5ad977ff1cbe74.0665303015242014711178.jpg"></ion-img> 
+              
+                <ion-img *ngIf="!profilePicture" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()" class="profilePicture"></ion-img>
             </ion-avatar>
           </ion-col>
           <ion-col aria-colspan="2">

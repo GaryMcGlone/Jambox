@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UsersService } from '../../services/users/users.service';
 import { IUser } from '../../interfaces/user-interface';
+import { AnalyticsService } from '../../services/analytics/analytics.service';
 
 @Component({
   selector: 'user-list',
@@ -14,13 +15,14 @@ export class UserListComponent implements OnInit {
   endAt: string;
   showSpinner: boolean = false;
 
-  constructor(private userService: UsersService) { }
+  constructor(private userService: UsersService, private analytics: AnalyticsService) { }
 
   ngOnInit() {
-     this.userService.getAllUsers().subscribe(data => this.users = data)
-   }
+    this.userService.getAllUsers().subscribe(data => this.users = data)
+  }
 
   search($event) {
+    this.analytics.log("searchedUserInChatView", { param: "Search_InChatView" } )
     let q: string = $event.target.value;
     if (q) {
       this.userService.getUsersByQuery(q.toLowerCase()).subscribe(users => {

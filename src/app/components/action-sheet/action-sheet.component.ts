@@ -10,6 +10,7 @@ import { IFollow } from "../../interfaces/follow.interface";
 import { FollowService } from "../../services/follow/follow.service";
 import * as firebase from "firebase/"
 import { Observable } from "rxjs";
+import { AnalyticsService } from "../../services/analytics/analytics.service";
 
 @Component({
   selector: "app-action-sheet",
@@ -29,17 +30,11 @@ export class ActionSheetComponent implements OnInit {
     this.userId = firebase.auth().currentUser.uid
     this.getAllComments();
     this.getAllLikes();
-
-    // this.compareFollow = {
-    //   followedId: this.post.UserID,
-    //   followerId: this.firebaseAuth.getCurrentUserID()
-    // }
     this.followingService.getSpecificFollow(this.post.UserID, this.firebaseAuth.getCurrentUserID()).subscribe(data => {
       this.compareFollow = data[0]
-      console.log("compare follow:", this.compareFollow)
     })
  }
-  constructor(public actionSheetController: ActionSheetController, private databaseService: DatabaseService, private firebaseAuth: FirebaseAuthService, private spotifyService: SpotifyService, private followingService: FollowService) {
+  constructor(public actionSheetController: ActionSheetController, private databaseService: DatabaseService, private firebaseAuth: FirebaseAuthService, private spotifyService: SpotifyService, private followingService: FollowService, private analytics: AnalyticsService) {
     
   }
 
@@ -110,7 +105,7 @@ export class ActionSheetComponent implements OnInit {
   }
 
   delete(postid: string) {
-    console.log("delete", postid)
+    this.analytics.log("deletedPost", { param: "DeletedPost" } )
     this.databaseService.deletePost(postid);
     this.getAllComments();
     this.getAllLikes();
@@ -143,11 +138,12 @@ export class ActionSheetComponent implements OnInit {
   }
 
   open(uri) {
-    // this.analytics.logEvent("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
+    this.analytics.log("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
     this.spotifyService.open(uri);
   }
 
   follow(followerId,followedId) {
+    this.analytics.log("followed", { User_Followed: "User_Followed" } )
     let follow: IFollow = {
       followerId: followerId,
       followedId: followedId
