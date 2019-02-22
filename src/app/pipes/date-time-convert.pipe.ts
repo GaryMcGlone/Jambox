@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { myDate } from '../interfaces/post-interface';
+import { myDate } from '../interfaces/my-date.interface';
 
 @Pipe({
   name: 'dateTimeConvert'

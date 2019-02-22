@@ -32,6 +32,7 @@ export class SearchModalPage implements OnInit {
         this.youtubeSelect = true;
         this.spotifySelect = false;
         this.userSearchSelect = false;
+        break;
       case "user":
         this.userSearchSelect = true;
         this.youtubeSelect = false;

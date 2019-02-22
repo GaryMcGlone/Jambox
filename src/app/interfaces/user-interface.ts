@@ -4,7 +4,7 @@ import { myDate } from './my-date.interface';
 export interface IUser {
     uid?: string;
     email: string;
-    createdAt: myDate;
+    createdAt?: myDate;
     displayName: string;
     lowerDisplayName?: string;
     followerCount?: number;
