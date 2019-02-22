@@ -1,6 +1,6 @@
 <ion-content>
-    <ion-card-content>
-      <ion-grid>
+
+      <ion-grid class="profileGrid">
         <ion-row>
           <ion-col class="profilePictureContainer">
             <ion-avatar>
@@ -43,8 +43,10 @@
           <ion-textarea rows="3" [(ngModel)]="userBio" (ionChange)="updateBio($event)"></ion-textarea>
       </ion-item>
    </div>
-   <ion-button *ngIf="!userBioEmpty" (click)="saveBio()"> Save Bio <i class="fas fa-images"> </i> </ion-button>
-    </ion-card-content>
+   <div class="bioBtnContainer">
+      <ion-button *ngIf="!userBioEmpty" class="imageButton" (click)="saveBio()">Save Bio</ion-button>
+   </div>
+
     <ion-grid class="postsTitleGrid">
       <ion-row>
         <ion-col>Your Posts</ion-col>
