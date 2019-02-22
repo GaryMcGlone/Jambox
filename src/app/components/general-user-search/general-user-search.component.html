@@ -1,0 +1,11 @@
+<ion-searchbar mode="ios" placeholder="Search People" (ionChange)="search($event)"></ion-searchbar>
+
+<ion-list lines="none">
+  <div class="spinner-holder" align="center">
+    <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
+  </div>
+  <ion-item *ngFor="let user of users">
+    <app-general-user-search-result [user]="user"></app-general-user-search-result>
+  </ion-item>
+  <p text-center *ngIf="users.length == 0">No results found</p>
+</ion-list>

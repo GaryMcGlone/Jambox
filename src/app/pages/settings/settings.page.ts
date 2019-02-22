@@ -43,12 +43,16 @@ export class SettingsPage implements OnInit {
   exit() {
     this.router.navigate(["tabs/profile"]);
   }
-
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: "bottom"
+    });
+    toast.present();
+  }
   report(bug){
-    console.log("big", bug)
+    this.presentToast("Thank you for your feedback!")
     this.dbService.addBug(bug)
-    this.toastController.create({
-      message: "Feedback sent, thank you!"
-    })
   }
 }

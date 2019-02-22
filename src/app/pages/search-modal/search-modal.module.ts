@@ -11,6 +11,8 @@ import { YoutubeSearchComponent } from "../../components/youtube-search/youtube-
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { SpotifySearchResultComponent } from "../../components/spotify-search-result/spotify-search-result.component";
 import { YoutubeSearchResultComponent } from "../../components/youtube-search-result/youtube-search-result.component";
+import { GeneralUserSearchComponent } from "../../components/general-user-search/general-user-search.component";
+import { GeneralUserSearchResultComponent } from "../../components/general-user-search-result/general-user-search-result.component";
 
 const routes: Routes = [
   {
@@ -32,7 +34,9 @@ const routes: Routes = [
     SpotifySearchComponent,
     YoutubeSearchComponent,
     SpotifySearchResultComponent,
-    YoutubeSearchResultComponent
+    YoutubeSearchResultComponent,
+    GeneralUserSearchComponent,
+    GeneralUserSearchResultComponent,
   ],
   entryComponents: [SearchModalPage]
 })

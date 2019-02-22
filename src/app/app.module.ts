@@ -45,16 +45,7 @@ import { PrivateChatPageModule } from "./pages/private-chat/private-chat.module"
 import { PrivateChatsPageModule } from "./pages/private-chats/private-chats.module";
 import { GroupChatsPage } from "./pages/group-chats/group-chats.page";
 import { GroupChatsPageModule } from "./pages/group-chats/group-chats.module";
-import { UserListComponent } from './components/user-list/user-list.component';
 import { UserSearchPage } from "./pages/user-search/user-search.page";
-import { UserComponent } from './components/user/user.component';
-import { ProfilePostListComponent } from './components/profile-post-list/profile-post-list.component';
-import { ProfilePostComponent } from './components/profile-post/profile-post.component';
-import { InitialUserSearchPage } from "./pages/initial-user-search/initial-user-search.page";
-import { InitialUserSearchPageModule } from "./pages/initial-user-search/initial-user-search.module";
-import { InitialUserListComponent } from "./components/initial-user-list/initial-user-list.component";
-import { InitialUserResultComponent } from "./components/initial-user-result/initial-user-result.component";
-// import { InitialUserSearchComponent } from './components/initial-user-search/initial-user-search.component';
 
 library.add(fas, far, fab)
 
@@ -62,6 +53,7 @@ library.add(fas, far, fab)
   declarations: [
     AppComponent,
     UserSearchComponent,
+
     // InitialUserSearchComponent
   ],
   entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage],
