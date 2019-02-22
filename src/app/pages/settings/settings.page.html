@@ -13,8 +13,24 @@
     <ion-button shape='round' (click)="spotifyService.logout()" >Sign Out</ion-button>
   </ion-card>
   <ion-card *ngIf="user" class="userCard">
-    Logged in as {{user.displayName}}
-    <ion-button shape='round' (click)="logout()" >Sign Out</ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+            <p>Logged in as {{user.displayName}}</p>
+        </ion-col>
+        <ion-col class="buttonCol">   
+           <ion-button shape='round' (click)="logout()" >Sign Out</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <ion-card>
+      <ion-item>
+          <ion-label position="floating">Send us your feedback or bugs</ion-label>
+          <ion-textarea #bug></ion-textarea>
+        </ion-item>
+        <ion-button id="sendBtn" shape='round' (click)="report(bug.value)">Send</ion-button>
   </ion-card>
 
   <ion-item>

@@ -26,6 +26,8 @@ export class ProfilePage implements OnInit {
   toggled:boolean = false;
   following: IFollow[];
   followers: IFollow[];
+  username: string;
+  memberSince: Date;
   constructor(
           private auth: FirebaseAuthService, 
           private menuCtrl: MenuController, 
@@ -39,6 +41,8 @@ export class ProfilePage implements OnInit {
     this.loadProfilePictureURL();
     this.db.getCurrentUser().subscribe(data => {
       this.userBio = data.bio
+      this.username = data.displayName
+      this.memberSince = this.toDateTime(data.createdAt.seconds);
       if(this.userBio == null || this.userBio == '')
         this.userBioEmpty = true;
     })
@@ -54,6 +58,12 @@ export class ProfilePage implements OnInit {
       this.followers = followers
       this.followersCounter = this.followers.length
     })
+  }
+
+  toDateTime(secs:number) {
+    var t = new Date(1970, 0, 1);
+    t.setSeconds(secs);
+    return t;
   }
 
   updateBio($event) {
