@@ -32,6 +32,7 @@ export class DatabaseService {
   private like: Observable<ILike>
   private userPosts: Observable<IPost[]>
 
+  private bugCollection: AngularFirestoreCollection<any>
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     
@@ -45,6 +46,7 @@ export class DatabaseService {
     this.userCollection = _afs.collection<IUser>("users");
     this.likeCollection = _afs.collection<ILike>('likes');
     this.commentsCollection = _afs.collection<IComment>("comments")
+    this.bugCollection = _afs.collection<any>("bugReports")
   }
 
 
@@ -217,8 +219,8 @@ export class DatabaseService {
     return this.userPosts;
   }
 
-
-
-
-
+  addBug(bug){
+    console.log(bug)
+    this.bugCollection.add({content: bug})
+  }
 }
