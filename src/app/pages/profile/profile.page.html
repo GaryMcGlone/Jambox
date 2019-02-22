@@ -18,7 +18,7 @@
       <ion-img *ngIf="profilePicture" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
      <ion-img *ngIf="!profilePicture" (click)="toggleBtn()" class="profilePicture" src="https://banner2.kisspng.com/20180420/ahw/kisspng-headphones-computer-icons-symbol-headphone-logo-5ad977ff1cbe74.0665303015242014711178.jpg"></ion-img> 
   <div class="countersContiner">
-    <ion-grid>
+    <ion-grid class="counterGrid">
         <ion-row>
             <ion-col class="borderRight">{{followersCounter}}</ion-col>
             <ion-col class="borderRight">{{followingCounter}}</ion-col>
@@ -36,14 +36,19 @@
       <ion-button *ngIf="toggled" class="imageButton" (click)="selectImageFromGallery()"> Gallery <i class="fas fa-images"> </i> </ion-button>
   </div>
    <div>
-      <ion-item>
+      <ion-item class="textAreaClass">
           <ion-label *ngIf="userBioEmpty" style="margin:4px" position="floating">Enter your bio here...</ion-label>
           <ion-textarea rows="3" [(ngModel)]="userBio" (ionChange)="updateBio($event)"></ion-textarea>
       </ion-item>
-      <ion-button *ngIf="!userBioEmpty" (click)="saveBio()"> Save Bio <i class="fas fa-images"> </i> </ion-button>
    </div>
+   <ion-button *ngIf="!userBioEmpty" (click)="saveBio()"> Save Bio <i class="fas fa-images"> </i> </ion-button>
     </ion-card-content>
   </ion-card>
+    <ion-grid class="postsTitleGrid">
+      <ion-row>
+        <ion-col>Your Posts</ion-col>
+      </ion-row>
+    </ion-grid>
   <app-profile-post-list></app-profile-post-list>
 </ion-content>
 

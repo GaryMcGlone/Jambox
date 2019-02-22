@@ -17,14 +17,14 @@
     height: 20%;
 }
 
-ion-col {
+.counterGrid ion-row ion-col {
     text-align: center;
     font-size: 1.15em;
     padding-top: 0;
     padding-bottom: 0;
 }
 
-ion-grid {
+.counterGrid {
     padding-top: 0;
 }
 
@@ -39,4 +39,18 @@ ion-grid {
 
 .borderRight {
     border-right: 1px lightgray solid;
+}
+
+.postsTitleGrid {
+    border-bottom: 1px gray solid;
+    border-top: 1px lightgray solid;
+}
+
+.postsTitleGrid ion-row ion-col {
+    text-align: center;
+    font-size: 1.15em;
+}
+
+.textAreaClass {
+    margin-top: 20px;
 }
