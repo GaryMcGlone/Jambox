@@ -11,7 +11,7 @@ import { FollowService } from '../../services/follow/follow.service';
 export class GeneralUserSearchResultComponent implements OnInit {
   @Input() user;
   currentUserId: string;
-  private btnValue = "follow";
+  btnValue = "follow";
   private buttonFill = "outline";
   private compareFollow: IFollow
   private following: IFollow[];
@@ -20,17 +20,21 @@ export class GeneralUserSearchResultComponent implements OnInit {
 
   ngOnInit() {
     this.followService.getFollowedUsers().subscribe(data => {
-      this.following = data    
-      this.checkFollowing(this.following)
+      this.following = data
+
+      this.compareFollow = {
+        followedId: this.user.id,
+        followerId: this.firebaseAuth.getCurrentUserID()
+      }
+      this.following.forEach(element => {
+        if(element.followerId == this.compareFollow.followerId && 
+          element.followedId == this.compareFollow.followedId){
+          this.btnValue = "unfollow"
+          this.buttonFill = "solid"
+        }
+      });
     })
-    this.compareFollow = {
-      followedId: this.user.id,
-      followerId: this.firebaseAuth.getCurrentUserID()
-    }
-    this.followService.getSpecificFollow(this.user.id, this.firebaseAuth.getCurrentUserID()).subscribe(data => {
-      this.compareFollow = data[0]
-      console.log("compare follow:", this.compareFollow)
-    })
+
   }
 
   checkFollowing(following: IFollow[]) : boolean {
