@@ -15,7 +15,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 })
 export class NotificationService {
 
- 
+
   token: iToken;
   constructor(private platform: Platform,
     private localNotifications: LocalNotifications,
@@ -25,7 +25,7 @@ export class NotificationService {
 
   getToken() {
     this.firebase.getToken().then(token => {
-        this.saveToken(token)
+      this.saveToken(token)
     });
     console.log("gonna save a wee token hey ")
   }
@@ -34,7 +34,7 @@ export class NotificationService {
     this.db.saveUserToken(token);
   }
 
- 
+
 
   private async showNotification(message: string) {
     this.localNotifications.schedule({
@@ -46,15 +46,13 @@ export class NotificationService {
 
   startNotifications() {
     console.log("starting notifications")
-  
+
     this.getToken();
     this.firebase.onNotificationOpen().subscribe(
       (msg) => {
         if (this.platform.is('ios')) {
-          this.showNotification("ios")
           this.showNotification(msg.aps.alert);
         } else {
-          this.showNotification("android")
           this.showNotification(msg.body);
         }
       });

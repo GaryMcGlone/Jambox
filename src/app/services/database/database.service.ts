@@ -232,4 +232,8 @@ export class DatabaseService {
     console.log(bug)
     this.bugCollection.add({content: bug})
   }
+
+  saveUserToken(token){
+    this.tokenCollection.doc(firebase.auth().currentUser.uid).set({token: token})
+  }
 }
