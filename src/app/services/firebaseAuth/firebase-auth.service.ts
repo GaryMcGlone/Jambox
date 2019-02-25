@@ -9,6 +9,7 @@ import { IUser } from "../../interfaces/user-interface";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { SpotifyService } from "../spotify/spotify.service";
 import { GooglePlus } from "@ionic-native/google-plus/ngx";
+import { NotificationService } from "../notifications/notification.service";
 
 @Injectable({
   providedIn: "root"
@@ -17,7 +18,13 @@ export class FirebaseAuthService {
   private user: Observable<IUser>;
   loggedInStatus: boolean = false;
 
-  constructor(private _afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router, private dbService: DatabaseService, private toastCtrl: ToastController, private spotifyService: SpotifyService, private gPlus: GooglePlus) {}
+  constructor(private _afAuth: AngularFireAuth,
+      private router: Router,
+       private dbService: DatabaseService,
+       private toastCtrl: ToastController,
+        private spotifyService: SpotifyService,
+         private gPlus: GooglePlus,
+         private notificationService: NotificationService) {}
 
   signInWithGoogle() {
     this.gPlus
@@ -97,6 +104,7 @@ export class FirebaseAuthService {
             resolve(res);
             this.loggedInStatus = true;
             this.router.navigate([""]);
+            this.notificationService.startNotifications()
           },
           err => reject(err)
         );
@@ -127,4 +135,6 @@ export class FirebaseAuthService {
   getCurrentUserID(): string {
     return firebase.auth().currentUser.uid;
   }
+
+  
 }
