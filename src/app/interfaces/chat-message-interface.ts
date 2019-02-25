@@ -1,5 +1,7 @@
+import { myDate } from './my-date.interface';
+
 export interface IChatMessage {
-    createdAt:string
+    createdAt:myDate
     chatRoomID: string 
     senderID: string
     senderName: string

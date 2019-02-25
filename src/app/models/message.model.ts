@@ -1,12 +1,12 @@
 export class Message {
     chatRoomID: string;
-    createdAt: string;
+    createdAt: Date;
     message: string;
-    senderID: number;
+    senderID: string;
     senderName: string;
     id?: string;
 
-    constructor(chatRoomID:string, createdAt: string, message:string, senderID: number, senderName: string){
+    constructor(chatRoomID:string, createdAt: Date, message:string, senderID: string, senderName: string){
         this.chatRoomID = chatRoomID;
         this.createdAt = createdAt;
         this.message = message;

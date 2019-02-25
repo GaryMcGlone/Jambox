@@ -19,12 +19,18 @@
       <ion-segment-button value="spotify"> 
           <fa-icon [icon]="['fab','spotify']"></fa-icon>
        </ion-segment-button>
+       <ion-segment-button value="user"> 
+        <fa-icon [icon]="['fas','user-plus']"></fa-icon>
+     </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
 <ion-content no-padding>
   <div *ngIf="spotifySelectedCheck()" no-padding>
     <app-spotify-search></app-spotify-search>
+  </div>
+  <div *ngIf="userSelectedCheck()" no-padding>
+    <app-general-user-search></app-general-user-search>
   </div>
   <div *ngIf="youtubeSelectedCheck()" no-padding>
     <app-youtube-search></app-youtube-search>

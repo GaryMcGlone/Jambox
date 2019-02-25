@@ -10,6 +10,9 @@ import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.s
 import { IComment } from '../../interfaces/comment-interface';
 import { IUser } from '../../interfaces/user-interface';
 import { Post } from '../../models/post.model';
+import { myDate } from '../../interfaces/my-date.interface';
+import { IPost } from '../../interfaces/post-interface';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 @Component({
   selector: 'app-profile-post',
   templateUrl: './profile-post.component.html',
@@ -17,7 +20,7 @@ import { Post } from '../../models/post.model';
 })
 export class ProfilePostComponent implements OnInit {
 
-  @Input() post: Post;
+  @Input() post: IPost;
   private btnValue = "follow";
   private buttonFill = "outline";
   username: string;
@@ -35,6 +38,7 @@ export class ProfilePostComponent implements OnInit {
   commentCounter: number = 0;
   likes: ILike[] = [];
   likeCounter: number = 0;
+  newCreatedAt: string;
 
   constructor(
     private databaseService: DatabaseService,
@@ -42,28 +46,58 @@ export class ProfilePostComponent implements OnInit {
     private youtube: YoutubeVideoPlayer,
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService,
-    //private analytics: FirebaseAnalytics
-  ) {}
+    private analytics: FirebaseAnalytics
+  ) { }
 
   ngOnInit() {
+    this.newCreatedAt = this.getCreatedAt(this.post.createdAt);
     this.databaseService.getCurrentUser().subscribe(data => {
       (this.user = data), (this.username = this.user.displayName);
     });
     this.databaseService.getComments(this.post.id).subscribe(comments => {
-        (this.comments = comments),
+      (this.comments = comments),
         this.commentCounter = this.comments.length,
         error => (this.errorMessage = <any>error);
     });
     this.checkIfLiked();
     this.databaseService.getLikes(this.post.id).subscribe(likes => {
       this.likes = likes,
-      this.likeCounter = this.likes.length,
-      error => (this.errorMessage = <any>error);
+        this.likeCounter = this.likes.length,
+        error => (this.errorMessage = <any>error);
     });
   }
 
+  getCreatedAt(date: myDate): any {
+    var value: string;
+    var newDateMilliseconds = new Date().getTime();
+    var seconds = (newDateMilliseconds / 1000) - date.seconds;
+    var minutes = seconds / 60;
+    var hours = minutes / 60;
+    var days = hours / 24;
+
+    if(this.round(seconds, 0) < 60)
+      value = this.round(seconds, 0).toString() + "s ago";
+    else if(this.round(minutes, 0) < 60)
+      value = this.round(minutes, 0).toString() + "m ago";
+    else if(this.round(minutes, 0) >= 60 && this.round(hours, 0) < 24)
+      value = this.round(hours, 0).toString() + "h ago";
+    else
+      value = this.round(days, 0).toString() + "d ago";
+
+    return value;
+  }
+
+  round(number, precision){
+    var factor = Math.pow(10, precision);
+    var tempNumber = number * factor;
+    var roundedTempNumber = Math.round(tempNumber);
+
+    return roundedTempNumber / factor;
+  }
+
+
   addLike(id) {
-   // this.analytics.logEvent("postLiked", { param: "User_Liked_Post" } )
+    this.analytics.logEvent("postLiked", { param: "User_Liked_Post" })
     let like: ILike = {
       postId: id,
       userId: this.firebaseAuth.getCurrentUserID()
@@ -73,7 +107,7 @@ export class ProfilePostComponent implements OnInit {
     this.databaseService.addLike(like);
   }
   removeLike(id) {
-   // this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" } )
+    this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" })
     this.likeID = this.post.id + "_" + this.firebaseAuth.getCurrentUserID();
     this.changeHeart("heart-empty", "dark");
     this.liked = false;
@@ -98,28 +132,28 @@ export class ProfilePostComponent implements OnInit {
   }
 
   pause() {
-    // this.analytics.logEvent("pausedSpotify", { param: "User_Paused_Spotify" } )
+    this.analytics.logEvent("pausedSpotify", { param: "User_Paused_Spotify" })
     this.spotifyService.pauseTrack();
   }
 
   play(songId) {
-    // this.analytics.logEvent("playedSpotify", { param: "User_Played_Spotify" } )
+    this.analytics.logEvent("playedSpotify", { param: "User_Played_Spotify" })
     this.spotifyService.play(songId);
   }
 
   resume(songId) {
-    // this.analytics.logEvent("resumedSpotify", { param: "User_Resumed_Spotify" } )
+    this.analytics.logEvent("resumedSpotify", { param: "User_Resumed_Spotify" })
     this.spotifyService.resumeSong(songId);
   }
 
-  
-  commentClick() {    
+
+  commentClick() {
     this.selectComments(this.postID);
   }
 
   playYoutube(videoId) {
-    // this.analytics.logEvent("playYoutube", { param: "User_Played_Youtube" } )
-       this.youtube.openVideo(videoId);
+    this.analytics.logEvent("playYoutube", { param: "User_Played_Youtube" })
+    this.youtube.openVideo(videoId);
   }
 
   selectComments(selectedPost): void {

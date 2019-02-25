@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { SpotifyService } from "../../services/spotify/spotify.service";
-//import { AnalyticsService } from "../../services/analytics/analytics.service";
+import { AnalyticsService } from "../../services/analytics/analytics.service";
 
 @Component({
   selector: "app-spotify-search",
@@ -12,13 +12,13 @@ export class SpotifySearchComponent implements OnInit {
   showSpinner: boolean = false;
   searchTerm:string
   constructor(public spotifyService: SpotifyService, 
-    //private analytics: AnalyticsService
+    private analytics: AnalyticsService
     ) {}
 
   ngOnInit() {}
 
   searchSpotify() {
-    //this.analytics.logButtonClick("spotifySearch", { param: "User_Searched_Spotify" });
+    this.analytics.log("spotifySearch", { param: "User_Searched_Spotify" });
     if(!this.searchTerm) {
       this.showSpinner = false;
     } else {

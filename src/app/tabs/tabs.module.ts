@@ -17,6 +17,9 @@ import { SpotifySearchComponent } from "../components/spotify-search/spotify-sea
 import { YoutubeSearchComponent } from "../components/youtube-search/youtube-search.component";
 import { SpotifySearchResultComponent } from "../components/spotify-search-result/spotify-search-result.component";
 import { YoutubeSearchResultComponent } from "../components/youtube-search-result/youtube-search-result.component";
+import { GeneralUserSearchComponent } from "../components/general-user-search/general-user-search.component";
+import { GeneralUserSearchResultComponent } from "../components/general-user-search-result/general-user-search-result.component";
+import { SearchModalPageModule } from "../pages/search-modal/search-modal.module";
 
 @NgModule({
   imports: [
@@ -28,15 +31,11 @@ import { YoutubeSearchResultComponent } from "../components/youtube-search-resul
     ProfilePageModule,
     NotificationsPageModule,
     DiscoverPageModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SearchModalPageModule
   ],
   declarations: [
     TabsPage,
-    SearchModalPage,
-    SpotifySearchComponent,
-    YoutubeSearchComponent,
-    SpotifySearchResultComponent,
-    YoutubeSearchResultComponent
   ],
   entryComponents: [SearchModalPage]
 })

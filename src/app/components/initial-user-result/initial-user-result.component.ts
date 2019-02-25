@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IFollow } from '../../interfaces/follow.interface';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
 import { FollowService } from '../../services/follow/follow.service';
+import { AnalyticsService } from '../../services/analytics/analytics.service';
 
 @Component({
   selector: 'app-initial-user-result',
@@ -16,7 +17,7 @@ export class InitialUserResultComponent implements OnInit {
   private compareFollow: IFollow
   private following: IFollow[];
 
-  constructor(private firebaseAuth: FirebaseAuthService, private followService: FollowService) { }
+  constructor(private firebaseAuth: FirebaseAuthService, private followService: FollowService, private analytics: AnalyticsService) { }
 
   ngOnInit() {
     this.followService.getFollowedUsers().subscribe(data => {
@@ -28,24 +29,22 @@ export class InitialUserResultComponent implements OnInit {
     }
     this.followService.getSpecificFollow(this.user.id, this.firebaseAuth.getCurrentUserID()).subscribe(data => {
       this.compareFollow = data[0]
-      console.log("compare follow:", this.compareFollow)
     })
   }
 
 
   follow(user) {
-    console.log("adding follow", user)
     if (this.buttonFill == "outline" && this.compareFollow == null) {
+      this.analytics.log("followInUserPopupSearch", { param: "Followed_InPopupSearch" } )
       this.btnValue = "unfollow";
       this.buttonFill = "solid";
       let follow: IFollow = {
         followedId: user.id,
         followerId: this.firebaseAuth.getCurrentUserID()
       }
-      console.log("follow", follow)
       this.followService.addFollow(follow)
     } else {
-      console.log("removing follow")
+      this.analytics.log("unfollowInUserPopupSearch", { param: "Unfollowed_InPopupSearch" } )
       this.btnValue = "follow";
       this.buttonFill = "outline";
       this.followService.removeFollowing(this.compareFollow.id)

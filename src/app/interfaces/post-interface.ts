@@ -1,3 +1,5 @@
+import { myDate } from './my-date.interface';
+
 export interface IPost {
     id:string;
     albumArt: string;
@@ -9,9 +11,4 @@ export interface IPost {
     UserID: string;
     commentCounter: number;
     likeCounter: number;
-}
-
-export interface myDate {
-    seconds: number;
-    nanoseconds: number;
 }

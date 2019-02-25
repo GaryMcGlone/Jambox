@@ -5,7 +5,7 @@ import { ModalController } from "@ionic/angular";
 import { DatePipe } from "@angular/common";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { SearchSongByIdPage } from "../../pages/search-song-by-id/search-song-by-id.page";
-//import { AnalyticsService } from "../../services/analytics/analytics.service";
+import { AnalyticsService } from "../../services/analytics/analytics.service";
 
 @Component({
   selector: "app-spotify-search-result",
@@ -20,13 +20,13 @@ export class SpotifySearchResultComponent implements OnInit {
   constructor(
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService,
-  //  private analytics: AnalyticsService
+    private analytics: AnalyticsService
   ) { }
 
   ngOnInit() { }
 
   selectSong(songId: string, artistName: string, songName: string, albumArt: string, externalUri: string, previewUrl: string) {
-    // this.analytics.logButtonClick("selectedSpotifyResult", { param: "User_Tapped_Spotify_Result" });
+     this.analytics.log("selectedSpotifyResult", { param: "User_Tapped_Spotify_Result" });
     const date = new Date();
     const now = this.pipe.transform(date, "medium");
 
@@ -48,7 +48,7 @@ export class SpotifySearchResultComponent implements OnInit {
   }
 
   async presentModal(currentSong) {
-    // this.analytics.logButtonClick("selectedSpotifyResultModalPresented", { param: "User_Tapped_Spotify_Result_Modal_Opened" });
+    this.analytics.log("selectedSpotifyResultModalPresented", { param: "User_Tapped_Spotify_Result_Modal_Opened" });
     let props = {
       post: currentSong
     };
@@ -60,7 +60,7 @@ export class SpotifySearchResultComponent implements OnInit {
   }
 
   async searchSongByIdModal(songId) {
-    // this.analytics.logButtonClick("searchSong", { param: "User_Searched_Song" });
+    this.analytics.log("searchSong", { param: "User_Searched_Song" });
     let props = {
       songId: songId
     };

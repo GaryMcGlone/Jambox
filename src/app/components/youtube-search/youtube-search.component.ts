@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { YouTubeApiService } from '../../services/youtube/youtube-api.service';
-//import { AnalyticsService } from '../../services/analytics/analytics.service';
+import { AnalyticsService } from '../../services/analytics/analytics.service';
 
 @Component({
   selector: 'app-youtube-search',
@@ -16,7 +16,7 @@ export class YoutubeSearchComponent implements OnInit {
   searchTerm: string;
 
   constructor(private youtubeService: YouTubeApiService, 
-    // private analytics: AnalyticsService
+     private analytics: AnalyticsService
     ) { }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class YoutubeSearchComponent implements OnInit {
     this.showSpinner = true;
     
     this.youtubeService.getSearchedVideos(this.searchTerm, this.filter, this.limit).subscribe(data => {
-      // this.analytics.logButtonClick("searchedYoutube", { param: "User_Searched_Youtube" });
+      this.analytics.log("searchedYoutube", { param: "User_Searched_Youtube" });
       this.items = data.items; 
       this.showSpinner = false; 
     });

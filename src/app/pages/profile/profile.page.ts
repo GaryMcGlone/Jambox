@@ -10,6 +10,7 @@ import { DateTimeConvertPipe } from '../../pipes/date-time-convert.pipe';
 import { IPost } from '../../interfaces/post-interface';
 import { IFollow } from '../../interfaces/follow.interface';
 import { FollowService } from '../../services/follow/follow.service';
+import { AnalyticsService } from '../../services/analytics/analytics.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -23,23 +24,30 @@ export class ProfilePage implements OnInit {
   userBio: string;
   userBioEmpty: boolean = false;
   posts: IPost[];
-  toggled: boolean = false;
+  toggled:boolean = false;
+  buttonIsDisabled: boolean = true;
   following: IFollow[];
   followers: IFollow[];
+  username: string;
+  memberSince: Date;
   constructor(
-    private auth: FirebaseAuthService,
-    private menuCtrl: MenuController,
-    private db: DatabaseService,
-    private router: Router,
-    private camera: Camera,
-    private file: File,
-    private imagePicker: ImagePicker,
-    private followService: FollowService) { }
+          private auth: FirebaseAuthService, 
+          private menuCtrl: MenuController, 
+          private db: DatabaseService, 
+          private router: Router, 
+          private camera: Camera, 
+          private file: File, 
+          private imagePicker: ImagePicker,
+          private followService: FollowService,
+          private analytics: AnalyticsService
+          ) { }
   ngOnInit() {
     this.loadProfilePictureURL();
     this.db.getCurrentUser().subscribe(data => {
       this.userBio = data.bio
-      if (this.userBio == null || this.userBio == '')
+      this.username = data.displayName
+      this.memberSince = this.toDateTime(data.createdAt.seconds);
+      if(this.userBio == null || this.userBio == '')
         this.userBioEmpty = true;
     })
     this.db.getLoggedInUserPosts().subscribe(posts => {
@@ -56,12 +64,29 @@ export class ProfilePage implements OnInit {
     })
   }
 
+  toDateTime(secs:number) {
+    var t = new Date(1970, 0, 1);
+    t.setSeconds(secs);
+    return t;
+  }
+
   updateBio($event) {
     this.userBio = $event.target.value;
-    if (this.userBio == '' || this.userBio == null)
+
+    if(this.userBio == '' || this.userBio == null)
       this.userBioEmpty = true;
     else
       this.userBioEmpty = false;
+  }
+
+  disableButton(): boolean {
+    this.buttonIsDisabled = true;
+    if (this.userBio != null && this.userBio != '') {
+      return this.buttonIsDisabled = false;
+    }
+    else {
+      return this.buttonIsDisabled = true;
+    }
   }
 
   toggleBtn() {
@@ -84,6 +109,7 @@ export class ProfilePage implements OnInit {
   }
 
   signOut() {
+    this.analytics.log("signedOut", { param: "Signed_Out" })
     this.auth.doLogout();
   }
   getFollowers() {
@@ -94,6 +120,7 @@ export class ProfilePage implements OnInit {
   }
 
   async takePicture() {
+    this.analytics.log("tookProfilePic", { param: "Pic_Taken" })
     const options: CameraOptions = {
       quality: 80,
       destinationType: this.camera.DestinationType.FILE_URI,
@@ -107,7 +134,7 @@ export class ProfilePage implements OnInit {
   }
 
   async selectImageFromGallery() {
-
+    this.analytics.log("filePickerProfilePic", { param: "file_Picker" })
     const options: ImagePickerOptions = {
       maximumImagesCount: 1
     };
@@ -119,8 +146,10 @@ export class ProfilePage implements OnInit {
 
   }
 
-  saveBio() {
-    this.db.updateBio(this.userBio)
+  saveBio(){
+    this.analytics.log("BioSaved", { param: "Bio_Saved" })
+    if(this.userBio != null && this.userBio != '' && this.userBio != ' ')
+      this.db.updateBio(this.userBio)
   }
 
   makeImageIntoImageBlob(imagePath) {

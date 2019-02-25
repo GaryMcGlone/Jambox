@@ -1,24 +1,27 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons>
-      <ion-menu-button slot="end">
-        <ion-icon icon="search" id="search"></ion-icon>
-      </ion-menu-button>
-      <ion-title>Profile</ion-title>
-      <ion-button slot="start" fill='clear' color='dark' style="margin-top:16px" (click)="navigateToSettings()">
-        <ion-icon name="settings"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-card>
-    <ion-card-content>
-      <ion-img *ngIf="profilePicture" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
-     <ion-img *ngIf="!profilePicture" (click)="toggleBtn()" class="profilePicture" src="https://banner2.kisspng.com/20180420/ahw/kisspng-headphones-computer-icons-symbol-headphone-logo-5ad977ff1cbe74.0665303015242014711178.jpg"></ion-img> 
+
+      <ion-grid class="profileGrid">
+        <ion-row>
+          <ion-col class="profilePictureContainer">
+            <ion-avatar>
+                <ion-img *ngIf="profilePicture" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
+              
+                <ion-img *ngIf="!profilePicture" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()" class="profilePicture"></ion-img>
+            </ion-avatar>
+          </ion-col>
+          <ion-col aria-colspan="2">
+              <div class="usernameContainer">
+                  <ion-title class="usernameTitle">{{username}}</ion-title>
+                  <ion-icon name="settings" id="cog" (click)="navigateToSettings()"></ion-icon>    
+              </div>
+              <p>Member since: </p>
+              <p>{{memberSince | date: 'longDate' }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
   <div class="countersContiner">
-    <ion-grid>
+    <ion-grid class="counterGrid">
         <ion-row>
             <ion-col class="borderRight">{{followersCounter}}</ion-col>
             <ion-col class="borderRight">{{followingCounter}}</ion-col>
@@ -36,14 +39,20 @@
       <ion-button *ngIf="toggled" class="imageButton" (click)="selectImageFromGallery()"> Gallery <i class="fas fa-images"> </i> </ion-button>
   </div>
    <div>
-      <ion-item>
+      <ion-item class="textAreaClass">
           <ion-label *ngIf="userBioEmpty" style="margin:4px" position="floating">Enter your bio here...</ion-label>
           <ion-textarea rows="3" [(ngModel)]="userBio" (ionChange)="updateBio($event)"></ion-textarea>
       </ion-item>
-      <ion-button *ngIf="!userBioEmpty" (click)="saveBio()"> Save Bio <i class="fas fa-images"> </i> </ion-button>
    </div>
-    </ion-card-content>
-  </ion-card>
+   <div class="bioBtnContainer">
+      <ion-button [disabled]="disableButton()"(click)="saveBio()">Save Bio</ion-button>
+   </div>
+
+    <ion-grid class="postsTitleGrid">
+      <ion-row>
+        <ion-col>Your Posts</ion-col>
+      </ion-row>
+    </ion-grid>
   <app-profile-post-list></app-profile-post-list>
 </ion-content>
 

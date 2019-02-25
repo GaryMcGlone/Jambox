@@ -34,6 +34,8 @@ export class DatabaseService {
   private userPosts: Observable<IPost[]>
   private tokenCollection: AngularFirestoreCollection<iToken>;
 
+  private bugCollection: AngularFirestoreCollection<any>
+
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     
     this._firebaseAuth.authState.subscribe(user => {
@@ -47,6 +49,7 @@ export class DatabaseService {
     this.likeCollection = _afs.collection<ILike>('likes');
     this.commentsCollection = _afs.collection<IComment>("comments")
     this.tokenCollection = _afs.collection<iToken>("tokens");
+    this.bugCollection = _afs.collection<any>("feedback")
   }
 
 
@@ -225,10 +228,8 @@ export class DatabaseService {
     return this.userPosts;
   }
 
-  saveUserToken(userToken) {
-    this.tokenCollection.doc(firebase.auth().currentUser.uid).set({token: userToken})
+  addBug(bug){
+    console.log(bug)
+    this.bugCollection.add({content: bug})
   }
-
-
-
 }

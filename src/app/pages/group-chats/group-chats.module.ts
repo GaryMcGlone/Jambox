@@ -8,6 +8,8 @@ import { IonicModule } from '@ionic/angular';
 import { GroupChatsPage } from './group-chats.page';
 import { GroupChatListComponent } from '../../components/group-chat-list/group-chat-list.component';
 import { GroupChatComponent } from '../../components/group-chat/group-chat.component';
+import { UserGroupComponent } from '../../components/user-group/user-group.component';
+import { UserListGroupComponent } from '../../components/user-list-group/user-list-group.component';
 
 const routes: Routes = [
   {
@@ -23,9 +25,11 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [GroupChatsPage,
-  GroupChatListComponent,
-  GroupChatComponent
+  declarations: [
+    GroupChatsPage,
+
+    GroupChatListComponent,
+    GroupChatComponent
   ]
 })
 export class GroupChatsPageModule {}
