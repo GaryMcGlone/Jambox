@@ -8,6 +8,7 @@ import { IComment } from "../../interfaces/comment-interface";
 import { ILike } from "../../interfaces/like-interface";
 import * as firebase from "firebase/";
 import { AngularFireAuth } from "@angular/fire/auth";
+import { iToken } from "../../interfaces/token";
 
 @Injectable({
   providedIn: "root"
@@ -31,6 +32,7 @@ export class DatabaseService {
   private likeDocument: AngularFirestoreDocument<ILike>;
   private like: Observable<ILike>
   private userPosts: Observable<IPost[]>
+  private tokenCollection: AngularFirestoreCollection<iToken>;
 
   private bugCollection: AngularFirestoreCollection<any>
 
@@ -46,6 +48,7 @@ export class DatabaseService {
     this.userCollection = _afs.collection<IUser>("users");
     this.likeCollection = _afs.collection<ILike>('likes');
     this.commentsCollection = _afs.collection<IComment>("comments")
+    this.tokenCollection = _afs.collection<iToken>("tokens");
     this.bugCollection = _afs.collection<any>("feedback")
   }
 
@@ -163,28 +166,34 @@ export class DatabaseService {
   }
 
 
-  storeProfilePicture(imageBlob) {
-    return new Promise((resolve, reject) => {
-      let fileRef = firebase.storage()
-        .ref("images/" + firebase.auth().currentUser.uid);
-      let uploadTask = fileRef.put(imageBlob);
-
-      this.userCollection.doc(firebase.auth().currentUser.uid).set({ profilePictureURL: uploadTask.snapshot.downloadURL, uploadDate: new Date() }, { merge: true });
-      uploadTask.on(
-        "state_changed",
-        error => {
-          console.log(error);
-        },
-        () => {
-          resolve(uploadTask.snapshot);
-        }
-      );
-    });
+  storeProfilePicture(image: any) {
+      return new Promise((resolve, reject) => {
+        let fileRef = firebase.storage()
+          .ref("images/" + firebase.auth().currentUser.uid);
+        let uploadTask = fileRef.put(image);
+  
+        this.userCollection.doc(firebase.auth().currentUser.uid).set({ profilePictureURL: uploadTask.snapshot.downloadURL, uploadDate: new Date() }, { merge: true });
+        uploadTask.on(
+          "state_changed",
+          error => {
+            console.log(error);
+          },
+          () => {
+            resolve(uploadTask.snapshot);
+          }
+        );
+      });   
   }
 
   // gets URL of profile picture
   getProfilePictureURL(): Promise<any> {
-    let storageRef = firebase.storage().ref();
+    let storageRef
+    try{
+     storageRef = firebase.storage().ref();
+    }
+    catch(error){
+
+    }
     return storageRef.child("images/" + firebase.auth().currentUser.uid).getDownloadURL()
   }
 

@@ -5,8 +5,9 @@ import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { SpotifyService } from "./services/spotify/spotify.service";
 import { FirebaseAuthService } from "./services/firebaseAuth/firebase-auth.service";
-
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { timer } from 'rxjs';
+import { NotificationService } from "./services/notifications/notification.service";
 
 @Component({
   selector: "app-root",
@@ -24,7 +25,9 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public spotifyService: SpotifyService,
-    private auth: FirebaseAuthService
+    private auth: FirebaseAuthService,
+    private localNotifications: LocalNotifications,
+    private notificationService: NotificationService
   ) {
     this.initializeApp();
   }
@@ -38,6 +41,7 @@ export class AppComponent {
       this.splashScreen.hide();
       this.auth.stayLoggedIn();
       timer(3000).subscribe(() => this.showSplash = false);
+     
     });
   }
 
@@ -73,4 +77,6 @@ export class AppComponent {
     if (this.userSelect == true) return true;
     else return false;
   }
+
+ 
 }

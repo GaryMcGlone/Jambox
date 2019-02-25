@@ -90,20 +90,20 @@ export class ProfilePage implements OnInit {
   }
 
   toggleBtn() {
-    if(this.toggled == false)
+    if (this.toggled == false)
       this.toggled = true;
-    else 
+    else
       this.toggled = false;
   }
 
   loadProfilePictureURL() {
     this.db.getProfilePictureURL().then(data => {
-      if(data) {
+      if (data) {
         this.profilePicture = data
       }
     })
   }
-  
+
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
@@ -130,7 +130,7 @@ export class ProfilePage implements OnInit {
       targetWidth: 1000
     };
     let cameraInfo = await this.camera.getPicture(options);
-    this.makeFileIntoBlob(cameraInfo)
+    this.makeImageIntoImageBlob(cameraInfo)
   }
 
   async selectImageFromGallery() {
@@ -140,7 +140,7 @@ export class ProfilePage implements OnInit {
     };
     this.imagePicker.getPictures(options).then((results) => {
       for (var i = 0; i < results.length; i++) {
-        this.makeFileIntoBlob(results[i])
+        this.makeImageIntoImageBlob(results[i])
       }
     }, (err) => { });
 
@@ -152,23 +152,22 @@ export class ProfilePage implements OnInit {
       this.db.updateBio(this.userBio)
   }
 
-  makeFileIntoBlob(_imagePath) {
+  makeImageIntoImageBlob(imagePath) {
     return new Promise((resolve, reject) => {
       let fileName = "";
       this.file
-        .resolveLocalFilesystemUrl(_imagePath)
+        .resolveLocalFilesystemUrl(imagePath)
         .then(fileEntry => {
           let { name, nativeURL } = fileEntry;
-          let path = nativeURL
+          let filePath = nativeURL
             .substring(0, nativeURL.lastIndexOf("/"));
           fileName = name;
-          return this.file.readAsArrayBuffer(path, name);
+          return this.file.readAsArrayBuffer(filePath, name);
         })
         .then(buffer => {
           let imgBlob = new Blob([buffer], {
             type: "image/jpeg"
           });
-
           this.db.storeProfilePicture(imgBlob)
           resolve({
             fileName,
