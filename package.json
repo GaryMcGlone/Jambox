@@ -146,7 +146,8 @@
       "cordova-plugin-file": {},
       "cordova-plugin-telerik-imagepicker": {},
       "cordova-plugin-local-notification": {},
-      "cordova-plugin-firebase": {}
+      "cordova-plugin-firebase": {},
+      "cordova-support-google-services": {}
     },
     "platforms": [
       "android",
