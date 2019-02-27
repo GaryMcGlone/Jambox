@@ -39,7 +39,7 @@ export class ProfileModalPage implements OnInit {
   ) { }
   ngOnInit() {
     this.loadProfilePictureURL();
-    this.db.getCurrentUser().subscribe(data => {
+    this.db.getUserByID("").subscribe(data => {
       this.userBio = data.bio
       this.username = data.displayName
       this.memberSince = this.toDateTime(data.createdAt.seconds);
