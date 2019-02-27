@@ -30,8 +30,6 @@ export class TabsPage {
         this.empty = false;
         this.arrayLength = this.notificationsArray.length;
       }
-      console.log("tabs", this.notificationsArray)
-      console.log("empty", this.empty)
     });
   }
 
