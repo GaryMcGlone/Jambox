@@ -62,6 +62,7 @@ export class GeneralUserSearchResultComponent implements OnInit {
     // this.analytics.log("UnfollowInUserSearch", { param: "Unfollowed_InUserSearch" } )
     this.btnValue = "follow";
     this.buttonFill = "outline";
-    this.followService.removeFollowing(this.compareFollow.id)
+    this.followService.removeFollowing(this.compareFollow.id);
+    this.isFollowing = false;
   }
 }
