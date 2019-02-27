@@ -1,0 +1,88 @@
+#search{
+    font-size: 24px;
+}
+
+.profileGrid {
+    margin-top: 25px;
+}
+
+.imageButton{
+    display:inline-block;
+    width: 45%;
+}
+
+ion-avatar {
+    margin: auto;
+    border: 1px gray solid;
+    width: 85px;
+    height: 85px;
+}
+
+#cog {
+    color: black;
+    font-size: 1.75em;
+    margin-right: 10px;
+}
+
+.profilePicture{
+    width: 100%;
+    height: 100%;
+}
+
+.countersContainer {
+    width: 65%;
+    height: 20%;
+}
+
+.counterGrid ion-row ion-col {
+    text-align: center;
+    font-size: 1.15em;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.counterGrid {
+    padding-top: 0;
+}
+
+.borderDown {
+    border-bottom: 1px lightgray solid;
+}
+
+.borderBoth {
+    border-right: 1px lightgray solid;
+    border-bottom: 1px lightgray solid;
+}
+
+.borderRight {
+    border-right: 1px lightgray solid;
+}
+
+.postsTitleGrid {
+    border-bottom: 1px gray solid;
+    border-top: 1px lightgray solid;
+}
+
+.postsTitleGrid ion-row ion-col {
+    text-align: center;
+    font-size: 1.15em;
+}
+
+.textAreaClass {
+    margin-top: 20px;
+}
+.usernameTitle {
+    color: black;
+    margin-bottom: 10px;
+    padding: 0;
+    width: 70%;
+}
+
+.usernameContainer {
+    width: 100%;
+    display: inline-flex;
+}
+
+.bioBtnContainer {
+    height: 40px;
+}

@@ -1,0 +1,46 @@
+<ion-content>
+
+  <ion-grid class="profileGrid">
+    <ion-row>
+      <ion-col class="profilePictureContainer">
+        <ion-avatar>
+            <ion-img *ngIf="profilePicture" class="profilePicture" src="{{profilePicture}}"></ion-img>
+          
+            <ion-img *ngIf="!profilePicture" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()" class="profilePicture"></ion-img>
+        </ion-avatar>
+      </ion-col>
+      <ion-col aria-colspan="2">
+          <div class="usernameContainer">
+              <ion-title class="usernameTitle">{{username}}</ion-title>
+                      </div>
+          <p>Member since: </p>
+          <p>{{memberSince | date: 'longDate' }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+<div class="countersContiner">
+<ion-grid class="counterGrid">
+    <ion-row>
+        <ion-col class="borderRight">{{followersCounter}}</ion-col>
+        <ion-col class="borderRight">{{followingCounter}}</ion-col>
+        <ion-col class="borderTop">{{postsCounter}}</ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col class="borderBoth">Followers</ion-col>
+          <ion-col class="borderBoth">Following</ion-col>
+          <ion-col class="borderDown">Posts</ion-col>
+      </ion-row>
+</ion-grid>
+</div>
+<div>
+  <ion-item class="textAreaClass">
+            <ion-textarea rows="3" [(ngModel)]="userBio" ></ion-textarea>
+  </ion-item>
+</div>
+
+<ion-grid class="postsTitleGrid">
+</ion-grid>
+
+</ion-content>
+

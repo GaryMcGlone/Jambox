@@ -104,6 +104,11 @@ export class DatabaseService {
     this.currentUser = this.fireDocUser.valueChanges();
     return this.currentUser;
   }
+  getUserByID(userId: string): Observable<IUser> {
+    this.fireDocUser = this._afs.doc<IUser>("users/" + userId);
+    this.currentUser = this.fireDocUser.valueChanges();
+    return this.currentUser;
+  }
 
   //adds a comment to a subcollection, creates subcollection if it doesn't exist
   addComment(comment: IComment): void {
@@ -195,6 +200,17 @@ export class DatabaseService {
 
     }
     return storageRef.child("images/" + firebase.auth().currentUser.uid).getDownloadURL()
+  }
+
+  getProfilePictureURLOfUser(userId: string){
+    let storageRef
+    try{
+     storageRef = firebase.storage().ref();
+    }
+    catch(error){
+
+    }
+    return storageRef.child("images/" + userId).getDownloadURL()
   }
 
   //Changes displayName of user
