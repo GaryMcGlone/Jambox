@@ -12,7 +12,7 @@ export class UsersService {
   private users: Observable<IUser[]>;
 
   constructor(private _afs: AngularFirestore) {
-    this.usersColection = _afs.collection<IUser>("users");
+    this.usersColection = _afs.collection<IUser>("users", ref => ref.limit(20));
    }
   
   getUsersByQuery(query: string): Observable<IUser[]> {

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:291849800543:android:764d2cb7da3280eb",
         "android_client_info": {
-          "package_name": "io.ionic.starter"
+          "package_name": "io.jambox.app"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "291849800543-p84vglc0elvnfi1neuli25o3gobe9dmt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "io.ionic.starter",
+            "package_name": "io.jambox.app",
             "certificate_hash": "51e8e8c5e4ad704a1279c9fab07a0fc2c7a95f96"
           }
         },

@@ -1,14 +1,38 @@
 <ion-item *ngIf="item" (click)="selectSong(item.uri, item.artists[0].name, item.name, item.album.images[0].url, item.album.external_urls.spotify, item.preview_url)">
-  <ion-thumbnail slot="start">
-    <img [src]="item.album.images[0].url">
+  <ion-thumbnail slot="start" >
+    <img [src]="[src]="item.album.images[0].url">
   </ion-thumbnail>
-  <ion-label>
-    <h2>{{ item.name }}</h2>
+  <ion-label text-wrap>
+   <h5>{{ item.name }}</h5>
     <p>{{ item.artists[0].name }}</p>
   </ion-label>
-  <ion-buttons slot="end">
+  <!-- <ion-buttons slot="end" >
     <ion-button fill="clear" color="medium">
-      <ion-icon name="star"></ion-icon>
+      <ion-icon name="search"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" color="medium">
+      <ion-icon name="play"></ion-icon>
+    </ion-button>
+  </ion-buttons> -->
+  <ion-button fill="clear" color="medium">
+    <ion-icon name="add"></ion-icon>
+  </ion-button>
+</ion-item>
+
+
+
+<!--
+<ion-item *ngIf="item" (click)="selectSong(item.uri, item.artists[0].name, item.name, item.album.images[0].url, item.album.external_urls.spotify, item.preview_url)">
+  <ion-thumbnail slot="start" >
+    <img [src]="[src]="item.album.images[0].url">
+  </ion-thumbnail>
+  <ion-label text-wrap>
+   <h5>{{ item.name }}</h5>
+    <p>{{ item.artists[0].name }}</p>
+  </ion-label>
+  <ion-buttons slot="end" >
+    <ion-button fill="clear" color="medium">
+      <ion-icon name="search"></ion-icon>
     </ion-button>
     <ion-button fill="clear" color="medium">
       <ion-icon name="play"></ion-icon>
@@ -18,11 +42,9 @@
     </ion-button>
   </ion-buttons>
 </ion-item>
-<ion-item>
 
 
 
-<!--
 
     <ion-list-header> <ion-label>Results</ion-label> </ion-list-header>
   <ion-item *ngIf="item" (click)="selectSong(item.uri, item.artists[0].name, item.name, item.album.images[0].url, item.album.external_urls.spotify, item.preview_url)">

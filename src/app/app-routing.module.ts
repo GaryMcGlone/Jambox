@@ -17,13 +17,11 @@ const routes: Routes = [
   { path: 'search-modal', loadChildren: './pages/search-modal/search-modal.module#SearchModalPageModule' },
   { path: 'private-chats', loadChildren: './pages/private-chats/private-chats.module#PrivateChatsPageModule' },
   { path: 'private-chat', loadChildren: './pages/private-chat/private-chat.module#PrivateChatPageModule' },
-  { path: 'group-chats', loadChildren: './pages/group-chats/group-chats.module#GroupChatsPageModule' },  { path: 'user-search', loadChildren: './pages/user-search/user-search.module#UserSearchPageModule' },
+  { path: 'group-chats', loadChildren: './pages/group-chats/group-chats.module#GroupChatsPageModule' },
+  { path: 'user-search', loadChildren: './pages/user-search/user-search.module#UserSearchPageModule' },
   { path: 'initial-user-search', loadChildren: './pages/initial-user-search/initial-user-search.module#InitialUserSearchPageModule' },
   { path: 'user-search-group', loadChildren: './pages/user-search-group/user-search-group.module#UserSearchGroupPageModule' },
-  { path: 'profileModal', loadChildren: './pages/profileModal/profile-modal/profile-modal.module#ProfileModalPageModule' },
   { path: 'profile-modal', loadChildren: './pages/profile-modal/profile-modal.module#ProfileModalPageModule' },
-
-
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
