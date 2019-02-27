@@ -20,14 +20,14 @@ export class YoutubeSearchResultComponent implements OnInit {
 
   constructor(private modalController: ModalController,
     private databaseService: DatabaseService,
-     private analytics: AnalyticsService,
+    // private analytics: AnalyticsService,
     private router: Router) { }
 
   ngOnInit() {
   }
 
   selectSong(songId: string, artistName: string, songName: string, albumArt: string) {
-    this.analytics.log("selectedYoutubeResult", { param: "User_Tapped_Youtube_Result" });
+   // this.analytics.log("selectedYoutubeResult", { param: "User_Tapped_Youtube_Result" });
     const date = new Date();
     const now = this.pipe.transform(date, "medium");
 
@@ -49,7 +49,7 @@ export class YoutubeSearchResultComponent implements OnInit {
   }
 
   async presentModal(currentSong) {
-    this.analytics.log("selectedYoutubeResultModalOpened", { param: "User_Tapped_Youtube_Result_Modal_Opened" });
+   // this.analytics.log("selectedYoutubeResultModalOpened", { param: "User_Tapped_Youtube_Result_Modal_Opened" });
     let props = {
       post: currentSong
     }

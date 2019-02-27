@@ -1,5 +1,10 @@
 <ion-card *ngIf="post" class="welcome-card">
-  <ion-img [src]="post.albumArt"></ion-img>
+  <div class="wrapper">
+      <ion-img [src]="post.albumArt"></ion-img>
+      <ion-img *ngIf="!spotifyService.playing" class="Btn" src="../assets/logo/play.png"></ion-img>
+      <ion-img *ngIf="spotifyService.playing"  class="Btn" src="../assets/logo/pause.png"></ion-img>
+  </div>
+
   <ion-card-header style="text-align:center">
     <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>
     <ion-card-title>{{ post.artistName }}</ion-card-title>

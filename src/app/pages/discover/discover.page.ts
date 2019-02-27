@@ -14,8 +14,8 @@ export class DiscoverPage implements OnInit {
 
   constructor(private menuCtrl: MenuController,
     private modalController: ModalController,
-    private analytics: AnalyticsService,
-    private toastCtrl: ToastController
+    //private analytics: AnalyticsService,
+   // private toastCtrl: ToastController
   ) { }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
@@ -25,12 +25,12 @@ export class DiscoverPage implements OnInit {
   }
 
   openChats() {
-   this.analytics.log("openedChats", { param: "Chat_View" })
+//this.analytics.log("openedChats", { param: "Chat_View" })
     this.presentModal(PrivateChatsPage);
   }
 
   openGroupChats() {
-    this.analytics.log("openedGroups", { param: "Group_View" })
+//this.analytics.log("openedGroups", { param: "Group_View" })
     this.presentModal(GroupChatsPage);
   }
   async presentToast(message: string) {
