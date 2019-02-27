@@ -75,7 +75,7 @@ export class ProfileModalPage implements OnInit {
 
 
   loadProfilePictureURL() {
-    this.db.getProfilePictureURL().then(data => {
+    this.db.getProfilePictureURLOfUser(this.userId).then(data => {
       if (data) {
         this.profilePicture = data
       }
