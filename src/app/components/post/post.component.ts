@@ -38,6 +38,7 @@ export class PostComponent implements OnInit {
   commentCounter: number = 0;
   likes: ILike[] = [];
   likeCounter: number = 0;
+  userId: string
 
   constructor(
     private databaseService: DatabaseService,
@@ -55,6 +56,7 @@ export class PostComponent implements OnInit {
     // });
     this.usersService.getSpecificUserById(this.post.UserID).subscribe(data => {
       this.username = data[0].displayName;
+      
     })
     this.databaseService.getComments(this.post.id).subscribe(comments => {
         (this.comments = comments),

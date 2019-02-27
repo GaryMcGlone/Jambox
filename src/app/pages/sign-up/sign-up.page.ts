@@ -18,7 +18,7 @@ export class SignUpPage implements OnInit {
     private router: Router,
     private menuCtrl: MenuController,
     private usersService: UsersService,
-    private analytics: AnalyticsService
+    //private analytics: AnalyticsService
   ) {}
 
   passwordErrorBool = false;
@@ -48,7 +48,7 @@ export class SignUpPage implements OnInit {
   }
 
   signUp(email: string, password: string, confirmPassword:string, displayName: string) {
-    this.analytics.log("signUp", { param: "User_Sign_Up" });
+  //  this.analytics.log("signUp", { param: "User_Sign_Up" });
     this.auth.signUp(email, password, displayName);
   }
 

@@ -95,5 +95,6 @@ export class PrivateChatComponent implements OnInit {
     });
     return await modal.present();
   }
+
  
 }
