@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { INotification } from '../../interfaces/notification-interface';
 import { myDate } from '../../interfaces/my-date.interface';
+import { NotificationService } from '../../services/notifications/notification.service';
 
 @Component({
   selector: 'app-notification',
@@ -15,7 +16,9 @@ export class NotificationComponent implements OnInit {
   like: boolean = false;
   follow: boolean = false;
 
-  constructor() { }
+  constructor(
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit() {
     this.getCreatedAt(this.notification.createdAt);
@@ -42,6 +45,10 @@ export class NotificationComponent implements OnInit {
     var newDate = new Date(1970, 0, 1);
     newDate.setSeconds(date.seconds);
     this.displayCreatedAt = newDate;
+  }
+
+  deleteNotification(): void {
+    this.notificationService.deleteNotification(this.notification.id)
   }
 
 }

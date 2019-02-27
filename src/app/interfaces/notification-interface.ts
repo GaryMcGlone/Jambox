@@ -5,4 +5,5 @@ export interface INotification{
     body: string;
     createdAt: myDate;
     type: string;
+    id?: string;
 }

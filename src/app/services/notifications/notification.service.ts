@@ -72,4 +72,8 @@ export class NotificationService {
       })));
     return this.notificationsList;
   }
+
+  deleteNotification(id: string): void {
+    this.notificationsCollection.doc(id).delete();
+  }
 }
