@@ -24,7 +24,7 @@ export class UserComponent implements OnInit {
   private compareFollow: IFollow
   private following: IFollow[];
 
-  constructor(private modalController: ModalController, private chatService: ChatService, private firebaseAuth: FirebaseAuthService, private followService: FollowService, private analytics: AnalyticsService ) { }
+  constructor(private modalController: ModalController, private chatService: ChatService, private firebaseAuth: FirebaseAuthService, private followService: FollowService,/* private analytics: AnalyticsService*/ ) { }
 
   ngOnInit() {
     this.chatRoom = { members: [] }
@@ -39,7 +39,7 @@ export class UserComponent implements OnInit {
   }
 
   selectUser() {
-    this.analytics.log("selectedUserToChat", { param: "Selected_User_ToChat" } )
+  //  this.analytics.log("selectedUserToChat", { param: "Selected_User_ToChat" } )
     this.currentUserId = this.firebaseAuth.getCurrentUserID();
     this.members = [this.currentUserId, this.user.uid];
     this.chatRoom.members = this.members;
@@ -48,7 +48,7 @@ export class UserComponent implements OnInit {
   }
 
   follow(user) {
-    this.analytics.log("followInChatView", { param: "Follow_InChatView" } )
+    //this.analytics.log("followInChatView", { param: "Follow_InChatView" } )
     if (this.buttonFill == "outline") {
       this.btnValue = "unfollow";
       this.buttonFill = "solid";
@@ -58,7 +58,7 @@ export class UserComponent implements OnInit {
       }
      this.followService.addFollow(follow)
     } else {
-      this.analytics.log("unfollowInChatView", { param: "Unfollow_InChatView" } )
+     // this.analytics.log("unfollowInChatView", { param: "Unfollow_InChatView" } )
       this.btnValue = "follow";
       this.buttonFill = "outline";
       this.followService.removeFollowing(this.compareFollow.id)

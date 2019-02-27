@@ -1,0 +1,23 @@
+.colClass {
+    display: flex;
+    align-items: center;
+}
+
+ion-row{
+    width: 100%;
+    height: 70px;
+}
+
+ion-grid {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.read {
+    background-color: white;
+}
+
+.unread {
+    background-color: rgb(171, 248, 248);
+}

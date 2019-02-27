@@ -1,0 +1,12 @@
+<ion-list lines="full">
+  <div class="spinner-holder" align="center">
+      <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
+  </div>
+
+  <ion-item class="animated slideInUp faster card" *ngFor="let notification of unReadNotifications">
+      <app-notification [notification]="notification"></app-notification>
+  </ion-item>
+  <ion-item class="animated slideInUp faster card" *ngFor="let notification of readNotifications">
+      <app-notification [notification]="notification"></app-notification>
+  </ion-item>
+</ion-list>

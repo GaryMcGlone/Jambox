@@ -12,6 +12,7 @@ import { IComment } from "../../interfaces/comment-interface";
 import { IFollow } from "../../interfaces/follow.interface";
 import { UsersService } from "../../services/users/users.service";
 //import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
+import { ProfileModalPage } from '../../pages/profile-modal/profile-modal.page'
 
 @Component({
   selector: "app-post",
@@ -38,6 +39,7 @@ export class PostComponent implements OnInit {
   commentCounter: number = 0;
   likes: ILike[] = [];
   likeCounter: number = 0;
+  userId: string
 
   constructor(
     private databaseService: DatabaseService,
@@ -47,7 +49,7 @@ export class PostComponent implements OnInit {
     private firebaseAuth: FirebaseAuthService,
     private usersService: UsersService
     //private analytics: FirebaseAnalytics
-  ) {}
+  ) { }
 
   ngOnInit() {
     // this.databaseService.getCurrentUser().subscribe(data => {
@@ -55,17 +57,19 @@ export class PostComponent implements OnInit {
     // });
     this.usersService.getSpecificUserById(this.post.UserID).subscribe(data => {
       this.username = data[0].displayName;
+      this.userId = data[0].uid
+
     })
     this.databaseService.getComments(this.post.id).subscribe(comments => {
-        (this.comments = comments),
+      (this.comments = comments),
         this.commentCounter = this.comments.length,
         error => (this.errorMessage = <any>error);
     });
     this.checkIfLiked();
     this.databaseService.getLikes(this.post.id).subscribe(likes => {
       this.likes = likes,
-      this.likeCounter = this.likes.length,
-      error => (this.errorMessage = <any>error);
+        this.likeCounter = this.likes.length,
+        error => (this.errorMessage = <any>error);
     });
   }
 
@@ -74,7 +78,7 @@ export class PostComponent implements OnInit {
   }
 
   addLike(id) {
-   // this.analytics.logEvent("postLiked", { param: "User_Liked_Post" } )
+    // this.analytics.logEvent("postLiked", { param: "User_Liked_Post" } )
     let like: ILike = {
       postId: id,
       userId: this.firebaseAuth.getCurrentUserID()
@@ -84,7 +88,7 @@ export class PostComponent implements OnInit {
     this.databaseService.addLike(like);
   }
   removeLike(id) {
-   // this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" } )
+    // this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" } )
     this.likeID = this.post.id + "_" + this.firebaseAuth.getCurrentUserID();
     this.changeHeart("heart-empty", "dark");
     this.liked = false;
@@ -123,14 +127,14 @@ export class PostComponent implements OnInit {
     this.spotifyService.resumeSong(songId);
   }
 
-  
-  commentClick() {    
+
+  commentClick() {
     this.selectComments(this.postID);
   }
 
   playYoutube(videoId) {
     // this.analytics.logEvent("playYoutube", { param: "User_Played_Youtube" } )
-       this.youtube.openVideo(videoId);
+    this.youtube.openVideo(videoId);
   }
 
   selectComments(selectedPost): void {
@@ -159,5 +163,13 @@ export class PostComponent implements OnInit {
           this.changeHeart("heart-empty", "dark");
         }
       });
+  }
+
+async  viewProfile() {  
+      const modal = await this.modalController.create({
+        component: ProfileModalPage,
+        componentProps: { userId: this.userId }
+      });
+      return await modal.present();
   }
 }

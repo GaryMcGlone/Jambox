@@ -13,7 +13,7 @@ export class CreateSongModalPage implements OnInit {
   post;
   caption: string;
   userID: string;
-  constructor(private modalController: ModalController, private databaseService: DatabaseService, private navParams: NavParams, private firebaseAuth: FirebaseAuthService, private analytics: AnalyticsService) {
+  constructor(private modalController: ModalController, private databaseService: DatabaseService, private navParams: NavParams, private firebaseAuth: FirebaseAuthService,/* private analytics: AnalyticsService*/) {
     this.post = this.navParams.get("post");
   }
 
@@ -30,6 +30,6 @@ export class CreateSongModalPage implements OnInit {
     this.post.createdAt = new Date();
     this.databaseService.addPost(this.post);
     this.modalController.dismiss();
-    this.analytics.log("postSong", { param: "User_Posted_Song" });
+   // this.analytics.log("postSong", { param: "User_Posted_Song" });
   }
 }

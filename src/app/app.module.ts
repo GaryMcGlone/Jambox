@@ -51,15 +51,18 @@ import { InitialUserSearchPageModule } from "./pages/initial-user-search/initial
 import { UserSearchPageModule } from "./pages/user-search/user-search.module";
 import { UserSearchGroupPage } from "./pages/user-search-group/user-search-group.page";
 import { UserSearchGroupPageModule } from "./pages/user-search-group/user-search-group.module";
-
+import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import {ProfileModalPage} from './pages/profile-modal/profile-modal.page'
+import {ProfileModalPageModule} from './pages/profile-modal/profile-modal.module'
 library.add(fas, far, fab)
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserSearchComponent,
+    UserSearchComponent
   ],
-  entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage, UserSearchGroupPage],
+  entryComponents: [ProfileModalPage, CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage, UserSearchGroupPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
@@ -79,6 +82,7 @@ library.add(fas, far, fab)
     InitialUserSearchPageModule,
     UserSearchPageModule,
     UserSearchGroupPageModule,
+    ProfileModalPageModule
   ],
   providers: [
     StatusBar,

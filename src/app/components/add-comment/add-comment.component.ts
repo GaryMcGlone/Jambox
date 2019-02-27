@@ -25,7 +25,8 @@ export class AddCommentComponent implements OnInit {
 
   constructor(private databaseService: DatabaseService,
      private firebaseAuth: FirebaseAuthService,
-     private analytics: FirebaseAnalytics) {
+    //  private analytics: FirebaseAnalytics
+     ) {
   }
 
   ngOnInit() {
@@ -57,7 +58,7 @@ export class AddCommentComponent implements OnInit {
   }
 
   save() {
-    this.analytics.logEvent("addedComment", { param: "User_Added_Comment" } )
+    // this.analytics.logEvent("addedComment", { param: "User_Added_Comment" } )
     const date = new Date();
     this.postedAt = this.pipe.transform(date, "medium");
     this.comment.content = this.content;
