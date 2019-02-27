@@ -9,7 +9,8 @@ import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.s
   styleUrls: ['./notification-list.component.scss']
 })
 export class NotificationListComponent implements OnInit {
-  notifications: INotification[] = [];
+  unReadNotifications: INotification[] = [];
+  readNotifications: INotification[] = [];
   showSpinner: boolean = false;
 
   constructor(
@@ -19,9 +20,16 @@ export class NotificationListComponent implements OnInit {
 
   ngOnInit() {
     this.showSpinner = true;
-    this.notificationService.getNotifications(this.auth.getCurrentUserID()).subscribe(data => {
-      this.notifications = data
+    this.notificationService.getUnReadNotifications(this.auth.getCurrentUserID()).subscribe(data => {
+      this.unReadNotifications = data
       this.showSpinner = false;
+      console.log("unread notifications: ", this.unReadNotifications)
+    });
+    this.notificationService.getReadNotifications(this.auth.getCurrentUserID()).subscribe(data => {
+      this.readNotifications = data
+      console.log("read notifications: ", this.readNotifications)
     });
   }
+
+  
 }

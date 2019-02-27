@@ -58,10 +58,29 @@ export class NotificationService {
       });
   }
 
-  getNotifications(userId: string) {
+  getReadNotifications(userId: string) {
     this.notificationsCollection = this._afs.collection<INotification>("notifications", ref => {
       return ref.where('userId', '==', userId)
-                .limit(10);
+                .where('read', '==', true)
+                .limit(10)
+                .orderBy('createdAt', 'desc');
+    });
+    this.notificationsList = this.notificationsCollection.snapshotChanges().pipe(
+      map(actions => 
+        actions.map(a => {
+          const data = a.payload.doc.data() as INotification;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+      })));
+    return this.notificationsList;
+  }
+
+  getUnReadNotifications(userId: string) {
+    this.notificationsCollection = this._afs.collection<INotification>("notifications", ref => {
+      return ref.where('userId', '==', userId)
+                .where('read', '==', false)
+                .limit(10)
+                .orderBy('createdAt', 'desc');
     });
     this.notificationsList = this.notificationsCollection.snapshotChanges().pipe(
       map(actions => 
@@ -75,5 +94,11 @@ export class NotificationService {
 
   deleteNotification(id: string): void {
     this.notificationsCollection.doc(id).delete();
+  }
+
+  markAsRead(id: string):void {
+    this.notificationsCollection.doc(id).set({
+      read: true
+    }, {merge: true});
   }
 }
