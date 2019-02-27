@@ -27,7 +27,7 @@ export class NotificationService {
     this.firebase.getToken().then(token => {
       this.saveToken(token)
     });
-    console.log("gonna save a wee token hey ")
+
   }
 
   private saveToken(token) {
@@ -45,8 +45,6 @@ export class NotificationService {
   }
 
   startNotifications() {
-    console.log("starting notifications")
-
     this.getToken();
     this.firebase.onNotificationOpen().subscribe(
       (msg) => {
