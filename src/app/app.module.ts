@@ -51,13 +51,15 @@ import { InitialUserSearchPageModule } from "./pages/initial-user-search/initial
 import { UserSearchPageModule } from "./pages/user-search/user-search.module";
 import { UserSearchGroupPage } from "./pages/user-search-group/user-search-group.page";
 import { UserSearchGroupPageModule } from "./pages/user-search-group/user-search-group.module";
+import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 library.add(fas, far, fab)
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserSearchComponent,
+    UserSearchComponent
   ],
   entryComponents: [CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage, UserSearchGroupPage],
   imports: [
