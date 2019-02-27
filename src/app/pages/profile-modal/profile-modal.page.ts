@@ -11,6 +11,7 @@ import { IPost } from '../../interfaces/post-interface';
 import { IFollow } from '../../interfaces/follow.interface';
 import { FollowService } from '../../services/follow/follow.service';
 import { AnalyticsService } from '../../services/analytics/analytics.service';
+import { NavParams } from '@ionic/angular';
 @Component({
   selector: 'app-profile-modal',
   templateUrl: './profile-modal.page.html',
@@ -31,15 +32,21 @@ export class ProfileModalPage implements OnInit {
   followers: IFollow[];
   username: string;
   memberSince: Date;
+  userId: string;
+
   constructor(
     private auth: FirebaseAuthService,
     private menuCtrl: MenuController,
     private db: DatabaseService,
     private followService: FollowService,
-  ) { }
+    private navParams: NavParams
+  ) {
+    this.userId = navParams.data.userId
+    console.log(this.userId)
+  }
   ngOnInit() {
     this.loadProfilePictureURL();
-    this.db.getUserByID("").subscribe(data => {
+    this.db.getUserByID(this.userId).subscribe(data => {
       this.userBio = data.bio
       this.username = data.displayName
       this.memberSince = this.toDateTime(data.createdAt.seconds);
@@ -79,7 +86,7 @@ export class ProfileModalPage implements OnInit {
     this.menuCtrl.enable(true);
   }
 
-  
+
   getFollowers() {
 
   }

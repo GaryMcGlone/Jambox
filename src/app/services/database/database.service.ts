@@ -202,6 +202,17 @@ export class DatabaseService {
     return storageRef.child("images/" + firebase.auth().currentUser.uid).getDownloadURL()
   }
 
+  getProfilePictureURLOfUser(userId: string){
+    let storageRef
+    try{
+     storageRef = firebase.storage().ref();
+    }
+    catch(error){
+
+    }
+    return storageRef.child("images/" + userId).getDownloadURL()
+  }
+
   //Changes displayName of user
   updateUserDisplayName(userId: string, newDisplayName: string): void {
     this.userCollection.doc(userId).set({
