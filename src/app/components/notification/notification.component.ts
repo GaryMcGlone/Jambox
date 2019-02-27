@@ -23,6 +23,9 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
     this.getCreatedAt(this.notification.createdAt);
     this.getIconType(this.notification.type);
+    setTimeout(() => {
+      this.makeReadTrue(this.notification.id);
+    }, 3000);
   }
 
   getIconType(type: string): void {
@@ -40,7 +43,6 @@ export class NotificationComponent implements OnInit {
     }
   } 
 
-
   getCreatedAt(date: myDate): void {
     var newDate = new Date(1970, 0, 1);
     newDate.setSeconds(date.seconds);
@@ -49,6 +51,10 @@ export class NotificationComponent implements OnInit {
 
   deleteNotification(): void {
     this.notificationService.deleteNotification(this.notification.id)
+  }
+
+  makeReadTrue(id: string): void {
+    this.notificationService.markAsRead(id);
   }
 
 }

@@ -11,6 +11,7 @@
 
     <ion-tab-button tab="notifications">
       <fa-icon [icon]="['fas','bell']" ></fa-icon>
+      <ion-badge *ngIf="empty != true" id="notifications-badge" color="danger" >{{arrayLength}}</ion-badge>
     </ion-tab-button>
    
     <ion-tab-button tab="profile">

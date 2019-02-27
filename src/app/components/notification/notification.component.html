@@ -4,6 +4,7 @@
           <fa-icon *ngIf="notification.type == 'comment'" [icon]="['fas','comments']"></fa-icon>
           <fa-icon *ngIf="notification.type == 'like'" [icon]="['fas','heart']"></fa-icon>
           <fa-icon *ngIf="notification.type == 'follow'" [icon]="['fas','user-plus']"></fa-icon>
+          <ion-badge color="red" *ngIf="!notification.read" id="notifications-badge" color="danger" item-end>!</ion-badge>
       </ion-col>
       <ion-col size="9" >
           <ion-label text-wrap>
