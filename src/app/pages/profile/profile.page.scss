@@ -18,12 +18,15 @@ ion-avatar {
     height: 85px;
 }
 
-#cog {
+.cog {
     color: black;
     font-size: 1.75em;
-    margin-right: 10px;
+    //margin-right: 10px;
 }
 
+.bio {
+    margin-left: 5%;
+}
 .profilePicture{
     width: 100%;
     height: 100%;
@@ -66,10 +69,6 @@ ion-avatar {
 .postsTitleGrid ion-row ion-col {
     text-align: center;
     font-size: 1.15em;
-}
-
-.textAreaClass {
-    margin-top: 20px;
 }
 .usernameTitle {
     color: black;
