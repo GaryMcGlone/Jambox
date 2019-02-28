@@ -34,13 +34,10 @@
 </ion-grid>
 </div>
 <div>
-  <ion-item class="textAreaClass">
+  <ion-item class="textAreaClass" *ngIf="userBio">
             <ion-textarea rows="3" [(ngModel)]="userBio" ></ion-textarea>
   </ion-item>
 </div>
-
-<ion-grid class="postsTitleGrid">
-</ion-grid>
-
+<app-profile-modal-post-list [userId]="userId"></app-profile-modal-post-list>
 </ion-content>
 

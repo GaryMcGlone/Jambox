@@ -51,7 +51,7 @@ export class ProfileModalPostComponent implements OnInit {
 
   ngOnInit() {
     this.newCreatedAt = this.getCreatedAt(this.post.createdAt);
-    this.databaseService.getCurrentUser().subscribe(data => {
+    this.databaseService.getUserByID(this.post.UserID).subscribe(data => {
       (this.user = data), (this.username = this.user.displayName);
     });
     this.databaseService.getComments(this.post.id).subscribe(comments => {

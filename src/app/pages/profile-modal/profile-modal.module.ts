@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ProfileModalPage } from './profile-modal.page';
+import { ProfileModalPostListComponent } from '../../components/profile-modal-post-list/profile-modal-post-list.component';
+import { ProfileModalPostComponent } from '../../components/profile-modal-post/profile-modal-post.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ProfileModalPage]
+  declarations: [ProfileModalPage, ProfileModalPostListComponent, ProfileModalPostComponent]
 })
 export class ProfileModalPageModule {}
