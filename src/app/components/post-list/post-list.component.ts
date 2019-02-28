@@ -38,7 +38,6 @@ export class PostListComponent implements OnInit {
 
     this.followingService.getFollowedUsers().subscribe(data => {
       this.following = data;
-      this.showSpinner = false
 
       this.databaseService.getLoggedInUserPosts().subscribe(data => {
         let counter = 1;
@@ -63,6 +62,7 @@ export class PostListComponent implements OnInit {
           })
         })
       })
+        this.showSpinner = false
     })
   }
 

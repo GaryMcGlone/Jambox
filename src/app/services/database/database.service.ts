@@ -25,8 +25,8 @@ export class DatabaseService {
   private comments: Observable<IComment[]>;
   private commentsCollection: AngularFirestoreCollection<IComment>;
 
-  private likes: Observable<ILike[]>
-  private likeCollection: AngularFirestoreCollection<ILike>
+  private likes: Observable<ILike[]>;
+  private likeCollection: AngularFirestoreCollection<ILike>;
 
   private found: boolean = false;
   private likeDocument: AngularFirestoreDocument<ILike>;
@@ -73,7 +73,6 @@ export class DatabaseService {
 
   //this method deletes a post
   deletePost(postid: string): void {
-    console.log("delete s", postid)
     this.postsCollection.doc(postid).delete();
   }
 
@@ -244,8 +243,25 @@ export class DatabaseService {
     return this.userPosts;
   }
 
+  getPostsByPostID(id: string): Observable<IPost[]> {
+    this.postsCollection = this._afs.collection<IPost>("posts", ref => {
+      return ref
+      .where(firebase.firestore.FieldPath.documentId(), '==', id)
+    });
+
+    this.userPosts = this.postsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IPost;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+    return this.userPosts;
+  }
+
   addBug(bug){
-    console.log(bug)
     this.bugCollection.add({content: bug})
   }
 
@@ -255,5 +271,21 @@ export class DatabaseService {
 
   removeToken(userId: string): void {
     this.tokenCollection.doc(userId).delete();
+  }
+
+  getUsersLikedPostIDs(id: string): Observable<ILike[]> {
+    this.likeCollection = this._afs.collection<ILike>("likes", ref => {
+      return ref.where("userId", "==", id);
+    });
+    this.likes = this.likeCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as ILike;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+    return this.likes;
   }
 }

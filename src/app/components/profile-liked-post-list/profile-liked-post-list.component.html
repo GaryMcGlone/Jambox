@@ -1,1 +1,4 @@
+<div class="spinner-holder" align="center">
+    <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
+</div>
 <app-profile-liked-post *ngFor="let post of userLikedPosts" [post]="post"></app-profile-liked-post>
