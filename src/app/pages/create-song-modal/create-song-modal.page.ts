@@ -4,10 +4,8 @@ import { DatabaseService } from "../../services/database/database.service";
 import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
 import { AnalyticsService } from "../../services/analytics/analytics.service";
 import { TagsService } from "../../services/tags/tags.service";
-import { Post } from "../../models/post.model";
 import { ITag } from "../../interfaces/tag-interface";
 import { IPost } from "../../interfaces/post-interface";
-
 @Component({
   selector: "app-create-song-modal",
   templateUrl: "./create-song-modal.page.html",
@@ -32,12 +30,7 @@ export class CreateSongModalPage implements OnInit {
     this.userID = this.firebaseAuth.getCurrentUserID()
     this.post.caption = this.caption || "";
     this.tags = this.caption.match(/#[a-z]+/gi);
-   // this.post.tags.push(...this.tags)
-    if(this.post.tags) {
-        this.post.tags.forEach(tag => {
-          this.tagsService.addTagsToDatabase(tag)
-        })
-    }
+    this.post.tags = this.tags    
     this.post.UserID = this.userID;
    // this.post.createdAt = new Date();
     this.databaseService.addPost(this.post);

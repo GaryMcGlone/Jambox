@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController, ModalController, ToastController } from '@ionic/angular';
 import { PrivateChatsPage } from '../private-chats/private-chats.page';
 import { GroupChatsPage } from '../group-chats/group-chats.page';
+import { TagsPage } from "../tags/tags.page";
 import { AnalyticsService } from '../../services/analytics/analytics.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +17,8 @@ export class DiscoverPage implements OnInit {
   constructor(private menuCtrl: MenuController,
     private modalController: ModalController,
     //private analytics: AnalyticsService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private router: Router
   ) { }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
@@ -25,12 +28,12 @@ export class DiscoverPage implements OnInit {
   }
 
   openChats() {
-//this.analytics.log("openedChats", { param: "Chat_View" })
     this.presentModal(PrivateChatsPage);
   }
-
+  openTags() {
+    this.presentModal(TagsPage)
+  }
   openGroupChats() {
-//this.analytics.log("openedGroups", { param: "Group_View" })
     this.presentModal(GroupChatsPage);
   }
   async presentToast(message: string) {
@@ -47,5 +50,6 @@ export class DiscoverPage implements OnInit {
     });
     return await modal.present();
   }
+
 
 }

@@ -18,6 +18,7 @@ export class TagsService {
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
     this.postsCollection = this._afs.collection<IPost>("posts");
+    this.tagsCollection = this._afs.collection<ITag>("tags");
   }
 
   getTags() : Observable<ITag[]> {
@@ -28,8 +29,5 @@ export class TagsService {
       return ref.where("tags", "array-contains", tag )
     });
     return this.taggedPosts = this.postsCollection.valueChanges()
-  }
-  addTagsToDatabase(tag: ITag) {
-    this.tagsCollection.add(tag)
   }
 }

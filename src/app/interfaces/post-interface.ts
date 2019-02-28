@@ -12,5 +12,5 @@ export interface IPost {
     UserID: string;
     commentCounter: number;
     likeCounter: number;
-    tags?: ITag[]
+    tags?: string[]
 }
