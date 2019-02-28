@@ -23,6 +23,7 @@ export class ProfilePage implements OnInit {
   private postsCounter: number;
   
   private profilePicture: any = null;
+  private defaultPic: string = "../../assets/icon/defaultProfilePic.jpg"
   private memberSince: Date;
   
   private yourPostsSelect: boolean = true;
@@ -34,8 +35,9 @@ export class ProfilePage implements OnInit {
     // private analytics: AnalyticsService
   ) { }
   ngOnInit() {
-    this.loadProfilePictureURL();
-
+    if(this.profilePicture != null) {
+      this.loadProfilePictureURL();
+    }   
     this.db.getCurrentUser().subscribe(data => {
       this.user = data
       this.memberSince = this.toDateTime(data.createdAt.seconds);

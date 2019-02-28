@@ -1,4 +1,5 @@
 import { myDate } from './my-date.interface';
+import { ITag } from './tag-interface';
 
 export interface IPost {
     id:string;
@@ -11,4 +12,5 @@ export interface IPost {
     UserID: string;
     commentCounter: number;
     likeCounter: number;
+    tags?: ITag[]
 }
