@@ -1,25 +1,25 @@
 <ion-content>
       <ion-grid *ngIf="user" class="profileGrid">
         <ion-row>
-          <ion-col class="profilePictureContainer">
+          <ion-col size="5">
             <ion-avatar>
                 <ion-img *ngIf="profilePicture" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
                 <ion-img *ngIf="!profilePicture" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()" class="profilePicture"></ion-img>
             </ion-avatar>
-            <p class="bio" *ngIf="!editing"> {{user.bio}} </p>
+
           </ion-col>
-          <ion-col aria-colspan="2">
+          <ion-col>
               <div class="usernameContainer">
                   <ion-title class="usernameTitle">{{user.displayName}}</ion-title>
+                  <ion-icon style="margin-right:3.5%;" name="create" class="cog" (click)="editing ? editing = false : editing = true"></ion-icon>    
                   <ion-icon name="settings" class="cog" (click)="navigateToSettings()"></ion-icon>    
-                  <ion-icon name="create" class="cog" (click)="editing ? editing = false : editing = true"></ion-icon>    
               </div>
               <p>Member since: </p>
               <p>{{memberSince | date: 'longDate' }}</p>
-           
           </ion-col>
         </ion-row>
       </ion-grid>
+      <p class="bio" *ngIf="!editing && user"> {{user.bio}} </p>
       <div *ngIf="user">
          
           <ion-item *ngIf="editing" class="textAreaClass">
@@ -51,7 +51,6 @@
         <ion-segment-button value="yourposts" checked>
           <ion-row>
             <ion-col size="12" >
-                <ion-note class="segmentNote">Your Posts</ion-note> 
                 <fa-icon class="segmentIcon" [icon]="['fas', 'align-justify']"></fa-icon>  
             </ion-col>
           </ion-row>
@@ -59,7 +58,6 @@
         <ion-segment-button value="likedposts"> 
           <ion-row>
             <ion-col size="12" class="segmentCol">
-                <ion-note class="segmentNote">Liked Posts</ion-note>
                 <fa-icon class="segmentIcon" [icon]="['fas','heart']" ></fa-icon>
             </ion-col>
           </ion-row>
