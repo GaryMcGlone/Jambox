@@ -23,11 +23,9 @@ export class NotificationListComponent implements OnInit {
     this.notificationService.getUnReadNotifications(this.auth.getCurrentUserID()).subscribe(data => {
       this.unReadNotifications = data
       this.showSpinner = false;
-      console.log("unread notifications: ", this.unReadNotifications)
     });
     this.notificationService.getReadNotifications(this.auth.getCurrentUserID()).subscribe(data => {
       this.readNotifications = data
-      console.log("read notifications: ", this.readNotifications)
     });
   }
 

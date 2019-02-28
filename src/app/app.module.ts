@@ -46,15 +46,12 @@ import { PrivateChatsPageModule } from "./pages/private-chats/private-chats.modu
 import { GroupChatsPage } from "./pages/group-chats/group-chats.page";
 import { GroupChatsPageModule } from "./pages/group-chats/group-chats.module";
 import { UserSearchPage } from "./pages/user-search/user-search.page";
-import { InitialUserSearchPage } from "./pages/initial-user-search/initial-user-search.page";
 import { InitialUserSearchPageModule } from "./pages/initial-user-search/initial-user-search.module";
 import { UserSearchPageModule } from "./pages/user-search/user-search.module";
 import { UserSearchGroupPage } from "./pages/user-search-group/user-search-group.page";
 import { UserSearchGroupPageModule } from "./pages/user-search-group/user-search-group.module";
-import { NotificationListComponent } from './components/notification-list/notification-list.component';
-import { NotificationComponent } from './components/notification/notification.component';
 import {ProfileModalPage} from './pages/profile-modal/profile-modal.page'
-import {ProfileModalPageModule} from './pages/profile-modal/profile-modal.module'
+import {ProfileModalPageModule} from './pages/profile-modal/profile-modal.module';
 library.add(fas, far, fab)
 
 @NgModule({

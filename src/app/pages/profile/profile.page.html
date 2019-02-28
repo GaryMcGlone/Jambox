@@ -45,14 +45,25 @@
       </ion-item>
    </div>
    <div class="bioBtnContainer">
-      <ion-button [disabled]="disableButton()"(click)="saveBio()">Save Bio</ion-button>
+      <ion-button (click)="saveBio()">Save Bio</ion-button>
    </div>
 
-    <ion-grid class="postsTitleGrid">
-      <ion-row>
-        <ion-col>Your Posts</ion-col>
-      </ion-row>
-    </ion-grid>
-  <app-profile-post-list></app-profile-post-list>
+
+    <ion-segment (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="yourposts" checked>
+          <ion-note>Your {{yourPostsSelect}}</ion-note> 
+          <ion-icon name="reorder" color="dark"></ion-icon>       
+        </ion-segment-button>
+        <ion-segment-button value="likedposts"> 
+            <ion-note>Liked {{likedPostsSelect}}</ion-note>
+            <fa-icon [icon]="['fas','heart']" ></fa-icon>
+         </ion-segment-button>
+      </ion-segment>
+      <div *ngIf="yourPostsSelect == true" no-padding>
+          <app-profile-post-list></app-profile-post-list>
+      </div>
+      <div *ngIf="likedPostsSelect == true" no-padding>
+          <!-- <app-profile-liked-post-list></app-profile-liked-post-list> -->
+      </div>
 </ion-content>
 

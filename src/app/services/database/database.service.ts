@@ -252,4 +252,8 @@ export class DatabaseService {
   saveUserToken(token){
     this.tokenCollection.doc(firebase.auth().currentUser.uid).set({token: token})
   }
+
+  removeToken(userId: string): void {
+    this.tokenCollection.doc(userId).delete();
+  }
 }
