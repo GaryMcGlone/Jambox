@@ -5,4 +5,12 @@
   <ion-item [ngClass]="cssClass" *ngFor="let chat of chats">
     <group-chat [currentChat]="chat"></group-chat>
   </ion-item>
+    <ion-row *ngIf="chats.length == 0">
+      <ion-col style="text-align: center; color: darkgray">
+          
+              You are not currently in any group chats.<br/>
+              Click the plus icon below to create a group chat.
+            
+      </ion-col>
+    </ion-row>
 </ion-list>

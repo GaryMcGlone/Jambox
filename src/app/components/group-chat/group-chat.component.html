@@ -9,5 +9,20 @@
       <p *ngIf="user.displayName != lastMessage.senderName">{{lastMessage.senderName}}: {{lastMessage.message}}</p>
       <p *ngIf="user.displayName == lastMessage.senderName">You: {{lastMessage.message}}</p>
     </div>
+
+    <ion-grid text-wrap>
+        <ion-row>
+          <ion-col size="9" *ngIf="lastMessage">
+              <p *ngIf="user.displayName != lastMessage.senderName">{{otherUser.displayName}}: {{lastMessage.message}}</p>
+              <p *ngIf="user.displayName == lastMessage.senderName">You: {{lastMessage.message}}</p>
+          </ion-col>
+          <ion-col size="3" *ngIf="lastMessage">     
+             <p class="time" *ngIf="newCreatedAt != null && newCreatedAt != ''">{{displayCreatedAt | date: 'dd MMM hh:mm'}}</p>
+          </ion-col>
+          <ion-col size="12" *ngIf="!lastMessage">
+            <p>No messages so far, why not say hi?</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
   </ion-card-content>
 </ion-card>

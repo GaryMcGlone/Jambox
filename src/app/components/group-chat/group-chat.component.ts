@@ -6,6 +6,7 @@ import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.s
 import { DatabaseService } from '../../services/database/database.service';
 import { ModalController, proxyOutputs } from '@ionic/angular';
 import { PrivateChatPage } from '../../pages/private-chat/private-chat.page';
+import { myDate } from '../../interfaces/my-date.interface';
 
 @Component({
   selector: 'group-chat',
@@ -20,6 +21,7 @@ export class GroupChatComponent implements OnInit {
   userId: string;
   user: IUser;
   otherUsers: IUser[]= [];
+  displayCreatedAt: Date;
   
   constructor(
     private chatService: ChatService,
@@ -43,11 +45,19 @@ export class GroupChatComponent implements OnInit {
     this.chatService.getLastChatRoomMessage(this.currentChat.id).subscribe(message => {
       this.lastMessages = message;
       this.lastMessage = this.lastMessages[0];
+      if(this.lastMessage != null)
+        this.getCreatedAt(this.lastMessage.createdAt);
     });
   }
 
   selectChat(selectedChat) {
     this.presentModal(selectedChat);
+  }
+
+  getCreatedAt(date: myDate): void {
+    var newDate = new Date(1970, 0, 1);
+    newDate.setSeconds(date.seconds);
+    this.displayCreatedAt = newDate;
   }
 
   async presentModal(selectChat) {

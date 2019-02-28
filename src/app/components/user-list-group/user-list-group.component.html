@@ -9,3 +9,30 @@
   </ion-item>
   <p text-center *ngIf="users.length == 0">No results found</p>
 </ion-list>
+
+<ion-item>
+    <ion-label color="primary" position="floating" stacked>Group Name</ion-label>
+    <ion-input color="dark" type="text" (ionChange)="groupNameUpdate($event)"></ion-input>
+</ion-item>
+
+  <ion-grid *ngIf="memberList.length != 0">
+    <ion-row>
+        <ion-item no-lines *ngFor="let member of memberList">
+              <ion-col size="5">
+                  <p id="username">
+                      {{member.displayName}}
+                  </p>
+              </ion-col>
+              <ion-col size="1">
+                  <ion-icon (click)="memberDelete(member.uid, member)" name="close"></ion-icon>
+              </ion-col>
+        </ion-item>      
+    </ion-row>
+    <ion-row>
+        <ion-col size="12" align="center">
+            <ion-button color="primary" (click)="saveGroup()">
+              Create Group Chat
+            </ion-button>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
