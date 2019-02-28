@@ -54,13 +54,19 @@ import { UserSearchGroupPageModule } from "./pages/user-search-group/user-search
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import {ProfileModalPage} from './pages/profile-modal/profile-modal.page'
-import {ProfileModalPageModule} from './pages/profile-modal/profile-modal.module'
+import {ProfileModalPageModule} from './pages/profile-modal/profile-modal.module';
+import { ProfileModalComponent } from './components/profile-modal/profile-modal.component';
+import { ProfileModalPostListComponent } from './components/profile-modal-post-list/profile-modal-post-list.component';
+import { ProfileModalPostComponent } from './components/profile-modal-post/profile-modal-post.component'
 library.add(fas, far, fab)
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserSearchComponent
+    UserSearchComponent,
+    ProfileModalComponent,
+    ProfileModalPostListComponent,
+    ProfileModalPostComponent
   ],
   entryComponents: [ProfileModalPage, CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage, UserSearchGroupPage],
   imports: [

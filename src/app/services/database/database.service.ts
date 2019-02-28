@@ -244,6 +244,24 @@ export class DatabaseService {
     return this.userPosts;
   }
 
+  
+  getPostByID(userId: string): Observable<IPost[]> {
+    this.postsCollection = this._afs.collection<IPost>("posts", ref => {
+      return ref.where("UserID", "==", userId)
+                 .orderBy('createdAt', 'desc')
+    });
+    this.userPosts = this.postsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IPost;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+    return this.userPosts;
+  }
+
   addBug(bug){
     console.log(bug)
     this.bugCollection.add({content: bug})
