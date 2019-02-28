@@ -27,6 +27,10 @@ export class PrivateChatsPage implements OnInit {
   }
 
   async presentAddChatModal() {
+    let type = "private";
+    var props = {
+      type
+    }
     
     const modal = await this.modalController.create({
       component: UserSearchPage
