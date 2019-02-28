@@ -24,7 +24,6 @@ export class ProfileModalPage implements OnInit {
   postsCounter: number;
   profilePicture: any = null;
   userBio: string;
-  userBioEmpty: boolean = false;
   posts: IPost[];
   toggled: boolean = false;
   buttonIsDisabled: boolean = true;
@@ -50,8 +49,6 @@ export class ProfileModalPage implements OnInit {
       this.userBio = data.bio
       this.username = data.displayName
       this.memberSince = this.toDateTime(data.createdAt.seconds);
-      if (this.userBio == null || this.userBio == '')
-        this.userBioEmpty = true;
     })
     this.db.getLoggedInUserPosts().subscribe(posts => {
       this.posts = posts
@@ -75,7 +72,7 @@ export class ProfileModalPage implements OnInit {
 
 
   loadProfilePictureURL() {
-    this.db.getProfilePictureURL().then(data => {
+    this.db.getProfilePictureURLOfUser(this.userId).then(data => {
       if (data) {
         this.profilePicture = data
       }

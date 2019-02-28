@@ -249,6 +249,12 @@ export class DatabaseService {
       .where(firebase.firestore.FieldPath.documentId(), '==', id)
     });
 
+  
+  getPostByID(userId: string): Observable<IPost[]> {
+    this.postsCollection = this._afs.collection<IPost>("posts", ref => {
+      return ref.where("UserID", "==", userId)
+                 .orderBy('createdAt', 'desc')
+    });
     this.userPosts = this.postsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
