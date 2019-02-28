@@ -5,6 +5,7 @@ import { ChatService } from '../../services/chat/chat.service';
 import { ModalController, Events } from '@ionic/angular';
 import { FollowService } from '../../services/follow/follow.service';
 import { DatabaseService } from '../../services/database/database.service';
+import { myDate } from '../../interfaces/my-date.interface';
 
 @Component({
   selector: 'app-user-group',
@@ -17,6 +18,7 @@ export class UserGroupComponent implements OnInit {
   members: string[];
   chatRoom: IGroupChatRoom;
   profilePicture: any = null;
+  displayCreatedAt: Date;
 
   constructor(
       private db: DatabaseService,
@@ -24,7 +26,14 @@ export class UserGroupComponent implements OnInit {
        ) { }
 
  ngOnInit() {
-    this.loadProfilePictureURL();    
+    this.loadProfilePictureURL();  
+    this.getCreatedAt(this.user.createdAt);  
+  }
+
+  getCreatedAt(date: myDate): void {
+    var newDate = new Date(1970, 0, 1);
+    newDate.setSeconds(date.seconds);
+    this.displayCreatedAt = newDate;
   }
 
   selectUser() {
