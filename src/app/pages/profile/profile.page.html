@@ -1,25 +1,33 @@
 <ion-content>
-
-      <ion-grid class="profileGrid">
+      <ion-grid *ngIf="user" class="profileGrid">
         <ion-row>
-          <ion-col class="profilePictureContainer">
+          <ion-col size="5">
             <ion-avatar>
                 <ion-img *ngIf="profilePicture" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
-              
                 <ion-img *ngIf="!profilePicture" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()" class="profilePicture"></ion-img>
             </ion-avatar>
+
           </ion-col>
-          <ion-col aria-colspan="2">
+          <ion-col>
               <div class="usernameContainer">
-                  <ion-title class="usernameTitle">{{username}}</ion-title>
-                  <ion-icon name="settings" id="cog" (click)="navigateToSettings()"></ion-icon>    
+                  <ion-title class="usernameTitle">{{user.displayName}}</ion-title>
+                  <ion-icon style="margin-right:3.5%;" name="create" class="cog" (click)="editing ? editing = false : editing = true"></ion-icon>    
+                  <ion-icon name="settings" class="cog" (click)="navigateToSettings()"></ion-icon>    
               </div>
               <p>Member since: </p>
               <p>{{memberSince | date: 'longDate' }}</p>
           </ion-col>
         </ion-row>
       </ion-grid>
-      
+      <p class="bio" *ngIf="!editing && user"> {{user.bio}} </p>
+      <div *ngIf="user">
+         
+          <ion-item *ngIf="editing" class="textAreaClass">
+              <ion-label style="margin:4px" position="floating">Enter your bio here...</ion-label>
+              <ion-textarea rows="3" #bio></ion-textarea>
+              <ion-button style="width:100" (click)="saveBio(bio.value)">Save Bio</ion-button>
+          </ion-item>
+       </div>
   <div class="countersContiner">
     <ion-grid class="counterGrid">
         <ion-row>
@@ -38,22 +46,11 @@
       <ion-button *ngIf="toggled" class="imageButton" (click)="takePicture()">Camera<i class="fas fa-camera"></i></ion-button>
       <ion-button *ngIf="toggled" class="imageButton" (click)="selectImageFromGallery()"> Gallery <i class="fas fa-images"> </i> </ion-button>
   </div>
-   <div>
-      <ion-item class="textAreaClass">
-          <ion-label *ngIf="userBioEmpty" style="margin:4px" position="floating">Enter your bio here...</ion-label>
-          <ion-textarea rows="3" [(ngModel)]="userBio" (ionChange)="updateBio($event)"></ion-textarea>
-      </ion-item>
-   </div>
-   <div class="bioBtnContainer">
-      <ion-button (click)="saveBio()">Save Bio</ion-button>
-   </div>
-
 
     <ion-segment (ionChange)="segmentChanged($event)">
         <ion-segment-button value="yourposts" checked>
           <ion-row>
             <ion-col size="12" >
-                <ion-note class="segmentNote">Your Posts</ion-note> 
                 <fa-icon class="segmentIcon" [icon]="['fas', 'align-justify']"></fa-icon>  
             </ion-col>
           </ion-row>
@@ -61,7 +58,6 @@
         <ion-segment-button value="likedposts"> 
           <ion-row>
             <ion-col size="12" class="segmentCol">
-                <ion-note class="segmentNote">Liked Posts</ion-note>
                 <fa-icon class="segmentIcon" [icon]="['fas','heart']" ></fa-icon>
             </ion-col>
           </ion-row>

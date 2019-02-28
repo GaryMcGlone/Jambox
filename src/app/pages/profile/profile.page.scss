@@ -12,18 +12,21 @@
 }
 
 ion-avatar {
-    margin: auto;
     border: 1px gray solid;
-    width: 85px;
-    height: 85px;
+    width: 80px;
+    height: 80px;
 }
 
-#cog {
+.cog {
     color: black;
     font-size: 1.75em;
-    margin-right: 10px;
 }
 
+.bio {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 0;
+}
 .profilePicture{
     width: 100%;
     height: 100%;
@@ -67,10 +70,6 @@ ion-avatar {
     text-align: center;
     font-size: 1.15em;
 }
-
-.textAreaClass {
-    margin-top: 20px;
-}
 .usernameTitle {
     color: black;
     margin-bottom: 10px;
@@ -94,7 +93,6 @@ ion-segment-button {
 .segmentIcon {
     margin-left: 10px;
 }
-
-// .segmentNote {
-//     margin-bottom: 10px;
-// }
+ion-segment {
+    border-bottom: 100% solid gray
+}
