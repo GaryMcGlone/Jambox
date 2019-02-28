@@ -20,6 +20,10 @@
           <ion-label text-wrap>
               {{user.displayName}} 
           </ion-label>
+          <ion-note>
+             Member since: 
+          </ion-note><br/>
+          <ion-note>{{ displayCreatedAt | date: 'longDate'}}</ion-note>
       </ion-col>
       <ion-col size="2" class="colClass">
           <ion-button fill="clear" color="medium" (click)="deleteNotification()" size="large" >
