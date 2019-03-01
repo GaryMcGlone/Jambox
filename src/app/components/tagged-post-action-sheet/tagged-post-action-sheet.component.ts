@@ -1,23 +1,21 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { ActionSheetController } from "@ionic/angular";
-import { Post } from "../../models/post.model";
-import { DatabaseService } from "../../services/database/database.service";
-import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.service";
-import { SpotifyService } from "../../services/spotify/spotify.service";
-import { ILike } from "../../interfaces/like-interface";
-import { IComment } from "../../interfaces/comment-interface";
-import { IFollow } from "../../interfaces/follow.interface";
-import { FollowService } from "../../services/follow/follow.service";
+import { Component, OnInit, Input } from '@angular/core';
+import { Post } from '../../models/post.model';
+import { IFollow } from '../../interfaces/follow.interface';
+import { ILike } from '../../interfaces/like-interface';
+import { IComment } from '../../interfaces/comment-interface';
 import * as firebase from "firebase/"
-import { Observable } from "rxjs";
-import { AnalyticsService } from "../../services/analytics/analytics.service";
+import { ActionSheetController } from '@ionic/angular';
+import { DatabaseService } from '../../services/database/database.service';
+import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
+import { SpotifyService } from '../../services/spotify/spotify.service';
+import { FollowService } from '../../services/follow/follow.service';
 
 @Component({
-  selector: "app-action-sheet",
-  templateUrl: "./action-sheet.component.html",
-  styleUrls: ["./action-sheet.component.scss"]
+  selector: 'app-tagged-post-action-sheet',
+  templateUrl: './tagged-post-action-sheet.component.html',
+  styleUrls: ['./tagged-post-action-sheet.component.scss']
 })
-export class ActionSheetComponent implements OnInit {
+export class TaggedPostActionSheetComponent implements OnInit {
   @Input() post: Post;
   @Input() following: IFollow[];
   compareFollow: IFollow;

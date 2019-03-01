@@ -50,6 +50,7 @@ import { TaggedPostsListComponent } from './components/tagged-posts-list/tagged-
 import { TaggedPostComponent } from './components/tagged-post/tagged-post.component';
 import { TaggedPostsPage } from "./pages/tagged-posts/tagged-posts.page";
 import { TaggedPostsPageModule } from "./pages/tagged-posts/tagged-posts.module";
+import { TaggedPostActionSheetComponent } from './components/tagged-post-action-sheet/tagged-post-action-sheet.component';
 
 library.add(fas, far, fab)
 

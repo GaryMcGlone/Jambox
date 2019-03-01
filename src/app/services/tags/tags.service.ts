@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { IPost } from '../../interfaces/post-interface';
 import { ITag } from '../../interfaces/tag-interface';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,15 @@ export class TagsService {
     this.postsCollection = this._afs.collection<IPost>('posts', ref => {
       return ref.where("tags", "array-contains", tag )
     });
-    return this.taggedPosts = this.postsCollection.valueChanges()
+    this.taggedPosts = this.postsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as IPost;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+    return this.taggedPosts 
   }
 }

@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { TaggedPostsPage } from './tagged-posts.page';
 import { TaggedPostsListComponent } from '../../components/tagged-posts-list/tagged-posts-list.component';
 import { TaggedPostComponent } from '../../components/tagged-post/tagged-post.component';
+import { TaggedPostActionSheetComponent } from '../../components/tagged-post-action-sheet/tagged-post-action-sheet.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TaggedPostsPage, TaggedPostsListComponent, TaggedPostComponent,]
+  declarations: [TaggedPostsPage, TaggedPostsListComponent, TaggedPostComponent, TaggedPostActionSheetComponent]
 })
 export class TaggedPostsPageModule {}

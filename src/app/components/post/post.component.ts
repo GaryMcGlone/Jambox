@@ -165,11 +165,11 @@ export class PostComponent implements OnInit {
       });
   }
 
-async  viewProfile() {  
-      const modal = await this.modalController.create({
-        component: ProfileModalPage,
-        componentProps: { userId: this.userId }
-      });
-      return await modal.present();
+  async  viewProfile() {
+    const modal = await this.modalController.create({
+      component: ProfileModalPage,
+      componentProps: { userId: this.userId }
+    });
+    return await modal.present();
   }
 }

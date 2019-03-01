@@ -1,3 +1,9 @@
-<p>
-  tagged-posts-list works!
-</p>
+<ion-list lines="none">
+  <div class="spinner-holder" align="center">
+      <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
+  </div>
+
+  <ion-item class="animated slideInUp faster card" *ngFor="let post of taggedPosts">
+      <app-tagged-post [post]="post"></app-tagged-post>
+  </ion-item>
+</ion-list>
