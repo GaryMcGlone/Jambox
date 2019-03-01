@@ -1,10 +1,10 @@
 <ion-grid *ngIf="tag" text-wrap>
-    <ion-row>
-      <ion-col size="2">
+    <ion-row (click)="openTagPage(tag)">
+      <!-- <ion-col size="2">
           <fa-icon  [icon]="['fas','hashtag']"></fa-icon>
-      </ion-col>
-      <ion-col size="9" >
-          <ion-label text-wrap>
+      </ion-col> -->
+      <ion-col >
+          <ion-label>
               {{tag.tag}} 
           </ion-label>
       </ion-col>

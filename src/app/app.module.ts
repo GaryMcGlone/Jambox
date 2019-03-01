@@ -46,13 +46,16 @@ import { ProfileModalPage } from './pages/profile-modal/profile-modal.page'
 import { ProfileModalPageModule } from './pages/profile-modal/profile-modal.module';
 import { TagsPage } from "./pages/tags/tags.page";
 import { TagsPageModule } from "./pages/tags/tags.module";
+import { TaggedPostsListComponent } from './components/tagged-posts-list/tagged-posts-list.component';
+import { TaggedPostComponent } from './components/tagged-post/tagged-post.component';
+import { TaggedPostsPage } from "./pages/tagged-posts/tagged-posts.page";
+import { TaggedPostsPageModule } from "./pages/tagged-posts/tagged-posts.module";
 
 library.add(fas, far, fab)
 
 @NgModule({
-  declarations: [AppComponent,
-  ],
-  entryComponents: [ProfileModalPage, CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage, UserSearchGroupPage, TagsPage],
+  declarations: [AppComponent],
+  entryComponents: [ProfileModalPage, CreateSongModalPage, CommentsPage, SearchSongByIdPage, PrivateChatsPage, GroupChatsPage, UserSearchPage, UserSearchGroupPage, TagsPage, TaggedPostsPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
@@ -73,7 +76,8 @@ library.add(fas, far, fab)
     UserSearchPageModule,
     UserSearchGroupPageModule,
     ProfileModalPageModule,
-    TagsPageModule
+    TagsPageModule,
+    TaggedPostsPageModule
   ],
   providers: [
     StatusBar,

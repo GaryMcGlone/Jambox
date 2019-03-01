@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'initial-user-search', loadChildren: './pages/initial-user-search/initial-user-search.module#InitialUserSearchPageModule' },
   { path: 'user-search-group', loadChildren: './pages/user-search-group/user-search-group.module#UserSearchGroupPageModule' },
   { path: 'profile-modal', loadChildren: './pages/profile-modal/profile-modal.module#ProfileModalPageModule' },  { path: 'tags', loadChildren: './pages/tags/tags.module#TagsPageModule' },
+  { path: 'tagged-posts', loadChildren: './pages/tagged-posts/tagged-posts.module#TaggedPostsPageModule' },
 
 ]
 @NgModule({

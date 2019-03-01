@@ -25,6 +25,7 @@ export class TagsService {
     return this.tags = this.tagsCollection.valueChanges();
   }
   getTaggedPosts(tag: string) : Observable<IPost[]> {
+    console.log("tag in service", tag)
     this.postsCollection = this._afs.collection<IPost>('posts', ref => {
       return ref.where("tags", "array-contains", tag )
     });
