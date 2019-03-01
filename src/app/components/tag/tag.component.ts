@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TaggedPostsPage } from "../../pages/tagged-posts/tagged-posts.page";
-import { componentFactoryName } from '@angular/compiler';
+import { ITag } from '../../interfaces/tag-interface';
+import { TagsService } from '../../services/tags/tags.service';
 
 @Component({
   selector: 'app-tag',
@@ -9,10 +10,17 @@ import { componentFactoryName } from '@angular/compiler';
   styleUrls: ['./tag.component.scss']
 })
 export class TagComponent implements OnInit {
-  @Input() tag: any
-  constructor(private modalController: ModalController) { }
+  @Input() tag: ITag;
+  tagString: string
+  taggedPostsCount:number;
+  constructor(private modalController: ModalController, private tagsService: TagsService) { }
 
   ngOnInit() {
+    this.tagString = this.tag.tag.substring(1)
+    this.tagsService.getTaggedPosts(this.tag.tag).subscribe(data => {
+      this.taggedPostsCount = data.length
+    }) 
+  
   }
 
   openTagPage(tag) {

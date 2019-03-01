@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams } from '@ionic/angular';
+import { NavParams, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tagged-posts',
@@ -8,12 +8,17 @@ import { NavParams } from '@ionic/angular';
 })
 export class TaggedPostsPage implements OnInit {
   tag: any
-  constructor(private navParams: NavParams) {
+  constructor(private navParams: NavParams, private modalController: ModalController) {
     this.tag = this.navParams.get("tag")
     console.log("tag in modal", this.tag)
    }
 
   ngOnInit() {
   }
-
+  test(event) {
+    console.log("no of posts with tag",event)
+  }
+  goBack() {
+    this.modalController.dismiss();
+  }
 }

@@ -18,7 +18,6 @@ export class TagsService {
   private tags: Observable<ITag[]>
 
   constructor(private _afs: AngularFirestore, private _firebaseAuth: AngularFireAuth) {
-    this.postsCollection = this._afs.collection<IPost>("posts");
     this.tagsCollection = this._afs.collection<ITag>("tags");
   }
 
@@ -26,7 +25,6 @@ export class TagsService {
     return this.tags = this.tagsCollection.valueChanges();
   }
   getTaggedPosts(tag: string) : Observable<IPost[]> {
-    console.log("tag in service", tag)
     this.postsCollection = this._afs.collection<IPost>('posts', ref => {
       return ref.where("tags", "array-contains", tag )
     });
@@ -40,5 +38,22 @@ export class TagsService {
       )
     );
     return this.taggedPosts 
+  }
+  getTagsByQuery(query: string): Observable<ITag[]> {
+    this.tagsCollection = this._afs.collection<ITag>("tags", ref => {
+      return ref.orderBy('tag', 'asc')
+                .startAt(query)
+                .endAt(query + "\uf8ff")
+                .limit(5);
+    });
+    this.tags = this.tagsCollection.snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as ITag;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }))
+    );
+    return this.tags;
   }
 }

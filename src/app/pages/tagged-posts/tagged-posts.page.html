@@ -1,9 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>tagged-posts</ion-title>
+    <ion-row style="margin-top:2%">
+      <ion-buttons>
+        <ion-button (click)="goBack()" color="primary" fill="clear">
+          <ion-icon size="large" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-col size="5">
+        <ion-title>
+           Posts
+        </ion-title> 
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <app-tagged-posts-list [tag]="tag"></app-tagged-posts-list>
+<ion-content (ionModalWillPresent)="ionModalWillPresent()" padding>
+  <app-tagged-posts-list  (emmiter)="test($event)" [tag]="tag"></app-tagged-posts-list>
 </ion-content>
