@@ -40,25 +40,39 @@ ion-avatar {
 .counterGrid ion-row ion-col {
     text-align: center;
     font-size: 1.15em;
-    padding-top: 0;
-    padding-bottom: 0;
 }
 
 .counterGrid {
-    padding-top: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .borderDown {
     border-bottom: 1px lightgray solid;
+    padding-top: 0;
+    padding-bottom: 10px;
 }
 
 .borderBoth {
     border-right: 1px lightgray solid;
     border-bottom: 1px lightgray solid;
+    padding-top: 0;
+    padding-bottom:10px;
 }
 
 .borderRight {
     border-right: 1px lightgray solid;
+    border-top: 1px lightgray solid;
+    padding-top: 10px;
+    padding-bottom: 0;
+}
+
+.borderTop {
+    border-top: 1px lightgray solid;
+    padding-top: 10px;
+    padding-bottom: 0;
 }
 
 .postsTitleGrid {

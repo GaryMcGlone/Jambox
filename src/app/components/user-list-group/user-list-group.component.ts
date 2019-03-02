@@ -31,9 +31,11 @@ export class UserListGroupComponent implements OnInit {
     private modalController: ModalController
     ) { 
       this.events.subscribe('member-add', data => {
-        if(!this.memberListString.includes(data.uid)){
+        if(!this.memberListString.includes(data.uid) && data.uid != this.auth.getCurrentUserID()){
           this.memberList.push(data);
           this.memberListString.push(data.uid);
+        }else if(data.uid == this.auth.getCurrentUserID()){
+          this.presentToast("You don't have to add yourself");
         }else{
           this.presentToast(`${data.displayName} is already added to the list`);
         }
