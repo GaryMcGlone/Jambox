@@ -174,16 +174,20 @@ export class DatabaseService {
     return new Promise((resolve, reject) => {
       let fileRef = firebase.storage().ref("images/" + firebase.auth().currentUser.uid);
      
-      let uploadTask = fileRef.put(image);
-
-      this.userCollection.doc(firebase.auth().currentUser.uid).set({ profilePictureURL: uploadTask.snapshot.downloadURL, uploadDate: new Date() }, { merge: true });
+      let uploadTask = fileRef.put(image); 
+      let url = fileRef.getDownloadURL()
+      console.log(url)
+     
       uploadTask.on(
         "state_changed",
         error => {
           console.log(error);
         },
         () => {
-          resolve(uploadTask.snapshot);
+          resolve(() => {
+            uploadTask.snapshot, 
+            this.userCollection.doc(firebase.auth().currentUser.uid).set({ profilePictureURL: uploadTask.snapshot.downloadURL, uploadDate: new Date() }, { merge: true });
+          });
         }
       );
     });
