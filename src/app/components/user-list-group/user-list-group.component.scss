@@ -11,10 +11,21 @@
     padding: 0;
 }
 
+.userCol{
+    background-color: lightgray;
+    border: solid lightgray;
+    border-radius: 15px;
+}
+
 ion-list {
     width: 100%;
 }
 
 ion-item {
     width: 100%;
+}
+
+ion-icon {
+    align-self: flex-end;
+    margin-right: 5px;
 }

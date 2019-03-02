@@ -5,6 +5,7 @@ import { Events, ToastController, ModalController } from '@ionic/angular';
 import { IGroupChatRoom } from '../../interfaces/group-chat-room-interface';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
 import { ChatService } from '../../services/chat/chat.service';
+import { StringConvertPipe } from '../../pipes/string-convert.pipe';
 
 @Component({
   selector: 'app-user-list-group',
@@ -58,6 +59,11 @@ export class UserListGroupComponent implements OnInit {
    }
  }
 
+ stringConvert(value: string): string {
+  var strConvert = new StringConvertPipe();
+  return strConvert.transform(value);
+ }
+
  groupNameUpdate($event) {
    if($event.target.value.length > 35){
     this.presentToast('Group name too long')
@@ -86,6 +92,7 @@ export class UserListGroupComponent implements OnInit {
       name: this.groupName
     }
     this.chatService.createGroupChatRoom(this.groupChat);
+    this.memberListString = [];
     this.modalController.dismiss();
    }
    else if(this.groupName.length < 5){
