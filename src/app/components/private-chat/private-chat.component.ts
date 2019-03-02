@@ -22,7 +22,8 @@ export class PrivateChatComponent implements OnInit {
   userId: string;
   user: IUser;
   otherUser: IUser;
-  newCreatedAt: string;
+  displayCreatedAt: Date;
+  senderName: string;
 
   constructor(
     private chatService: ChatService,
@@ -47,37 +48,20 @@ export class PrivateChatComponent implements OnInit {
     this.chatService.getLastChatRoomMessage(this.currentChat.id).subscribe(message => {
       this.lastMessages = message;
       this.lastMessage = this.lastMessages[0];
-      if(this.lastMessage != null)
-        this.newCreatedAt = this.getCreatedAt(this.lastMessage.createdAt)
+      if(this.lastMessage != null){
+        this.getCreatedAt(this.lastMessage.createdAt);
+        if(this.lastMessage.senderName == this.user.displayName)
+          this.senderName = "You";
+        else
+          this.senderName = this.lastMessage.senderName;
+      }
     });
   }
 
-  getCreatedAt(date: myDate): any {
-    var value: string;
-    var newDateMilliseconds = new Date().getTime();
-    var seconds = (newDateMilliseconds / 1000) - date.seconds;
-    var minutes = seconds / 60;
-    var hours = minutes / 60;
-    var days = hours / 24;
-
-    if(this.round(seconds, 0) < 60)
-      value = this.round(seconds, 0).toString() + "s ago";
-    else if(this.round(minutes, 0) < 60)
-      value = this.round(minutes, 0).toString() + "m ago";
-    else if(this.round(minutes, 0) >= 60 && this.round(hours, 0) < 24)
-      value = this.round(hours, 0).toString() + "h ago";
-    else
-      value = this.round(days, 0).toString() + "d ago";
-
-    return value;
-  }
-
-  round(number, precision){
-    var factor = Math.pow(10, precision);
-    var tempNumber = number * factor;
-    var roundedTempNumber = Math.round(tempNumber);
-
-    return roundedTempNumber / factor;
+  getCreatedAt(date: myDate): void {
+    var newDate = new Date(1970, 0, 1);
+    newDate.setSeconds(date.seconds);
+    this.displayCreatedAt = newDate;
   }
 
 

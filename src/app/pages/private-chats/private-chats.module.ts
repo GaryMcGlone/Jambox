@@ -11,6 +11,7 @@ import { PrivateChatComponent } from "../../components/private-chat/private-chat
 import { UserSearchPage } from "../user-search/user-search.page";
 import { UserListComponent } from "../../components/user-list/user-list.component";
 import { UserComponent } from "../../components/user/user.component";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 const routes: Routes = [
   {
@@ -24,7 +25,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FontAwesomeModule
   ],
   declarations: [
     PrivateChatsPage,

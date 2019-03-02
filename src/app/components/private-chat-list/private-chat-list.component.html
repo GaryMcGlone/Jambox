@@ -1,4 +1,4 @@
-<ion-list lines="none">
+<ion-list lines="full">
   <div class="spinner-holder" align="center">
     <ion-spinner name="crescent" *ngIf="showSpinner"></ion-spinner>
   </div>
@@ -6,3 +6,14 @@
     <private-chat [currentChat]="chat"></private-chat>
   </ion-item>
 </ion-list>
+
+<ion-grid *ngIf="chats.length == 0 && showSpinner == false">
+    <ion-row>
+        <ion-col style="text-align: center; color: darkgray">
+            
+                You currently don't have any ongoing chats.<br/>
+                Click the plus icon below to create a chat.
+              
+        </ion-col>
+    </ion-row>
+</ion-grid>

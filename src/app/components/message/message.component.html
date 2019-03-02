@@ -7,7 +7,7 @@
         <div *ngIf="message && sender">
             <ion-row >
                 <b class="usernameTag" text-wrap>You</b>
-                <b class="timeSent" *ngIf="showTime">{{message?.createdAt | date: 'shortTime'}}</b>
+                <b class="timeSent" *ngIf="showTime">{{displayCreatedAt | date: 'dd MMM HH:mm'}}</b>
             </ion-row>
             <ion-card color="primary" class="myMessage" text-wrap (click)="showTimeSent()">
                 <ion-card-content text-wrap>
@@ -25,7 +25,7 @@
         <div *ngIf="message && !sender">
             <ion-row>
                 <b class="usernameTag" text-wrap>{{message?.senderName}}</b>   
-                <b class="timeSent" *ngIf="showTime">{{message?.createdAt | date: 'shortTime'}}</b>
+                <b class="timeSent" *ngIf="showTime">{{displayCreatedAt | date: 'dd MMM HH:mm'}}</b>
            </ion-row>
             <ion-card class="otherMessage" (click)="showTimeSent()" text-wrap>
                <ion-card-content text-wrap>
