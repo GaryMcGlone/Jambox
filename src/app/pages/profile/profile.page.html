@@ -29,7 +29,6 @@
               <ion-button style="width:100%;height:30px" (click)="saveBio(bio.value)">Save Bio</ion-button>
           </ion-item>
        </div>
-  <div class="countersContiner">
     <ion-grid class="counterGrid">
         <ion-row>
             <ion-col class="borderRight">{{followersCounter}}</ion-col>
@@ -42,7 +41,6 @@
               <ion-col class="borderDown">Posts</ion-col>
           </ion-row>
     </ion-grid>
-  </div>
   <div>
       <ion-button *ngIf="toggled" class="imageButton" (click)="takePicture()">Camera<i class="fas fa-camera"></i></ion-button>
       <ion-button *ngIf="toggled" class="imageButton" (click)="selectImageFromGallery()"> Gallery <i class="fas fa-images"> </i> </ion-button>
