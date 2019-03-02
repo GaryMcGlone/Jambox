@@ -2,16 +2,17 @@
       <ion-grid *ngIf="user" class="profileGrid">
         <ion-row>
           <ion-col size="5">
-            <ion-avatar>
-                <ion-img *ngIf="profilePicture" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
-                <ion-img *ngIf="!profilePicture" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()" class="profilePicture"></ion-img>
+            <ion-avatar text-center>
+                <ion-img *ngIf="profilePicture && !editing" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
+                <ion-img *ngIf="!profilePicture && !editing" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()" class="profilePicture"></ion-img>
+                <fa-icon *ngIf="editing" [icon]="['fas', 'plus']"></fa-icon>  
             </ion-avatar>
 
           </ion-col>
           <ion-col>
               <div class="usernameContainer">
                   <ion-title class="usernameTitle">{{user.displayName}}</ion-title>
-                  <ion-icon style="margin-right:3.5%;" name="create" class="cog" (click)="editing ? editing = false : editing = true"></ion-icon>    
+                  <ion-icon style="margin-right:4.5%;" name="create" class="cog" (click)="editing ? editing = false : editing = true"></ion-icon>    
                   <ion-icon name="settings" class="cog" (click)="navigateToSettings()"></ion-icon>    
               </div>
               <p>Member since: </p>
@@ -25,7 +26,7 @@
           <ion-item *ngIf="editing" class="textAreaClass">
               <ion-label style="margin:4px" position="floating">Enter your bio here...</ion-label>
               <ion-textarea rows="3" #bio></ion-textarea>
-              <ion-button style="width:100" (click)="saveBio(bio.value)">Save Bio</ion-button>
+              <ion-button style="width:100%;height:30px" (click)="saveBio(bio.value)">Save Bio</ion-button>
           </ion-item>
        </div>
   <div class="countersContiner">
@@ -48,14 +49,14 @@
   </div>
 
     <ion-segment (ionChange)="segmentChanged($event)">
-        <ion-segment-button value="yourposts" checked>
+        <ion-segment-button value="posts" checked>
           <ion-row>
             <ion-col size="12" >
                 <fa-icon class="segmentIcon" [icon]="['fas', 'align-justify']"></fa-icon>  
             </ion-col>
           </ion-row>
         </ion-segment-button>
-        <ion-segment-button value="likedposts"> 
+        <ion-segment-button value="likes"> 
           <ion-row>
             <ion-col size="12" class="segmentCol">
                 <fa-icon class="segmentIcon" [icon]="['fas','heart']" ></fa-icon>
@@ -63,10 +64,10 @@
           </ion-row>
          </ion-segment-button>
       </ion-segment>
-      <div *ngIf="yourPostsSelect == true" no-padding>
+      <div *ngIf="yourPostsSelect" no-padding>
           <app-profile-post-list></app-profile-post-list>
       </div>
-      <div *ngIf="likedPostsSelect == true" no-padding>
+      <div *ngIf="likedPostsSelect" no-padding>
           <app-profile-liked-post-list></app-profile-liked-post-list>
       </div>
 </ion-content>
