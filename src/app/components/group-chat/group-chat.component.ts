@@ -22,6 +22,7 @@ export class GroupChatComponent implements OnInit {
   user: IUser;
   otherUsers: IUser[]= [];
   displayCreatedAt: Date;
+  senderName: string;
   
   constructor(
     private chatService: ChatService,
@@ -45,8 +46,13 @@ export class GroupChatComponent implements OnInit {
     this.chatService.getLastChatRoomMessage(this.currentChat.id).subscribe(message => {
       this.lastMessages = message;
       this.lastMessage = this.lastMessages[0];
-      if(this.lastMessage != null)
+      if(this.lastMessage != null){
         this.getCreatedAt(this.lastMessage.createdAt);
+        if(this.lastMessage.senderName == this.user.displayName)
+          this.senderName = "You";
+        else
+          this.senderName = this.lastMessage.senderName;
+      }
     });
   }
 

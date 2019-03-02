@@ -5,6 +5,7 @@ import { Events, ToastController, ModalController } from '@ionic/angular';
 import { IGroupChatRoom } from '../../interfaces/group-chat-room-interface';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
 import { ChatService } from '../../services/chat/chat.service';
+import { StringConvertPipe } from '../../pipes/string-convert.pipe';
 
 @Component({
   selector: 'app-user-list-group',
@@ -56,6 +57,11 @@ export class UserListGroupComponent implements OnInit {
        this.users = data
      })
    }
+ }
+
+ stringConvert(value: string): string {
+  var strConvert = new StringConvertPipe();
+  return strConvert.transform(value);
  }
 
  groupNameUpdate($event) {

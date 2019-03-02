@@ -10,6 +10,7 @@ import { GroupChatListComponent } from '../../components/group-chat-list/group-c
 import { GroupChatComponent } from '../../components/group-chat/group-chat.component';
 import { UserGroupComponent } from '../../components/user-group/user-group.component';
 import { UserListGroupComponent } from '../../components/user-list-group/user-list-group.component';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 const routes: Routes = [
   {
@@ -23,11 +24,11 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FontAwesomeModule
   ],
   declarations: [
     GroupChatsPage,
-
     GroupChatListComponent,
     GroupChatComponent
   ]
