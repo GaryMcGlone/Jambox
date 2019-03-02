@@ -92,6 +92,7 @@ export class UserListGroupComponent implements OnInit {
       name: this.groupName
     }
     this.chatService.createGroupChatRoom(this.groupChat);
+    this.memberListString = [];
     this.modalController.dismiss();
    }
    else if(this.groupName.length < 5){
