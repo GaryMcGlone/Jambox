@@ -4,7 +4,7 @@ import { ChatService } from '../../services/chat/chat.service';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
 import { IUser } from '../../interfaces/user-interface';
 import { DatabaseService } from '../../services/database/database.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { PrivateChatPage } from '../../pages/private-chat/private-chat.page';
 import { UsersService } from '../../services/users/users.service';
 import { myDate } from '../../interfaces/my-date.interface';
@@ -24,13 +24,16 @@ export class PrivateChatComponent implements OnInit {
   otherUser: IUser;
   displayCreatedAt: Date;
   senderName: string;
+  blockedUsers: string[];
+  blockedByUser: boolean = false;
 
   constructor(
     private chatService: ChatService,
     private firebaseAuth: FirebaseAuthService,
     private databaseService: DatabaseService,
     private modalController: ModalController,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
@@ -42,6 +45,8 @@ export class PrivateChatComponent implements OnInit {
       if(element != this.userId){
         this.usersService.getSpecificUserById(element).subscribe(data => {
           this.otherUser = data[0]
+          this.blockedUsers = this.otherUser.blockedUsers;
+          this.checkIfBlocked();
         });
       }
     });
@@ -58,6 +63,13 @@ export class PrivateChatComponent implements OnInit {
     });
   }
 
+  checkIfBlocked(){
+    if(this.blockedUsers.includes(this.user.uid))
+      this.blockedByUser = true;
+    else
+      this.blockedByUser = false;
+  }
+
   getCreatedAt(date: myDate): void {
     var newDate = new Date(1970, 0, 1);
     newDate.setSeconds(date.seconds);
@@ -66,8 +78,21 @@ export class PrivateChatComponent implements OnInit {
 
 
   selectChat(selectedChat) {
-    this.presentModal(selectedChat);
+    if(this.blockedByUser == false)
+      this.presentModal(selectedChat);
+      //CALL EVENT SENDING USER
+    else
+      this.presentToast('You are blocked by that person');
   }
+
+  async presentToast(message: string) {
+    const toast = await this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      position: "top"
+    });
+      toast.present();
+    }
 
   async presentModal(selectedChat) {
     let props = {

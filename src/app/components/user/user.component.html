@@ -1,4 +1,4 @@
-<ion-item *ngIf="user" (click)="selectUser()" text-wrap>
+<ion-item *ngIf="user && blockedBool == false" (click)="selectUser()" text-wrap>
     <ion-label text-wrap>
       {{user.displayName}}
     </ion-label>

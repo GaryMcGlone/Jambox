@@ -38,7 +38,7 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="8">
+          <ion-col size="8" *ngIf="!blockedByUser">
               <ion-note *ngIf="lastMessage && displayCreatedAt != null && displayCreatedAt != ''">
                   {{senderName}}: {{lastMessage.message}} 
                   <!-- 20 string length -->
@@ -47,10 +47,15 @@
                     No messages so far, why not say hi?
               </ion-note>
           </ion-col>
-          <ion-col size="4">
+          <ion-col size="4" *ngIf="!blockedByUser">
               <ion-note *ngIf="lastMessage && displayCreatedAt != null && displayCreatedAt != ''">
                   {{displayCreatedAt | date: 'dd MMM HH:mm'}}
               </ion-note>
+          </ion-col>
+          <ion-col size="12">
+            <ion-note color="danger">
+              You are blocked by this user.
+            </ion-note>
           </ion-col>
         </ion-row>
       </ion-col>

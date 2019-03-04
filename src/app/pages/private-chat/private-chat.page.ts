@@ -18,7 +18,13 @@ export class PrivateChatPage implements OnInit {
     this.chat = this.navParams.get("chat");
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    //CATCH EVENT WITH USER OBJ AND SAVE IT
+  }
+
+  blockUser(){
+
+  }
 
   closeModal() {
     this.modalController.dismiss();
