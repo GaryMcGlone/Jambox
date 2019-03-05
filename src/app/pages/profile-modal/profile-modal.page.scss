@@ -42,20 +42,36 @@ ion-avatar {
 }
 
 .counterGrid {
-    padding-top: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .borderDown {
     border-bottom: 1px lightgray solid;
+    padding-top: 0;
+    padding-bottom: 10px;
 }
 
 .borderBoth {
     border-right: 1px lightgray solid;
     border-bottom: 1px lightgray solid;
+    padding-top: 0;
+    padding-bottom:10px;
 }
 
 .borderRight {
     border-right: 1px lightgray solid;
+    border-top: 1px lightgray solid;
+    padding-top: 10px;
+    padding-bottom: 0;
+}
+
+.borderTop {
+    border-top: 1px lightgray solid;
+    padding-top: 10px;
+    padding-bottom: 0;
 }
 
 .postsTitleGrid {
@@ -85,4 +101,7 @@ ion-avatar {
 
 .bioBtnContainer {
     height: 40px;
+}
+ion-segment {
+    border-bottom: 100% solid gray
 }

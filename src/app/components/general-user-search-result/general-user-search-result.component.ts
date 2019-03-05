@@ -4,6 +4,8 @@ import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.s
 import { FollowService } from '../../services/follow/follow.service';
 import { AnalyticsService } from '../../services/analytics/analytics.service';
 import { DatabaseService } from '../../services/database/database.service';
+import { ModalController } from '@ionic/angular';
+import { ProfileModalPage } from '../../pages/profile-modal/profile-modal.page';
 
 @Component({
   selector: 'app-general-user-search-result',
@@ -21,15 +23,11 @@ export class GeneralUserSearchResultComponent implements OnInit {
   private following: IFollow[];
   private isFollowing: boolean;
 
-  constructor(private firebaseAuth: FirebaseAuthService, private followService: FollowService, private db: DatabaseService
+  constructor(private firebaseAuth: FirebaseAuthService, private followService: FollowService, private db: DatabaseService, private modalController: ModalController
     // private analytics: AnalyticsService
     ) { }
 
   ngOnInit() {
-    if(this.profilePicture) {
-      this.loadProfilePictureURL();
-    }
-
     this.followService.getFollowedUsersForUID(this.user.uid).subscribe(data => this.followCount = data.length)
 
     this.followService.getFollowedUsers().subscribe(data => {
@@ -74,15 +72,12 @@ export class GeneralUserSearchResultComponent implements OnInit {
     this.followService.removeFollowing(this.compareFollow.id);
     this.isFollowing = false;
   }
-
-  selectUser() {
-    console.log("userSelected")
-  }
-  loadProfilePictureURL() {
-    this.db.getProfilePictureURLOfUser(this.user.uid).then(data => {
-      if (data) {
-        this.profilePicture = data
-      }
-    })
+  
+  async  viewProfile() {
+    const modal = await this.modalController.create({
+      component: ProfileModalPage,
+      componentProps: { userId: this.user.uid }
+    });
+    return await modal.present();
   }
 }

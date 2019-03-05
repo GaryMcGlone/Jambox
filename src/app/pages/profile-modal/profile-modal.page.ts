@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service'
-import { MenuController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
 import { DatabaseService } from '../../services/database/database.service'
 import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
@@ -12,33 +12,35 @@ import { IFollow } from '../../interfaces/follow.interface';
 import { FollowService } from '../../services/follow/follow.service';
 import { AnalyticsService } from '../../services/analytics/analytics.service';
 import { NavParams } from '@ionic/angular';
+import { IUser } from '../../interfaces/user-interface';
 @Component({
   selector: 'app-profile-modal',
   templateUrl: './profile-modal.page.html',
   styleUrls: ['./profile-modal.page.scss'],
 })
 export class ProfileModalPage implements OnInit {
+  private editing: false;
+  private followersCounter: number;
+  private followingCounter: number;
+  private postsCounter: number;
+  private profilePicture: any = null;
+  private memberSince: Date;
+  private userId: string;
+  private user: IUser;
+  private btnValue = "follow";
+  private buttonFill = "outline";
+  private compareFollow: IFollow
+  private isFollowing: boolean;
 
-  followersCounter: number;
-  followingCounter: number;
-  postsCounter: number;
-  profilePicture: any = null;
-  userBio: string;
-  posts: IPost[];
-  toggled: boolean = false;
-  buttonIsDisabled: boolean = true;
-  following: IFollow[];
-  followers: IFollow[];
-  username: string;
-  memberSince: Date;
-  userId: string;
 
   constructor(
     private auth: FirebaseAuthService,
     private menuCtrl: MenuController,
     private db: DatabaseService,
     private followService: FollowService,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private modalController: ModalController,
+    private firebaseAuth: FirebaseAuthService
   ) {
     this.userId = navParams.data.userId
     console.log(this.userId)
@@ -46,21 +48,26 @@ export class ProfileModalPage implements OnInit {
   ngOnInit() {
     this.loadProfilePictureURL();
     this.db.getUserByID(this.userId).subscribe(data => {
-      this.userBio = data.bio
-      this.username = data.displayName
+      this.user = data
       this.memberSince = this.toDateTime(data.createdAt.seconds);
     })
     this.db.getLoggedInUserPosts().subscribe(posts => {
-      this.posts = posts
-      this.postsCounter = this.posts.length
+      this.postsCounter = posts.length
     });
     this.followService.getFollowedUsers().subscribe(following => {
-      this.following = following
-      this.followingCounter = this.following.length
+      this.followingCounter = following.length
     });
-    this.followService.getFollowingUsers(this.auth.getCurrentUserID()).subscribe(followers => {
-      this.followers = followers
-      this.followersCounter = this.followers.length
+    this.followService.getFollowingUsers(this.userId).subscribe(followers => {
+      this.followersCounter = followers.length
+    })
+    this.followService.getSpecificFollow(this.userId, this.firebaseAuth.getCurrentUserID()).subscribe(data => {
+      this.compareFollow = data[0]
+      console.log(this.compareFollow)
+      if(this.compareFollow) {
+        this.btnValue = "unfollow"
+        this.buttonFill = "solid"
+        this.isFollowing = true
+      }
     })
   }
 
@@ -82,10 +89,27 @@ export class ProfileModalPage implements OnInit {
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
+  goBack() {
+    this.modalController.dismiss();
+  }
+  follow() {
+    // this.analytics.log("followInUserSearch", { param: "Followed_InUserSearch" } )
+    this.btnValue = "unfollow";
+    this.buttonFill = "solid";
 
-
-  getFollowers() {
+    let follow: IFollow = {
+      followedId: this.userId,
+      followerId: this.firebaseAuth.getCurrentUserID()
+    }
+    this.followService.addFollow(follow)
 
   }
 
+  unfollow() {
+    // this.analytics.log("UnfollowInUserSearch", { param: "Unfollowed_InUserSearch" } )
+    this.btnValue = "follow";
+    this.buttonFill = "outline";
+    this.followService.removeFollowing(this.compareFollow.id);
+    this.isFollowing = false;
+  }
 }

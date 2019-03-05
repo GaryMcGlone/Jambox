@@ -1,43 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row style="margin-top:2%">
+      <ion-buttons>
+        <ion-button (click)="goBack()" color="primary" fill="clear">
+          <ion-icon size="large" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-col size="5">
+        <ion-title>
+          Profile
+        </ion-title>
+      </ion-col>
+      <ion-col size="2" class="colClass">
+        <ion-button color="primary" (click)="!isFollowing ? follow() : unfollow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-
-  <ion-grid class="profileGrid">
+  <ion-grid *ngIf="user" class="profileGrid">
     <ion-row>
       <ion-col class="profilePictureContainer">
         <ion-avatar>
-            <ion-img *ngIf="profilePicture" class="profilePicture" src="{{profilePicture}}"></ion-img>
-          
-            <ion-img *ngIf="!profilePicture" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()" class="profilePicture"></ion-img>
+          <ion-img *ngIf="profilePicture" class="profilePicture" src="{{profilePicture}}"></ion-img>
+
+          <ion-img *ngIf="!profilePicture" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()"
+            class="profilePicture"></ion-img>
         </ion-avatar>
       </ion-col>
       <ion-col aria-colspan="2">
-          <div class="usernameContainer">
-              <ion-title class="usernameTitle">{{username}}</ion-title>
-                      </div>
-          <p>Member since: </p>
-          <p>{{memberSince | date: 'longDate' }}</p>
+        <div class="usernameContainer">
+          <ion-title class="usernameTitle">{{user.displayName}}</ion-title>
+        </div>
+        <p>Member since: </p>
+        <p>{{memberSince | date: 'longDate' }}</p>
       </ion-col>
     </ion-row>
   </ion-grid>
-  
-<div class="countersContiner">
-<ion-grid class="counterGrid">
-    <ion-row>
-        <ion-col class="borderRight">{{followersCounter}}</ion-col>
-        <ion-col class="borderRight">{{followingCounter}}</ion-col>
-        <ion-col class="borderTop">{{postsCounter}}</ion-col>
-      </ion-row>
+  <div>
+    <p class="bio" *ngIf="!editing && user"> {{user.bio}} </p>
+  </div>
+  <div class="countersContiner">
+    <ion-grid class="counterGrid">
       <ion-row>
-          <ion-col class="borderBoth">Followers</ion-col>
-          <ion-col class="borderBoth">Following</ion-col>
-          <ion-col class="borderDown">Posts</ion-col>
-      </ion-row>
-</ion-grid>
-</div>
-<div>
-  <ion-item class="textAreaClass" *ngIf="userBio">
-            <ion-textarea rows="3" [(ngModel)]="userBio" ></ion-textarea>
-  </ion-item>
-</div>
-<app-profile-modal-post-list [userId]="userId"></app-profile-modal-post-list>
+          <ion-col class="borderRight">{{followersCounter}}</ion-col>
+          <ion-col class="borderRight">{{followingCounter}}</ion-col>
+          <ion-col class="borderTop">{{postsCounter}}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="borderBoth">Followers</ion-col>
+            <ion-col class="borderBoth">Following</ion-col>
+            <ion-col class="borderDown">Posts</ion-col>
+        </ion-row>
+  </ion-grid>
+  </div>
+
+  <app-profile-modal-post-list [userId]="userId"></app-profile-modal-post-list>
 </ion-content>
 
+<!-- 
+   <ion-grid class="counterGrid">
+        <ion-row>
+            <ion-col class="borderRight">{{followersCounter}}</ion-col>
+            <ion-col class="borderRight">{{followingCounter}}</ion-col>
+            <ion-col class="borderTop">{{postsCounter}}</ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col class="borderBoth">Followers</ion-col>
+              <ion-col class="borderBoth">Following</ion-col>
+              <ion-col class="borderDown">Posts</ion-col>
+          </ion-row>
+    </ion-grid>
+ -->

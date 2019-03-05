@@ -40,6 +40,10 @@ ion-avatar {
 .counterGrid ion-row ion-col {
     text-align: center;
     font-size: 1.15em;
+
+}
+.counterGrid .hydrated {
+    padding-bottom: 0;
 }
 
 .counterGrid {
@@ -61,7 +65,9 @@ ion-avatar {
     padding-top: 0;
     padding-bottom:10px;
 }
-
+ion-segment-button{
+    border-bottom: 1px lightgray solid;
+}
 .borderRight {
     border-right: 1px lightgray solid;
     border-top: 1px lightgray solid;
