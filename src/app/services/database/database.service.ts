@@ -180,20 +180,6 @@ export class DatabaseService {
       }); 
   }
 
-  // gets URL of profile picture
-  getProfilePictureURL(): Promise<any> {
-    let storageRef
-    try{
-     storageRef = firebase.storage().ref();
-    }
-    catch(error){
-
-    }
-    return storageRef.child("images/" + firebase.auth().currentUser.uid).getDownloadURL().then((url) => {
-      console.log(url)
-    })
-  }
-
   getProfilePictureURLOfUser(userId: string){
     let storageRef
     try{

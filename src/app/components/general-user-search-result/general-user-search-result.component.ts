@@ -28,8 +28,6 @@ export class GeneralUserSearchResultComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-      this.loadProfilePictureURL();
-
     this.followService.getFollowedUsersForUID(this.user.uid).subscribe(data => this.followCount = data.length)
 
     this.followService.getFollowedUsers().subscribe(data => {
@@ -74,14 +72,7 @@ export class GeneralUserSearchResultComponent implements OnInit {
     this.followService.removeFollowing(this.compareFollow.id);
     this.isFollowing = false;
   }
-
-  loadProfilePictureURL() {
-    this.db.getProfilePictureURLOfUser(this.user.uid).then(data => {
-      if (data) {
-        this.profilePicture = data
-      }
-    })
-  }
+  
   async  viewProfile() {
     const modal = await this.modalController.create({
       component: ProfileModalPage,

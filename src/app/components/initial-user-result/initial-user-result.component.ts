@@ -25,7 +25,6 @@ export class InitialUserResultComponent implements OnInit {
      ) { }
 
   ngOnInit() {
-    this.loadProfilePictureURL()
     this.followService.getFollowedUsersForUID(this.user.uid).subscribe(data => this.followCount = data.length)
     this.followService.getFollowedUsers().subscribe(data => {
       this.following = data
@@ -36,13 +35,6 @@ export class InitialUserResultComponent implements OnInit {
     }
     this.followService.getSpecificFollow(this.user.id, this.firebaseAuth.getCurrentUserID()).subscribe(data => {
       this.compareFollow = data[0]
-    })
-  }
-  loadProfilePictureURL() {
-    this.db.getProfilePictureURLOfUser(this.user.uid).then(data => {
-      if (data) {
-        this.profilePicture = data
-      }
     })
   }
 
