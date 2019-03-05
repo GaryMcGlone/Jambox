@@ -3,8 +3,8 @@
         <ion-row>
           <ion-col size="5">
             <ion-avatar text-center>
-                <ion-img *ngIf="profilePicture && !editing" (click)="toggleBtn()" class="profilePicture" src="{{profilePicture}}"></ion-img>
-                <ion-img *ngIf="!profilePicture && !editing" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()" class="profilePicture"></ion-img>
+                <ion-img *ngIf="user && !editing" (click)="toggleBtn()" class="profilePicture" src="{{user.profilePic}}"></ion-img>
+                <ion-img *ngIf="!user.ProfilePic" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()" class="profilePicture"></ion-img>
                 <fa-icon *ngIf="editing" [icon]="['fas', 'plus']"></fa-icon>  
             </ion-avatar>
 
@@ -42,8 +42,8 @@
           </ion-row>
     </ion-grid>
   <div>
-      <ion-button *ngIf="toggled" class="imageButton" (click)="takePicture()">Camera<i class="fas fa-camera"></i></ion-button>
-      <ion-button *ngIf="toggled" class="imageButton" (click)="selectImageFromGallery()"> Gallery <i class="fas fa-images"> </i> </ion-button>
+      <ion-button class="imageButton" (click)="takePicture()">Camera<i class="fas fa-camera"></i></ion-button>
+      <ion-button  class="imageButton" (click)="selectImageFromGallery()"> Gallery <i class="fas fa-images"> </i> </ion-button>
   </div>
 
     <ion-segment (ionChange)="segmentChanged($event)">

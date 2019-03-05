@@ -21,8 +21,7 @@ export class ProfilePage implements OnInit {
   private followersCounter: number;
   private followingCounter: number;
   private postsCounter: number;
-  
-  private profilePicture: any = null;
+
   private defaultPic: string = "../../assets/icon/defaultProfilePic.jpg"
   private memberSince: Date;
   
@@ -35,9 +34,6 @@ export class ProfilePage implements OnInit {
     // private analytics: AnalyticsService
   ) { }
   ngOnInit() {
-    if(this.profilePicture != null) {
-      this.loadProfilePictureURL();
-    }   
     this.db.getCurrentUser().subscribe(data => {
       this.user = data
       this.memberSince = this.toDateTime(data.createdAt.seconds);
@@ -76,14 +72,6 @@ export class ProfilePage implements OnInit {
     this.editing = false;
     console.log("saving", bio)
     this.db.updateBio(bio)
-  }
-
-  loadProfilePictureURL() {
-    this.db.getProfilePictureURL().then(data => {
-      if (data) {
-        this.profilePicture = data
-      }
-    })
   }
 
   ionViewWillEnter() {

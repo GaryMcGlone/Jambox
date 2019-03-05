@@ -12,7 +12,7 @@
         </ion-title>
       </ion-col>
       <ion-col size="2" class="colClass">
-        <ion-button color="primary" (click)="!isFollowing ? follow(user) : unfollow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
+        <ion-button color="primary" (click)="!isFollowing ? follow() : unfollow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
       </ion-col>
     </ion-row>
   </ion-toolbar>

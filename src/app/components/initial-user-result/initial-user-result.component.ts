@@ -3,6 +3,7 @@ import { IFollow } from '../../interfaces/follow.interface';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
 import { FollowService } from '../../services/follow/follow.service';
 import { AnalyticsService } from '../../services/analytics/analytics.service';
+import { DatabaseService } from '../../services/database/database.service';
 
 @Component({
   selector: 'app-initial-user-result',
@@ -16,12 +17,16 @@ export class InitialUserResultComponent implements OnInit {
   private buttonFill = "outline";
   private compareFollow: IFollow
   private following: IFollow[];
+  private followCount: number;
+  private profilePicture: any = null
 
-  constructor(private firebaseAuth: FirebaseAuthService, private followService: FollowService,
+  constructor(private firebaseAuth: FirebaseAuthService, private db: DatabaseService, private followService: FollowService,
     //  private analytics: AnalyticsService
      ) { }
 
   ngOnInit() {
+    this.loadProfilePictureURL()
+    this.followService.getFollowedUsersForUID(this.user.uid).subscribe(data => this.followCount = data.length)
     this.followService.getFollowedUsers().subscribe(data => {
       this.following = data
     })
@@ -33,7 +38,13 @@ export class InitialUserResultComponent implements OnInit {
       this.compareFollow = data[0]
     })
   }
-
+  loadProfilePictureURL() {
+    this.db.getProfilePictureURLOfUser(this.user.uid).then(data => {
+      if (data) {
+        this.profilePicture = data
+      }
+    })
+  }
 
   follow(user) {
     if (this.buttonFill == "outline" && this.compareFollow == null) {

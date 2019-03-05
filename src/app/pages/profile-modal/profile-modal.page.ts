@@ -92,7 +92,7 @@ export class ProfileModalPage implements OnInit {
   goBack() {
     this.modalController.dismiss();
   }
-  follow(user) {
+  follow() {
     // this.analytics.log("followInUserSearch", { param: "Followed_InUserSearch" } )
     this.btnValue = "unfollow";
     this.buttonFill = "solid";
