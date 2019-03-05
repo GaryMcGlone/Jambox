@@ -52,7 +52,7 @@
                   {{displayCreatedAt | date: 'dd MMM HH:mm'}}
               </ion-note>
           </ion-col>
-          <ion-col size="12">
+          <ion-col size="12" *ngIf="blockedByUser">
             <ion-note color="danger">
               You are blocked by this user.
             </ion-note>
