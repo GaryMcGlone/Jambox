@@ -23,10 +23,13 @@ export class UserComponent implements OnInit {
   private buttonFill = "outline";
   private compareFollow: IFollow
   private following: IFollow[];
+  private blockedUsers: string[] = this.user.blockedUsers;
+  blockedBool: boolean = false;
 
   constructor(private modalController: ModalController, private chatService: ChatService, private firebaseAuth: FirebaseAuthService, private followService: FollowService,/* private analytics: AnalyticsService*/ ) { }
 
   ngOnInit() {
+    this.blockedBool = this.checkIfBlocked(this.firebaseAuth.getCurrentUserID())
     this.chatRoom = { members: [] }
     this.followService.getFollowedUsers().subscribe(data => {
       this.following = data
@@ -36,6 +39,13 @@ export class UserComponent implements OnInit {
       followerId: this.firebaseAuth.getCurrentUserID()
     }
     
+  }
+
+  checkIfBlocked(uid: string): boolean {
+    if(this.blockedUsers.includes(uid))
+      return true;
+    else
+      return false;
   }
 
   selectUser() {

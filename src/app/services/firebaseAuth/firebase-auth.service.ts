@@ -44,6 +44,16 @@ export class FirebaseAuthService {
       );
   }
 
+  doTheThing(): Promise<string>{
+    return this.getToken();
+  }
+
+  async getToken(): Promise<string> {
+    var tokenstring = await this._afAuth.auth.currentUser.getIdToken();
+
+    return tokenstring;
+  }
+
   /**
   async signInWithGoogle(): Promise<any> {
 

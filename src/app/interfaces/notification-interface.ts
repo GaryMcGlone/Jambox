@@ -6,5 +6,6 @@ export interface INotification{
     createdAt: myDate;
     type: string;
     read: boolean;
+    chatRoomID?: string;
     id?: string;
 }

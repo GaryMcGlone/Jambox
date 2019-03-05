@@ -9,6 +9,7 @@ export interface IUser {
     lowerDisplayName?: string;
     followerCount?: number;
     followingCount?: number;
+    blockedUsers: string[];
     photoURL?:string;
     bio?:string
     followers?:string[];
