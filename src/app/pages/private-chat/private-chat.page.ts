@@ -14,7 +14,9 @@ import { ChatService } from "../../services/chat/chat.service";
 export class PrivateChatPage implements OnInit {
   chat: PrivateChat;
   blockedByUser: boolean = false;
+  isBlocked: boolean = false;
   otherUser: IUser;
+  currentUser: IUser;
 
   constructor(
     private modalController: ModalController,
@@ -28,8 +30,21 @@ export class PrivateChatPage implements OnInit {
   }
 
   ngOnInit() {
-    if(this.otherUser.blockedUsers)
-      this.setBlockedStatus(this.auth.getCurrentUserID());
+
+    if(this.otherUser.blockedUsers){
+      this.setBlockedStatus(this.auth.getCurrentUserID());}
+    
+    if(this.currentUser.blockedUsers){
+      this.setBlockedStatusForOtherUser(this.otherUser.uid)}
+  }
+
+  setBlockedStatusForOtherUser(uid: string){
+    if(this.currentUser.blockedUsers.includes(uid)){
+      this.isBlocked = true;
+    }
+    else{
+      this.isBlocked = false;
+    }
   }
 
   setBlockedStatus(uid: string){
@@ -49,8 +64,13 @@ export class PrivateChatPage implements OnInit {
   }
 
   blockUser(){
-    this.chatService.addBlockedUser(this.otherUser.uid, this.auth.getCurrentUserID());
-    this.presentToast('You blocked this user');
+    this.chatService.addBlockedUser(this.otherUser.uid, this.currentUser.uid);
+    this.isBlocked = true;
+  }
+
+  unBlockUser(){
+    this.chatService.removeBlockedUser(this.otherUser.uid, this.currentUser.uid);
+    this.isBlocked = false;
   }
 
   async presentToast(message: string) {

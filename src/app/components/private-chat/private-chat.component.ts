@@ -50,8 +50,6 @@ export class PrivateChatComponent implements OnInit {
             this.blockedUsers = this.otherUser.blockedUsers;
             this.checkIfBlocked();
           }
-          console.log(this.otherUser);
-          console.log(this.blockedUsers);
         });
       }
     });
@@ -73,7 +71,6 @@ export class PrivateChatComponent implements OnInit {
       this.blockedByUser = true;
     else
       this.blockedByUser = false;
-    console.log(this.blockedByUser);
   }
 
   getCreatedAt(date: myDate): void {
@@ -85,7 +82,7 @@ export class PrivateChatComponent implements OnInit {
 
   selectChat(selectedChat) {
     if(this.blockedByUser == false){
-      this.presentModal(selectedChat, this.otherUser);
+      this.presentModal(selectedChat, this.otherUser, this.user);
     }else{
       this.presentToast('You are blocked by that person');
     }
@@ -100,10 +97,11 @@ export class PrivateChatComponent implements OnInit {
       toast.present();
     }
 
-  async presentModal(selectedChat, otherUser) {
+  async presentModal(selectedChat, otherUser, currentUser) {
     let props = {
       chat: selectedChat,
-      otherUser: otherUser
+      otherUser: otherUser,
+      currentUser: currentUser
     };
     const modal = await this.modalController.create({
       component: PrivateChatPage,

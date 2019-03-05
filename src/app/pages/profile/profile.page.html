@@ -38,7 +38,8 @@
           <ion-row>
               <ion-col class="borderBoth">Followers</ion-col>
               <ion-col class="borderBoth">Following</ion-col>
-              <ion-col class="borderDown">Posts</ion-col>
+              <ion-col class="borderDown" *ngIf="postsCounter != 1">Posts</ion-col>
+              <ion-col class="borderDown" *ngIf="postsCounter == 1">Post</ion-col>
           </ion-row>
     </ion-grid>
   <div>

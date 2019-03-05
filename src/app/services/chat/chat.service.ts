@@ -99,7 +99,14 @@ export class ChatService {
   }
   //Creates a new message / Adds a new document into messages collection
   createChatMessage(chatMessage): void {
-    this.chatMessagesCollection.add(chatMessage);
+    // this.chatMessagesCollection.add(chatMessage);
+    this._afs.collection("messages").add({
+      chatRoomID: chatMessage.chatRoomID,
+      senderID: chatMessage.senderID,
+      senderName: chatMessage.senderName,
+      message: chatMessage.message,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
   }
 
   //PUT Requests
