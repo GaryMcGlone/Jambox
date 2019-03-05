@@ -102,7 +102,21 @@ export class ChatService {
     this.chatMessagesCollection.add(chatMessage);
   }
 
+  //PUT Requests
+  //Adds uid of blocked user to string array in current users doc
+  addBlockedUser(blockedUid: string, userUid: string){
+    this._afs.collection("users").doc(userUid).update({
+      blockedUsers: firebase.firestore.FieldValue.arrayUnion(blockedUid)
+    });
+  }
+
   //DELETE Requests
+  //Remove blocked user
+  removeBlockedUser(blockeduid: string, userUid: string){
+    this._afs.collection("users").doc(userUid).update({
+      blockedUsers: firebase.firestore.FieldValue.arrayRemove(blockeduid)
+    });
+  }
   //Deletes a private chat room from the private chats collection using id
   deletePrivateChatRoom(chatRoomID: string): void {
     this.privateChatsCollection.doc(chatRoomID).delete();

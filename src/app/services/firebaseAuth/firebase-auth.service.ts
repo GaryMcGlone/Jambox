@@ -95,7 +95,8 @@ export class FirebaseAuthService {
           uid: res.user.uid,
           email: email,
           displayName: displayName,
-          lowerDisplayName: displayName.toLowerCase()
+          lowerDisplayName: displayName.toLowerCase(),
+          blockedUsers: []
         };
         this.dbService.addUser(user);
         this.router.navigate(["login"]);
