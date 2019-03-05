@@ -59,7 +59,7 @@ export class FollowService {
 
   getFollowedUsersForUID(userId: string): Observable<IFollow[]> {
     this.relationshipsCollectionForUID = this._afs.collection<IFollow>(`relationships`, ref => {
-      return ref.where("followerId", "==", userId)
+      return ref.where("followedId", "==", userId)
     }); 
 
     this.followersListForUser = this.relationshipsCollectionForUID.snapshotChanges().pipe(

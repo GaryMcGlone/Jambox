@@ -175,7 +175,9 @@ export class DatabaseService {
       let fileRef = firebase.storage().ref("images/" + firebase.auth().currentUser.uid);
      
       let uploadTask = fileRef.put(image); 
-      let url = fileRef.getDownloadURL()
+      let url = fileRef.getDownloadURL().then((url) => {
+        console.log(url)
+      } )
       console.log(url)
      
       uploadTask.on(

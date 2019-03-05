@@ -11,16 +11,12 @@ export class TaggedPostsListComponent implements OnInit {
   
   @Input() tag: any;
   taggedPosts: IPost[]
-  noOfTaggedPosts: number;
-  @Output() emmiter: EventEmitter<number> = new EventEmitter();  
 
   constructor(private tagsService: TagsService) { }
 
   ngOnInit() {
     this.tagsService.getTaggedPosts(this.tag).subscribe(data => {
       this.taggedPosts = data
-      this.emmiter.emit(this.noOfTaggedPosts = data.length)
-      console.log(this.taggedPosts)
     }) 
   }
 }
