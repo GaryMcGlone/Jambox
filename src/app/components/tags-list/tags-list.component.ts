@@ -16,8 +16,22 @@ export class TagsListComponent implements OnInit {
     this.tagsService.getTags().subscribe(tags => {
       this.tags = tags
     })
-    
-
+  
   }
 
+  
+  search($event) {
+    // this.analytics.log("searchedUserInSearchPage", { param: "User_Searched_SearchPage" } )
+    let q: string = $event.target.value;
+    if (q) {
+      this.tagsService.getTagsByQuery(q.toLowerCase()).subscribe(tags => {
+        this.tags = tags
+      })
+    } else {
+      this.tags = []
+      this.tagsService.getTags().subscribe(data => {
+        this.tags = data
+      })
+    }
+  }
 }

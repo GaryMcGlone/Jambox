@@ -3,6 +3,7 @@ import { IFollow } from '../../interfaces/follow.interface';
 import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.service';
 import { FollowService } from '../../services/follow/follow.service';
 import { AnalyticsService } from '../../services/analytics/analytics.service';
+import { DatabaseService } from '../../services/database/database.service';
 
 @Component({
   selector: 'app-general-user-search-result',
@@ -12,20 +13,28 @@ import { AnalyticsService } from '../../services/analytics/analytics.service';
 export class GeneralUserSearchResultComponent implements OnInit {
   @Input() user;
   currentUserId: string;
+  profilePicture: any = null
+  followCount: number
   btnValue = "follow";
   private buttonFill = "outline";
   private compareFollow: IFollow
   private following: IFollow[];
   private isFollowing: boolean;
 
-  constructor(private firebaseAuth: FirebaseAuthService, private followService: FollowService, 
+  constructor(private firebaseAuth: FirebaseAuthService, private followService: FollowService, private db: DatabaseService
     // private analytics: AnalyticsService
     ) { }
 
   ngOnInit() {
+    if(this.profilePicture) {
+      this.loadProfilePictureURL();
+    }
+
+    this.followService.getFollowedUsersForUID(this.user.uid).subscribe(data => this.followCount = data.length)
+
     this.followService.getFollowedUsers().subscribe(data => {
       this.following = data
-
+  
       this.compareFollow = {
         followedId: this.user.id,
         followerId: this.firebaseAuth.getCurrentUserID()
@@ -64,5 +73,16 @@ export class GeneralUserSearchResultComponent implements OnInit {
     this.buttonFill = "outline";
     this.followService.removeFollowing(this.compareFollow.id);
     this.isFollowing = false;
+  }
+
+  selectUser() {
+    console.log("userSelected")
+  }
+  loadProfilePictureURL() {
+    this.db.getProfilePictureURLOfUser(this.user.uid).then(data => {
+      if (data) {
+        this.profilePicture = data
+      }
+    })
   }
 }
