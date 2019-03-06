@@ -21,12 +21,10 @@
   <ion-grid *ngIf="user" class="profileGrid">
     <ion-row>
       <ion-col class="profilePictureContainer">
-        <ion-avatar>
-          <ion-img *ngIf="profilePicture" class="profilePicture" src="{{profilePicture}}"></ion-img>
-
-          <ion-img *ngIf="!profilePicture" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()"
-            class="profilePicture"></ion-img>
-        </ion-avatar>
+        <ion-avatar text-center>
+          <ion-img *ngIf="user.profilePic" (click)="toggleBtn()" class="profilePicture" src="{{user.profilePic}}"></ion-img>
+          <ion-img *ngIf="!user.profilePic" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"></ion-img>
+      </ion-avatar>
       </ion-col>
       <ion-col aria-colspan="2">
         <div class="usernameContainer">

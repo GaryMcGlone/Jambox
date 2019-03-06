@@ -52,7 +52,8 @@ export class GeneralUserSearchResultComponent implements OnInit {
 
   }
 
-  follow(user) {
+  follow(user, event: Event) {
+    event.stopPropagation();
     // this.analytics.log("followInUserSearch", { param: "Followed_InUserSearch" } )
       this.btnValue = "unfollow";
       this.buttonFill = "solid";
@@ -62,10 +63,10 @@ export class GeneralUserSearchResultComponent implements OnInit {
         followerId: this.firebaseAuth.getCurrentUserID()
       }
       this.followService.addFollow(follow)
-    
     }
 
-  unfollow() {
+  unfollow(event: Event) {
+    event.stopPropagation()
     // this.analytics.log("UnfollowInUserSearch", { param: "Unfollowed_InUserSearch" } )
     this.btnValue = "follow";
     this.buttonFill = "outline";
