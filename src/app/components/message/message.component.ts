@@ -29,7 +29,8 @@ export class MessageComponent implements OnInit {
       if(this.message.senderName == this.user.displayName){
         this.sender = true;
       }
-      this.getCreatedAt(this.message.createdAt);
+      if(this.message.createdAt != null){
+        this.getCreatedAt(this.message.createdAt);}
     });
   }
 
