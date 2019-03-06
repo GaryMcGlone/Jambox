@@ -4,6 +4,8 @@ import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.s
 import { FollowService } from '../../services/follow/follow.service';
 import { AnalyticsService } from '../../services/analytics/analytics.service';
 import { DatabaseService } from '../../services/database/database.service';
+import { ModalController } from '@ionic/angular';
+import { ProfileModalPage } from '../../pages/profile-modal/profile-modal.page';
 
 @Component({
   selector: 'app-initial-user-result',
@@ -18,9 +20,9 @@ export class InitialUserResultComponent implements OnInit {
   private compareFollow: IFollow
   private following: IFollow[];
   private followCount: number;
-  private profilePicture: any = null
 
-  constructor(private firebaseAuth: FirebaseAuthService, private db: DatabaseService, private followService: FollowService,
+
+  constructor(private firebaseAuth: FirebaseAuthService, private db: DatabaseService, private followService: FollowService, private modalController: ModalController
     //  private analytics: AnalyticsService
      ) { }
 
@@ -38,7 +40,8 @@ export class InitialUserResultComponent implements OnInit {
     })
   }
 
-  follow(user) {
+  follow(user, event: Event) {
+    event.stopPropagation();
     if (this.buttonFill == "outline" && this.compareFollow == null) {
       // this.analytics.log("followInUserPopupSearch", { param: "Followed_InPopupSearch" } )
       this.btnValue = "unfollow";
@@ -54,5 +57,12 @@ export class InitialUserResultComponent implements OnInit {
       this.buttonFill = "outline";
       this.followService.removeFollowing(this.compareFollow.id)
     }
+  }
+  async  viewProfile() {
+    const modal = await this.modalController.create({
+      component: ProfileModalPage,
+      componentProps: { userId: this.user.uid }
+    });
+    return await modal.present();
   }
 }

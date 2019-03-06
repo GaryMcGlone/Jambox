@@ -4,10 +4,9 @@
           <ion-col size="5">
             <ion-avatar text-center>
                 <ion-img *ngIf="user && !editing" (click)="toggleBtn()" class="profilePicture" src="{{user.profilePic}}"></ion-img>
-                <ion-img *ngIf="!user.ProfilePic" src="../../assets/icon/defaultProfilePic.jpg" (click)="toggleBtn()" class="profilePicture"></ion-img>
+                <ion-img *ngIf="!user.profilePic" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"></ion-img>
                 <fa-icon *ngIf="editing" [icon]="['fas', 'plus']"></fa-icon>  
             </ion-avatar>
-
           </ion-col>
           <ion-col>
               <div class="usernameContainer">

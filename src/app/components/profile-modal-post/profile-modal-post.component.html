@@ -1,3 +1,6 @@
+
+<ion-note *ngIf="!post" text-center> This user does not have any posts yet </ion-note>
+
 <ion-card *ngIf="post" class="welcome-card">
   <ion-img [src]="post.albumArt"></ion-img>
   <ion-card-header style="text-align:center">

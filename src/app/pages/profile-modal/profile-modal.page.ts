@@ -46,7 +46,6 @@ export class ProfileModalPage implements OnInit {
     console.log(this.userId)
   }
   ngOnInit() {
-    this.loadProfilePictureURL();
     this.db.getUserByID(this.userId).subscribe(data => {
       this.user = data
       this.memberSince = this.toDateTime(data.createdAt.seconds);
@@ -76,16 +75,6 @@ export class ProfileModalPage implements OnInit {
     t.setSeconds(secs);
     return t;
   }
-
-
-  loadProfilePictureURL() {
-    this.db.getProfilePictureURLOfUser(this.userId).then(data => {
-      if (data) {
-        this.profilePicture = data
-      }
-    })
-  }
-
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }

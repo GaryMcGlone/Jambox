@@ -1,10 +1,10 @@
 <ion-grid *ngIf="user" (click)="viewProfile()" text-wrap>
   <ion-row>
     <ion-col size="2" class="colClass">
-      <ion-avatar>
-        <ion-img *ngIf="profilePicture" class="profilePicture" src="{{user.profilePic}}"></ion-img>
-        <ion-img *ngIf="!profilePicture" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"></ion-img>
-      </ion-avatar>
+      <ion-avatar text-center>
+        <ion-img *ngIf="user.profilePic" (click)="toggleBtn()" class="profilePicture" src="{{user.profilePic}}"></ion-img>
+        <ion-img *ngIf="!user.profilePic" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"></ion-img>
+    </ion-avatar>
     </ion-col>
     <ion-col size="7" style="text-align: center">
       <ion-label text-wrap>
@@ -16,7 +16,7 @@
       <ion-note>{{ followCount }}</ion-note>
     </ion-col>
     <ion-col size="3" class="colClass">
-      <ion-button color="primary" (click)="!isFollowing ? follow(user) : unfollow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
+      <ion-button color="primary" (click)="!isFollowing ? follow(user, $event) : unfollow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>
