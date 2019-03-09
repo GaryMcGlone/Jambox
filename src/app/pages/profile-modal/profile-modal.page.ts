@@ -19,7 +19,7 @@ import { IUser } from '../../interfaces/user-interface';
   styleUrls: ['./profile-modal.page.scss'],
 })
 export class ProfileModalPage implements OnInit {
-  private editing: false;
+  private editing: boolean = false;
   private followersCounter: number;
   private followingCounter: number;
   private postsCounter: number;
@@ -58,15 +58,6 @@ export class ProfileModalPage implements OnInit {
     });
     this.followService.getFollowingUsers(this.userId).subscribe(followers => {
       this.followersCounter = followers.length
-    })
-    this.followService.getSpecificFollow(this.userId, this.firebaseAuth.getCurrentUserID()).subscribe(data => {
-      this.compareFollow = data[0]
-      console.log(this.compareFollow)
-      if(this.compareFollow) {
-        this.btnValue = "unfollow"
-        this.buttonFill = "solid"
-        this.isFollowing = true
-      }
     })
   }
 

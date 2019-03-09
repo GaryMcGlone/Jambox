@@ -1,5 +1,10 @@
 <ion-card *ngIf="post" class="welcome-card">
-  <ion-img [src]="post.albumArt"></ion-img>
+  <div class="imageContainer">
+      <ion-img [src]="post.albumArt"></ion-img> 
+      <ion-img *ngIf="!spotifyService.playing"  (click)="post.postType == 'yt' ? playYoutube(post.songId) : play(post.songId) " class="btn" src="../../assets/icon/play.png"></ion-img>
+      <ion-img *ngIf="spotifyService.playing" (click)="pause()"  class="btn" src="../../assets/icon/pause.png"></ion-img>
+  </div>
+
   <ion-card-header style="text-align:center">
     <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>
     <ion-card-title>{{ post.artistName }}</ion-card-title>
@@ -23,7 +28,7 @@
         <ion-note style="margin-left: 5px"> {{commentCounter}} </ion-note>  
       </ion-button>
     </ion-col>
-    <ion-col *ngIf='!spotifyService.playing && post.postType == "s"'>
+    <!-- <ion-col *ngIf='!spotifyService.playing && post.postType == "s"'>
       <ion-button (click)="spotifyService.paused && spotifyService.songPos > 0 ? resume(post.songId) : play(post.songId)"
         fill="clear" size="small" color="dark">
         <ion-icon name="play"></ion-icon>
@@ -38,10 +43,13 @@
       <ion-button (click)="playYoutube(post.songId)" fill="clear" size="small" color="dark">
         <ion-icon name="play"></ion-icon>
       </ion-button>
+    </ion-col> -->
+    <ion-col no-margin no-padding>
+      <app-profile-action-sheet [post]="post"> </app-profile-action-sheet>
     </ion-col>
   </ion-buttons> 
-  <ion-col style="margin-top:2%;margin-left:2%">
-    <ion-note class="date"> {{ newCreatedAt }} </ion-note>
+  <ion-col style="margin-top:3%; margin-right: 10px; text-align: right;">
+    <!-- <ion-note> {{ post.createdAt | dateTimeConvert: "" }} </ion-note> -->
   </ion-col>
   </ion-row>
 </ion-card>

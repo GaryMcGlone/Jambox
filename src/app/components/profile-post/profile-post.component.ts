@@ -51,19 +51,19 @@ export class ProfilePostComponent implements OnInit {
 
   ngOnInit() {
     this.newCreatedAt = this.getCreatedAt(this.post.createdAt);
+    this.checkIfLiked();
+
     this.databaseService.getCurrentUser().subscribe(data => {
-      (this.user = data), (this.username = this.user.displayName);
+      this.user = data
+      this.username = this.user.displayName
     });
     this.databaseService.getComments(this.post.id).subscribe(comments => {
-      (this.comments = comments),
-        this.commentCounter = this.comments.length,
-        error => (this.errorMessage = <any>error);
+      this.comments = comments
+      this.commentCounter = this.comments.length
     });
-    this.checkIfLiked();
     this.databaseService.getLikes(this.post.id).subscribe(likes => {
       this.likes = likes,
-        this.likeCounter = this.likes.length,
-        error => (this.errorMessage = <any>error);
+      this.likeCounter = this.likes.length
     });
   }
 
@@ -75,11 +75,11 @@ export class ProfilePostComponent implements OnInit {
     var hours = minutes / 60;
     var days = hours / 24;
 
-    if(this.round(seconds, 0) < 60)
+    if (this.round(seconds, 0) < 60)
       value = this.round(seconds, 0).toString() + "s ago";
-    else if(this.round(minutes, 0) < 60)
+    else if (this.round(minutes, 0) < 60)
       value = this.round(minutes, 0).toString() + "m ago";
-    else if(this.round(minutes, 0) >= 60 && this.round(hours, 0) < 24)
+    else if (this.round(minutes, 0) >= 60 && this.round(hours, 0) < 24)
       value = this.round(hours, 0).toString() + "h ago";
     else
       value = this.round(days, 0).toString() + "d ago";
@@ -87,7 +87,7 @@ export class ProfilePostComponent implements OnInit {
     return value;
   }
 
-  round(number, precision){
+  round(number, precision) {
     var factor = Math.pow(10, precision);
     var tempNumber = number * factor;
     var roundedTempNumber = Math.round(tempNumber);

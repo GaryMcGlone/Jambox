@@ -1,8 +1,8 @@
 <ion-card *ngIf="post" class="welcome-card">
   <div class="imageContainer">
-      <ion-img *ngIf="post.albumArt" [src]="post.albumArt"></ion-img> 
-      <ion-img *ngIf="!spotifyService.playing"  (click)="post.postType == 'yt' ? playYoutube(post.songId) : play(post.songId)" class="btn" src="../../assets/icon/play.png"></ion-img>
-      <ion-img *ngIf="spotifyService.playing" (click)="pause()"  class="btn" src="../../assets/icon/pause.png"></ion-img>
+      <img *ngIf="post.albumArt" [src]="post.albumArt"/>
+      <img *ngIf="!spotifyService.playing"  (click)="post.postType == 'yt' ? playYoutube(post.songId) : play(post.songId)" class="btn" src="../../assets/icon/play.png"/>
+      <img *ngIf="spotifyService.playing" (click)="pause()"  class="btn" src="../../assets/icon/pause.png"/>
   </div>
 
   <ion-card-header style="text-align:center">

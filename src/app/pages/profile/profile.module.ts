@@ -11,6 +11,7 @@ import { ProfilePostComponent } from '../../components/profile-post/profile-post
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { ProfileLikedPostListComponent } from '../../components/profile-liked-post-list/profile-liked-post-list.component';
 import { ProfileLikedPostComponent } from '../../components/profile-liked-post/profile-liked-post.component';
+import { ProfileActionSheetComponent } from '../../components/profile-action-sheet/profile-action-sheet.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,8 @@ const routes: Routes = [
     ProfilePostListComponent, 
     ProfilePostComponent,
     ProfileLikedPostListComponent,
-    ProfileLikedPostComponent  
+    ProfileLikedPostComponent,
+    ProfileActionSheetComponent
   ]
 })
 export class ProfilePageModule {}
