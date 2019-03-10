@@ -12,7 +12,7 @@ export class UsersService {
   private users: Observable<IUser[]>;
 
   constructor(private _afs: AngularFirestore) {
-    this.usersColection = _afs.collection<IUser>("users", ref => ref.limit(20));
+    this.usersColection = _afs.collection<IUser>("users", ref => ref.limit(10));
    }
   
   getUsersByQuery(query: string): Observable<IUser[]> {
@@ -66,7 +66,7 @@ export class UsersService {
   }
   
   getAllUsers() : Observable<IUser[]> {
-    this.usersColection = this._afs.collection<IUser>("users");
+    this.usersColection = this._afs.collection<IUser>("users", ref => ref.limit(10));
     this.users = this.usersColection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
