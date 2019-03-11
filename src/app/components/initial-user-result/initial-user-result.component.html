@@ -6,7 +6,7 @@
         <ion-img *ngIf="!user.profilePic" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"></ion-img>
     </ion-avatar>
     </ion-col>
-    <ion-col size="7" style="text-align: center">
+    <ion-col size="6" style="text-align: center">
       <ion-label text-wrap>
         {{user.displayName}}
       </ion-label>
@@ -15,7 +15,7 @@
       </ion-note><br />
       <ion-note>{{ followCount }}</ion-note>
     </ion-col>
-    <ion-col size="3" class="colClass">
+    <ion-col size="4" class="colClass">
       <ion-button color="primary" (click)="!isFollowing ? follow(user, $event) : unfollow()" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
     </ion-col>
   </ion-row>

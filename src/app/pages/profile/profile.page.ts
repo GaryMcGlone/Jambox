@@ -18,17 +18,17 @@ import { IUser } from '../../interfaces/user-interface';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  private followersCounter: number;
-  private followingCounter: number;
-  private postsCounter: number;
+  public followersCounter: number;
+  public followingCounter: number;
+  public postsCounter: number;
 
-  private defaultPic: string = "../../assets/icon/defaultProfilePic.jpg"
-  private memberSince: Date;
+  public defaultPic: string = "../../assets/icon/defaultProfilePic.jpg"
+  public memberSince: Date;
   
-  private yourPostsSelect: boolean = true;
-  private likedPostsSelect: boolean = false;
-  private user: IUser;
-  private editing: false;
+  public yourPostsSelect: boolean = true;
+  public likedPostsSelect: boolean = false;
+  public user: IUser;
+  public editing: false;
   
   constructor(private auth: FirebaseAuthService, private menuCtrl: MenuController, private db: DatabaseService, private router: Router, private camera: Camera, private file: File, private imagePicker: ImagePicker, private followService: FollowService,
     // private analytics: AnalyticsService

@@ -10,11 +10,14 @@ import { ITag } from '../../interfaces/tag-interface';
 export class TagsListComponent implements OnInit {
   tags: ITag[];
   taggedPostsCount: number
+  public showSpinner = false;
   constructor(private tagsService:TagsService) { }
 
   ngOnInit() {
+    this.showSpinner = true;
     this.tagsService.getTags().subscribe(tags => {
       this.tags = tags
+      this.showSpinner = false
     })
   
   }

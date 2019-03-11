@@ -19,18 +19,18 @@ import { IUser } from '../../interfaces/user-interface';
   styleUrls: ['./profile-modal.page.scss'],
 })
 export class ProfileModalPage implements OnInit {
-  private editing: boolean = false;
-  private followersCounter: number;
-  private followingCounter: number;
-  private postsCounter: number;
-  private profilePicture: any = null;
-  private memberSince: Date;
-  private userId: string;
-  private user: IUser;
-  private btnValue = "follow";
-  private buttonFill = "outline";
-  private compareFollow: IFollow
-  private isFollowing: boolean;
+  public editing: boolean = false;
+  public followersCounter: number;
+  public followingCounter: number;
+  public postsCounter: number;
+  public profilePicture: any = null;
+  public memberSince: Date;
+  public userId: string;
+  public user: IUser;
+  public btnValue = "follow";
+  public buttonFill = "outline";
+  public compareFollow: IFollow
+  public isFollowing: boolean;
 
 
   constructor(
