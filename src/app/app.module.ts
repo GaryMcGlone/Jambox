@@ -46,11 +46,9 @@ import { ProfileModalPage } from './pages/profile-modal/profile-modal.page'
 import { ProfileModalPageModule } from './pages/profile-modal/profile-modal.module';
 import { TagsPage } from "./pages/tags/tags.page";
 import { TagsPageModule } from "./pages/tags/tags.module";
-import { TaggedPostsListComponent } from './components/tagged-posts-list/tagged-posts-list.component';
-import { TaggedPostComponent } from './components/tagged-post/tagged-post.component';
 import { TaggedPostsPage } from "./pages/tagged-posts/tagged-posts.page";
 import { TaggedPostsPageModule } from "./pages/tagged-posts/tagged-posts.module";
-import { TaggedPostActionSheetComponent } from './components/tagged-post-action-sheet/tagged-post-action-sheet.component';
+import { ProfileModalActionSheetComponent } from './components/profile-modal-action-sheet/profile-modal-action-sheet.component';
 
 library.add(fas, far, fab)
 

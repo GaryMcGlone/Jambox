@@ -52,24 +52,20 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.databaseService.getCurrentUser().subscribe(data => {
-    //   (this.user = data), (this.username = this.user.displayName);
-    // });
     this.usersService.getSpecificUserById(this.post.UserID).subscribe(data => {
       this.username = data.displayName;
       this.userId = data.uid
 
     })
     this.databaseService.getComments(this.post.id).subscribe(comments => {
-      (this.comments = comments),
-        this.commentCounter = this.comments.length,
-        error => (this.errorMessage = <any>error);
+      this.comments = comments
+      this.commentCounter = this.comments.length
+
     });
     this.checkIfLiked();
     this.databaseService.getLikes(this.post.id).subscribe(likes => {
       this.likes = likes,
-        this.likeCounter = this.likes.length,
-        error => (this.errorMessage = <any>error);
+      this.likeCounter = this.likes.length
     });
   }
 
@@ -114,16 +110,19 @@ export class PostComponent implements OnInit {
 
   pause() {
     // this.analytics.logEvent("pausedSpotify", { param: "User_Paused_Spotify" } )
+    console.log("paused spotify")
     this.spotifyService.pauseTrack();
   }
 
   play(songId) {
+    console.log("playing spotify", songId)
     // this.analytics.logEvent("playedSpotify", { param: "User_Played_Spotify" } )
     this.spotifyService.play(songId);
   }
 
   resume(songId) {
     // this.analytics.logEvent("resumedSpotify", { param: "User_Resumed_Spotify" } )
+    console.log("resuming song", songId)
     this.spotifyService.resumeSong(songId);
   }
 
@@ -133,6 +132,7 @@ export class PostComponent implements OnInit {
   }
 
   playYoutube(videoId) {
+    console.log("playing youtube", videoId)
     // this.analytics.logEvent("playYoutube", { param: "User_Played_Youtube" } )
     this.youtube.openVideo(videoId);
   }

@@ -1,8 +1,46 @@
-<ion-item *ngIf="user && blockedBool == false" (click)="selectUser()" text-wrap>
-    <ion-label text-wrap>
-      {{user.displayName}}
-    </ion-label>
-    <ion-buttons slot="end">
-      <ion-button color="primary" (click)="follow(user)" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
-    </ion-buttons>
-</ion-item>
+<ion-grid *ngIf="user && blockedBool == false"  (click)="selectUser()" text-wrap>
+  <ion-row>
+    <ion-col size="2" class="colClass">
+      <ion-avatar>
+        <ion-img *ngIf="user.profilePic" class="profilePicture" src="{{user.profilePic}}"></ion-img>
+        <ion-img *ngIf="!user.profilePic" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"></ion-img>
+      </ion-avatar>
+    </ion-col>
+    <ion-col size="6" style="text-align: center">
+      <ion-label text-wrap>
+        {{user.displayName}}
+      </ion-label>
+      <ion-note>
+        Followers:
+      </ion-note>
+      <ion-note>{{ followCount }}</ion-note>
+    </ion-col>
+    <ion-col size="4" class="colClass">
+      <ion-button color="primary" (click)="!isFollowing ? follow(user, $event) : unfollow($event)" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<!-- 
+  <ion-grid *ngIf="user && blockedBool == false"  (click)="selectUser()" text-wrap>
+  <ion-row>
+    <ion-col size="2" class="colClass">
+      <ion-avatar>
+        <ion-img *ngIf="user.profilePic" class="profilePicture" src="{{user.profilePic}}"></ion-img>
+        <ion-img *ngIf="!user.profilePic" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"></ion-img>
+      </ion-avatar>
+    </ion-col>
+    <ion-col size="6" style="text-align: center">
+      <ion-label text-wrap>
+        {{user.displayName}}
+      </ion-label>
+      <ion-note>
+        Followers:
+      </ion-note>
+      <ion-note>{{ followCount }}</ion-note>
+    </ion-col>
+    <ion-col size="4" class="colClass">
+      <ion-button color="primary" (click)="!isFollowing ? follow(user, $event) : unfollow($event)" [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+ -->

@@ -25,20 +25,34 @@ export class UserComponent implements OnInit {
   private following: IFollow[];
   private blockedUsers: string[];
   blockedBool: boolean = false;
+  public followCount: number; 
+  public isFollowing: boolean;
 
   constructor(private modalController: ModalController, private chatService: ChatService, private firebaseAuth: FirebaseAuthService, private followService: FollowService,/* private analytics: AnalyticsService*/ ) { }
 
   ngOnInit() {
+    this.followService.getFollowedUsersForUID(this.user.uid).subscribe(data => this.followCount = data.length)
     // this.blockedBool = this.checkIfBlocked(this.firebaseAuth.getCurrentUserID())
     this.chatRoom = { members: [] }
     this.followService.getFollowedUsers().subscribe(data => {
       this.following = data
+      this.compareFollow = {
+        followedId: this.user.id,
+        followerId: this.firebaseAuth.getCurrentUserID()
+      }
+      this.following.forEach(element => {
+        if(element.followerId == this.compareFollow.followerId && 
+          element.followedId == this.compareFollow.followedId){
+          this.btnValue = "unfollow"
+          this.buttonFill = "solid"
+          this.isFollowing = true
+        }
+      });
     })
-    this.compareFollow = {
-      followedId: this.user.id,
-      followerId: this.firebaseAuth.getCurrentUserID()
-    }
-    
+
+    this.followService.getSpecificFollow(this.user.id, this.firebaseAuth.getCurrentUserID()).subscribe(data => {
+      this.compareFollow = data[0]
+    })    
   }
 
   checkIfBlocked(uid: string): boolean {
@@ -57,22 +71,25 @@ export class UserComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  follow(user) {
-    //this.analytics.log("followInChatView", { param: "Follow_InChatView" } )
-    if (this.buttonFill == "outline") {
+  follow(user, event: Event) {
+    event.stopPropagation();
+    // this.analytics.log("followInUserSearch", { param: "Followed_InUserSearch" } )
       this.btnValue = "unfollow";
       this.buttonFill = "solid";
+     
       let follow: IFollow = {
         followedId: user.id,
         followerId: this.firebaseAuth.getCurrentUserID()
       }
-     this.followService.addFollow(follow)
-    } else {
-     // this.analytics.log("unfollowInChatView", { param: "Unfollow_InChatView" } )
-      this.btnValue = "follow";
-      this.buttonFill = "outline";
-      this.followService.removeFollowing(this.compareFollow.id)
+      this.followService.addFollow(follow)
     }
+    
+  unfollow(event: Event) {
+    event.stopPropagation()
+    // this.analytics.log("UnfollowInUserSearch", { param: "Unfollowed_InUserSearch" } )
+    this.btnValue = "follow";
+    this.buttonFill = "outline";
+    this.followService.removeFollowing(this.compareFollow.id);
+    this.isFollowing = false;
   }
-  
 }

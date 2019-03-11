@@ -13,4 +13,6 @@ export interface IPost {
     commentCounter: number;
     likeCounter: number;
     tags?: string[]
+    postType?: string;
+    externalUri?:string;
 }

@@ -27,7 +27,6 @@ const routes: Routes = [
   declarations: [UserSearchGroupPage,     
     UserListGroupComponent,
     UserGroupComponent,
-    StringConvertPipe
-  ]
+    StringConvertPipe]
 })
 export class UserSearchGroupPageModule {}
