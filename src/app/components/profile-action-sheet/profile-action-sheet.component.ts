@@ -10,6 +10,7 @@ import { FirebaseAuthService } from '../../services/firebaseAuth/firebase-auth.s
 import { SpotifyService } from '../../services/spotify/spotify.service';
 import { FollowService } from '../../services/follow/follow.service';
 import { IPost } from '../../interfaces/post-interface';
+import { AnalyticsService } from '../../services/analytics/analytics.service';
 
 @Component({
   selector: 'app-profile-action-sheet',
@@ -33,7 +34,7 @@ export class ProfileActionSheetComponent implements OnInit {
     private firebaseAuth: FirebaseAuthService,
     private spotifyService: SpotifyService,
     private followingService: FollowService,
-    /* private analytics: AnalyticsService*/) {}
+    private analytics: AnalyticsService) {}
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
@@ -85,7 +86,7 @@ export class ProfileActionSheetComponent implements OnInit {
   }
 
   delete(postid: string) {
-    // this.analytics.log("deletedPost", { param: "DeletedPost" } )
+     this.analytics.log("deletedPost", { param: "DeletedPost" } )
     this.databaseService.deletePost(postid);
     this.getAllComments();
     this.getAllLikes();
@@ -118,7 +119,7 @@ export class ProfileActionSheetComponent implements OnInit {
   }
 
   open(uri) {
-    // this.analytics.log("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
+     this.analytics.log("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
     this.spotifyService.open(uri);
   }
 }

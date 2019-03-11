@@ -15,7 +15,7 @@ export class GeneralUserSearchComponent implements OnInit {
   showSpinner: boolean = false;
 
   constructor(private userService: UsersService, 
-    // private analytics: AnalyticsService 
+    private analytics: AnalyticsService 
     ) { }
 
   ngOnInit() {
@@ -23,7 +23,7 @@ export class GeneralUserSearchComponent implements OnInit {
    }
 
   search($event) {
-    // this.analytics.log("searchedUserInSearchPage", { param: "User_Searched_SearchPage" } )
+    this.analytics.log("searchedUserInSearchPage", { param: "User_Searched_SearchPage" } )
     let q: string = $event.target.value;
     if (q) {
       this.userService.getUsersByQuery(q.toLowerCase()).subscribe(users => {

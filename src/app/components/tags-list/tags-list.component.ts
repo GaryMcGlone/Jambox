@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TagsService } from '../../services/tags/tags.service';
 import { ITag } from '../../interfaces/tag-interface';
+import { AnalyticsService } from '../../services/analytics/analytics.service';
 
 @Component({
   selector: 'app-tags-list',
@@ -11,7 +12,7 @@ export class TagsListComponent implements OnInit {
   tags: ITag[];
   taggedPostsCount: number
   public showSpinner = false;
-  constructor(private tagsService:TagsService) { }
+  constructor(private tagsService:TagsService, private analytics: AnalyticsService) { }
 
   ngOnInit() {
     this.showSpinner = true;
@@ -24,7 +25,7 @@ export class TagsListComponent implements OnInit {
 
   
   search($event) {
-    // this.analytics.log("searchedUserInSearchPage", { param: "User_Searched_SearchPage" } )
+    this.analytics.log("searchedTags", { param: "tAgs" } )
     let q: string = $event.target.value;
     if (q) {
       this.tagsService.getTagsByQuery(q.toLowerCase()).subscribe(tags => {

@@ -31,7 +31,7 @@ export class ProfilePage implements OnInit {
   public editing: false;
   
   constructor(private auth: FirebaseAuthService, private menuCtrl: MenuController, private db: DatabaseService, private router: Router, private camera: Camera, private file: File, private imagePicker: ImagePicker, private followService: FollowService,
-    // private analytics: AnalyticsService
+    private analytics: AnalyticsService
   ) { }
   ngOnInit() {
     this.db.getCurrentUser().subscribe(data => {
@@ -79,7 +79,7 @@ export class ProfilePage implements OnInit {
   }
 
   signOut() {
-    //this.analytics.log("signedOut", { param: "Signed_Out" })
+    this.analytics.log("signedOut", { param: "Signed_Out" })
     this.auth.doLogout();
   }
 
@@ -88,7 +88,7 @@ export class ProfilePage implements OnInit {
   }
 
   async takePicture() {
-    //this.analytics.log("tookProfilePic", { param: "Pic_Taken" })
+    this.analytics.log("tookProfilePic", { param: "Pic_Taken" })
     const options: CameraOptions = {
       quality: 80,
       destinationType: this.camera.DestinationType.FILE_URI,
@@ -102,7 +102,7 @@ export class ProfilePage implements OnInit {
   }
 
   async selectImageFromGallery() {
-    //  this.analytics.log("filePickerProfilePic", { param: "file_Picker" })
+      this.analytics.log("filePickerProfilePic", { param: "file_Picker" })
     const options: ImagePickerOptions = {
       maximumImagesCount: 1
     };

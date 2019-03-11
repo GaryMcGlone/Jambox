@@ -15,7 +15,7 @@ export class InitialUserListComponent implements OnInit {
   showSpinner: boolean = false;
 
   constructor(private userService: UsersService, 
-    // private analytics: AnalyticsService
+    private analytics: AnalyticsService
     ) { }
 
   ngOnInit() {
@@ -23,7 +23,7 @@ export class InitialUserListComponent implements OnInit {
    }
 
   search($event) {
-    // this.analytics.log("searchedUserInPopupSearch", { param: "User_Searched_PopupSearch" } )
+    this.analytics.log("searchedUserInPopupSearch", { param: "User_Searched_PopupSearch" } )
     let q: string = $event.target.value;
     if (q) {
       this.userService.getUsersByQuery(q.toLowerCase()).subscribe(users => {

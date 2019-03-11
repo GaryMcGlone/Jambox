@@ -24,7 +24,7 @@ export class GeneralUserSearchResultComponent implements OnInit {
   private isFollowing: boolean;
 
   constructor(private firebaseAuth: FirebaseAuthService, private followService: FollowService, private db: DatabaseService, private modalController: ModalController
-    // private analytics: AnalyticsService
+   , private analytics: AnalyticsService
     ) { }
 
   ngOnInit() {
@@ -54,7 +54,7 @@ export class GeneralUserSearchResultComponent implements OnInit {
 
   follow(user, event: Event) {
     event.stopPropagation();
-    // this.analytics.log("followInUserSearch", { param: "Followed_InUserSearch" } )
+    this.analytics.log("followInUserSearch", { param: "Followed_InUserSearch" } )
       this.btnValue = "unfollow";
       this.buttonFill = "solid";
      
@@ -67,7 +67,7 @@ export class GeneralUserSearchResultComponent implements OnInit {
 
   unfollow(event: Event) {
     event.stopPropagation()
-    // this.analytics.log("UnfollowInUserSearch", { param: "Unfollowed_InUserSearch" } )
+    this.analytics.log("UnfollowInUserSearch", { param: "Unfollowed_InUserSearch" } )
     this.btnValue = "follow";
     this.buttonFill = "outline";
     this.followService.removeFollowing(this.compareFollow.id);

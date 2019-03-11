@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
     private menuCtrl: MenuController,
     private spotifyService: SpotifyService,
     private databaseService: DatabaseService,
-   // private analytics: AnalyticsService
+    private analytics: AnalyticsService
   ) {
   }
   ionViewWillEnter() {
@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
   }
 
   login(email: string, password: string) {
-   // this.analytics.log("login", { param: "User_Login" });
+    this.analytics.log("login", { param: "User_Login" });
     this.auth.doLogin(email, password);
   }
   navigateToSignUp() {
@@ -38,6 +38,7 @@ export class LoginPage implements OnInit {
   signInWithSpotify() {
     this.spotifyService.authWithSpotify();
   }
-  signInWithGoogle(){
+  signInWithGoogle() {
     this.auth.signInWithGoogle();
-  }}
+  }
+}

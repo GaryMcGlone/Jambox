@@ -7,7 +7,7 @@ import { IUser } from "../../interfaces/user-interface";
 import { YoutubeVideoPlayer } from "@ionic-native/youtube-video-player/ngx";
 import { ActivatedRoute } from "@angular/router";
 import { ILike } from "../../interfaces/like-interface";
-//import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
+import { FirebaseAnalytics } from "@ionic-native/firebase-analytics/ngx";
 import { ModalController } from "@ionic/angular";
 import { CommentsPage } from "../../pages/comments/comments.page";
 @Component({
@@ -34,7 +34,7 @@ export class SearchResultComponent implements OnInit {
     private youtube: YoutubeVideoPlayer,
     private route: ActivatedRoute,
     private firebaseAuth: FirebaseAuthService,
-   // private analytics: FirebaseAnalytics,
+    private analytics: FirebaseAnalytics,
     private modalController: ModalController
   ) {}
 
@@ -47,7 +47,7 @@ export class SearchResultComponent implements OnInit {
   }
 
   addLike(id) {
-   // this.analytics.logEvent("srPostLiked", { param: "SR_User_Liked_Post" });
+    this.analytics.logEvent("srPostLiked", { param: "SR_User_Liked_Post" });
     let like: ILike = {
       postId: id,
       userId: this.firebaseAuth.getCurrentUserID()
@@ -57,7 +57,7 @@ export class SearchResultComponent implements OnInit {
     this.databaseService.addLike(like);
   }
   removeLike(id) {
-   // this.analytics.logEvent("srPostUnliked", { param: "SR_User_Unliked_Post" });
+    this.analytics.logEvent("srPostUnliked", { param: "SR_User_Unliked_Post" });
     this.likeId = this.firebaseAuth.getCurrentUserID() + "_" + id;
     this.changeHeart("heart-empty", "dark");
     this.liked = false;
@@ -79,35 +79,35 @@ export class SearchResultComponent implements OnInit {
     }
   }
   pause() {
-    // this.analytics.logEvent("srPausedSpotify", {
-    //   param: "SR_User_Paused_Spotify"
-    // });
+     this.analytics.logEvent("srPausedSpotify", {
+       param: "SR_User_Paused_Spotify"
+     });
     this.spotifyService.pauseTrack();
   }
   playYoutube(videoId: string) {
-    // this.analytics.logEvent("srPlayYoutube", {
-    //   param: "SR_User_Played_Youtube"
-    // });
+     this.analytics.logEvent("srPlayYoutube", {
+       param: "SR_User_Played_Youtube"
+     });
     this.youtube.openVideo(videoId);
   }
 
   play(post) {
-    // this.analytics.logEvent("srPlayedSpotify", {
-    //   param: "SR_User_Played_Spotify"
-    // });
+     this.analytics.logEvent("srPlayedSpotify", {
+       param: "SR_User_Played_Spotify"
+     });
     this.spotifyService.play(post);
   }
   open(uri) {
-    // this.analytics.logEvent("srUserOpenedSpotify", {
-    //   param: "SR_User_Opened_Song_On_Spotify"
-    // });
+     this.analytics.logEvent("srUserOpenedSpotify", {
+       param: "SR_User_Opened_Song_On_Spotify"
+     });
     this.spotifyService.open(uri);
   }
 
   selectComments(selectedPost): void {
-    // this.analytics.logEvent("srUserOpenedComments", {
-    //   param: "SR_User_Opened_Comments_Modal"
-    // });
+     this.analytics.logEvent("srUserOpenedComments", {
+       param: "SR_User_Opened_Comments_Modal"
+     });
     this.presentModal(selectedPost);
   }
 

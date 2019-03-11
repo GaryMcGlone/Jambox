@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MenuController, NavController } from "@ionic/angular";
 import { IUser } from "../../interfaces/user-interface";
-//import { AnalyticsService } from "../../services/analytics/analytics.service";
+import { AnalyticsService } from "../../services/analytics/analytics.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -14,10 +14,10 @@ export class HomePage implements OnInit {
   spotify: any;
   constructor(
     private menuCtrl: MenuController,
-    //private analytics: AnalyticsService,
+    private analytics: AnalyticsService,
     private router: Router
   ) {
-    //   this.analytics.currentScreen("Home");
+      // this.analytics.currentScreen("Home");
   }
   ionViewWillEnter() {
     this.menuCtrl.enable(true);

@@ -14,7 +14,7 @@ export class CommentComponent implements OnInit {
   userid: string;
   constructor(private databaseService: DatabaseService, 
     private firebaseAuth: FirebaseAuthService, 
-    // private analytics:AnalyticsService
+    private analytics:AnalyticsService
     ) { }
 
   ngOnInit() {
@@ -22,7 +22,7 @@ export class CommentComponent implements OnInit {
   }
 
   deleteComment() {
-    // this.analytics.log("deletedComment", { param: "User_Deleted_Comment" } )
+    this.analytics.log("deletedComment", { param: "User_Deleted_Comment" } )
     this.databaseService.removeComment(this.comment.id);
   }
 

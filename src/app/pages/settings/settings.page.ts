@@ -21,7 +21,7 @@ export class SettingsPage implements OnInit {
     private router: Router, 
     private authService: FirebaseAuthService, 
     private toastController: ToastController , 
-    //private analytics: AnalyticsService
+    private analytics: AnalyticsService
   ) {}
 
   ngOnInit() {
@@ -42,7 +42,7 @@ export class SettingsPage implements OnInit {
   }
 
   logout() {
-     //this.analytics.log("logout", { param: "Logout" });
+     this.analytics.log("logout", { param: "Logout" });
     this.dbService.removeToken(this.authService.getCurrentUserID());
     this.authService.doLogout();
   }
@@ -59,7 +59,7 @@ export class SettingsPage implements OnInit {
     toast.present();
   }
   report(bug){
-   // this.analytics.log("bugReportFeedback", { param: "Feedback" });
+    this.analytics.log("bugReportFeedback", { param: "Feedback" });
     this.presentToast("Thank you for your feedback!")
     this.dbService.addBug(bug)
   }
