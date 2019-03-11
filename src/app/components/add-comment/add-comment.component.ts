@@ -23,9 +23,10 @@ export class AddCommentComponent implements OnInit {
   pipe = new DatePipe("en-IE");
   postedAt: string;
 
-  constructor(private databaseService: DatabaseService,
-     private firebaseAuth: FirebaseAuthService,
-    //  private analytics: FirebaseAnalytics
+  constructor(
+    private databaseService: DatabaseService,
+    private firebaseAuth: FirebaseAuthService,
+    //private analytics: FirebaseAnalytics
      ) {
   }
 

@@ -19,18 +19,17 @@ import { IUser } from '../../interfaces/user-interface';
   styleUrls: ['./profile-modal.page.scss'],
 })
 export class ProfileModalPage implements OnInit {
-  private editing: false;
-  private followersCounter: number;
-  private followingCounter: number;
-  private postsCounter: number;
-  private profilePicture: any = null;
-  private memberSince: Date;
-  private userId: string;
-  private user: IUser;
-  private btnValue = "follow";
-  private buttonFill = "outline";
-  private compareFollow: IFollow
-  private isFollowing: boolean;
+  public editing: false;
+  public followersCounter: number;
+  public followingCounter: number;
+  public postsCounter: number;
+  public profilePicture: any = null;
+  public memberSince: Date;
+  public user: IUser;
+  public btnValue = "follow";
+  public buttonFill = "outline";
+  public compareFollow: IFollow
+  public isFollowing: boolean;
 
 
   constructor(
@@ -42,24 +41,19 @@ export class ProfileModalPage implements OnInit {
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService
   ) {
-    this.userId = navParams.data.userId
-    console.log(this.userId)
   }
   ngOnInit() {
-    this.db.getUserByID(this.userId).subscribe(data => {
-      this.user = data
-      this.memberSince = this.toDateTime(data.createdAt.seconds);
-    })
+    this.toDateTime(this.user.createdAt.seconds)
     this.db.getLoggedInUserPosts().subscribe(posts => {
       this.postsCounter = posts.length
     });
     this.followService.getFollowedUsers().subscribe(following => {
       this.followingCounter = following.length
     });
-    this.followService.getFollowingUsers(this.userId).subscribe(followers => {
+    this.followService.getFollowingUsers(this.user.uid).subscribe(followers => {
       this.followersCounter = followers.length
     })
-    this.followService.getSpecificFollow(this.userId, this.firebaseAuth.getCurrentUserID()).subscribe(data => {
+    this.followService.getSpecificFollow(this.user.uid, this.firebaseAuth.getCurrentUserID()).subscribe(data => {
       this.compareFollow = data[0]
       console.log(this.compareFollow)
       if(this.compareFollow) {
@@ -87,7 +81,7 @@ export class ProfileModalPage implements OnInit {
     this.buttonFill = "solid";
 
     let follow: IFollow = {
-      followedId: this.userId,
+      followedId: this.user.uid,
       followerId: this.firebaseAuth.getCurrentUserID()
     }
     this.followService.addFollow(follow)

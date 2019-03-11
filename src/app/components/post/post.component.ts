@@ -56,8 +56,8 @@ export class PostComponent implements OnInit {
     //   (this.user = data), (this.username = this.user.displayName);
     // });
     this.usersService.getSpecificUserById(this.post.UserID).subscribe(data => {
-      this.username = data[0].displayName;
-      this.userId = data[0].uid
+      this.username = data.displayName;
+      this.userId = data.uid
 
     })
     this.databaseService.getComments(this.post.id).subscribe(comments => {

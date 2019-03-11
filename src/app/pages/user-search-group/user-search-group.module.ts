@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { UserSearchGroupPage } from './user-search-group.page';
 import { UserListGroupComponent } from '../../components/user-list-group/user-list-group.component';
 import { UserGroupComponent } from '../../components/user-group/user-group.component';
+import { StringConvertPipe } from '../../pipes/string-convert.pipe';
 
 const routes: Routes = [
   {
@@ -25,6 +26,8 @@ const routes: Routes = [
   ],
   declarations: [UserSearchGroupPage,     
     UserListGroupComponent,
-    UserGroupComponent,]
+    UserGroupComponent,
+    StringConvertPipe
+  ]
 })
 export class UserSearchGroupPageModule {}

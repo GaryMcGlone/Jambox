@@ -9,7 +9,7 @@ import { ITag } from '../../interfaces/tag-interface';
 })
 export class TagsListComponent implements OnInit {
   tags: ITag[];
-  taggedPostsCount: number
+  taggedPostsCount: number;
   constructor(private tagsService:TagsService) { }
 
   ngOnInit() {

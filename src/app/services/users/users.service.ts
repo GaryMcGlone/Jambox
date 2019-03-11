@@ -11,6 +11,9 @@ export class UsersService {
   private usersColection: AngularFirestoreCollection<IUser>;
   private users: Observable<IUser[]>;
 
+  private fireDocUser: AngularFirestoreDocument<IUser>;
+  private currentUser: Observable<IUser>;
+
   constructor(private _afs: AngularFirestore) {
     this.usersColection = _afs.collection<IUser>("users", ref => ref.limit(20));
    }
@@ -33,20 +36,10 @@ export class UsersService {
     return this.users;
   }
 
-  getSpecificUserById(userid: string) : Observable<IUser[]> {
-    this.usersColection = this._afs.collection<IUser>("users", ref => {
-      return ref.where('uid', '==', userid)
-    })
-    this.users = this.usersColection.snapshotChanges().pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as IUser;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        }))
-    );
-
-    return this.users;
+  getSpecificUserById(userId: string): Observable<IUser> {
+    this.fireDocUser = this._afs.doc<IUser>("users/" + userId);
+    this.currentUser = this.fireDocUser.valueChanges();
+    return this.currentUser;
   }
 
   checkIfUsernameExists(username: string): Observable<IUser[]> {

@@ -11,15 +11,13 @@ export class CommentListComponent implements OnInit {
   @Input() post;
   postID: string;
   comments: IComment[] = [];
-  errorMessage: string;
 
   constructor(private databaseService: DatabaseService) {}
 
   ngOnInit() {
     this.postID = this.post.id;
     this.databaseService.getComments(this.postID).subscribe(comments => {
-        (this.comments = comments),
-        error => (this.errorMessage = <any>error);
+        this.comments = comments
     });
   }
 }

@@ -45,7 +45,7 @@ export class PrivateChatComponent implements OnInit {
     this.currentChat.members.forEach(element => {
       if(element != this.userId){
         this.usersService.getSpecificUserById(element).subscribe(data => {
-          this.otherUser = data[0]
+          this.otherUser = data
           if(this.otherUser.blockedUsers){
             this.blockedUsers = this.otherUser.blockedUsers;
             this.checkIfBlocked();
