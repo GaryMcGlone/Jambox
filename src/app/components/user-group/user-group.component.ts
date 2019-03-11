@@ -31,15 +31,16 @@ export class UserGroupComponent implements OnInit {
 
  ngOnInit() {
     this.checkIfBlocked(this.auth.getCurrentUserID());
-    this.loadProfilePictureURL();  
     this.getCreatedAt(this.user.createdAt);  
   }
 
-  checkIfBlocked(uid: string){
-    if(this.user.blockedUsers.includes(uid))
-      this.blockeByUser = true;
-    else
-      this.blockeByUser = false;
+  checkIfBlocked(uid: string) {
+    if (this.user.blockedUsers) {
+      if (this.user.blockedUsers.includes(uid))
+        this.blockeByUser = true;
+      else
+        this.blockeByUser = false;
+    }
   }
 
   getCreatedAt(date: myDate): void {
@@ -63,12 +64,4 @@ export class UserGroupComponent implements OnInit {
     });
       toast.present();
     }
-
-  loadProfilePictureURL() {
-    this.db.getProfilePictureURLOfUser(this.user.uid).then(data => {
-      if (data) {
-        this.profilePicture = data
-      }
-    })
-  }
 }

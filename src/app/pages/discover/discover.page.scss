@@ -1,6 +1,8 @@
 .card {
     padding: 55px;
-    
+    border-left: 8px solid var(--ion-color-secondary);
+    background: var(--ion-color-light);
+    font-weight: 500;
 }
 fa-icon {
     font-size: 32px;
