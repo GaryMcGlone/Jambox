@@ -29,11 +29,11 @@ export class PostListComponent implements OnInit {
     private auth: FirebaseAuthService, 
     private followingService: FollowService, 
     private modalController: ModalController, 
-    private analytics: AnalyticsService
+  //  private analytics: AnalyticsService
     ) { }
 
   ngOnInit() {
-    this.analytics.log("userBrowsingFeed", { param: "User_Browsing_Feed" } )
+    // this.analytics.log("userBrowsingFeed", { param: "User_Browsing_Feed" } )
     this.showSpinner = true;
 
     this.followingService.getFollowedUsers().subscribe(data => {
@@ -67,7 +67,7 @@ export class PostListComponent implements OnInit {
   }
 
   async presentModal() {
-    this.analytics.log("clickedSearchPopup", { param: "Clicked_Search_Popup" } )
+    // this.analytics.log("clickedSearchPopup", { param: "Clicked_Search_Popup" } )
     const modal = await this.modalController.create({
       component: InitialUserSearchPage,
     });

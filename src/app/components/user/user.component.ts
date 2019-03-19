@@ -28,7 +28,9 @@ export class UserComponent implements OnInit {
   public followCount: number; 
   public isFollowing: boolean;
 
-  constructor(private modalController: ModalController, private chatService: ChatService, private firebaseAuth: FirebaseAuthService, private followService: FollowService,private analytics: AnalyticsService ) { }
+  constructor(private modalController: ModalController, private chatService: ChatService, private firebaseAuth: FirebaseAuthService, private followService: FollowService,
+    //private analytics: AnalyticsService 
+    ) { }
 
   ngOnInit() {
     this.followService.getFollowedUsersForUID(this.user.uid).subscribe(data => this.followCount = data.length)
@@ -63,7 +65,7 @@ export class UserComponent implements OnInit {
   }
 
   selectUser() {
-   this.analytics.log("selectedUserToChat", { param: "Selected_User_ToChat" } )
+  //  this.analytics.log("selectedUserToChat", { param: "Selected_User_ToChat" } )
     this.currentUserId = this.firebaseAuth.getCurrentUserID();
     this.members = [this.currentUserId, this.user.uid];
     this.chatRoom.members = this.members;
@@ -73,7 +75,7 @@ export class UserComponent implements OnInit {
 
   follow(user, event: Event) {
     event.stopPropagation();
-    this.analytics.log("followInUserSearch", { param: "Followed_InUserSearch" } )
+    // this.analytics.log("followInUserSearch", { param: "Followed_InUserSearch" } )
       this.btnValue = "unfollow";
       this.buttonFill = "solid";
      
@@ -86,7 +88,7 @@ export class UserComponent implements OnInit {
     
   unfollow(event: Event) {
     event.stopPropagation()
-    this.analytics.log("UnfollowInUserSearch", { param: "Unfollowed_InUserSearch" } )
+    // this.analytics.log("UnfollowInUserSearch", { param: "Unfollowed_InUserSearch" } )
     this.btnValue = "follow";
     this.buttonFill = "outline";
     this.followService.removeFollowing(this.compareFollow.id);

@@ -2,8 +2,8 @@
   <ion-row>
     <ion-col size="2" class="colClass">
       <ion-avatar>
-        <ion-img *ngIf="user.profilePic" class="profilePicture" src="{{user.profilePic}}"></ion-img>
-        <ion-img *ngIf="!user.profilePic" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"></ion-img>
+        <img *ngIf="user.profilePic" class="profilePicture" src="{{user.profilePic}}"/>
+        <img *ngIf="!user.profilePic" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"/>
       </ion-avatar>
     </ion-col>
     <ion-col size="6" style="text-align: center">
@@ -20,31 +20,3 @@
     </ion-col>
   </ion-row>
 </ion-grid>
-
-
-
-<!-- 
-
-  <ion-grid *ngIf="user" (click)="selectUser()" text-wrap>
-    <ion-row>
-      <ion-col size="3" class="colClass">
-          <ion-avatar>
-              <ion-img *ngIf="profilePicture" class="profilePicture" src="{{profilePicture}}"></ion-img>    
-              <ion-img *ngIf="!profilePicture" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"></ion-img>
-          </ion-avatar>
-      </ion-col>
-      <ion-col size="7" style="text-align: center">
-          <ion-label text-wrap>
-              {{user.displayName}} 
-          </ion-label>
-          <ion-note>
-             Member since: 
-          </ion-note><br/>
-          <ion-note>{{ followCount }}</ion-note>
-      </ion-col>
-      <ion-col size="2" class="colClass">
- <ion-button color="primary" (click)="!isFollowing ? follow(user) : unfollow()"  [fill]="buttonFill" size="small" shape="round">{{btnValue}}</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
- -->

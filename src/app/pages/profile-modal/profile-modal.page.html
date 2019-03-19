@@ -19,8 +19,8 @@
     <ion-row>
       <ion-col class="profilePictureContainer">
         <ion-avatar text-center>
-          <ion-img *ngIf="user.profilePic" (click)="toggleBtn()" class="profilePicture" src="{{user.profilePic}}"></ion-img>
-          <ion-img *ngIf="!user.profilePic" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"></ion-img>
+          <img *ngIf="user.profilePic" (click)="toggleBtn()" class="profilePicture" src="{{user.profilePic}}"/>
+          <img *ngIf="!user.profilePic" src="../../assets/icon/defaultProfilePic.jpg" class="profilePicture"/>
       </ion-avatar>
       </ion-col>
       <ion-col aria-colspan="2">
@@ -52,18 +52,3 @@
 
   <app-profile-modal-post-list [userId]="userId"></app-profile-modal-post-list>
 </ion-content>
-
-<!-- 
-   <ion-grid class="counterGrid">
-        <ion-row>
-            <ion-col class="borderRight">{{followersCounter}}</ion-col>
-            <ion-col class="borderRight">{{followingCounter}}</ion-col>
-            <ion-col class="borderTop">{{postsCounter}}</ion-col>
-          </ion-row>
-          <ion-row>
-              <ion-col class="borderBoth">Followers</ion-col>
-              <ion-col class="borderBoth">Following</ion-col>
-              <ion-col class="borderDown">Posts</ion-col>
-          </ion-row>
-    </ion-grid>
- -->

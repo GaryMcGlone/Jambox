@@ -26,7 +26,7 @@ export class MessageAddComponent implements OnInit {
   constructor(private chatService: ChatService,
     private firebaseAuth: FirebaseAuthService,
     private databaseService: DatabaseService
-    ,private analytics: AnalyticsService
+    ,//private analytics: AnalyticsService
     ) { }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class MessageAddComponent implements OnInit {
 
 
   sendMessage() {
-    this.analytics.log("messageSent", { param: "Message_Sent" } )
+    //this.analytics.log("messageSent", { param: "Message_Sent" } )
     var token = this.firebaseAuth.doTheThing();
     console.log(token);
     this.message.message = this.content;

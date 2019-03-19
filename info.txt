@@ -1,3 +1,9 @@
+Node version: v10.12.0
+
+Cordova version: 8.1.1
+
+Config.xml file: 
+
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.jambox.app" version="0.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Jambox</name>
@@ -123,3 +129,16 @@
     <engine name="android" spec="7.1.1" />
     <engine name="browser" spec="5.0.4" />
 </widget>
+
+
+Plugins: 
+
+cordova-plugin-badge,cordova-plugin-camera,cordova-plugin-customurlscheme,cordova-plugin-device,cordova-plugin-facebook4,cordova-plugin-file,cordova-plugin-firebase,cordova-plugin-firebase-analytics,cordova-plugin-googleplus,cordova-plugin-ionic-keyboard,cordova-plugin-ionic-webview,cordova-plugin-local-notification,cordova-plugin-media,cordova-plugin-nativestorage,cordova-plugin-splashscreen,cordova-plugin-statusbar,cordova-plugin-telerik-imagepicker,cordova-plugin-whitelist,cordova-plugin-youtube-video-player,cordova-spotify,cordova-spotify-oauth,cordova-support-android-plugin,cordova-support-google-services,es6-promise-plugin
+
+Error retrieving Android platform information: 
+Android SDK is not set up properly. Make sure that the Android SDK 'tools' and 'platform-tools' directories are in the PATH variable. 
+
+Error: cmd: Command failed with exit code 1 Error output:
+'android' is not recognized as an internal or external command,
+operable program or batch file.
+

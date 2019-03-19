@@ -16,7 +16,7 @@ export class DiscoverPage implements OnInit {
 
   constructor(private menuCtrl: MenuController,
     private modalController: ModalController,
-    private analytics: AnalyticsService,
+   // private analytics: AnalyticsService,
     private toastCtrl: ToastController,
     private router: Router
   ) { }

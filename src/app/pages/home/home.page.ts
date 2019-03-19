@@ -14,7 +14,7 @@ export class HomePage implements OnInit {
   spotify: any;
   constructor(
     private menuCtrl: MenuController,
-    private analytics: AnalyticsService,
+   // private analytics: AnalyticsService,
     private router: Router
   ) {
       // this.analytics.currentScreen("Home");

@@ -15,14 +15,16 @@ export class UserListComponent implements OnInit {
   endAt: string;
   showSpinner: boolean = false;
 
-  constructor(private userService: UsersService, private analytics: AnalyticsService) { }
+  constructor(private userService: UsersService, 
+    //private analytics: AnalyticsService
+    ) { }
 
   ngOnInit() {
     this.userService.getAllUsers().subscribe(data => this.users = data)
   }
 
   search($event) {
-    this.analytics.log("searchedUserInChatView", { param: "Search_InChatView" } )
+   // this.analytics.log("searchedUserInChatView", { param: "Search_InChatView" } )
     let q: string = $event.target.value;
     if (q) {
       this.userService.getUsersByQuery(q.toLowerCase()).subscribe(users => {

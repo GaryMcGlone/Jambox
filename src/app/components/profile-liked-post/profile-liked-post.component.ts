@@ -45,7 +45,7 @@ export class ProfileLikedPostComponent implements OnInit {
     private youtube: YoutubeVideoPlayer,
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService,
-    private analytics: FirebaseAnalytics
+    //private analytics: FirebaseAnalytics
   ) { }
 
   ngOnInit() {
@@ -96,7 +96,7 @@ export class ProfileLikedPostComponent implements OnInit {
 
 
   addLike(id) {
-    this.analytics.logEvent("postLiked", { param: "User_Liked_Post" })
+    // this.analytics.logEvent("postLiked", { param: "User_Liked_Post" })
     let like: ILike = {
       postId: id,
       userId: this.firebaseAuth.getCurrentUserID()
@@ -106,7 +106,7 @@ export class ProfileLikedPostComponent implements OnInit {
     this.databaseService.addLike(like);
   }
   removeLike(id) {
-    this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" })
+    // this.analytics.logEvent("postUnliked", { param: "User_Unliked_Post" })
     this.likeID = this.post.id + "_" + this.firebaseAuth.getCurrentUserID();
     this.changeHeart("heart-empty", "dark");
     this.liked = false;
@@ -131,17 +131,17 @@ export class ProfileLikedPostComponent implements OnInit {
   }
 
   pause() {
-    this.analytics.logEvent("pausedSpotify", { param: "User_Paused_Spotify" })
+    // this.analytics.logEvent("pausedSpotify", { param: "User_Paused_Spotify" })
     this.spotifyService.pauseTrack();
   }
 
   play(songId) {
-    this.analytics.logEvent("playedSpotify", { param: "User_Played_Spotify" })
+    // this.analytics.logEvent("playedSpotify", { param: "User_Played_Spotify" })
     this.spotifyService.play(songId);
   }
 
   resume(songId) {
-    this.analytics.logEvent("resumedSpotify", { param: "User_Resumed_Spotify" })
+    // this.analytics.logEvent("resumedSpotify", { param: "User_Resumed_Spotify" })
     this.spotifyService.resumeSong(songId);
   }
 
@@ -151,12 +151,12 @@ export class ProfileLikedPostComponent implements OnInit {
   }
 
   playYoutube(videoId) {
-    this.analytics.logEvent("playYoutube", { param: "User_Played_Youtube" })
+    // this.analytics.logEvent("playYoutube", { param: "User_Played_Youtube" })
     this.youtube.openVideo(videoId);
   }
 
   selectComments(selectedPost): void {
-    this.analytics.logEvent("userOpenedComments", { param: "User_Opened_Comments_Modal" } )
+    // this.analytics.logEvent("userOpenedComments", { param: "User_Opened_Comments_Modal" } )
     this.presentModal(selectedPost);
   }
 

@@ -41,7 +41,7 @@ export class ProfileModalPage implements OnInit {
     private navParams: NavParams,
     private modalController: ModalController,
     private firebaseAuth: FirebaseAuthService,
-    private analytics: AnalyticsService
+    //private analytics: AnalyticsService
   ) {
   }
   ngOnInit() {
@@ -69,7 +69,7 @@ export class ProfileModalPage implements OnInit {
     this.modalController.dismiss();
   }
   follow() {
-    this.analytics.log("followInUserSearch", { param: "Followed_InUserSearch" } )
+    // this.analytics.log("followInUserSearch", { param: "Followed_InUserSearch" } )
     this.btnValue = "unfollow";
     this.buttonFill = "solid";
 
@@ -82,7 +82,7 @@ export class ProfileModalPage implements OnInit {
   }
 
   unfollow() {
-    this.analytics.log("UnfollowInUserSearch", { param: "Unfollowed_InUserSearch" } )
+    // this.analytics.log("UnfollowInUserSearch", { param: "Unfollowed_InUserSearch" } )
     this.btnValue = "follow";
     this.buttonFill = "outline";
     this.followService.removeFollowing(this.compareFollow.id);

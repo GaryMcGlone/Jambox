@@ -23,7 +23,7 @@ export class InitialUserResultComponent implements OnInit {
 
 
   constructor(private firebaseAuth: FirebaseAuthService, private db: DatabaseService, private followService: FollowService, private modalController: ModalController
-    , private analytics: AnalyticsService
+    , //private analytics: AnalyticsService
      ) { }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class InitialUserResultComponent implements OnInit {
   follow(user, event: Event) {
     event.stopPropagation();
     if (this.buttonFill == "outline" && this.compareFollow == null) {
-      this.analytics.log("followInUserPopupSearch", { param: "Followed_InPopupSearch" } )
+      // this.analytics.log("followInUserPopupSearch", { param: "Followed_InPopupSearch" } )
       this.btnValue = "unfollow";
       this.buttonFill = "solid";
       let follow: IFollow = {
@@ -52,7 +52,7 @@ export class InitialUserResultComponent implements OnInit {
       }
       this.followService.addFollow(follow)
     } else {
-      this.analytics.log("unfollowInUserPopupSearch", { param: "Unfollowed_InPopupSearch" } )
+      // this.analytics.log("unfollowInUserPopupSearch", { param: "Unfollowed_InPopupSearch" } )
       this.btnValue = "follow";
       this.buttonFill = "outline";
       this.followService.removeFollowing(this.compareFollow.id)

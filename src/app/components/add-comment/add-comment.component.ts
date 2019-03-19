@@ -4,7 +4,7 @@ import { FirebaseAuthService } from "../../services/firebaseAuth/firebase-auth.s
 import { IComment } from '../../interfaces/comment-interface';
 import { IUser } from '../../interfaces/user-interface';
 import { DatePipe } from "@angular/common";
-import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
+//import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 @Component({
   selector: 'app-add-comment',
@@ -25,7 +25,7 @@ export class AddCommentComponent implements OnInit {
   constructor(
     private databaseService: DatabaseService,
     private firebaseAuth: FirebaseAuthService,
-    private analytics: FirebaseAnalytics
+   // private analytics: FirebaseAnalytics
      ) {
   }
 
@@ -58,7 +58,7 @@ export class AddCommentComponent implements OnInit {
   }
 
   save() {
-     this.analytics.logEvent("addedComment", { param: "User_Added_Comment" } )
+     //this.analytics.logEvent("addedComment", { param: "User_Added_Comment" } )
     const date = new Date();
     this.postedAt = this.pipe.transform(date, "medium");
     this.comment.content = this.content;

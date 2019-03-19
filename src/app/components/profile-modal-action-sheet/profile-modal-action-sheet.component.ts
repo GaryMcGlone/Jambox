@@ -32,7 +32,10 @@ export class ProfileModalActionSheetComponent implements OnInit {
     private firebaseAuth: FirebaseAuthService,
     private spotifyService: SpotifyService,
     private followingService: FollowService,
-    private analytics: AnalyticsService) {}
+    //private analytics: AnalyticsService
+    ) {
+
+    }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
@@ -84,7 +87,7 @@ export class ProfileModalActionSheetComponent implements OnInit {
   }
 
   delete(postid: string) {
-    this.analytics.log("deletedPost", { param: "DeletedPost" } )
+   // this.analytics.log("deletedPost", { param: "DeletedPost" } )
     this.databaseService.deletePost(postid);
     this.getAllComments();
     this.getAllLikes();
@@ -117,7 +120,7 @@ export class ProfileModalActionSheetComponent implements OnInit {
   }
 
   open(uri) {
-    this.analytics.log("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
+    //this.analytics.log("userOpenedSpotify", { User_Opened_Song_On_Spotify: "User_Opened_Song_On_Spotify" } )
     this.spotifyService.open(uri);
   }
 }
