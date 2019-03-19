@@ -34,7 +34,7 @@ export class SearchResultComponent implements OnInit {
     private youtube: YoutubeVideoPlayer,
     private route: ActivatedRoute,
     private firebaseAuth: FirebaseAuthService,
-   // private analytics: FirebaseAnalytics,
+    private analytics: FirebaseAnalytics,
     private modalController: ModalController
   ) {}
 
@@ -80,34 +80,34 @@ export class SearchResultComponent implements OnInit {
   }
   pause() {
     //  this.analytics.logEvent("srPausedSpotify", {
-       param: "SR_User_Paused_Spotify"
-     });
+    //    param: "SR_User_Paused_Spotify"
+    //  });
     this.spotifyService.pauseTrack();
   }
   playYoutube(videoId: string) {
     //  this.analytics.logEvent("srPlayYoutube", {
-       param: "SR_User_Played_Youtube"
-     });
+    //    param: "SR_User_Played_Youtube"
+    //  });
     this.youtube.openVideo(videoId);
   }
 
   play(post) {
     //  this.analytics.logEvent("srPlayedSpotify", {
-       param: "SR_User_Played_Spotify"
-     });
+    //    param: "SR_User_Played_Spotify"
+    //  });
     this.spotifyService.play(post);
   }
   open(uri) {
     //  this.analytics.logEvent("srUserOpenedSpotify", {
-       param: "SR_User_Opened_Song_On_Spotify"
-     });
+    //    param: "SR_User_Opened_Song_On_Spotify"
+    //  });
     this.spotifyService.open(uri);
   }
 
   selectComments(selectedPost): void {
     //  this.analytics.logEvent("srUserOpenedComments", {
-       param: "SR_User_Opened_Comments_Modal"
-     });
+    //    param: "SR_User_Opened_Comments_Modal"
+    //  });
     this.presentModal(selectedPost);
   }
 

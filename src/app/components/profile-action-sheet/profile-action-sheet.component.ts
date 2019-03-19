@@ -34,7 +34,8 @@ export class ProfileActionSheetComponent implements OnInit {
     private firebaseAuth: FirebaseAuthService,
     private spotifyService: SpotifyService,
     private followingService: FollowService,
-    //private analytics: AnalyticsService) {}
+    //private analytics: AnalyticsService
+    ) {}
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
