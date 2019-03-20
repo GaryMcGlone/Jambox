@@ -48,9 +48,6 @@ export class TaggedPostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.databaseService.getCurrentUser().subscribe(data => {
-    //   (this.user = data), (this.username = this.user.displayName);
-    // });
     this.usersService.getSpecificUserById(this.post.UserID).subscribe(data => {
       this.user = data
     })
