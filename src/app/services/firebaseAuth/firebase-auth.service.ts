@@ -71,8 +71,8 @@ export class FirebaseAuthService {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.loggedInStatus = true;
-        this.notificationService.startNotifications()
         this.router.navigate([""]);
+        this.notificationService.startNotifications()
       } else {
         this.router.navigate(["login"]);
       }
