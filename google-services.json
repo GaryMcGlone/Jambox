@@ -1,86 +1,35 @@
 {
   "project_info": {
-    "project_number": "291849800543",
-    "firebase_url": "https://jamboxmusicapp.firebaseio.com",
-    "project_id": "jamboxmusicapp",
-    "storage_bucket": "jamboxmusicapp.appspot.com"
+    "project_number": "93284455017",
+    "firebase_url": "https://jamboxproduction-327c8.firebaseio.com",
+    "project_id": "jamboxproduction-327c8",
+    "storage_bucket": "jamboxproduction-327c8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:291849800543:android:764d2cb7da3280eb",
-        "android_client_info": {
-          "package_name": "io.ionic.starter"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "291849800543-p84vglc0elvnfi1neuli25o3gobe9dmt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "io.ionic.starter",
-            "certificate_hash": "51e8e8c5e4ad704a1279c9fab07a0fc2c7a95f96"
-          }
-        },
-        {
-          "client_id": "291849800543-6iahbke8rn6cqoejhft4nq5ekcaubdp0.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDNWSRz4a4c3AKTdhCz_EjOH6SJVQ7Cf9w"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "291849800543-n5vqnvtlaear75viu3ds8omlt8rlq84e.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "291849800543-oh2u1mra3bjtikl42rtaitkqh0k24u3i.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "io.jambox.app"
-              }
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:291849800543:android:22da938199d941e1",
+        "mobilesdk_app_id": "1:93284455017:android:22da938199d941e1",
         "android_client_info": {
           "package_name": "io.jambox.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "291849800543-9fhas9qcf97qj7kkm78hhhn8j62qfg4t.apps.googleusercontent.com",
+          "client_id": "93284455017-ctb6932v2ihq9ns6m1pa1gm8jb77kqib.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "io.jambox.app",
-            "certificate_hash": "a17d048142e4e095ab032d02bf6ef38c5bd061de"
+            "certificate_hash": "51e8e8c5e4ad704a1279c9fab07a0fc2c7a95f96"
           }
         },
         {
-          "client_id": "291849800543-6iahbke8rn6cqoejhft4nq5ekcaubdp0.apps.googleusercontent.com",
+          "client_id": "93284455017-7nfenrcc10a7pjv1dphol87q9ni8klnv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDNWSRz4a4c3AKTdhCz_EjOH6SJVQ7Cf9w"
+          "current_key": "AIzaSyCpmQX_WxlSL8LxgKAfsD2AQTk_ryw8QU8"
         }
       ],
       "services": {
@@ -91,15 +40,8 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "291849800543-n5vqnvtlaear75viu3ds8omlt8rlq84e.apps.googleusercontent.com",
+              "client_id": "93284455017-7nfenrcc10a7pjv1dphol87q9ni8klnv.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "291849800543-oh2u1mra3bjtikl42rtaitkqh0k24u3i.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "io.jambox.app"
-              }
             }
           ]
         },
