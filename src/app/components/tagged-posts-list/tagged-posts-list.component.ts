@@ -11,12 +11,15 @@ export class TaggedPostsListComponent implements OnInit {
   
   @Input() tag: any;
   taggedPosts: IPost[]
+  showSpinner: boolean = true;
 
   constructor(private tagsService: TagsService) { }
 
   ngOnInit() {
+
     this.tagsService.getTaggedPosts(this.tag).subscribe(data => {
       this.taggedPosts = data
+      this.showSpinner = false
     }) 
   }
 }

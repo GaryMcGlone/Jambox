@@ -1,0 +1,17 @@
+.btn {
+    position: absolute;
+    width: 96px;
+    height: 96px;
+    left: 50%;
+    top: 50%;
+    margin-left: -48px; /*half of the width */
+    margin-top: -48px; /*half of the height */
+}
+ion-icon {
+    font-size: 28px;
+}
+.imageContainer {
+    position: relative;
+}
+
+// Nice

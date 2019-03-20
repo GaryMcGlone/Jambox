@@ -9,7 +9,7 @@
     <ion-card-subtitle>{{ post.songName }}</ion-card-subtitle>
     <ion-card-title>{{ post.artistName }}</ion-card-title>
   </ion-card-header>
-  <ion-card-content>
+  <ion-card-content *ngIf="user">
     <div text-wrap style="word-wrap: break-word;" (click)="viewProfile()">
     <b>{{user.displayName}}</b> {{ post.caption }}
     </div>

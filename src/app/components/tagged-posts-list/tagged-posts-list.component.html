@@ -1,6 +1,6 @@
 <ion-list lines="none">
   <div class="spinner-holder" align="center">
-      <ion-spinner name="crescent"></ion-spinner>
+      <ion-spinner *ngIf="showSpinner" name="crescent"></ion-spinner>
   </div>
 
   <ion-item class="animated slideInUp faster card" *ngFor="let post of taggedPosts">
