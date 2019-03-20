@@ -43,16 +43,23 @@ export class ProfileModalPage implements OnInit {
     private firebaseAuth: FirebaseAuthService,
     //private analytics: AnalyticsService
   ) {
+    this.userId = navParams.data.userId
+    console.log(this.userId)
   }
   ngOnInit() {
-    this.toDateTime(this.user.createdAt.seconds)
+    // this.toDateTime(this.user.createdAt.seconds)
+
+    this.db.getUserByID(this.userId).subscribe(data => {
+      this.user = data
+      this.memberSince = this.toDateTime(data.createdAt.seconds);
+    })
     this.db.getLoggedInUserPosts().subscribe(posts => {
       this.postsCounter = posts.length
     });
     this.followService.getFollowedUsers().subscribe(following => {
       this.followingCounter = following.length
     });
-    this.followService.getFollowingUsers(this.user.uid).subscribe(followers => {
+    this.followService.getFollowingUsers(this.userId).subscribe(followers => {
       this.followersCounter = followers.length
     })
   }
