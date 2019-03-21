@@ -11,8 +11,10 @@ export const environment = {
     projectId: "jamboxmusicapp",
     storageBucket: "jamboxmusicapp.appspot.com",
     messagingSenderId: "291849800543"
-  }
+  },
+  youTubeAPIKey: 'AIzaSyBwTqh7G-xV4WWZg_-QFB04K4vCPjLXzAY'
 };
+
 
 /*
  * In development mode, to ignore zone related error stack frames such as
