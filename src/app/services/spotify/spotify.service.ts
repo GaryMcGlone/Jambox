@@ -5,6 +5,7 @@ import { tap } from "rxjs/operators";
 import { Platform } from "@ionic/angular";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { Router } from "@angular/router";
+import { environment } from "../../../environments/environment";
 declare var cordova: any;
 
 @Injectable({
@@ -40,13 +41,8 @@ export class SpotifyService {
   }
 
   authWithSpotify() {
-    const config = {
-      clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
-      redirectUrl: "jamboxapp://callback",
-      scopes: ["streaming", "playlist-read-private", "user-read-email", "user-read-private", "user-read-currently-playing", "user-read-birthdate"],
-      tokenExchangeUrl: "https://jambox-app.herokuapp.com/exchange",
-      tokenRefreshUrl: "https://jambox-app.herokuapp.com/refresh"
-    };
+    const config = environment.spotifyConfig
+
     cordova.plugins.spotifyAuth
       .authorize(config)
       .then(({ accessToken, encryptedRefreshToken, expiresAt }) => {
@@ -120,7 +116,7 @@ export class SpotifyService {
     console.log('playing song with id = ', songId)
     cordova.plugins.spotify
       .play(songId, {
-        clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
+        clientId: environment.spotifyClientID ,
         token: this.accessToken
       })
       .then(() => {
@@ -137,7 +133,7 @@ export class SpotifyService {
       .resume(
         songId,
         {
-          clientId: "6e9fbfb6b8994a4ab553758dc5e38b13",
+          clientId: environment.spotifyClientID,
           token: this.accessToken
         },
         this.songPos
