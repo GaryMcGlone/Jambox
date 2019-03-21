@@ -23,7 +23,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="ShowSplashScreen" value="true" />
     <preference name="FadeSplashScreen" value="true" />
-    <preference name="YouTubeDataApiKey" value="AIzaSyBwTqh7G-xV4WWZg_-QFB04K4vCPjLXzAY" />
+    <preference name="YouTubeDataApiKey" value="" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
