@@ -22,8 +22,10 @@ export const environment = {
   },
   spotifyClientID: {
     clientId: "6e9fbfb6b8994a4ab553758dc5e38b13"
-  }
+  },
+  youTubeAPIKey: 'AIzaSyBwTqh7G-xV4WWZg_-QFB04K4vCPjLXzAY'
 };
+
 
 /*
  * In development mode, to ignore zone related error stack frames such as

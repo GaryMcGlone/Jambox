@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap } from "rxjs/operators";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class YouTubeApiService {
@@ -21,13 +22,13 @@ export class YouTubeApiService {
   private _query = '&q=';
   private _typeVid = '&type=video';
   private _vidCategoryId = '&videoCategoryId=10';
-  private _key = 'AIzaSyBwTqh7G-xV4WWZg_-QFB04K4vCPjLXzAY';
+
 
   constructor(private _http: HttpClient) { }
 
   getSearchedVideos(query, filter, limit): Observable<YouTubeResponseSearch> {
     return this._http.get<YouTubeResponseSearch>(this._searchSiteURL + query + this._typeVid + this._vidCategoryId +
-       this._sort + filter + this._max + limit  + this._param + this._key)
+       this._sort + filter + this._max + limit  + this._param + environment.youTubeAPIKey)
       .pipe(tap(data => data),
       catchError(this.handleError));
   }
